@@ -1,0 +1,447 @@
+[MUSIC]
+Welcome to this lecture.
+In week two,
+we focused on process models and
+one concrete process discovery algorithm.
+In week three, we will discuss more
+advanced process discovery techniques.
+However before doing so,
+we first discuss the four key quality
+dimensions for process mining.
+We will see that there are trade-offs
+between fitness, simplicity, precision and
+generalization, thus making process
+discovery a very challenging task.
+Measuring the quality of discovered
+process models is very important.
+What we will see in this lecture is
+that there are different forces, so
+we can view model quality
+from different angles.
+But let us start by looking
+at what is the problem?
+So we have a process that
+leaves trails in event logs.
+Using these event logs,
+we can discover process models or
+we can do conformance checking.
+However, what this picture shows is that
+we would like to say something about
+the relationship between the process
+model and the real process.
+But we cannot do because
+the real process is unknown.
+You can only say something
+with respect to event data.
+So, the foundational question
+that we would like to answer,
+is the process model a correct
+reflection of the real process and
+we can only do so by looking at
+the event data that we happen to see.
+So for people that have a background in
+data mining, you can think of this as
+a classification problem, but we will
+see that it is not as easy as this.
+If you think about classification, you
+try to construct a confusion matrix and
+in a confusion matrix, you indicate first,
+what the true positives are.
+So in the context of process discovery,
+these are the traces that are possible in
+the model, and
+also possible in the real process.
+We also can define the true negatives.
+These are the traces that are not
+possible in the model and
+also not possible in the real process
+that we are trying to analyze.
+These are good things.
+Bad things are false positives.
+Traces possible in the model but
+not possible in the real process, and
+the reverse, false negatives, traces
+that are not possible in the model but
+that are possible in the real process.
+So we would like to see lots of TPs and
+TNs, and just a few FPs and FNs.
+And in the confusion matrix,
+we can kind of analyze the distribution
+over these four categories.
+So we can also view the confusion
+matrix in a different way, as a so
+called Venn diagram.
+What you see here, this square represents
+all possible behavior in any process.
+In the space of all possible behaviors
+we can highlight, here in red,
+the real behavior of the process.
+So the behaviors that are possible
+according to the real process,
+that we do not know.
+The green part indicates
+the model behavior.
+So what is possible according to the model
+that we have made by hand, or that we
+have discovered, the bigger the overlap
+between these ovals, the better it is.
+So true positives are in the overlap
+between real behavior and
+modeled behavior.
+False negatives, we would like
+to avoid that, because this is
+behavior that can happen in reality, but
+is not possible according to the model.
+We also would like to avoid
+having many false positives,
+things possible according to the model,
+but not possible in reality.
+So if you think about this in the context
+of data mining or information retrieval,
+once you have these notions,
+you can talk about things like recall.
+So recall is TP divided by TP plus FN.
+In other words, if there are no
+false negatives, recall will be one.
+It will be perfect.
+We can also look at precision.
+TP divided by TP plus FP, so
+if there are no false positives, the
+precision is one, and that is excellent.
+So if these two numbers are high, it means
+that the model has a very good quality,
+and that is why people often
+use recall and precision and
+you can also look at the F1 score,
+which is based on these two numbers.
+So let's try to apply that in
+the context of process mining and
+if you try to do that, then you very
+quickly see that this is not possible.
+Why is it not possible?
+You know what the behaviors are that
+are allowed by the model that you
+have discovered, but
+you do not know what the real behavior
+is that the real process allows for.
+You only see a small set of examples and
+based on that,
+you would like to make conclusions.
+So if you look at the formulas,
+you can simply not apply them.
+If you look at the event log which
+is also indicated in this diagram,
+you can define a kind of metric and
+that's what we call here replay fitness.
+Later on,
+we talk about conformance checking.
+We will discuss this topic
+in much more detail, but
+the basic idea is that you look at
+TP prime divided by TP prime plus
+FN prime where these things are based on
+the behavior that we saw in the event log.
+What you can see is if all the behavior
+in the event log is possible according to
+the model,
+then you have a replay fitness of one.
+If nothing is possible,
+then you can see that this metric will
+indeed indicate that there is a problem.
+So it is difficult to apply classical
+techniques like as precision or
+recall into this setting, but
+there are many more challenges.
+Related to the problem that
+I discused before is that we
+have no negative examples.
+The event log will never
+tell what was not possible.
+We can only see the things
+that have happened.
+The log contains typically, a very
+tiny fraction of the possible traces.
+So we should avoid to overfit the data
+set that we are analyzing.
+We would like to distinguish
+not between cases that fit and
+cases that do not fit,
+instead, we would also like to
+reason about the fact that one case
+is fitting better than another case.
+And so, we should distinguish
+between these different situations.
+If a model has a loop,
+like a Petri net with the self loop,
+then it will have infinitely
+many possible traces.
+So you cannot simply count traces because
+all the formulas that I showed before,
+do not make any sense.
+Related to this topic is what
+I call Murphy's laws for
+process mining, that says that anything
+is possible if you wait long enough.
+So it is not an interesting question
+whether something is possible.
+If you wait long enough, it will happen.
+What is much more important is to
+think about the likelihood and
+the model should only indicate things
+that have a certain level of likelihood.
+So this leads to the situation that
+we have to deal with four forces.
+If you look at a plane,
+there are these four forces that you
+see here that keep a plane in the air.
+If we look at process mining,
+there are similarly four types of forces.
+Fitness, we've already
+discussed that a bit before.
+But, it's not only fitness.
+It's not only important whether the
+observed behavior is possible according to
+the model.
+The model should also be as simple
+as possible, Occam's razor.
+The model should be precise.
+It should not allow for
+all kinds of behavior unrelated to
+the event data that we have seen.
+And at the same time,
+it should not be overfitting.
+So it should be general enough.
+So, process mining needs to
+find a balance between these
+four forces that you see here.
+Well it's best to explain
+this using a small log.
+What you see here are traces and
+the corresponding frequency.
+So the first trace acdeh
+happened 455 times.
+The second one, 191, etcetera.
+So we can see that in total,
+we have observed 21 different traces.
+And together if we
+count also the fact that a certain
+trace can happen multiple times,
+there were almost 1400 traces, but
+there were only 21 different ones.
+So, what is now a good model for
+such a log?
+Here I show you a model that looks okay.
+Given this data set it seems to be
+very related to the process model.
+We can now look again at the dimensions
+that I mentioned before.
+So every trace in the log
+fits into this model.
+I can replay it from beginning
+to end without any problems.
+The model is also simple.
+There are not too many nodes and,
+and connections.
+We can also look at
+the notion of precision.
+And if we look at precision, we will
+see that this model seems to be okay.
+Last but not least,
+we can look at generalization.
+Is it general enough?
+And it is not overfitting
+on the 21 cases.
+Well, it is a bit difficult to argue that
+this model is good by not having
+defined any metrics, but we can look at
+some extreme cases of models that have
+a problem in one of these four areas.
+For example, this event log and
+this model if we compare it,
+we will see that the model is non-fitting,
+only the most frequent trace fits.
+All the other traces do
+not fit into this model.
+So it doesn't fit very well.
+And so fitness is bad,
+simplicity is good, precision is good.
+It does not allow for
+all kinds of behavior that we did not see.
+Generalization is poor.
+It is very likely that the next
+observation will not fit into this model.
+Let's take a look at
+another extreme example.
+This is what we call a flower model.
+Apart from the initial activity and
+the final two activities, anything can
+happen in between any number of times.
+So, this allows for many behaviors.
+Also many behaviors that are completely
+unrelated to what we have seen in the log.
+And so for example,
+we can have to trace a, b, b, b, g.
+And if you look at the log, you will
+agree with me that that is very unlikely.
+So despite this problem,
+the model has perfect fitness.
+All of the traces can be
+replayed from beginning to end.
+It is also very simple,
+but it lacks precision.
+It is under-fitting the data set.
+it allows for much more behavior
+unrelated to what we have see before.
+On the other hand, generalization is good.
+So under-fitting models have a problem
+with respect to precision in
+a way the model allows for too much,
+much more behavior than what we have seen.
+This is an example of
+an over-fitting model.
+It has the the opposite problem.
+What I did here is I just listed the 21
+different traces that we have seen, and
+we have to choose one of these 21 paths.
+So if we take a look at this model,
+we will see that the fitness is good.
+All the observed behavior
+fits into this model,
+but it is far from simple,
+it is very complicated.
+It has a good precision.
+It's not allowing for behavior completely
+different from what we have seen, but
+the key point here is that
+generalization is poor.
+The model just allows for
+the example behavior that we have seen and
+nothing more.
+So we call this an over-fitting model and
+a the definition of an over-fitting model
+is that there is a high likelihood that
+the next trace that we will observe
+will actually not fit into the model.
+So the model has a poor predictive power.
+So let's see what this means
+using some small examples and
+I would like to ask you some
+questions about these examples.
+Consider this event log, where a,
+c, e happen 77 times, b, c,
+d 92 times and we have this model and
+now, we compare these two.
+Is the fitness of this model good or
+bad with respect to this log?
+The answer is that the fitness is bad.
+Why is it bad?
+None of the traces that we have seen in
+the log is actually possible
+according to this model.
+So it's the model allows for
+a, c, d, but not a, c, e.
+The model allows for b, c,
+e, but not for b, c, d.
+So it's clear that the fitness
+is bad in this example.
+Let's take a look at another example.
+Again, you can see an event log,
+you can see a process model.
+Is the precision good or bad?
+The answer is, the precision is good.
+Why is it good?
+It is good because the model
+does not allow for
+free behavior very different from
+what we have seen in the log.
+So it's not underfitting.
+Let's take a look at another model.
+Look at the model now.
+Is the precision good or bad?
+The answer is that the precision is bad.
+Why is it bad?
+It allows for
+all kinds of traces, very different
+from the behavior that we have seen.
+If you take a look at the event log,
+it is very unlikely that we could do
+ten c's in a row, whereas if we look at
+this model, that is perfectly possible.
+Another example.
+Note that the traces now
+are very infrequent.
+So the question is, is this model general
+enough, if we compare it to the event log?
+The answer is no.
+Generalization is bad.
+We have seen only five example traces.
+So it is very likely that if we would
+take a look at the sixth trace that
+it would have a behavior different
+from what we have seen before.
+Generalization is a very difficult notion
+because it reasons about behavior.
+That we did not see yet.
+Think about the discussion that we
+had at the beginning of this lecture.
+Another example, we see these traces.
+Is generalization good or bad?
+The answer is generalization is good.
+The model is not overfitting and we see
+all of these things happened frequently.
+So there's no reason to believe
+that the next observation will be
+very different from what is
+currently allowed by the model.
+Let's take a look at
+the notion of simplicity.
+We have again an event log and a model.
+Is the model simple enough?
+The answer is no.
+Simplicity is bad because the model
+is overly complicated and
+specific for this particular log.
+So we have seen that b can be repeated
+up to four times in our example log,
+but it could easily happen that
+it is repeated five or six times.
+Simplicity, is it good or bad if you
+look at this model and this event log?
+In this case, simplicity is good.
+The model is very simple and
+is not overfitting or
+overly complicated compared
+to what we have seen before.
+So this is using the principle
+of Occam's razor.
+If there is a simple explanation, then we
+choose the simple explanation rather
+than a complicated large involved model.
+So in this lecture, I've shown you
+that there are these four forces, and
+I hope that you can see that it is
+not easy to define them precisely.
+In later courses, we will provide metrics
+to quantify these different dimensions and
+we will mostly focus on fitness, but
+all four of them are very important.
+The modeling language that we are using
+is an element which is very important and
+in later lectures,
+we will start looking at the so
+called representational
+bias of process mining.
+So, whether the model allows for
+concurrency, OR-joins,
+cancellation, priorities,
+duplicate activities is very important and
+it is related to the four forces
+that we have seen in this lecture.
+If you would like to read more
+about these four forces and
+see more examples,
+please take a look at these two chapters.
+Thank you for watching this lecture,
+see you next time.
+[MUSIC]
+

@@ -1,0 +1,412 @@
+[MUSIC]
+Glad to see you again.
+After introducing decision trees as a tool
+for classification, we now focus on
+an unsupervised data mining technique,
+uncovering patterns in data.
+In this lecture we will learn about
+frequent item sets and association rules.
+These will help us to find expected and
+unexpected patterns.
+Here you, again see an overview of the
+different data mining techniques that we
+are considering in relation to the topic
+of process mining that we will be
+exploring later.
+After talking about decision
+trees in two lectures, we now
+move to association rules, and this is
+an unsupervised learning technique.
+In other words, we do not have label data.
+There's no response variable.
+To explain the topic,
+it is best to start with an example.
+One of the earlier applications of
+association rule mining revealed
+that people buying beer
+often also bought diapers.
+So it's a rule, taking one set of items,
+implying another set of items.
+So this is one example
+of an association rule.
+Another association rule could be cheese
+and ham and bread implies butter.
+So, in other words,
+customers that buy these three products,
+typically also buy butter.
+Or, people that buy oregano,
+often also buy spaghetti and tomato sauce.
+So, one set of items implies
+another set of items.
+So, all these rules have
+the form of x implies y,
+where both x and y are item sets.
+Sets of items.
+Before we talk about how
+you can compute them,
+let's first define some quality measures.
+And we start by explaining
+the notion of support.
+The idea of support is to
+take the number of items,
+that covers both x and y and divided by
+the total number of instances we have.
+So we look at the number of
+instances that has both x and y,
+and we divide that by
+the total number of instances.
+It's also always best to explain
+these concepts by looking at an example.
+So here we see a table
+that we have seen before.
+People ordering cappuccinos americanos,
+and muffins.
+And we can take such an example set and
+automatically learn association rules.
+We could for example find the rule
+that people that buy tea and
+latte, typically also buy muffins.
+Note that the frequency in
+the table doesn't matter.
+We just look, is an item present or not?
+So we do not look at quantities,
+just at presence.
+So what is support, now, for
+this particular example?
+If we compute a support of the rule,
+tea and latte implies muffin,
+we compute the number of instances
+of customers, that bought tea,
+latte and muffins and divide that
+by the total number of customers.
+And if we have a higher value that is
+better than the lower value because there
+is more support.
+The second quality metric is confidence.
+So if we look at the confidence of a rule,
+we count the number of instances
+which covers both x and y,
+and we divide that by the number
+of instances covering just x.
+So in terms of our example, if we would
+like to know the confidence of the rule
+tea and latte implies muffin we count
+the number of customers that ordered tea,
+latte and muffins and
+we divide that by the number of
+customers that just ordered tea and
+latte and not necessarily muffins.
+We get another between zero and one, and
+it's clear that the higher the number,
+the more confident we can be about
+the accuracy of such a rule.
+The third quality metric
+is the most difficult one.
+It's called lift.
+So we look at a fraction of
+customers that cover both x and
+y, and we divide that by the fraction
+of customers that covers x and
+the fraction of customers that covers y.
+So, in terms of our example, and
+we can write this in the two
+ways that are indicated here.
+In terms of our examples
+this corresponds to
+taking the number of customers that
+order tea, latte, and muffins and
+multiply that by the total number of
+customers and diving this by the number of
+customers that order tea and latte and the
+number of customers that order muffins.
+If we then look at this fraction and
+we get a value
+that is bigger than 1 then x and
+y are positively correlated.
+They frequently happen together.
+If they are independent,
+so they happen independent of each other,
+then lift will be close to one.
+If it's lower than one, we get such a
+number if they are negatively correlated.
+So how can these three measures be used.
+They can be used to filter rules a priori.
+And so to avoid from
+a computational point of view
+that we need to look at too many
+rules at the same time.
+But they can also be used
+if we have a large number of
+rules to sort them based on
+the criteria that we find important.
+These things are very important
+because typically there is
+an explosion of association rules.
+So it's very important to be able
+to prune the set of rules and
+to look at the most interesting ones.
+Typically one is most interested in the
+rules that have a support that is as high
+as possible, a confidence close to one.
+And a lift higher than one,
+indicating a positive correlation.
+For example, if we have a rule with
+the confidence of, let's say, 0.1, it
+is typically not a very interesting rule,
+because the confidence is really low.
+Let's make this clear using an example.
+So, we take an artificial
+set of customers,
+100 customers that buy diapers and beer.
+There is just one type of diapers, Pampers.
+And there are two types of
+beer Hoegaarden and Dommelsch.
+And here you can see what
+these 100 customers bought.
+We can use such a data set to compute
+the notions that we have seen before.
+So let's take a look at four
+hypothetical association rules.
+For example, the rule, people that
+buy Pampers also buy Dommelsch, or
+people that buy Pampers
+also buy Hoegaarden, etc.
+So let's start with a question
+looking at the first rule.
+So if we look at the rule,
+people that bought Pampers typically
+also bought Dommelsch beer.
+What is the support, the confidence and
+the lift?
+Please take some time to
+compute these values.
+Here you can see a computation
+of these values.
+So the support is 0.51 because
+there are 51 customers that bought
+both Pampers and Dommelsch, and we divide
+that by the total number of customers.
+The confidence, is equal to the number
+of customers that bought Pampers and
+Dommelsch, divided by the number
+of customers that bought Pampers,
+which is equal to 91.
+So the confidence is 0.56.
+If we apply the formula for lift, we find
+that there is a positive correlation.
+Because we get a value higher than 1, 1.1.
+Let's now take a look at the other rules.
+For example, the last rule.
+People that buy Pampers and
+Dommelschs typically also buy Hoegaarden.
+What is the quality of these rules in
+terms of support, confidence and lift?
+Well we can do the same computation
+as what we have done before.
+It is put in the table here.
+The first row corresponds to the to the
+first rule that we have explored before.
+If we look at this table then we see
+that some values are positive and
+other values are not so positive.
+For example, the ones that are highlighted
+now in red, correspond to low values.
+So, the rule Pampers,
+implies Hoegaarden, is a bad rule,
+in terms of support and confidence,
+and also in terms of lift.
+And so only 1% of the customers
+is supporting this rule.
+The confidence is also very low.
+So only in 1% of the cases
+the rule actually holds.
+And there are many people that buy
+Pampers, but that do not buy Hoegaarden.
+The negative, the lift is lower than one,
+indicating a negative correlation.
+So let's load this data
+set into RapidMiner so
+we can load it into the tool
+in terms of a CSV file.
+Load it in the repository and
+then do the experiment.
+So here you see a description of the data.
+Indeed we are looking at
+100 customers and
+we are looking at three different items
+that people can or did not buy.
+This is the analysis workflow.
+So, we start by loading the data,
+then we do a data transformation.
+So we convert the numbers to true,
+false values.
+Then we compute frequent item sets.
+And finally, based on these frequent
+item sets we compute association rules
+that describe the rules
+that we are interested in.
+There are two important parameters here.
+One parameter is the minimal support.
+So if you look at an item set.
+What is the minimal number that
+this item set should appear in?
+Confidence is related to the confidence
+metric that we have explained before.
+If we use these parameters that
+were set in the previous slide,
+then we only find one rule.
+People that buy Dommelsch
+also buy Pampers.
+If we look at the support of
+this rule as we have computed by
+hand before the support is 0.51
+which is bigger than the threshold.
+If you look at the confidence of the rule,
+it's 1 which is also bigger than
+the threshold that we have set.
+How to compute this, first of all
+one could use a brute force approach
+using these two parameters
+that you see here.
+There is minimum support level and
+there is a minimum confidence level.
+And we could first compute
+all the rules and
+then prune the rules based
+on these two parameters.
+So a brute force approach could work like
+this, generate all frequent item sets,
+that have a support that is bigger than
+this minsup, constant that we have chosen.
+We also look at item sets
+containing two elements,
+because we are interested
+in association rules.
+And then we partition these frequent
+item sets into smaller, dejoined sets,
+and compute the confidence of these.
+And everything that meets the threshold
+is then returned as a rule
+that has been discovered.
+If you apply this approach,
+there are two problems.
+There is a computational problem,
+that there may be an exponential number
+of item sets that one needs
+to consider leading to all
+kinds of performance problems.
+Another, perhaps more serious problem,
+is an interpretation problem.
+If we find many rules and
+we return many rules to the user,
+then the user will be completely confused.
+So, how to address this problem?
+Well, there are several techniques to
+address computation and interpretation
+problems, and many of them are based on
+the observation that you can see here.
+If we have an item set X that is frequent,
+then all subsets of that
+item set are also frequent.
+If we have an item set that is
+not frequent, then all supersets
+are also infrequent, and
+we not need to consider them.
+So this can help us to
+prune the search space and
+to return the rules that
+are most interesting.
+So it can be exploited to
+improve efficiency and
+only return the strongest rules.
+Let's go back to the Italian restaurant
+that we have described before.
+Again, we take the data
+set of 5,000 parties.
+They can eat these dishes.
+And the question is, what are products?
+So, dishes and
+drinks that are often being combined.
+Well, if we load the file again in the
+repository just as we have done before we
+can now discard the class and,
+so, we are using unlabeled data.
+It's an unsupervised
+method that we are using,
+we are just finding patterns
+based on unlabeled data.
+If we apply this technique of
+finding association rules
+on this data set, then, first of all,
+we need to compute the frequent item sets.
+We find 153 item sets having
+a support of at least 0.1.
+This yields more than 700 association
+rules if we take a minimal
+confidence of 0.5.
+So this explosion of rules can
+be very confusing to the user.
+That is why we can increase the threshold.
+So we set the threshold of minimal support
+to 0.3, we set the confidence to 0.9,
+and if we then again apply
+the same analysis work flow,
+we only get 61 association rules.
+We can for
+example look at the top three of them.
+So the first rule says that
+people that ordered espresso,
+pizza Siciliana, pizza Romana
+also ordered vino bianco.
+We can see the support,
+confidence, and lift levels here.
+So it's a positive correlation,
+the confidence is more than 0.9,
+and the support is,
+32% of all the customers.
+This is another rule.
+People that ordered vino rosso,
+vino bianco, and
+pizza romano, also ordered espresso and
+pizza siciliana.
+Again we have a confidence of 0.9.
+Finally, we have the third
+rule in this list.
+People that ordered both types of
+wine also ordered pizza siciliana,
+and the confidence is again above 0.9.
+And again there's a positive correlation
+and a support that seems reasonable.
+So this way we can discover
+these rules from unlabeled data.
+Association rules are particular
+types of patterns.
+There are other patterns
+that one can consider.
+For example one can apply
+sequence mining techniques.
+That are essentially the same
+as association rules but
+now also look at the ordering
+of the different events.
+We can also look at episode mining.
+It's again similar to
+association rules but
+now taking into account
+a partial order of items.
+However all of these techniques,
+do not consider end-to-end process models.
+For that we need to really use
+process mining techniques.
+But often we can use data mining
+techniques in conjunction with process
+mining to exploit all the existing
+techniques like decision trees and
+association rules in
+a process oriented manner.
+Again, in chapter three, you can read more
+about these basic data mining techniques.
+Thank you for watching this lecture,
+see you next time.
+[MUSIC]
+

@@ -1,0 +1,373 @@
+[MUSIC]
+Welcome to this lecture of the course on
+Process Mining, Data Science in Action.
+Today, we will dive into
+the world of process modeling and
+start by introducing
+a foundational process notation.
+Namely, Petri nets.
+On this slide,
+you can see an illustration of
+a traffic light as a very simple
+process consisting of three states.
+If we try to represent this in
+terms of a Petri net process model,
+we get a process model
+that looks like this.
+So we have the stage red,
+green and orange.
+We have transitions to switch from
+one state to the other state.
+So a Petri net is
+a network that is static.
+It does not change itself.
+But in the Petri net we have so
+called tokens.
+Can be more of them.
+In this case there's only one.
+And the tokens can move from
+one place to another place.
+So the circles are places,
+the squares are transitions.
+And for example,
+in this case transition rg can fire,
+moving the token from
+state red to state green.
+The token in place green.
+Can again be consumed by transition go,
+and
+the resulting state is the state orange,
+with the token in place orange.
+Finally, transition or can fire, resulting
+in a state with the token in red.
+So the network is static but
+tokens can move over the network.
+The state in a petri net
+is called the marking.
+So the initial marking is
+the initial state of the process.
+So the traffic light, if the initial
+state is red we put a token in place red.
+This is an example of a reachable marking.
+When I was playing the token game,
+you could see that we
+visited the stage orange.
+So, it's a state that is reachable.
+This s an example of a state, a marking,
+that is not reachable
+from the initial state.
+Let's take a look at another example.
+Now initially there are two
+tokens in place red.
+So a possible reachable marking is
+the marking with the token in green,
+and a token in orange.
+This is the marking that we
+reach if we fire rg twice.
+And go once.
+So this is a reachable marking.
+This is a marking that is not reachable,
+that if we start with two tokens in this
+particular example, we will always have
+two tokens, so we can never end up
+with this state having three tokens.
+I already mentioned the terms,
+enabling and firing.
+So a transition is enabled if each of
+the input places contains a token.
+For example, if p1 contains a token and
+p2 is empty, t1 is not enabled,
+but if we add a token to p2,
+then suddenly t1 is enabled.
+And transitions that are enabled can fire.
+So what does firing mean?
+One can think of firing as
+the occurrence of a transition,
+the execution of a transition.
+And in a petri net, a transition that
+fires will consume one token from
+each of the input places, and will produce
+one token for each of the output places.
+And so you have consumption and
+production.
+So this particular example.
+If t1 fires, it will consume
+the token from p1 and p2, and
+produce tokens on the three output places.
+So this example is already illustrating
+that the number of tokens may change.
+This case, from two to three.
+Let's lake, look at several examples
+to get a more intuitive feeling of
+what these Petri Nets can do.
+So in this case,
+there are two tokens in p1 and
+there are also already tokens
+on the output place, p3.
+Still t1 can fire.
+It consumes a token from each of
+the input places and produces a token for
+each of the output places.
+Note that there were two tokens in p1 and
+in this state,
+one of these two tokens has been consumed.
+We can also have situations where
+a place is both input place and
+output place of a transition,
+p3 is such a place.
+Now if in this initial marking
+that is shown here, we execute t1.
+We will remove a token from p1 and
+p2 as before.
+But there also has to be a token in p3.
+We take a token and
+then return it when we execute it.
+So the state after
+firing t1 is this state.
+So although the number of tokens
+in p3 didn't change the token was
+necessary for t1 to occur.
+Let's take a look at some
+more complicated situations.
+Here you see p1 and p2 having
+several tokens, p3 having one token.
+So how many times can t1 fire?
+In this particular initial marking.
+If you look carefully you can see
+that p2 is the limiting factor.
+There are three tokens there,
+so t1 can fire three times and
+this results in this marking.
+Note that t1 fired three times, and
+each of these firings was atomic, so
+consumption and
+production happened at the same time.
+What if there are multiple transitions?
+So here we have t1 and t2.
+T2 is enabled, but
+t1 is not enabled because p1 is empty.
+So the only thing that can
+happen is that t2 will fire,
+moving a token from p2 to p5.
+Now we look at the situation where
+we have three transitions which can
+occur concurrently.
+That is a so called,
+parallel construction.
+So, t1 and t2 and t3 can fire
+without influencing each other.
+So that means that they can fire in any
+order, or perhaps even at the same time.
+So look,
+let's take a look at a possible scenario.
+T2 can fire, then t3 can fire, then t1
+can fire, resulting in this final state.
+In this particular initial marking.
+There are eight reachable states.
+Because t1, t2, and
+t3 can fire in any order.
+In this course, we will typically
+assume an interleaving semantics.
+That, although things are concurrent, and
+in principle can happen at
+the same point in time.
+We will always assume that they
+happen in a particular order.
+This is no limitation whatsoever
+because all the states that you
+can reach when you fire
+things concurrently,
+you can also reach by firing
+transitions in a particular order.
+So there is really no difference
+from a practical point of view.
+Here you can see an example of
+the state explosion problem.
+So we have now six transitions and each
+of the input places contain six tokens.
+So think about how many
+states can be reached.
+What is the number of reachable
+markings of this petri net.
+Well, more than 100,000
+states are reachable.
+Because they can fire in any order and
+if we
+look at every transition,
+there are seven possible states
+because any of the tokens can be before
+the transition or after the transition.
+So let's again take a look at
+another example, showing let's say,
+concurrency and, conflict.
+So here we see a situation where t1 and
+t2 are both enabled, but
+only one of them can occur because they
+are fighting for the same token in p2.
+So for example if t1 occurs, this is
+the state that we will end up with.
+But t2 can no longer happen.
+So t1 disabled t2.
+Let's take a look at this example.
+So in this example,
+we see that there are three tokens in p1,
+and they can be consumed by t1 and t2.
+So the question is how many
+final markings there are.
+Think about this and
+what you will see is that each of
+the tokens can be consumed by
+any of the two transitions.
+So this yields, in total,
+four different states.
+One state, where t1 has happened three
+times, and t2 has happened zero times.
+One state, where t1 happened twice,
+and t2 happened once, etcetera.
+This is another example.
+Again, think about what is the number
+of possible final markings.
+And if you look carefully you will
+see that p1 is a limiting place for
+t1, and p3 is a limiting place for t2.
+So in this case,
+there is only one possible final marking,
+because there are sufficient tokens in p2.
+In fact one token remains there.
+If we look at the situation where
+there are more tokens in p1 and p3,
+than there are in p2,
+then p2 becomes a limiting factor.
+And if we look at the number
+of possible final markings,
+we will find that there are two
+possible final markings.
+This is one of them.
+In this case, t1 fired twice,
+t2 fired only once, or
+you can have this state, where t2
+fired twice, and t1 fired only once.
+And these are both final markings but
+nothing can happen anymore.
+Let's now revisit our
+traffic light example.
+We are now interested in the question
+of modeling two traffic lights.
+How do we model two traffic lights?
+Well there are two viewpoints.
+One viewpoint is that we simply
+take a copy, so we take
+two copies of the traffic light example
+and put them next to each other.
+Another way that we can model two traffic
+lights is by simply putting two tokens in
+place red.
+Each representing a traffic light.
+These are two possible ways
+of modeling a traffic light.
+But in the first traffic light the
+different traffic lights are identifiable.
+We can talk about one is red and
+the other is green.
+In the second one that is not possible.
+So if we look at a number of reachable
+markings, there is a difference.
+In the first model there
+are nine reachable markings.
+In the second model, there are
+fewer reachable markings because we
+cannot distinguish, for example,
+between one traffic light being green and
+the other being orange, and reversed.
+So that's why we have less
+reachable markings.
+If we take a look at the example,
+by just simply copying the two
+traffic lights next to each other,
+one can see a problem.
+Both can switch to green at the same time,
+yielding to all kinds of problems.
+So we would like to avoid the situation
+where both traffic lights switch to green.
+In fact we want to ensure that
+at any point in time one of
+the two traffic lights is red.
+So how to do that?
+How to make them safe?
+So we have two concurrent processes and
+we want to synchronize them in some way.
+That they exhibit a safe behavior.
+In other words,
+we want to limit the set of reachable
+markings to the markings that are safe.
+Well, the way to do that.
+If we, don't want to,
+enforce a certain order on the way that
+they switch to green, is this solution.
+So carefully look at
+place x in this example.
+This place is ensuring that only
+one of the two traffic lights can
+switch to green.
+If the traffic light switches to green.
+The token from x will be removed.
+There by disabling the other traffic
+lights to also switch to green.
+And then, the token is only returned
+to x once the traffic light,
+that was first green, then orange,
+switches back to red.
+Only if it's red again,
+there is a token in x and
+the whole process starts again
+from that initial marking.
+So this is a safe way of
+modeling traffic lights, but
+it yields the situation that
+it is nondeterministic.
+It is unclear which of the two traffic
+lights will switch to green first.
+It is even possible that always the same
+traffic light will switch to green.
+And that the second traffic light
+will never switch to green.
+That is allowed by this model.
+So a question that you could ask
+yourself, if you take a look at
+this model, how to make a traffic light
+where things all are alternating?
+So first,
+the first traffic light switches to green.
+Then the second, then again the first,
+then the second, etcetera.
+Well this can be modeled by splitting
+this place x, in two places.
+And these places,
+exhibit the following behavior,
+they trigger the other traffic
+light to switch to green.
+For example the token in x that
+you can see in the current state,
+it is triggering the second
+traffic light to switch to green.
+And when the second traffic light
+has gone through the cycle it will
+put a token in y, thereby
+triggering the first traffic light.
+And this way they will alternate.
+So we no longer have
+a non-deterministic system.
+We now have a process where the next
+state is always fixed and clear.
+So this gave you some more
+insight into process modeling and
+particular petri nets.
+In the next lecture, we will tell more
+about this very foundational notation
+that is very important to understand,
+before we look at process discovery and
+other process finding techniques.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

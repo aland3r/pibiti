@@ -1,0 +1,269 @@
+[MUSIC]
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+We are coming closer to
+the end of this course.
+So it's time for some reflections.
+Today we compare process models to maps.
+We use this metaphor to better
+understand the role of process mining.
+There is a long tradition in making maps.
+And here you can see a nice example.
+At the same time, we can view
+process models as maps of processes.
+So it's interesting to see
+what we can learn from maps.
+This is a map showing
+the center of Moscow.
+If you look at such a map we can
+see that abstraction is being used.
+Insignificant roads are left
+out to not clutter the diagram.
+At the time, smaller entities
+are aggregated into larger ones.
+For example, if we would draw 'em out,
+we would see individual cities.
+If we look at one city in itself,
+we can see suburbs.
+Also, maps play with size and color.
+These are not the size and
+the color of the real entities, but they
+highlight the things that are important.
+For example, highways will
+have a different color than other roads,
+to signify their importance.
+Moreover, the layout of things has a clear
+meaning that everybody can understand.
+So this is what we can learn from maps.
+If we now compare maps to process models.
+And, here you can see three examples.
+Then, we can see that process
+models are actually very poor.
+So, where is abstraction?
+Where is aggregation?
+How are size and color being used?
+What does the layout of
+the different activities in
+a process model actually mean?
+There are no strong conventions for this.
+Take for
+example a look at this process model.
+The activities,
+which activities correspond to
+metropolis which activities
+correspond to small village?
+Which connections correspond to highways?
+Which connections
+correspond to dirt roads?
+We cannot see these types of things.
+So if we do process mining, we would
+like to learn from cartography and
+add that to the diagrams.
+It's also very important
+to realize that there is
+no such thing as the map
+of a process model.
+One would give in one reality,
+there may be different process models
+depending on the purpose for
+which one is the making the map.
+Take for example again a look at
+this map of the center of Moscow.
+We may want to zoom in into
+a particular area around the Kremlin.
+It's the same reality, but if we zoom in,
+we see that a different map is
+useful to look at this reality.
+We may want to look at this
+diagram if we are interested, for
+example, to see where there
+are trees in the center of Moscow.
+If we travel by a subway,
+we need another map.
+This is the subway map of Moscow.
+Completely different map
+than the maps that we have seen before but
+still looking at the same reality.
+If we take a bicycle we
+would prefer using this map.
+So there are different maps depending
+on the purpose one is after.
+This shows that
+a map is a view on reality.
+It's an abstraction that has to be useful.
+The map itself is not the same as reality.
+Therefore one should not seek in
+finding the map, or the process model.
+All these things that we can learn from
+maps also apply to process models.
+Here you see my glasses
+on top of an event log.
+A model can be seen as a pair of glasses.
+By using these glasses, one can see
+relevant information in the raw data,
+and there is not just one view there may
+be multiple views, as is illustrated here.
+So depending on the purpose one
+needs to look at the event data
+from a particular angle, and different
+models are useful for this purpose.
+It's also important to see process
+models not as static entities.
+One should breathe life into process
+models using the event data available.
+If one does not do this,
+these process models will be,
+will end up in some drawer, and
+nobody will ever look at it.
+So we need to connect process models
+to data as we have seen in this course.
+Again, we see the map of
+the center of Moscow, and
+now highlighted in red are the places
+where there are traffic jams.
+And so the streets that are green,
+that the traffic is flowing well,
+the streets that are red are highlighted
+bottlenecks, indicating congestion.
+So on maps one can project traffic jams.
+One can also project real estate,
+which are the houses that are for
+sale in the center of Moscow.
+We can highlight the location of vehicles,
+like trucks or trains.
+One can project crime rates.
+One can project all kinds
+of things on top of maps.
+The same one can do by combining
+process models with event data.
+In a process model one can also
+highlight the bottlenecks.
+One can also highlight where
+the model is deviating from reality.
+Where the biggest cost appear,
+where there are risks.
+All of these things can be
+projected on process models,
+thereby breathing life in
+these otherwise static models.
+Here you can see some
+examples,using the tools that we
+have been seeing in this course.
+So here you see a replay
+of an event log on top of
+a process model that was discovered.
+And at any point in time the animation
+is showing a particular state.
+And for example one can see traffic
+jams in a process model in this way.
+The same holds for Disco, and many of
+the other process mining tools that we
+have been discussing in one
+of the recent lectures.
+Projecting information
+on maps is not that new.
+Here you can see a very nice example
+of a map showing Napoleon's army.
+What you can see is that the Army
+starts with over 400,000 soldiers,
+and then while approaching Moscow,
+more and more soldiers die.
+In the middle there are 175,000 people,
+soldiers still alive.
+In the end 100,000 soldiers reached
+Moscow, but then they need to retreat.
+And in the end only
+10,000 soldiers return.
+So this is an early example
+of information visualization.
+And it's exactly the same ideas
+that we are applying when we
+are applying when we are projecting
+event data on top of process models.
+It is not sufficient to breathe life
+into these models by projecting
+event data in a smart way.
+We should also try to actively use
+the process my, models, for example, for
+operational support.
+So we should use these
+models on a daily basis.
+This is very similar to
+using a navigation device.
+If one looks at a navigation
+device for example from TomTom.
+Then these devices are showing
+you recommendations.
+Take the next street and turn left.
+We can look at predictions.
+What is the estimated arrival time?
+It's also warning us if we are driving
+too fast at the particular location.
+So if you look at these things, you can
+clearly recognize the operational support
+features that we
+have been discussing before.
+So how can a navigation device do that?
+It's the smart combination of maps,
+historic information,
+where are typically traffic jams and
+things like that, and current information.
+The combination of these things
+allows the navigation device
+to predict and recommend.
+And when we do process mining we would
+like to do exactly the same thing.
+Note that the navigation
+device is also very flexible.
+If a driver ignores the instructions,
+the navigation device will still
+try to support the driver.
+And so if the driver goes right rather
+than left on the next intersection,
+the navigation will try to pick up on
+what the driver is trying to do and
+support the driver in the actions
+that he or she wants to do.
+Many information systems are unable
+to do these types of things.
+They're not combining these different
+types of information and
+they are typically very inflexible,
+or not providing any support at all.
+So we can learn from
+these types of things.
+So in conclusion,
+process models are like maps.
+We can learn from cartography
+to improve our process models.
+Smartly using color and
+size to indicate the parts
+of the process model which are important
+or where there is congestion.
+We need to highlight this type of
+information on top of process models,
+otherwise nobody will care.
+Often multiple maps are needed, depending
+on the goal that we have in mind.
+The same if you go by bicycle or you
+go by subway, or you go by train.
+You need to have a different map.
+The same holds for process models.
+We need to connect maps to real
+data to show traffic jams and
+all kinds of other information.
+And last but not least,
+information systems that we developed
+should be more like navigation devices.
+Flexible and adaptive.
+If you would like to learn
+more about this map metaphor.
+What we can learn from maps and
+navigation devices.
+Please take a look at chapter
+13 of the Process Mining book.
+Thank you for watching this lecture.
+See you soon for
+the last lecture of this course.
+[MUSIC]
+

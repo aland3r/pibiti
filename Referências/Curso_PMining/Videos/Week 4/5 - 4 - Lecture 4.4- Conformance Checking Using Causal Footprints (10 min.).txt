@@ -1,0 +1,232 @@
+[MUSIC]
+Glad to see you again.
+In the previous lecture, we introduced
+the topic of conformance checking.
+There are many situations where we
+would like to compare modeled and
+observed behavior.
+Today we will discuss a particular
+technique to check conformance.
+This technique is called causal
+footprints, and the idea is based on one
+of the ingredients of the alpha algorithm
+that we saw in an earlier lecture.
+When we introduce the alpha algorithm,
+we used matrices like this.
+This is called the footprint
+of a particular log.
+We are using notions such as causality,
+parallel, and choice.
+And they are based on the direct
+succession relationship.
+For example, if you take a look at
+this particular causal footprint,
+you will see that this arrow is
+indicating that a is followed by b,
+at least once in the log, but it is
+never the case that b is followed by a.
+This parallel symbol is indicating
+that b is sometimes followed by c,
+and c is sometimes followed by b.
+So they happen in both directions.
+Then there is this symbol, which is the
+choice symbol, which is indicating that b
+is never followed by e and
+e is never followed by b.
+So these are the ingredients
+of creating a footprint and
+it is very important to realize that we
+can create a footprint-based on a log.
+But that we can also create
+a footprint placed on a model,
+because a model can generate traces.
+And also by statical analysis
+of these types of models,
+we can already derive this
+matrix with all the causalities.
+In this case, there's a process model
+discovered by the alpha algorithm.
+Both have the same causal footprint,
+and so there are no differences.
+What we are going to do
+next is we are going to look at
+the more complicated log, and we are going
+to consider four different process models.
+Some match well with original log.
+Others do not.
+And we will use the footprints
+to analyze these differences.
+Let's take a look at the full log and
+the causal footprint related to it.
+It's shown here.
+If we apply the alpha algorithm we get
+the model that is shown here on the right.
+And in this model when we analyze it, the set of
+traces we find exactly the same footprint.
+So the footprint of log and
+model coincide.
+In this case we say that the
+footprint-based conformance equals to 1.
+This means that there is a perfect match.
+If the footprint-based conformance
+metric has a very low value,
+it means that there is not a good
+match between log and model.
+This is computed as the fraction of cells
+in the footprint matrix where log and
+model agree upon.
+So let's now take a look
+at the second model,
+which is not a perfect match
+with the original event log.
+For example if you look
+here at the cell of a and
+d, you can see that a is
+never followed by d.
+This followed by b and
+c, but never followed by d,
+which was the case in the original log.
+So, we can create such a causal
+footprint based on this model.
+And then we can compare the footprint of
+model two with the original event log.
+And we can put these two matrices on top
+of each other and look at the differences.
+For example, we see that indeed in the log
+a is sometimes followed by d,
+but never the other way around.
+And in the model, model N2, a and
+d never follow one another.
+So we see a difference there.
+We can also take a look at b and
+d and we see that, in the event log,
+they are considered to be concurrent
+because they happen in any order.
+But if we look at the model N2,
+we see that b is followed by d,
+but d is never followed by b.
+And in such a way we can analyze
+all the differences between
+the original log and model N2.
+Here the differences are highlighted.
+And we can count them and
+we can diagnose them.
+So here in the matrix we
+just see the differences.
+So for example we can see
+that if we look at b and
+d, in the log it was parallel,
+in the model it was sequential.
+And we can count these differences.
+So there are 64 cells.
+And in 12 of these cells,
+there is disagreement.
+So it's 1 minus 12 divided by 64 is
+a footprint-based conformance of 0.8125.
+So, this way we can quantify
+differences between log and model.
+We can also provide
+diagnostics as is shown here.
+The elements of the footprint matrix,
+where model and
+log disagree,
+you can visualize them in the model.
+For example,
+the visualization here is showing that in
+the original log a could be followed by d,
+but this is no longer possible.
+So, we can diagnose differences,
+we can also quantify them.
+Let's now take a look at a question.
+So, now we are taking another model and
+the two models that we
+have considered before.
+And I would like to ask you to estimate
+the footprint-based conformance
+based on the original event log and
+the model that is shown here.
+So how can we compute this?
+We take the original footprint
+matrix of the event log.
+We take the model, and
+then we see where the footprint matrix of
+the model disagrees with
+the footprint of the original log.
+And these are highlighted here.
+So what we can see is that in
+the model many activities are missing.
+These missing activities in the model
+will never follow one another or
+any of the other activities.
+Whereas in the original
+event log they did.
+Again we can count the differences.
+In this case there are 16 cells where
+there is disagreement between log and
+model.
+And that leads to a footprint-based
+conformance of 0.75.
+Let's take a look at another model.
+This is the flower model,
+which allows for lots of behavior.
+And again, try to estimate what you think
+is the footprint-based conformance between
+the original log and this flower model.
+To answer this question,
+we do the same as what we did before.
+We take the original footprint and
+compare it with the footprint
+of the process model.
+This process model allows for
+much more behavior than what
+we have seen in the log.
+So if we visualize the differences, you
+can see that in total there are 45 cells
+different, and that leads to
+a very low conformance of 0.29.
+And so this has a worse conformance than
+the three models that we have seen before.
+Because of the massive amount of
+additional behavior allowed by
+this flower model.
+Causal footprints
+are incredibly flexible.
+In the sense that you can compare logs to
+logs, you can compare models to models,
+and you can compare models to event logs.
+And so
+we can make many different comparisons.
+It also implicitly captures fitness,
+precision, and
+generalization, but
+in a rather indirect way.
+The approach also has many limitations.
+So, for example, we do not look at
+the frequencies of traces in the log.
+Behavior is only considered indirectly.
+We only consider directly
+follows relations when
+building the footprint metrics.
+So, you can have two different processes
+that have exactly the same footprint,
+although their behavior are different,
+as long as they have the same
+directly follows relationship.
+In one go, we address issues like fitness,
+precision, and generalization.
+But often you want to
+have separate metrics for
+these different conformance dimensions.
+This is why,
+in the next two lectures we will look
+at additional conformance
+checking techniques.
+In the next lecture we will look
+at so-called token-based replay.
+If you would like to read
+more on conformance checking,
+you can take a look at Chapter 7.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

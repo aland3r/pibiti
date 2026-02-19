@@ -1,0 +1,1325 @@
+1
+00:00:00,000 --> 00:00:08,509
+[MUSIC]
+
+2
+00:00:08,509 --> 00:00:10,040
+Welcome to this lecture.
+
+3
+00:00:10,040 --> 00:00:16,100
+Today we will focus on learning dependency
+graphs using frequencies as input.
+
+4
+00:00:16,100 --> 00:00:19,680
+So this is a picture that I briefly
+showed in the last lecture.
+
+5
+00:00:19,680 --> 00:00:25,310
+So we are now looking at a mining
+approach that is using multiple phases.
+
+6
+00:00:25,310 --> 00:00:28,345
+And the first phase is
+learning the dependency graph.
+
+7
+00:00:30,230 --> 00:00:33,810
+The approach that we sketch is
+inspired by the heuristic miner, but
+
+8
+00:00:33,810 --> 00:00:37,950
+many mining techniques use
+these two types of phases.
+
+9
+00:00:37,950 --> 00:00:41,850
+Also many of the commercial mining tools,
+
+10
+00:00:41,850 --> 00:00:46,600
+they use algorithms that actually just
+show dependency graph and nothing more.
+
+11
+00:00:47,870 --> 00:00:51,720
+So, let's look at the problem
+of learning a dependency graph.
+
+12
+00:00:53,180 --> 00:00:56,060
+So as a running example
+I will use the C-net.
+
+13
+00:00:56,060 --> 00:01:00,220
+We have seen the C-net notation
+in the last lecture, so
+
+14
+00:01:00,220 --> 00:01:05,720
+we have activities, we have dependencies
+between different activities.
+
+15
+00:01:05,720 --> 00:01:08,500
+And every activity can have input and
+
+16
+00:01:08,500 --> 00:01:14,990
+output bindings that can be used
+to model ANDs and ORs and XORs and
+
+17
+00:01:14,990 --> 00:01:20,830
+all kinds of routing constructs.
+So, if we take this C-net model and
+
+18
+00:01:20,830 --> 00:01:25,550
+we would generate a simulation from it and
+we would add some outliers.
+
+19
+00:01:25,550 --> 00:01:29,430
+Then this would be,
+a possible log that we could get.
+
+20
+00:01:29,430 --> 00:01:36,382
+Note that deliberately there are two
+traces in this event log a,b,e and
+
+21
+00:01:36,382 --> 00:01:41,530
+a,c,e which do not correspond to
+valid binding sequences of the C-net.
+
+22
+00:01:41,530 --> 00:01:45,770
+But for all the other traces they
+correspond to valid binding sequences.
+
+23
+00:01:45,770 --> 00:01:50,305
+So for example the trace that starts
+with an e starts with an a and
+
+24
+00:01:50,305 --> 00:01:53,581
+ends with an e,
+is one of these possible traces.
+
+25
+00:01:55,349 --> 00:02:00,285
+So, if we would take this event log and
+apply the Alpha algorithm to it,
+
+26
+00:02:00,285 --> 00:02:05,120
+the Alpha algorithm would
+have all kind of problems.
+
+27
+00:02:05,120 --> 00:02:08,340
+And here you see the model,
+that it returns.
+
+28
+00:02:08,340 --> 00:02:14,060
+First of all, activity d is unconnected
+to all the other activities.
+
+29
+00:02:14,060 --> 00:02:20,245
+Moreover, b and c always need to be
+executed according to the model.
+
+30
+00:02:20,245 --> 00:02:22,050
+Whereas if we look at the event log,
+
+31
+00:02:22,050 --> 00:02:26,050
+that is clearly not the case,
+because we can just do a,e.
+
+32
+00:02:26,050 --> 00:02:28,830
+Which is definitely not possible
+according to this model.
+
+33
+00:02:30,010 --> 00:02:33,950
+So if we are using something like
+the heuristic miner or
+
+34
+00:02:33,950 --> 00:02:35,360
+these are types of techniques.
+
+35
+00:02:35,360 --> 00:02:36,940
+They will not have these problems.
+
+36
+00:02:39,020 --> 00:02:44,480
+One of the important ingredients is that
+we take into account frequencies and
+
+37
+00:02:44,480 --> 00:02:48,880
+only consider the causalities
+which are important.
+
+38
+00:02:50,270 --> 00:02:54,730
+So here we see a formula
+that counts the number of
+
+39
+00:02:54,730 --> 00:02:59,140
+times that a was followed
+by b somewhere in the log.
+
+40
+00:03:00,430 --> 00:03:02,840
+So we sum over all traces.
+
+41
+00:03:02,840 --> 00:03:07,150
+And then within a trace we see how
+many times a is followed by b.
+
+42
+00:03:08,570 --> 00:03:13,490
+So if we do that, we can count
+the so-called direct succession.
+
+43
+00:03:13,490 --> 00:03:17,450
+So here you see an event log.
+
+44
+00:03:17,450 --> 00:03:22,670
+And for example, if you would look at
+a and c, you can see that a is followed
+
+45
+00:03:22,670 --> 00:03:27,377
+directly by c 11 times in this event log.
+
+46
+00:03:27,377 --> 00:03:30,430
+So it's similar to what we were
+using in the Alpha algorithm.
+
+47
+00:03:30,430 --> 00:03:34,830
+But there we were just looking at
+whether something was followed by
+
+48
+00:03:34,830 --> 00:03:37,740
+something else at some
+position in the log.
+
+49
+00:03:39,020 --> 00:03:42,500
+But now we look at how
+frequent this is happening.
+
+50
+00:03:42,500 --> 00:03:44,540
+And we are using more information now.
+
+51
+00:03:46,710 --> 00:03:53,160
+So, one of the ingredients for learning
+the dependency graph is direct succession.
+
+52
+00:03:53,160 --> 00:03:56,890
+How many times did one activity
+follow another activity?
+
+53
+00:03:58,080 --> 00:04:01,810
+But we will also look at
+a more sophisticated measure,
+
+54
+00:04:01,810 --> 00:04:08,110
+the so-called dependency measure,
+which aims to discover causality.
+
+55
+00:04:10,300 --> 00:04:13,260
+If we have a model that
+has concurrency in it,
+
+56
+00:04:13,260 --> 00:04:16,300
+accidentally things will
+follow one another.
+
+57
+00:04:16,300 --> 00:04:19,180
+But we should not confuse
+them with causalities.
+
+58
+00:04:19,180 --> 00:04:23,320
+So if you look at the formula that
+you see here at the bottom, if a and
+
+59
+00:04:23,320 --> 00:04:25,140
+b are different.
+
+60
+00:04:25,140 --> 00:04:29,280
+We count how many times
+is a followed by b,
+
+61
+00:04:29,280 --> 00:04:32,570
+minus the number of times
+that b is followed by a.
+
+62
+00:04:33,730 --> 00:04:38,730
+And we divide that by the sum
+of these two numbers plus 1.
+
+63
+00:04:38,730 --> 00:04:41,420
+And in this way we always get
+a number between 0 and 1.
+
+64
+00:04:42,660 --> 00:04:47,820
+If the number is close to 1,
+there is a very strong causality.
+
+65
+00:04:47,820 --> 00:04:49,940
+If the number is negative or
+
+66
+00:04:49,940 --> 00:04:56,090
+the number is close to 0, there is
+a weak causality in that direction.
+
+67
+00:04:57,390 --> 00:05:03,020
+What this formula also shows you is that
+we have a special case where a equals b.
+
+68
+00:05:03,020 --> 00:05:05,760
+Because, if we apply the formula that I
+
+69
+00:05:05,760 --> 00:05:10,955
+just mentioned to the situation where
+a equals b, it would always yield 0.
+
+70
+00:05:12,550 --> 00:05:15,600
+And that's why you have a special formula.
+
+71
+00:05:15,600 --> 00:05:19,150
+It simply counts how many
+times is a followed by itself,
+
+72
+00:05:19,150 --> 00:05:22,300
+divided by this number plus 1.
+
+73
+00:05:22,300 --> 00:05:25,000
+And again,
+we get a number between 0 and 1.
+
+74
+00:05:25,000 --> 00:05:26,600
+The higher the number,
+
+75
+00:05:26,600 --> 00:05:33,172
+the more likely it is that there
+is a dependency, a causality.
+
+76
+00:05:33,172 --> 00:05:38,100
+So what we see on this
+slide is an example of
+
+77
+00:05:38,100 --> 00:05:43,270
+an arc in such a dependency graph,
+annotated with two numbers.
+
+78
+00:05:43,270 --> 00:05:47,020
+The first number indicated in red,
+45, indicates
+
+79
+00:05:48,790 --> 00:05:53,530
+how many times a was directly
+followed by b somewhere in the log.
+
+80
+00:05:54,760 --> 00:05:56,170
+The other value,
+
+81
+00:05:56,170 --> 00:06:02,450
+indicated in blue, is the dependency
+measure that we have just defined.
+
+82
+00:06:02,450 --> 00:06:07,570
+Right, so it's, it's computed using
+the formula that we have seen earlier.
+
+83
+00:06:07,570 --> 00:06:15,480
+So let's take a look at these two numbers
+in a set of specific situations.
+
+84
+00:06:16,810 --> 00:06:22,000
+So and in each situation we
+will need to consider a threshold.
+
+85
+00:06:23,290 --> 00:06:27,470
+And both of these values, so
+the value in red and the value in blue,
+
+86
+00:06:27,470 --> 00:06:32,090
+have to be above a certain threshold for
+the arc to be included.
+
+87
+00:06:32,090 --> 00:06:38,462
+So we remove all arcs that do
+not meet this requirement.
+
+88
+00:06:38,462 --> 00:06:44,270
+So, as I said, we look at a set of
+patterns and see how this plays out.
+
+89
+00:06:44,270 --> 00:06:49,160
+So consider that we have a process
+model where a is followed by b and
+
+90
+00:06:49,160 --> 00:06:51,470
+we see this 10 times.
+
+91
+00:06:51,470 --> 00:06:55,230
+So this picture is a bit misleading
+because I am showing you a Petri net
+
+92
+00:06:55,230 --> 00:06:57,590
+to describe a set of traces.
+
+93
+00:06:57,590 --> 00:06:59,870
+So here we have 10 traces.
+
+94
+00:06:59,870 --> 00:07:02,850
+Where somewhere in the trace,
+a is directly followed by b.
+
+95
+00:07:04,400 --> 00:07:10,170
+So, if we count the number of times that
+a is followed by b, we get a number 10.
+
+96
+00:07:10,170 --> 00:07:15,120
+So, if we now apply the formula
+of the dependency measure,
+
+97
+00:07:17,120 --> 00:07:24,640
+we get 10 minus 0 divided
+by 10 plus 0 plus 1 is 11.
+
+98
+00:07:24,640 --> 00:07:30,160
+So the dependency measure between a and
+b is 10 divided by 11.
+
+99
+00:07:30,160 --> 00:07:37,470
+If we look at the other direction, b is
+never followed by a, so this number is 0.
+
+100
+00:07:37,470 --> 00:07:40,760
+And if we compute a dependency
+measure between b and
+
+101
+00:07:40,760 --> 00:07:43,030
+a, so in the reverse direction.
+
+102
+00:07:43,030 --> 00:07:47,690
+We get a negative number,
+namely minus 10 divided by 11.
+
+103
+00:07:47,690 --> 00:07:54,040
+So in this case because for
+the connection between a and
+
+104
+00:07:54,040 --> 00:07:59,930
+b we meet both thresholds we say that
+we want to include this causality.
+
+105
+00:07:59,930 --> 00:08:02,200
+So then we get this situation.
+
+106
+00:08:02,200 --> 00:08:09,180
+So the arc indicated in red is an arc that
+meets the requirements of the thresholds.
+
+107
+00:08:09,180 --> 00:08:13,130
+So in this slide it shows that
+we are now using a threshold of,
+
+108
+00:08:13,130 --> 00:08:17,990
+that a should be directly
+followed by b at least once.
+
+109
+00:08:17,990 --> 00:08:21,340
+That is satisfied,
+because we have seen it ten times, and
+
+110
+00:08:21,340 --> 00:08:24,690
+the dependency measure
+should be at least half.
+
+111
+00:08:24,690 --> 00:08:27,847
+And in this case it's 0.9.
+
+112
+00:08:27,847 --> 00:08:29,980
+So this arc is definitely present.
+
+113
+00:08:31,530 --> 00:08:34,410
+Let's take a look at an XOR-split.
+
+114
+00:08:34,410 --> 00:08:37,950
+So, what we see now is 
+we see much more numbers.
+
+115
+00:08:37,950 --> 00:08:43,690
+So, the traces that we look at there
+are a traces, where a is followed by b.
+
+116
+00:08:43,690 --> 00:08:46,210
+And there are two traces
+where a is followed by c.
+
+117
+00:08:46,210 --> 00:08:51,840
+And then we can apply the formula
+that has been described before,
+
+118
+00:08:51,840 --> 00:08:54,740
+and these are all the numbers that we get.
+
+119
+00:08:54,740 --> 00:08:58,750
+For example, a is followed by b eight times.
+
+120
+00:08:58,750 --> 00:09:03,732
+And if we look at the dependency
+measure between a and
+
+121
+00:09:05,732 --> 00:09:12,887
+b we take 8 minus 0 divided
+by 8 plus 0 plus 1 is 9.
+
+122
+00:09:12,887 --> 00:09:18,230
+So we get the dependency between a and
+b is 8 divided by 9.
+
+123
+00:09:18,230 --> 00:09:23,719
+So, again, we can look at what are the
+connections that meet the threshold.
+
+124
+00:09:24,900 --> 00:09:29,250
+And then we find that there is indeed
+a connection between a and b and
+
+125
+00:09:29,250 --> 00:09:30,710
+between a and c.
+
+126
+00:09:30,710 --> 00:09:32,580
+Just as we expected.
+
+127
+00:09:32,580 --> 00:09:37,990
+So, in the dependency graph,
+we add these two red arcs and
+
+128
+00:09:37,990 --> 00:09:40,570
+the numbers are the numbers
+that we have computed before.
+
+129
+00:09:40,570 --> 00:09:46,300
+And so a is followed by b, eight times,
+and a is followed by c two times.
+
+130
+00:09:46,300 --> 00:09:50,260
+And the dependency measures
+are indicated in blue here.
+
+131
+00:09:50,260 --> 00:09:52,140
+And they all meet the threshold.
+
+132
+00:09:53,340 --> 00:09:55,920
+The XOR-join is very similar.
+
+133
+00:09:55,920 --> 00:09:59,250
+So, what you now see is,
+again, a computation.
+
+134
+00:09:59,250 --> 00:10:03,420
+We look at the traces, a traces,
+where a is followed by c,
+
+135
+00:10:03,420 --> 00:10:08,050
+two traces where b is followed by c,
+and these are the numbers that we get.
+
+136
+00:10:09,590 --> 00:10:15,910
+And again we find that there are only
+two connections that meet the threshold.
+
+137
+00:10:15,910 --> 00:10:19,680
+The connection between a and c and
+the connection between b and c.
+
+138
+00:10:21,750 --> 00:10:25,870
+And again we add these arcs, the red arcs,
+
+139
+00:10:25,870 --> 00:10:30,060
+because they meet the two thresholds
+that have been described before.
+
+140
+00:10:31,980 --> 00:10:33,650
+Let's take a look at concurrency.
+
+141
+00:10:33,650 --> 00:10:39,320
+We take the AND-split pattern,
+now we look at traces where
+
+142
+00:10:39,320 --> 00:10:46,180
+a is followed by b and c, but sometimes
+c is first and sometimes b is first.
+
+143
+00:10:46,180 --> 00:10:49,780
+And assume an evenly distributed log, so
+
+144
+00:10:49,780 --> 00:10:54,150
+we see as many traces a, b,
+c as we see traces a, c, b.
+
+145
+00:10:55,470 --> 00:10:57,790
+And then these
+are the numbers that we get.
+
+146
+00:10:57,790 --> 00:11:02,670
+Again we can simply apply the, the,
+the two formulas that we have seen before.
+
+147
+00:11:02,670 --> 00:11:08,950
+And what we see is that indeed there
+is a connection between a and b.
+
+148
+00:11:08,950 --> 00:11:10,860
+There is a connection between a and c.
+
+149
+00:11:12,540 --> 00:11:17,490
+What is very important to see here
+is that if we look at the log,
+
+150
+00:11:19,220 --> 00:11:21,320
+b is five times followed by c.
+
+151
+00:11:22,710 --> 00:11:25,840
+And c is five times followed by b.
+
+152
+00:11:25,840 --> 00:11:27,090
+Because they are concurrent.
+
+153
+00:11:27,090 --> 00:11:29,150
+They can happen in any order.
+
+154
+00:11:29,150 --> 00:11:32,200
+So b and c follow one another, but
+
+155
+00:11:32,200 --> 00:11:35,720
+we don't want to create
+a connection between them.
+
+156
+00:11:35,720 --> 00:11:39,430
+So that's why we need
+the dependency measure.
+
+157
+00:11:39,430 --> 00:11:41,790
+The dependency measure here.
+
+158
+00:11:42,990 --> 00:11:45,480
+For example, if you look at
+the connection between b and
+
+159
+00:11:45,480 --> 00:11:50,660
+c, we can see that the dependency
+measure is 0 divided by 11.
+
+160
+00:11:50,660 --> 00:11:59,940
+Because we have 5 minus 5
+divided by 5 plus 5 plus 1.
+
+161
+00:11:59,940 --> 00:12:03,700
+So we just fill out the formula and
+we get 0 divided by 11.
+
+162
+00:12:03,700 --> 00:12:09,550
+So we know that there is no relationship,
+no dependency between b and c.
+
+163
+00:12:10,720 --> 00:12:12,760
+because it doesn't meet the threshold.
+
+164
+00:12:12,760 --> 00:12:16,520
+So in this graph it's very
+important to see that there is
+
+165
+00:12:16,520 --> 00:12:19,550
+no connection between b and c.
+
+166
+00:12:19,550 --> 00:12:26,050
+Because these connections do
+not meet the threshold b and
+
+167
+00:12:26,050 --> 00:12:30,930
+c follow one another but
+they are concurrent.
+
+168
+00:12:30,930 --> 00:12:33,812
+That's why we do not want
+to see this connection.
+
+169
+00:12:33,812 --> 00:12:38,620
+The AND-join pattern is exactly the same
+as you've seen numbers very similar to
+
+170
+00:12:38,620 --> 00:12:40,190
+what we have seen before.
+
+171
+00:12:40,190 --> 00:12:44,720
+We can fill out a formula and
+get the numbers that you see here.
+
+172
+00:12:45,800 --> 00:12:51,610
+Again it's crucial that you
+see that there should not
+
+173
+00:12:51,610 --> 00:12:56,100
+be a connection between a and b although
+they follow each other five times.
+
+174
+00:12:56,100 --> 00:12:59,660
+And that is because if
+we fill out the formula for
+
+175
+00:12:59,660 --> 00:13:04,640
+the dependence measure, in this case
+we get 0 rather than some high number.
+
+176
+00:13:05,860 --> 00:13:11,050
+So we we approve
+the connection between a and
+
+177
+00:13:11,050 --> 00:13:14,220
+c, and b and c, but
+not between a and b, or b and a.
+
+178
+00:13:14,220 --> 00:13:19,970
+And this is, again, an illustration why we
+need to have this dependency measure.
+
+179
+00:13:19,970 --> 00:13:23,480
+And these are the connections that we get
+in the corresponding dependency graph.
+
+180
+00:13:25,320 --> 00:13:30,400
+So far we only consider the situation
+where the two activities that we
+
+181
+00:13:30,400 --> 00:13:33,860
+were comparing were different activities.
+
+182
+00:13:33,860 --> 00:13:40,720
+Now for the loop pattern, we look at
+a situation where one activity
+
+183
+00:13:40,720 --> 00:13:45,440
+should be connected to itself because
+it is involved in some kind of loop.
+
+184
+00:13:45,440 --> 00:13:50,980
+So take a look at this Petri net
+where we see a self loop involving b.
+
+185
+00:13:50,980 --> 00:13:55,350
+And, if we look at the corresponding traces
+it's possible corresponding traces we can
+
+186
+00:13:55,350 --> 00:13:56,885
+see ac.
+
+187
+00:13:58,080 --> 00:13:59,050
+We can see abc.
+
+188
+00:14:00,630 --> 00:14:02,300
+But we can also see abbc.
+
+189
+00:14:04,740 --> 00:14:08,410
+So, in this small event log
+that we will consider.
+
+190
+00:14:08,410 --> 00:14:13,940
+We assume for
+example that abbc happens three times.
+
+191
+00:14:13,940 --> 00:14:17,150
+And so one activity follows itself.
+
+192
+00:14:17,150 --> 00:14:24,900
+If we apply the normal formula to this,
+we would get a dependency measure of 0.
+
+193
+00:14:24,900 --> 00:14:29,260
+So we would never have
+a connection of b with itself.
+
+194
+00:14:29,260 --> 00:14:31,250
+But as you can see from this example,
+
+195
+00:14:31,250 --> 00:14:34,750
+sometimes this is needed if
+we are involved in a loop.
+
+196
+00:14:36,800 --> 00:14:45,010
+So, let's compute the measures for
+this small event log.
+
+197
+00:14:45,010 --> 00:14:47,560
+The numbers that you see here in red,
+
+198
+00:14:47,560 --> 00:14:51,320
+they are exactly computed in
+the way we have seen before.
+
+199
+00:14:51,320 --> 00:14:54,340
+The values that you see here in blue.
+
+200
+00:14:54,340 --> 00:14:56,584
+They correspond to
+
+201
+00:14:56,584 --> 00:15:03,460
+measures that are computed using
+this special formula for loops.
+
+202
+00:15:03,460 --> 00:15:11,430
+So if we look at a, the dependency measure
+of a with itself, it is 0 divided by 1.
+
+203
+00:15:11,430 --> 00:15:15,060
+And so, there is no connection
+between a and itself.
+
+204
+00:15:15,060 --> 00:15:22,160
+If we look, however at b, b follows
+itself three times in the event log.
+
+205
+00:15:23,440 --> 00:15:31,180
+And the dependency measure of b
+with itself is 3 divided by 0.
+
+206
+00:15:32,210 --> 00:15:39,470
+And the reason is that if we apply the
+formula we get 3 divided by 3 plus 1 is 4.
+
+207
+00:15:39,470 --> 00:15:43,260
+So this is how we can capture
+the fact that there is a loop.
+
+208
+00:15:44,520 --> 00:15:51,410
+So we approve the connections including
+the self loop involving b and
+
+209
+00:15:51,410 --> 00:15:55,230
+this is why we need to have this special
+formula, because otherwise we would
+
+210
+00:15:55,230 --> 00:15:58,719
+lose this connection between b and
+it would not be connected to the rest.
+
+211
+00:16:00,280 --> 00:16:07,530
+So if we apply all the formulas,
+this is the dependency graph that we see.
+
+212
+00:16:07,530 --> 00:16:10,130
+And especially
+the connection between b and
+
+213
+00:16:10,130 --> 00:16:14,370
+itself is important that you
+understand how this was computed.
+
+214
+00:16:15,660 --> 00:16:19,354
+It meets the thresholds,
+so we add the self-loop.
+
+215
+00:16:20,460 --> 00:16:23,710
+Let's take a look at the example
+that we have seen before.
+
+216
+00:16:23,710 --> 00:16:30,250
+So, here we have the log including
+two outliers and we can compute
+
+217
+00:16:30,250 --> 00:16:34,010
+how many times one activity is followed
+by another, as you can see here.
+
+218
+00:16:35,400 --> 00:16:38,314
+So, the question is now
+to see whether you
+
+219
+00:16:38,314 --> 00:16:43,210
+understand this dependency
+measure given this event log.
+
+220
+00:16:43,210 --> 00:16:48,520
+What is the dependency measure for
+the connection between a and b?
+
+221
+00:16:48,520 --> 00:16:50,550
+And what is the connection and
+
+222
+00:16:50,550 --> 00:16:55,880
+the value of the dependency measure of
+the connection between d and itself?
+
+223
+00:16:55,880 --> 00:16:58,680
+So, take a moment to think about this.
+
+224
+00:16:58,680 --> 00:17:02,730
+This is the answer, it is showing all
+the dependency measures computed for
+
+225
+00:17:02,730 --> 00:17:05,140
+all activity pairs.
+
+226
+00:17:05,140 --> 00:17:11,020
+And it is just computed by applying the
+formula that we have described before.
+
+227
+00:17:11,020 --> 00:17:14,080
+So if we zoom in to the two activities.
+
+228
+00:17:14,080 --> 00:17:17,470
+The two dependency measures
+that I've asked for.
+
+229
+00:17:17,470 --> 00:17:21,220
+The connection between a and
+b and, and d and itself.
+
+230
+00:17:21,220 --> 00:17:25,860
+Then we can simply look
+up the values in how many
+
+231
+00:17:25,860 --> 00:17:30,090
+times one activity was
+followed by the other.
+
+232
+00:17:30,090 --> 00:17:31,900
+And we can apply the formula.
+
+233
+00:17:31,900 --> 00:17:32,990
+And we get this value.
+
+234
+00:17:34,100 --> 00:17:39,370
+If we look at how many times d was
+followed by itself, we can look that up.
+
+235
+00:17:39,370 --> 00:17:41,080
+And we apply the second formula.
+
+236
+00:17:41,080 --> 00:17:43,910
+And then we get the number
+that you can see here.
+
+237
+00:17:45,170 --> 00:17:48,689
+So this shows how you can
+compute the dependency measures.
+
+238
+00:17:50,220 --> 00:17:52,740
+So, we have these thresholds.
+
+239
+00:17:52,740 --> 00:17:56,670
+There is a threshold for the number
+of times that an activity should be
+
+240
+00:17:56,670 --> 00:18:00,690
+followed by another activity and
+the strength of the dependency.
+
+241
+00:18:02,430 --> 00:18:06,300
+If both meet the thresholds,
+arcs are included.
+
+242
+00:18:06,300 --> 00:18:12,370
+So, if we use the thresholds where
+we set the threshold rather low,
+
+243
+00:18:12,370 --> 00:18:17,630
+then all of the connections that you
+see here in the graph will be included.
+
+244
+00:18:19,320 --> 00:18:26,180
+If we increase the threshold a bit so
+we have more stricter requirements
+
+245
+00:18:26,180 --> 00:18:31,080
+with respect to the dependency measure
+and the frequency.
+
+246
+00:18:31,080 --> 00:18:36,000
+Then we can see that two
+arcs are disappearing.
+
+247
+00:18:36,000 --> 00:18:39,110
+So compared to the previous slide,
+we, for
+
+248
+00:18:39,110 --> 00:18:44,570
+example, now see that the self
+loop involving d has disappeared.
+
+249
+00:18:44,570 --> 00:18:48,560
+And there is no longer a connection
+between the first activity and
+
+250
+00:18:48,560 --> 00:18:50,280
+the last activity.
+
+251
+00:18:50,280 --> 00:18:55,780
+And so by playing with these thresholds
+we can make the dependency graph simpler.
+
+252
+00:18:58,210 --> 00:19:00,640
+So what is the algorithm?
+
+253
+00:19:00,640 --> 00:19:06,020
+So first we set thresholds then
+we count direct successions.
+
+254
+00:19:06,020 --> 00:19:11,530
+Then we compute the dependency measures
+using the two formulas discussed and
+
+255
+00:19:11,530 --> 00:19:15,730
+then we draw the dependency
+graph including only the arcs
+
+256
+00:19:15,730 --> 00:19:18,860
+that meet both thresholds and
+then we get the dependency graph.
+
+257
+00:19:20,100 --> 00:19:25,440
+Please practice this yourself on small
+example logs to see whether you
+
+258
+00:19:25,440 --> 00:19:26,800
+really understand how it works.
+
+259
+00:19:29,510 --> 00:19:34,300
+As I mentioned before many
+algorithms use something very
+
+260
+00:19:34,300 --> 00:19:36,120
+similar to dependency graphs.
+
+261
+00:19:36,120 --> 00:19:39,500
+If you look at Disco,
+you can think of the models that you see
+
+262
+00:19:39,500 --> 00:19:44,107
+as dependency graphs rather
+than something more explicit,
+
+263
+00:19:44,107 --> 00:19:48,900
+having more explicit semantics like
+a Petri net or a BPMN model.
+
+264
+00:19:49,900 --> 00:19:52,710
+So if you look at Disco,
+you can play with the threshold.
+
+265
+00:19:53,910 --> 00:19:58,620
+So if you set the threshold very low,
+as indicated high here,
+
+266
+00:19:58,620 --> 00:20:02,113
+you will see that all
+the arcs are included.
+
+267
+00:20:02,113 --> 00:20:06,930
+If you then move the slider down you
+
+268
+00:20:06,930 --> 00:20:12,410
+will see that more and more connections
+do not meet the thresholds and disappear.
+
+269
+00:20:12,410 --> 00:20:15,360
+So the model gets simpler and simpler.
+
+270
+00:20:15,360 --> 00:20:19,640
+So this is using exactly the same type
+of ideas, although the underlying
+
+271
+00:20:19,640 --> 00:20:23,639
+algorithms are different than the things
+that we have seen in this lecture.
+
+272
+00:20:25,470 --> 00:20:30,050
+So the next step that we will
+look at in the next lecture
+
+273
+00:20:30,050 --> 00:20:34,780
+is once we have this dependency graph,
+how can we
+
+274
+00:20:34,780 --> 00:20:40,580
+compute the split and
+join behavior of all of these nodes.
+
+275
+00:20:40,580 --> 00:20:43,634
+So we aim at creating so called C-nets.
+
+276
+00:20:45,990 --> 00:20:48,990
+If you want to read more
+about this in chapter six you
+
+277
+00:20:48,990 --> 00:20:52,320
+can read everything about
+learning these dependency graphs.
+
+278
+00:20:53,520 --> 00:20:56,557
+Thank you for watching,
+and hope to see you soon.
+
+279
+00:20:56,557 --> 00:21:06,557
+[MUSIC]
+

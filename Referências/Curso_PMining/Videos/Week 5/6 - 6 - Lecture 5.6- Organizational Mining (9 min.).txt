@@ -1,0 +1,203 @@
+[MUSIC]
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+Today we will focus on learning
+organizational entities.
+Using the resource activity matrix,
+we can automatically learn roles and
+extend the process model
+with this information.
+In the previous lecture,
+we learned how to create a social network
+by extracting information
+from the event log.
+We saw that it is possible to discover
+relationships between people.
+When do people work together?
+How is work handed over from
+one person to another person?
+In this lecture, we will look at
+analyzing event logs to automatically
+infer role information and
+add that to the process model.
+In the last lecture we saw how to create
+a so-called resource-activity matrix.
+So we extract events and
+we simply count the number of times
+that a resource is executing a particular
+activity and we normalize that per case.
+So for example, Pete, on average,
+executed a 0.3 times.
+If we look at such a matrix, then the
+question is, which resources are similar?
+So please take a look at this example, and
+try to discover yourself,
+what are the underlying roles?
+The answer to this
+question is very simple.
+In this particular example it is
+very clear that Pete, Mike and
+Ellen are very similar in terms of
+the set of activities that they
+are executing and how frequent they
+are executing these activities.
+Sue and Sean are the only people,
+for example, executing activity b.
+Sara is the only person executing e and f.
+And so here it very clear.
+But in general it is not that clear.
+We can view every resource as a vector,
+describing how often each
+activity is executed per case.
+And here you see, for example, the vectors
+corresponding to Pete, Mike and Sara.
+We can compute distances on these
+vectors using classical notions like
+the Euclidian distance,
+Manhattan distance and all kinds of other
+measures of deciding how far
+apart different resources are.
+And this information can be
+used to infer a social network.
+And in this social network,
+we expect Pete and
+Mike to be very close to each other
+because their distances are very small.
+Sara, on the other hand,
+is quite different in terms of
+the activities that she's executing,
+than Pete and Mike.
+So if we create a social network
+based on this information,
+we would get something like this.
+Note that similarity is
+the inverse of distance.
+And so people that are at a short
+distance are very similar so
+are strongly related
+in the social network.
+Resources that execute similar
+collections of activities are related.
+For example,
+here we can see that Sara is quite unique,
+that is why she is not connected
+to any of the other resources.
+Note that we have removed
+all the self-loops because,
+of course,
+every resource is very similar to itself.
+And so that's why you don't
+see any self-loops here.
+Looking at similarity between
+different resources to
+identify roles in a process model
+is very much related to clustering.
+And in the first week we saw
+techniques like k-means clustering.
+How we can group things together
+based on the vector representation.
+So we can use that in
+the context of process mining.
+There are two typical uses.
+One use is that we would like to
+group cases which are very similar.
+And then, per group of similar cases,
+we can infer a process model.
+So, if in this diagram all
+the dots correspond to cases,
+then we would find four groups of cases,
+in other words we would find four
+variants of the same process.
+And the process model for each of
+these variants is simpler than if we
+would try to construct one overall
+model for all the different groups.
+In this lecture,
+we focus on the grouping of resources.
+So now all the dots are resources.
+We look at their distances and
+try to group them together.
+Once we find a group of resources
+we can attach a role to it and
+use this to extend,
+to enrich the process model.
+Here you see a real-life examples.
+The numbers that you see indicate how
+frequent a particular user is
+executing a particular activity.
+This is taken from real life data.
+And in this example you can see that
+it is quite easy to find cliques,
+clusters of people that
+have a very similar
+profile when we look at which activities
+are being executed and how frequent.
+So this result was obtained by ProM.
+So using ProM, we can infer,
+automatically roles.
+Then the question is, if we have
+identified these groups, these sets of
+people having a similar work profile,
+how can we add that to the model?
+Well, that is very simple.
+In the model we can simply
+associate activities to roles.
+So in this example we have three roles,
+manager,
+expert and the other three resources.
+And we can relate these roles
+to the process model and
+we can relate the roles to
+the individual worker in this case.
+This view is a bit simplified because,
+of course, roles can overlap.
+One person may be able to
+perform multiple roles and then this
+picture will become a bit more involved,
+but the basic idea is very simple.
+Learning role information
+is just a starting point.
+And so we may be interested
+in very different questions, but
+also related to the behavior of
+resources in the context of a process.
+So when are resources available?
+Do they work at particular
+times during the week?
+Are they shared among different processes?
+When do resources collaborate well?
+Are certain resources better to perform
+specific activities than others?
+We would like to learn such information
+from event logs, and we can.
+For example, a rather specific question
+is investigating the relationship
+between the work load of people and
+how efficient, how fast they work.
+And the so-called Yerkes-Dodson law
+of arousal predicts that if people
+get more work, that they start working
+more efficient until a certain point,
+after which performance will break down,
+as you can see in this diagram.
+If you are applying process
+mining on real-life logs,
+you are able to see these phenomena,
+and you can learn from them.
+They will tell you how to better run
+a particular process or company.
+So we need process models that
+incorporate different perspectives.
+In this lecture we focused on the
+relationship between people and processes.
+People have roles, are
+member of particular departments and
+we need to look at the relationship
+between these two.
+If you would like to
+learn more about this,
+you can read all about it in chapter 8.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

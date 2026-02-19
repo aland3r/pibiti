@@ -1,0 +1,417 @@
+[MUSIC]
+Welcome to this lecture.
+In this course, we aim to show a variety
+of process discovery techniques.
+Today we will show that
+transition systems can
+often be folded in much more compact
+process models that allow for concurrency.
+In the last lecture we introduced
+a two faced approach using regions.
+The first lecture we focused on
+constructing the transition system,
+now we will focus on converting
+the transition system into a Petri net,
+thereby discovering concurrency.
+So what's the basic idea?
+The basic idea is that in
+the transition system,
+we identify a subset of states
+that correspond exactly to a place.
+And by doing this, we introduce places
+that are like constraints on the behavior,
+that capture the behavior
+including concurrency.
+So it may be the case that we have
+a transition system with thousands of
+states, and
+by applying region theory we reduce it to
+a Petri net with a very
+small number of places.
+So let's look at the definition of
+the understanding of what
+a state-based region is.
+The idea is that we capture a set of states
+and that if we look at the states and we
+look at the corresponding arrows entering
+the region, exiting the region, and
+that remain inside or that remain outside,
+we want the following property to hold.
+For example all a activities,
+if one of them is entering
+as is the case here,
+then all a arrows should enter the region.
+They cannot exit, and
+they cannot be inside and remain inside.
+The same holds for b.
+If one b is entering,
+then all b's should enter.
+If we look at c, c is exiting.
+So if there is one c arrow
+going out of the region,
+then all c arrows should go out of
+the region, and the same holds for d.
+The other activities, they do not
+cross the boundary of such a region.
+So whenever there is consensus,
+on entering, exiting, and
+not crossing, if we find a set of
+states that has these properties,
+then we know that that is a region, and
+that it potentially corresponds to
+a place in the corresponding Petri net.
+So the starting point as as mentioned
+before is a transition system.
+In the examples we will, always assume
+that we have one initial state.
+That is not necessarily always
+the case but we can always add
+an artificial start activity to ensure
+that there is one initial state.
+Typically we'll also prefer
+to have one final state.
+But this is not really a limitation of
+the techniques that we are talking about.
+All states in the transition system,
+of course, need to be reachable.
+So, here, we see the definition
+that I mentioned before.
+So if one a is exiting,
+all a's are exiting.
+If one a is entering,
+then all a transitions should be entering.
+If one a does not cross
+the boundary of a region,
+no a's should be allowed to
+cross the boundary of a region.
+And that should hold for all activities.
+So that's the notion of a region.
+It is best to just look at a number of
+examples to really understand this notion.
+So here the red states
+together form a region.
+There is one a arc, and
+that a arc is entering.
+So there is agreement on the a arc.
+If we look at the b arcs,
+in this diagram you can see four.
+Then all the b arcs are going from
+a red state to an uncolored state.
+So they are all exiting.
+So there is consensus on the exiting of b.
+If you look at c, d and
+e, they are either inside and
+remain inside or they are outside and
+remain outside, so they are not crossing.
+So later we will see that this actually
+corresponds to a place where transition
+a is putting a token into, and
+transition b is taking a token from.
+We can look at another region.
+Here, again, we see four states, and
+if you look at these four states,
+they form a region where
+a is not crossing,
+b is entering, e is exiting,
+c and d do not cross.
+Later we will see that this
+corresponds to the place connecting b
+to the final transition.
+This is another region.
+Now it consists of just a single state.
+A is exiting the rest does not cross.
+What we see if we look at this
+particular region is that it
+contains the initial state.
+If that is the case we will mark
+the corresponding place with a token.
+So all regions that correspond,
+that contain the initial state,
+they correspond to a marked place,
+that initially has one token.
+This is another region, now d is exiting,
+a is entering, the rest does not cross.
+Let us now take a look at
+something that is not a region so
+that we have a good
+understanding of the notion.
+If we look at this example with
+the three states colored red,
+together they do not form
+a region because we see b
+arcs that are exiting,
+every cb arcs that are not crossing.
+So there is no consensus with
+respect to the b transitions.
+There's also no consensus
+with respect to c and d.
+Some arcs are exiting,
+some of them are not crossing.
+So this is not a region.
+Also this is not a region,
+for very similar reasons.
+If we just take a look at these
+two states, then we see a b
+that is exiting, but
+we also see b's that are not crossing.
+The same holds for c and d.
+So this is not a region.
+So there may be multiple regions
+on this small transition system.
+You can see here in the different
+colors the different regions.
+But any combination of two
+regions is again a region.
+And so
+the number of regions seems to explode.
+So, if we selectively
+choose the right regions we
+get a corresponding nice process
+model as you can see here.
+But the question is,
+how to select the right regions?
+To really understand the fact that
+we need to select the right regions,
+it is good to look at some examples and
+count the number of regions.
+So take a look at this Petri net, where we
+have a number of concurrent activities.
+We can construct the reachability graph.
+We can all imagine what
+the reachability graph looks like.
+How many regions does
+this reachability graph,
+which is a transition system,
+actually have?
+Take a moment to think about it.
+Now let's take a look at the answer.
+So there are two to the power n states
+if there are n concurrent activities.
+Then, if we look at the regions,
+we cannot have the situation,
+which is illustrated here.
+Where for example two activities
+are both exiting, a and b.
+Because if we are in this situation,
+then we also know that there will be
+a's and b's that are not crossing.
+So at most, one transition label can be
+crossing the boundary of the region.
+So if we use this reasoning, then we
+can see that there are n ways to split
+the states into two groups and each of
+these two groups correspond to a region.
+Also the empty set,
+the set consisting of no states, and
+the set consisting of all states,
+they are regions.
+So we get 2 times n plus 1, regions
+that are possible in this situation.
+So this is quite okay.
+However let us now look
+at the next question.
+Now we have a sequence of n activities,
+to there are n plus 1 states before,
+after, and in between.
+So how many regions does
+the reachability graph,
+which is a transition system of
+this particular Petri net, have?
+Again, take a moment to think about this.
+The answer is that every subset of
+states corresponds to a region.
+So you have 2 to the power
+n plus 1 possible regions.
+Many of these regions look
+redundant if we convert them
+back to places in the Petri net.
+Any combination of states,
+corresponds to a region.
+So, in this particular example if you
+would take a look at ten activities,
+executed in sequence,
+we have more than 2,000 possible regions.
+So imagine a Petri net with
+more than 2,000 places just to
+describe a sequence of ten activities.
+It shows that we need to reduce the number
+of regions that we are looking at and
+therefore, we only consider minimal,
+non-trivial regions.
+So let us define these notions.
+We only include non-trivial,
+minimal regions.
+First of all, we discard the so called
+trivial regions, the empty set of states,
+and the set of all states,
+they are regions by definition, but
+they carry no information whatsoever,
+so we will not consider these.
+Moreover, if a region
+can be decomposed into
+smaller non-trivial regions, then we
+will not consider the higher region.
+Okay.
+because otherwise we get
+an explosion of combinations.
+Let's take a look what
+this actually means.
+So if we for
+example first look at our example and
+we look at trivial regions, then the set
+of all states and the empty set of states,
+they are both regions but they are
+trivial, so we will never consider them.
+To understand the notion
+of minimal regions we
+first need to understand
+the notion of a compliment.
+In this case we have the region
+consisting of one blue state.
+If we take all states minus this blue
+state, this is the so-called complement,
+indicated here by the red states, then
+by definition that is also the region.
+So if we have a region then all the states
+minus this region is again a region.
+So if we understand
+the notion of a complement,
+we can now try to understand why
+we only consider minimal regions.
+If we have a larger region, and
+we have a smaller region contained
+in it, and we take the difference
+between the larger region and
+the smaller region, then the result,
+by definition, is again a region.
+If we again take a look at this
+region indicated here in yellow,
+then the question,
+is this a minimal region?
+Does it contain other regions?
+And if we look closely, we can see that
+the last state, is again a region.
+So, we have the, the yellow region,
+we have the green region, and again, if we
+take the difference between the larger and
+the smaller one, we again get a region.
+So this means that we can break down
+larger regions into smaller regions and
+if we can no longer identify nontrivial
+regions in them, they are minimal.
+And the idea is that in all of our
+reasoning we will only consider minimal
+regions, in order to reduce
+an explosion of the number of
+places in the Petri net.
+So in our running example, if we look at
+all the minimal regions they are indicated
+here, and if you convert them into places
+we get the corresponding Petri net.
+So, how does it work exactly?
+For each transition label
+in the transition system,
+we add a transition to
+the corresponding Petri net.
+There may be many transitions in
+the transition system that have
+the same label but they're all
+mapped onto the same transition.
+Then we compute the minimal
+non trivial regions.
+We're just breaking down regions into
+smaller parts until they can no longer be
+further decomposed.
+Then each of these minimal non-trivial
+regions is converted into a place in
+the Petri net, and the inputs and
+outputs are clear by looking at what
+is entering and exiting the region.
+And we add a token to each place
+that corresponds to a region,
+that contains the initial state.
+So if we do that the result
+is a minimal saturated net.
+And in our example it looks like this.
+So this is exactly the Petri net
+that you would like to have.
+So ProM supports
+the construction of regions.
+And a simple test to see whether it
+works well is that we take a Petri net.
+We construct the corresponding
+reachability graph,
+using the techniques that we
+saw in the previous lecture.
+And we get a reachability graph,
+which in this case is very large.
+And so here we see the top part,
+we can zoom out a bit.
+And we can see that there are many states.
+There are more than 1000 states, and
+it's impossible to visualize
+this in a proper way.
+So this is a transition system that
+is very large and very complicated.
+But if we now apply state based
+regions to this transition system and
+apply the algorithm just described, then
+this is the Petri net that we rediscover.
+So, from this mess of all these states and
+all these transitions we are able to
+rediscovered the concurrency that
+was there in the first place.
+So let us take a look at another example.
+So here we see a log,
+with the traces indicated.
+We have seen this in the context
+of the Alpha algorithm.
+If we use the approach just described, so
+we first construct a transition system.
+Then we take this transition system and
+apply state-based regions to it,
+then this is the Petri net that we get.
+And this is the Petri net which is
+exactly the same as we would find if we
+would apply the Alpha algorithm.
+Note that again we have these two
+redundant places towards the end of
+the process model.
+There are, however, also situations
+where state based regions really
+produce a better result than
+the Alpha algorithm would do.
+So for example if we take a look at
+this log, we see the sequences a,
+c, and d, b, c, and e.
+If we create the transition
+system it looks like this.
+We are using the past with
+a multiset abstraction.
+And now if we compute the regions for
+this example and convert this
+into places of the corresponding
+Petri net, then we discover this.
+And please note the two highlighted
+places, these are places
+that capture the causality between a and
+d, and the causality between b and
+e, even though a and b and b and
+e never follow one another.
+So the Alpha algorithm would produce
+a model that is too general in
+this situation, but using regions,
+we can find the right model.
+In the next lecture, we will focus on
+the limitations of this two-step approach.
+So we will look at under which
+circumstances will it not work, and
+what are possible extensions
+that can be used.
+We are still in Chapter 6,
+where we consider all these more
+advanced process discovery techniques.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

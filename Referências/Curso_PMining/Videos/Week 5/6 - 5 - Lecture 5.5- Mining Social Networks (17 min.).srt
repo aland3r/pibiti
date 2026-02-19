@@ -1,0 +1,992 @@
+1
+00:00:00,030 --> 00:00:07,192
+[MUSIC]
+
+2
+00:00:07,192 --> 00:00:08,940
+Welcome to this lecture.
+
+3
+00:00:08,940 --> 00:00:11,630
+After enriching models with time and
+
+4
+00:00:11,630 --> 00:00:16,430
+data related aspects we now focus
+on the resource perspective.
+
+5
+00:00:16,430 --> 00:00:22,150
+We will learn to create resource
+activity and hand over work matrices.
+
+6
+00:00:22,150 --> 00:00:27,320
+Moreover we will see that social
+networks can be created from event data.
+
+7
+00:00:29,660 --> 00:00:32,780
+Events that we see in event logs,
+
+8
+00:00:32,780 --> 00:00:38,320
+they often capture human behavior and that
+makes their analysis very interesting.
+
+9
+00:00:39,680 --> 00:00:43,920
+Humans leave all kinds of
+trails in all kinds of systems.
+
+10
+00:00:43,920 --> 00:00:47,280
+The first week,
+we spoke about the Internet of events.
+
+11
+00:00:47,280 --> 00:00:52,860
+One can look at what people are doing
+socially, on Facebook or Twitter.
+
+12
+00:00:52,860 --> 00:00:56,070
+One can look at work-related systems.
+
+13
+00:00:56,070 --> 00:01:01,410
+And in the future, more and more devices
+will be connected to the Internet, and
+
+14
+00:01:01,410 --> 00:01:04,690
+will collect data about human behavior.
+
+15
+00:01:04,690 --> 00:01:13,300
+So in this lecture, we will focus on
+analyzing the social aspect of event logs.
+
+16
+00:01:13,300 --> 00:01:15,430
+And we will look at things
+like social networks.
+
+17
+00:01:17,510 --> 00:01:20,740
+So, what is the input for such analysis?
+
+18
+00:01:20,740 --> 00:01:27,480
+We have event logs and these event
+logs may refer to the actual people,
+
+19
+00:01:27,480 --> 00:01:32,770
+the actual actors, executing
+the activities, as you can see here.
+
+20
+00:01:33,900 --> 00:01:37,110
+So events have a resource attribute, and
+
+21
+00:01:37,110 --> 00:01:42,250
+using these resource attributes,
+we can do very simple forms of analysis.
+
+22
+00:01:43,320 --> 00:01:50,060
+For example if you look at this so-called
+resource-activity matrix, we can see
+
+23
+00:01:50,060 --> 00:01:56,190
+how many times a resource is
+executing particular activities.
+
+24
+00:01:57,360 --> 00:02:01,660
+So if you look at this particular example
+extracted from the event log that we
+
+25
+00:02:01,660 --> 00:02:06,516
+have seen before,
+we can see that activity a is
+
+26
+00:02:06,516 --> 00:02:12,960
+executed on average exactly once.
+
+27
+00:02:12,960 --> 00:02:17,210
+And we can see that by adding up
+the numbers in this particular column.
+
+28
+00:02:18,700 --> 00:02:22,020
+What we can also see is that Pete,
+Mike, and
+
+29
+00:02:22,020 --> 00:02:25,048
+Ellen are the only ones
+executing this activity.
+
+30
+00:02:25,048 --> 00:02:30,070
+So in 30% of the cases,
+a is being executed by Pete.
+
+31
+00:02:31,160 --> 00:02:35,640
+In 50% of the cases,
+a is being executed by Mike, and
+
+32
+00:02:35,640 --> 00:02:39,150
+in the remaining 20% it
+is executed by Ellen.
+
+33
+00:02:39,150 --> 00:02:43,350
+So we can read such information
+from the resource activity metrics.
+
+34
+00:02:44,440 --> 00:02:51,810
+What we can also see is that Sara is
+the only person able to execute activities
+
+35
+00:02:51,810 --> 00:02:57,390
+e and f based on the evidence that
+we have seen in the event log.
+
+36
+00:02:57,390 --> 00:03:03,408
+On average, 2.3 times per case
+activity e is executed by Sara.
+
+37
+00:03:03,408 --> 00:03:07,910
+So the resource-activity matrix
+
+38
+00:03:07,910 --> 00:03:13,120
+provides basic insights into who
+is doing what in the event log.
+
+39
+00:03:13,120 --> 00:03:14,850
+But the information is very basic.
+
+40
+00:03:17,400 --> 00:03:19,500
+Let's take a look at this event log and
+
+41
+00:03:19,500 --> 00:03:23,660
+also try to create
+a resource activity matrix.
+
+42
+00:03:23,660 --> 00:03:28,780
+So again in this log we see that Pete
+starts by executing activity a for
+
+43
+00:03:28,780 --> 00:03:31,720
+case 1 at time 10.
+
+44
+00:03:31,720 --> 00:03:36,040
+If we look at the end of this
+event log we can see that Carol
+
+45
+00:03:37,650 --> 00:03:42,340
+executes activity f for case 2.
+
+46
+00:03:42,340 --> 00:03:44,390
+Here we can see all the information.
+
+47
+00:03:44,390 --> 00:03:49,190
+So we can see the process model and
+we can see the event log.
+
+48
+00:03:49,190 --> 00:03:53,840
+And now try to create a resource
+activity matrix yourself.
+
+49
+00:03:53,840 --> 00:03:54,880
+This may take some time.
+
+50
+00:03:57,190 --> 00:04:00,200
+So the answer is shown here.
+
+51
+00:04:00,200 --> 00:04:05,450
+Based on the event log we can extract
+this resource activity matrix.
+
+52
+00:04:05,450 --> 00:04:10,250
+So, what we can see is that Pete
+is the only one able to execute a.
+
+53
+00:04:10,250 --> 00:04:15,780
+And for example, Carol is the only one
+able to execute f, and on average,
+
+54
+00:04:15,780 --> 00:04:18,060
+this is done once per case.
+
+55
+00:04:21,590 --> 00:04:25,170
+The matrix that we just shown
+is not really showing any
+
+56
+00:04:25,170 --> 00:04:27,120
+relationships between people.
+
+57
+00:04:27,120 --> 00:04:29,710
+For that we need to
+create a social network.
+
+58
+00:04:29,710 --> 00:04:31,483
+So how does that work?
+
+59
+00:04:31,483 --> 00:04:35,680
+Let's first start by looking
+at a real-life example.
+
+60
+00:04:35,680 --> 00:04:41,379
+So this is the social network of
+the so-called Al-Qaeda network
+
+61
+00:04:41,379 --> 00:04:44,080
+after the 9/11 disaster.
+
+62
+00:04:45,530 --> 00:04:51,079
+So this social network was created
+by analyzing newspaper articles.
+
+63
+00:04:53,410 --> 00:04:58,970
+Social network analysis, creating these
+types of graphs is already very old.
+
+64
+00:04:58,970 --> 00:05:05,010
+Already in the 1930s Moreno
+created such networks.
+
+65
+00:05:05,010 --> 00:05:09,160
+We can view them as a graph
+with thicker and thinner lines
+
+66
+00:05:09,160 --> 00:05:14,290
+indicating the relationships, or
+we can look at them in matrix form.
+
+67
+00:05:17,150 --> 00:05:21,070
+The nodes in such a diagram
+that correspond to people or
+
+68
+00:05:21,070 --> 00:05:27,310
+groups of people or departments,
+the arcs they indicate relationships
+
+69
+00:05:27,310 --> 00:05:32,790
+they have weights or
+inverted notion of distance.
+
+70
+00:05:32,790 --> 00:05:37,390
+So what you can see in this social network
+is that the strongest relationships
+
+71
+00:05:37,390 --> 00:05:40,710
+are indicated using thick lines.
+
+72
+00:05:40,710 --> 00:05:45,940
+We can also compute metrics over
+such social networks to see
+
+73
+00:05:45,940 --> 00:05:50,830
+which are the people that
+are most central in this network.
+
+74
+00:05:50,830 --> 00:05:56,160
+We can also identify cliques of people,
+people that have many relationships among
+
+75
+00:05:56,160 --> 00:06:02,170
+them as a group, but with fewer
+connections to the rest of the network.
+
+76
+00:06:04,970 --> 00:06:08,030
+So this the notation that we will use.
+
+77
+00:06:08,030 --> 00:06:11,860
+So the ovals correspond to
+organizational entities.
+
+78
+00:06:11,860 --> 00:06:19,520
+These can be individual resources, people,
+roles, but also things like departments.
+
+79
+00:06:19,520 --> 00:06:23,250
+The arcs correspond to relationships.
+
+80
+00:06:23,250 --> 00:06:28,500
+The thickness of an arc indicates how
+strong this relationship is and
+
+81
+00:06:28,500 --> 00:06:33,700
+we can also vary the size
+of the ovals to indicate
+
+82
+00:06:33,700 --> 00:06:38,359
+how frequent the entity is
+executing particular activities.
+
+83
+00:06:40,760 --> 00:06:46,280
+There are many ways to measure
+the importance of a node.
+
+84
+00:06:46,280 --> 00:06:48,790
+For example,
+a person in such a social network.
+
+85
+00:06:50,050 --> 00:06:53,660
+There is the notion of degree centrality.
+
+86
+00:06:53,660 --> 00:06:56,150
+This simply counts,
+if you look at the node,
+
+87
+00:06:56,150 --> 00:07:03,080
+how many arcs it has to other nodes,
+so it's a very localized notion.
+
+88
+00:07:03,080 --> 00:07:05,900
+So, the things that are highlighted in red
+
+89
+00:07:05,900 --> 00:07:11,950
+indicate the nodes that have
+the highest degree of centrality.
+
+90
+00:07:11,950 --> 00:07:17,390
+If you look at the diagram in the middle,
+we can see closeness centrality.
+
+91
+00:07:17,390 --> 00:07:21,150
+So now the nodes in red
+are most important.
+
+92
+00:07:21,150 --> 00:07:25,730
+Not because they have many direct
+neighbors, but it is based on
+
+93
+00:07:25,730 --> 00:07:30,750
+one divided by the sum of all shorter
+paths to this particular node.
+
+94
+00:07:31,850 --> 00:07:35,300
+So the things that are most
+central are indicated in red.
+
+95
+00:07:36,530 --> 00:07:39,970
+A related notion is
+betweenness centrality.
+
+96
+00:07:39,970 --> 00:07:44,100
+Now we count the fraction of
+shortest paths between any two
+
+97
+00:07:44,100 --> 00:07:49,530
+nodes going through the nodes that
+we are trying to analyze.
+
+98
+00:07:49,530 --> 00:07:52,980
+So you can see depending on
+the notion that you choose
+
+99
+00:07:52,980 --> 00:07:58,510
+different entities will become central
+in the network that we are considering.
+
+100
+00:08:00,080 --> 00:08:01,850
+This is a topic in itself.
+
+101
+00:08:01,850 --> 00:08:05,190
+There are many of such 
+definitions, and
+
+102
+00:08:05,190 --> 00:08:08,320
+it's a bit outside
+the scope of this course.
+
+103
+00:08:08,320 --> 00:08:13,100
+However, based on event logs we can
+create such networks and
+
+104
+00:08:13,100 --> 00:08:15,230
+apply standard techniques to analyze them.
+
+105
+00:08:16,630 --> 00:08:21,730
+So, based on an event log,
+how can we create such a social network?
+
+106
+00:08:23,020 --> 00:08:26,250
+Well, this is done using
+the handover of work matrix.
+
+107
+00:08:27,290 --> 00:08:30,370
+This is a matrix where we show,
+
+108
+00:08:30,370 --> 00:08:36,050
+how frequently work is handed over
+from one person, to another person.
+
+109
+00:08:37,120 --> 00:08:41,380
+So to be more precise,
+we count the number of times work is
+
+110
+00:08:41,380 --> 00:08:46,790
+handed over from one resource to
+another resource on average per case.
+
+111
+00:08:48,350 --> 00:08:53,310
+So based on the event log
+that we have seen earlier
+
+112
+00:08:54,520 --> 00:09:01,040
+we construct this handover of work
+matrix where Pete is handing over
+
+113
+00:09:01,040 --> 00:09:07,949
+work to himself on average
+0.135 times per case.
+
+114
+00:09:07,949 --> 00:09:12,570
+If we look at Sara and Mike,
+their relationship, for
+
+115
+00:09:12,570 --> 00:09:18,359
+example Sara is handing over work to
+Mike on the average 1.4 times per case.
+
+116
+00:09:19,420 --> 00:09:21,320
+So the higher these numbers,
+
+117
+00:09:21,320 --> 00:09:26,100
+the more frequently work is passed on
+from one person to another person.
+
+118
+00:09:27,780 --> 00:09:29,530
+When we do this analysis,
+
+119
+00:09:29,530 --> 00:09:34,300
+we should of course take into
+account the underlying process.
+
+120
+00:09:34,300 --> 00:09:42,340
+So if things are concurrent,
+then we should not count handovers
+
+121
+00:09:42,340 --> 00:09:46,550
+between concurrent activities, because
+they do not causally depend on each other.
+
+122
+00:09:47,760 --> 00:09:54,090
+So while creating this matrix we take
+into account the control flow structure.
+
+123
+00:09:57,400 --> 00:10:01,850
+So based on this matrix,
+we can create a graph where we
+
+124
+00:10:01,850 --> 00:10:06,580
+leave out the arcs which have
+a weight that is too low.
+
+125
+00:10:06,580 --> 00:10:09,190
+So for example, if we look at the matrix,
+
+126
+00:10:09,190 --> 00:10:14,020
+we can see that there is
+a relationship between Ellen and Pete.
+
+127
+00:10:14,020 --> 00:10:17,430
+But it is too weak to
+be shown in this graph,
+
+128
+00:10:17,430 --> 00:10:19,790
+because we chose the threshold of 0.1.
+
+129
+00:10:19,790 --> 00:10:26,870
+So this is the social network based
+on the handover of work matrix.
+
+130
+00:10:26,870 --> 00:10:27,590
+In this picture,
+
+131
+00:10:27,590 --> 00:10:33,490
+the thickness of the arc relates to
+the number in the handover of work matrix.
+
+132
+00:10:34,490 --> 00:10:37,230
+All the ovals have the same size.
+
+133
+00:10:37,230 --> 00:10:41,590
+We are not using the feature that
+we can make the size depending on
+
+134
+00:10:41,590 --> 00:10:46,390
+the frequency with which people
+have executed activities for cases.
+
+135
+00:10:49,090 --> 00:10:53,160
+This diagram is at the level
+of individual resources.
+
+136
+00:10:53,160 --> 00:10:58,610
+We can also create diagrams that
+look at roles or departments.
+
+137
+00:10:58,610 --> 00:11:02,970
+In fact, if we look at an information
+system of a typical organization,
+
+138
+00:11:02,970 --> 00:11:08,470
+there are lots of information
+relating people to departments or
+
+139
+00:11:08,470 --> 00:11:10,740
+to particular roles in the organization.
+
+140
+00:11:12,770 --> 00:11:16,500
+In more advanced information
+systems even the event log
+
+141
+00:11:16,500 --> 00:11:21,190
+itself has information about the role or
+
+142
+00:11:21,190 --> 00:11:25,420
+the department that people have when
+they are executing a particular event.
+
+143
+00:11:25,420 --> 00:11:31,970
+In our small example, we are now
+assuming that there are three roles,
+
+144
+00:11:31,970 --> 00:11:36,080
+the role of Assistant, the role of
+Expert and the role of Manager.
+
+145
+00:11:36,080 --> 00:11:40,470
+For example Sara is the only person
+that can play the role of Manager,
+
+146
+00:11:40,470 --> 00:11:43,260
+while we have three assistants,
+Pete, Mike and, Ellen.
+
+147
+00:11:44,720 --> 00:11:48,850
+So if we have grouping of
+resources in this way,
+
+148
+00:11:48,850 --> 00:11:54,500
+we can also create social networks
+at the higher level of abstraction.
+
+149
+00:11:54,500 --> 00:11:58,390
+So now you can see the social
+network relating assistance to
+
+150
+00:11:58,390 --> 00:12:00,820
+managers to experts.
+
+151
+00:12:00,820 --> 00:12:06,170
+And so, in this picture,
+again the arcs show how frequent, for
+
+152
+00:12:06,170 --> 00:12:09,830
+example work is handed over
+from a manager to an assistant.
+
+153
+00:12:11,000 --> 00:12:14,830
+But what we can also see is
+that the size of the oval is
+
+154
+00:12:14,830 --> 00:12:19,930
+indicating how much work is done by
+people having a particular role.
+
+155
+00:12:20,950 --> 00:12:25,800
+So this gives insights at the desired
+level of abstraction that we
+
+156
+00:12:25,800 --> 00:12:26,770
+would like to use.
+
+157
+00:12:28,540 --> 00:12:35,150
+ProM supports the construction of such
+social networks in many different ways.
+
+158
+00:12:35,150 --> 00:12:37,260
+So, here we see some examples.
+
+159
+00:12:38,440 --> 00:12:42,310
+So first of all there is a plug-in
+that creates a social network based on
+
+160
+00:12:42,310 --> 00:12:43,720
+the handover of work.
+
+161
+00:12:43,720 --> 00:12:45,540
+This is exactly what we have seen before.
+
+162
+00:12:46,580 --> 00:12:49,740
+However, there are many other ways that we
+
+163
+00:12:49,740 --> 00:12:52,670
+can build a social network
+based on event data.
+
+164
+00:12:54,280 --> 00:12:59,780
+One example is that we can consider
+people to be close, to have a strong
+
+165
+00:12:59,780 --> 00:13:06,770
+relationship, if they typically execute
+the same collection of activities.
+
+166
+00:13:06,770 --> 00:13:12,180
+And so people doing the same types of
+things, are considered to be close.
+
+167
+00:13:12,180 --> 00:13:15,080
+People doing very different
+things are considered to
+
+168
+00:13:15,080 --> 00:13:17,010
+be very far apart from each other.
+
+169
+00:13:18,010 --> 00:13:20,540
+We can do this at the level of activities.
+
+170
+00:13:20,540 --> 00:13:23,540
+We can also do this at the level of cases.
+
+171
+00:13:23,540 --> 00:13:29,760
+So people that often work together on
+the same cases are considered to be close.
+
+172
+00:13:29,760 --> 00:13:36,330
+People never working together on the same
+case are considered to be more distant.
+
+173
+00:13:36,330 --> 00:13:42,160
+So using these distance notions
+we can create social networks.
+
+174
+00:13:43,410 --> 00:13:46,590
+And for example here you see a social
+network based on the handover of
+
+175
+00:13:46,590 --> 00:13:49,630
+work metric, as we have seen before.
+
+176
+00:13:49,630 --> 00:13:54,110
+So the coloring can be
+used to identify cliques.
+
+177
+00:13:54,110 --> 00:13:56,570
+We can remove arcs that are infrequent.
+
+178
+00:13:56,570 --> 00:14:01,240
+We can influence the size of the bubbles
+based on particular characteristics so
+
+179
+00:14:01,240 --> 00:14:02,510
+it's a very flexible tool.
+
+180
+00:14:05,190 --> 00:14:11,531
+If we look at problem we can also analyze
+resource behavior, social behavior,
+
+181
+00:14:11,531 --> 00:14:18,540
+by creatively replacing activity
+names by resource names.
+
+182
+00:14:18,540 --> 00:14:21,420
+And some of the plugins
+actually have a feature for
+
+183
+00:14:21,420 --> 00:14:23,300
+this, to do this automatically.
+
+184
+00:14:24,440 --> 00:14:27,380
+So for example,
+if you look at inductive minor,
+
+185
+00:14:27,380 --> 00:14:31,070
+what you see here is the discovered
+control flow process.
+
+186
+00:14:31,070 --> 00:14:36,620
+So now the nodes are activities,
+but you can change the view and
+
+187
+00:14:36,620 --> 00:14:42,430
+create a model where the nodes correspond
+not to activities but to people.
+
+188
+00:14:43,550 --> 00:14:46,205
+Now we see a different type of process and
+
+189
+00:14:46,205 --> 00:14:51,190
+it is showing how work is flowing
+from one person to another person.
+
+190
+00:14:51,190 --> 00:14:56,370
+So in a way you can think of this, as a
+kind of social network, but on top of it,
+
+191
+00:14:56,370 --> 00:15:00,290
+because it's like a process,
+we can animate things over it.
+
+192
+00:15:02,940 --> 00:15:08,590
+So in summary, what we have seen is that
+we can create a resource activity matrix,
+
+193
+00:15:08,590 --> 00:15:13,220
+showing who is doing what,
+very basic information.
+
+194
+00:15:13,220 --> 00:15:17,470
+We can create a handover of
+work matrix showing how work is
+
+195
+00:15:17,470 --> 00:15:20,550
+being transferred from one
+person to another person.
+
+196
+00:15:21,920 --> 00:15:24,500
+And this can be used to
+create a social network.
+
+197
+00:15:25,820 --> 00:15:30,100
+But the handover of work matrix is
+just one of many possibilities that we
+
+198
+00:15:30,100 --> 00:15:33,790
+can use to create such a social network.
+
+199
+00:15:33,790 --> 00:15:38,900
+Event logs provide lots of information
+that can be used to create
+
+200
+00:15:38,900 --> 00:15:43,620
+different views on the social
+behavior inside work processes.
+
+201
+00:15:45,610 --> 00:15:51,060
+Once we have such a social network,
+it can be analyzed in many different ways.
+
+202
+00:15:51,060 --> 00:15:53,930
+We can compute which
+are the most central people,
+
+203
+00:15:53,930 --> 00:15:57,200
+what are cliques of people often
+working together, etcetera.
+
+204
+00:15:58,420 --> 00:16:03,089
+So it is very important that
+one is aware that one can
+
+205
+00:16:03,089 --> 00:16:09,498
+analyze the human behavior in these
+processes that we are analyzing,
+
+206
+00:16:09,498 --> 00:16:14,732
+and this often provides clues
+on how to do things better.
+
+207
+00:16:14,732 --> 00:16:19,547
+To read more about this,
+please take a look at chapter 8.
+
+208
+00:16:19,547 --> 00:16:22,382
+Thank you for watching,
+and hope to see you soon.
+
+209
+00:16:22,382 --> 00:16:32,382
+[MUSIC]
+

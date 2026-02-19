@@ -1,0 +1,248 @@
+[MUSIC]
+Welcome to this lecture.
+Today I will provide a brief outlook
+on the last two weeks of this course.
+In the last four weeks we
+have focused on control flow.
+First we looked at process discovery.
+Finding the ordering of activities.
+And we use the metaphor of discovering
+a desire line to see what the process of
+discovery is actually all about.
+In the last week we focused very
+much on conformance checking.
+We were comparing modeled and
+observed behavior.
+Thereby diagnosing
+the deviations that took place.
+Replaying an event log on
+a control flow model allows us to
+breath life into models that
+are otherwise completely static.
+You can see a nice example here of
+breathing life into a static model.
+And for that, event data, is crucial.
+As we have seen before,
+event data contains much more information.
+For example,
+if you look at the animation next to me,
+this is only possible because we
+have timestamps in event logs.
+But in event logs we also have
+information about resources.
+We have information about.
+The properties of customers, we have all
+kind of other data attributes that we can use.
+In the last two weeks we will focus on
+these other perspectives, we will look
+at new process mining tasks related
+to these additional perspectives and
+overall we will focus more on
+the practical side of process mining.
+Also the nature of this
+course will change markedly.
+Lectures will be shorter and
+less technical.
+And this is done to give you all the time
+to do experiments using data and
+the tools that are provided.
+Please be aware of the fact that there
+are lots and lots of event logs available,
+and there is nothing stopping you from
+actually starting analyzing event logs.
+As a starting point,
+you can go to processmining.org.
+So this slide shows the focus so far.
+We have been looking at discovery and
+conformance checking.
+For discovery we start from a log and
+create a model.
+For conformance checking we take a log and
+a model.
+And we provide diagnostics and
+quantify differences between modeled and
+observed behavior.
+In all of these things we have been
+focusing on control flow only.
+But this is only part of the story.
+For example, if you look at this matrix,
+you can see the bigger picture.
+Next to discovery and conformance
+checking we also have enhancement.
+So we take a log and
+an initial model and we repair or
+enrich the model with
+additional information.
+For example we can use conformance
+checking to change the model in
+such a way that it better fit reality.
+Or we can exploit the time stamps to
+extend the model with stochastic or
+performance information.
+To do these things we often
+not just look at control flow,
+but also include time, resources and data.
+And here we often use techniques that,
+are adopted from other areas.
+Like data mining, for example we will
+talk about decision mining in
+processes and for that we will be using
+standard data mining techniques that we
+have seen in the first week.
+We will analyze resource behavior for
+that, we will look at techniques
+related to social network analysis.
+We often look at performance of processes.
+Thereby we can relate techniques
+from operations research like for
+example, simulation or queuing
+networks to process mining techniques.
+So, what are typical topics that we
+will talk about in the next two weeks?
+We will talk about mining decision points,
+understanding why
+certain cases take a particular route,
+other cases take another route.
+We will mine for bottlenecks.
+Where are the bottlenecks?
+Why are they there?
+We will mine social networks.
+In general we will focus
+on the resource behavior.
+For example which people
+are working together?
+When are people most effective?
+Do people start working faster
+if they have more work?
+We will also look at comparing processes.
+For example,
+what is the difference of the process for
+gold customer, versus the process for
+silver customers?
+What are differences between the study
+behavior of students that pass and
+the study behavior of
+students that fail a course?
+For this,
+we use comparative process mining.
+We will look at operational support.
+Everything we have done so
+far was done offline.
+For operational support, we go to
+an online setting where we look at
+techniques like detecting that things
+go wrong, that there are deviations.
+Not after the fact, but at a point in
+time when these deviations happen.
+We will look at predictions.
+For example, what is the remaining
+processing time of a particular case?
+We will even look at
+the recommendations where we
+say based on historic information,
+and information about
+the current state of cases,
+we recommend these are the best
+activities to be executed.
+Or that these are the best resources
+to do a particular activity.
+All these things lead to a more refined
+process mining framework that will be
+explained in detail.
+We will also make a link
+to other types of analysis.
+Earlier I mentioned operations research.
+For example,
+we can use the discovered process models,
+using process mining, to do simulation
+experiments to do what if analysis.
+We will look at the problem
+of data extraction.
+How can we convert data into event logs?
+But we will also give guidelines for
+logging.
+If you are designing a new system, what
+should you actually record to be able to
+do process mining, and to,
+to get the best analysis answers possible?
+We will also talk about conducting
+a process mining project.
+What are the phases?
+What are the
+points that you should be aware of?
+In the context of this, we will see
+that there is a wide range of processes,
+some processes we refer
+to lasagna processes.
+Structured processes,
+where it is not that interesting to
+do process discovery because we already
+know what the process looks like.
+But where we are very interested in
+trying to see how we can improve it.
+For example, through bottleneck analysis,
+through understanding what are the best
+resources at a particular point in time.
+Well, at the other end of the spectrum
+we will find spaghetti processes.
+Processes that are very unstructured,
+where it makes no sense to try to predict
+what is going to happen tomorrow.
+You first need to provide insights.
+And process discovery itself
+is already very valuable.
+All of these things are related
+to creating a toolbox for
+the data scientist or
+the process scientist of the future.
+People need these types of instruments
+to do analysis that really matters,
+and that really helps organizations
+to improve systems and processes.
+As mentioned before,
+the next two weeks will be very different.
+They will be less technical.
+The lectures will be shorter.
+It will have a more applied flavor.
+One of the reasons for having shorter
+lectures is that we would like to
+provide opportunities to actually use the,
+the software.
+Prom/Disco, and the data set, to get hands
+on experience with the process mining.
+Also, try to think beyond
+the data sets that are provided.
+If you go to processmining.org,
+you can find many,
+many data sets that you can use.
+You can also look at,
+process mining data used for competitions.
+For example, the BPI challenges, where
+you can apply process mining to real,
+live, event logs.
+You can also look at the many data
+sets that are publicly available for
+data mining.
+Many of these data sets, one can see that
+in some way, events are being described.
+So you could convert them to event logs.
+There is a, a large movement taking place
+at this point in time, to make data open.
+Many governments.
+Are forced or
+really want to provide data to the,
+citizens, and that is creating new
+possibilities for process mining.
+Also, you can look at social media.
+If you look at Twitter, Facebook, and
+Google, they all provide open APIs.
+So they allow you to extract event logs
+from things that you find interesting.
+These are the chapters that will be
+covered in the next, couple of lectures.
+And as I said before, the focus will now
+be more on the practical side of things.
+Thank you for watching this lecture.
+Hope to see you soon.
+[MUSIC]
+

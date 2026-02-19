@@ -1,0 +1,311 @@
+[MUSIC]
+Welcome to this lecture.
+Process mining extends far beyond
+discovering control-flow models.
+In recent lectures, we have seen that
+we can mine different perspectives.
+Today we will see that these perspectives
+can be combined into more complete models.
+Here you see a picture of an elephant,
+but you see several people that
+are blindfolded and they just see or
+are able to touch part of the elephant.
+So, the person that touches
+the trunk may think it's a snake.
+The person that touches the body
+may think that it is a wall.
+The person that is touching one
+of the four feet may think it's
+a tree, etcetera.
+This is the same problem that we have
+if we try to do process mining, and
+we look at one perspective in isolation.
+So if you look at process models,
+it is not just control-flow, it is also
+about data, it is also about time,
+it's about resources,
+it's about costs, it's about risk.
+We need to combine all of these
+different perspectives in a single model
+to be able to really apply process
+mining in a meaningful way.
+So a process model is composed
+of different perspectives and
+what is always the backbone
+is the control-flow.
+So things are attached to the control-flow
+and in that way they are related.
+So activities in the control-flow, for
+example, they are executed by particular
+resources and take particular amounts of
+time, and may have a particular guard.
+So the control-flow is binding
+all these things together.
+This is a figure that we have seen before.
+What we have seen earlier was that in
+the beginning we focused very much on
+control-flow and
+just discovery and conformance.
+And in recent lectures we have
+extended the scope to also look at
+other perspectives like time,
+resources, and data.
+And also look at things like enhancing
+models with different perspectives.
+So, this picture ties everything together.
+So, how does it work?
+We start with an event log.
+Based on the event log we can create
+a process model using process discovery
+techniques or we can also make a model
+by hand or a combination of both.
+Then we connect the events in
+the event log to this process model,
+focusing mostly on the control-flow.
+Once we have established that
+connection we can start mining for
+the other perspectives.
+So, we try to find roles.
+We try to find bottlenecks.
+Where are particular
+amounts of time being passed.
+We try to identify guards.
+And we put everything together in
+an integrated model that we can return and
+use for other types of analysis like,
+for example, simulation.
+So let's take a look at
+the individual steps.
+So start with the control-flow.
+It is discovered or made by hand.
+And what is very important
+is that we should be able to
+align it with the event log.
+Once we do that, we can start looking for
+the other perspectives.
+We had two lectures on decision learning,
+as a learning decision points.
+What are the guards involved
+in such a decision, and
+we can add that to the process model.
+Here in red, you can see the guards.
+What is not shown are the variables,
+and read and write arcs.
+If we extend the model further,
+we can also add such information.
+We also looked at the time perspective,
+finding out where are bottlenecks.
+We can attach such
+information to activities and
+to the,
+places in the corresponding Petri net.
+We can also capture
+routing probabilities so
+this way we can enrich the model with
+time and performance related information.
+Last but not least we can extend
+the model with information about
+resources the people involved in
+the process or the machines being used.
+So here you see three roles that we
+have learned automatically based
+on the event log, and they serve
+as the linking pin between activities in
+the process model and individual workers.
+So a role corresponds to
+a set of activities that
+require this role and
+a set of people has this particular role.
+So we can learn such things automatically,
+as we have seen in the previous lecture,
+or we can obtain them from
+the information system.
+And then we put everything together.
+And such a more holistic model can
+be used to diagnose the process.
+It gives ideas on re-engineering,
+how to improve the process.
+It can also be used for
+operational support.
+One of the topics that we will
+cover in a later lecture.
+For example,
+such a model can be used for simulation.
+What is very important is that we are
+aware of the limits of the models that we
+are generating.
+They may be over or under fitting.
+The models tend to be descriptive.
+They describe what has happened,
+not what should happen.
+So when using such more complicated
+models, one should be very
+much aware of the limitations of the
+models that are automatically generated.
+Often they are just a starting point for
+further analysis.
+And they require editing adding
+additional assumptions etc.,
+to be really used in subsequent steps.
+If we do process mining we are often
+focusing on the as is situation.
+How are things now, where are the
+problems, how can we understand, and
+explain these problems?
+But we would like to move from
+as is to the to be situation.
+One of the things that we can do for
+example is to use operational support and
+to give recommendations and
+predictions to help people doing
+the execution of the process better.
+We can also use simulation.
+And simulation aims to
+answer what if questions.
+So you have an as-is model and
+you explore different to-be situations.
+And using simulation you can do that.
+So what is simulation?
+It's just playing out a process model,
+so you have a process model and
+you just run the process as it has
+been modeled you do that several times.
+And you can, for example,
+collect performance related information.
+And this can be used to
+explore alternative designs.
+For example, designs where two activities
+are no longer executed in sequence, but
+they are executed concurrently.
+You can also see what effect is of
+adding resources or removing resources.
+This requires us to have a model of
+the process itself and it's environment.
+And for example to model the availability
+of resources and the arrival of new cases.
+And process mining of course provides
+exactly the input required to
+create such simulation models.
+Let's take a look at this
+in a bit more detail.
+This picture shows the different
+ingredients of a simulation model.
+For a simulation model, we should
+not just know the control-flow, but
+we also should have information
+about environment of the process.
+So how many resources are available
+when are they available,
+what can they do, at what speed.
+We should also have information
+about arrival process and
+all kinds of other information
+related to the context of the process.
+We can learn much of such
+information from process mining.
+Process mining is providing information
+for example about bottlenecks and
+things like that.
+We can add that to the process model.
+To do simulation
+experiments we also need to
+decide on things like the number of sub
+runs and the length of each sub run.
+And the performance indicators
+that we would like to measure.
+So these are the ingredients.
+But if you do a process mining
+project in a classical way
+you may encounter many problems.
+So, this slide identified
+ten different risks that you
+typically encounter if you
+do a simulation project.
+So often simulation models have
+hidden assumptions which are not
+corresponding to reality.
+Using process mining you can avoid many of
+the risks that are being highlighted here.
+The confrontation with event data helps to
+improve the quality of simulation results.
+It is very well known that
+simulation and
+other statistical
+techniques can be misused.
+And you often see that in
+the context of simulation.
+Where just by playing with a parameter
+which is not really explicit for
+the end user, one can influence
+the results dramatically.
+So one should be very careful when
+applying simulation in reality.
+Using process mining one can move
+beyond traditional simulation.
+So traditional business process simulation
+often looks at processes in steady state.
+In reality processes are often
+not in steady state.
+For example the arrival process may vary,
+the availability of resources may vary,
+and this should be
+incorporated in the model.
+And one can only do that by extracting
+information from event logs
+to be able to replay processes
+in a more realistic manner.
+And to explore different alternatives.
+Classical simulation models also often
+have a very naive view of resources.
+Resources that are constantly available,
+and are eager to work, and
+always work at the same pace.
+In reality this is not true.
+Process mining helps
+to find out these more
+sophisticated phenomena in such a way
+that they can be added to the model.
+Traditional simulation typically
+starts with an empty process.
+If you are interested
+in the transient behavior, so
+what will happen tomorrow or what will
+happen in a week, then it's very important
+to also incorporate the initial state,
+the current state into the model.
+All of these things helped making
+simulation more applicable and
+more realistic.
+What this diagram also shows is that
+it provides very interesting means to
+view a reality and
+simulation in exactly the same way.
+So simulation models can generate
+event logs which are very
+similar to the event logs that are
+generated by the real information system.
+And this really helps us
+to do what if analysis and
+compare reality to all kinds
+of alternative scenarios.
+In this lecture we have seen that
+we can indeed combine the different
+perspectives into one single
+complete process model.
+That discovering data, time,
+resources all tied together using
+the control-flow backbone.
+Such complete models can be used for
+simulation studies, but they
+can also be used for operational support,
+as we will see in a later lecture.
+If you would like to read more
+about these models that cover
+different perspectives, please take
+a look at the end of chapter eight,
+which is describing the interrelationship
+between all the different perspectives.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

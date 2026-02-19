@@ -1,0 +1,886 @@
+1
+00:00:00,051 --> 00:00:07,158
+[MUSIC]
+
+2
+00:00:07,158 --> 00:00:08,670
+Welcome to this lecture.
+
+3
+00:00:08,670 --> 00:00:12,580
+Today we discuss another
+approach to check conformance.
+
+4
+00:00:12,580 --> 00:00:17,550
+It is based on replaying the event log to
+diagnose differences, between modeled and
+
+5
+00:00:17,550 --> 00:00:18,550
+observed behavior.
+
+6
+00:00:21,510 --> 00:00:27,580
+This figures show a desire line, this
+desire line is clearly indicating that
+
+7
+00:00:27,580 --> 00:00:34,060
+the behavior of people, is very different
+from the expected or modeled behavior.
+
+8
+00:00:34,060 --> 00:00:38,540
+One can think of the gate in
+this diagram as the model,
+
+9
+00:00:38,540 --> 00:00:42,510
+one can think of the desire
+line as the event log, and
+
+10
+00:00:42,510 --> 00:00:46,980
+what is shown is that there is
+clearly deviating behavior.
+
+11
+00:00:46,980 --> 00:00:52,020
+Through conformance checking we would
+like to diagnose such differences, and
+
+12
+00:00:52,020 --> 00:00:54,840
+we would also like to
+associate a number to it.
+
+13
+00:00:54,840 --> 00:00:56,410
+How good is the conformance?
+
+14
+00:00:59,660 --> 00:01:01,140
+In the last lecture,
+
+15
+00:01:01,140 --> 00:01:04,850
+we looked at conformance
+checking using causal footprints.
+
+16
+00:01:04,850 --> 00:01:07,990
+And this approach has
+all kinds of problems.
+
+17
+00:01:07,990 --> 00:01:12,654
+For example, it does not take
+into account the frequency of traces and
+
+18
+00:01:12,654 --> 00:01:14,990
+it does not actually look at the behavior.
+
+19
+00:01:16,190 --> 00:01:20,910
+Today, we will look at a much more refined
+method based on token-based replay.
+
+20
+00:01:23,760 --> 00:01:27,980
+So let's take a look at an example,
+we see a trace a b e g,
+
+21
+00:01:30,260 --> 00:01:33,570
+and this trace does not
+fit into this model.
+
+22
+00:01:35,090 --> 00:01:41,740
+If we would just consider fitness
+at the level of complete traces,
+
+23
+00:01:41,740 --> 00:01:46,510
+one would say, this trace has a fitness
+of zero, because it doesn't fit.
+
+24
+00:01:48,010 --> 00:01:52,190
+Such answers are not
+very useful because we
+
+25
+00:01:52,190 --> 00:01:59,400
+would like to look at fitness and
+conformance at the level of events.
+
+26
+00:01:59,400 --> 00:02:03,050
+Because if would have long traces,
+then we may have logs,
+
+27
+00:02:03,050 --> 00:02:05,660
+where none of the traces is actually fitting.
+
+28
+00:02:05,660 --> 00:02:10,150
+We would get the conformance of 0, but
+this would be a very misleading number.
+
+29
+00:02:10,150 --> 00:02:14,210
+So, we need to look at somehow
+the fraction of events that
+
+30
+00:02:14,210 --> 00:02:16,900
+is fitting and the fraction of
+events that is not fitting.
+
+31
+00:02:18,170 --> 00:02:22,680
+This is done through counting so
+called missing and remaining tokens, and
+
+32
+00:02:22,680 --> 00:02:27,900
+to illustrate this let's replay
+this trace on this model.
+
+33
+00:02:27,900 --> 00:02:29,500
+So we first execute a,
+
+34
+00:02:30,580 --> 00:02:35,990
+after executing a we execute b,
+we still do not see any problem.
+
+35
+00:02:35,990 --> 00:02:39,150
+But while doing this we are producing and
+consuming tokens.
+
+36
+00:02:40,390 --> 00:02:47,950
+Then, the event log says that we need
+to execute e, but, e is not enabled.
+
+37
+00:02:47,950 --> 00:02:52,980
+So we count a missing token, you see that
+there is a problem, we record it, and
+
+38
+00:02:52,980 --> 00:02:54,380
+we continue.
+
+39
+00:02:54,380 --> 00:03:00,240
+Then we execute e, after executing e,
+we need to execute g,
+
+40
+00:03:00,240 --> 00:03:04,480
+and we don't encounter any
+additional problems, except for
+
+41
+00:03:04,480 --> 00:03:10,080
+the fact that when we reach the end of the
+trace, there is still a token left behind.
+
+42
+00:03:10,080 --> 00:03:13,270
+So this example, we have one remaining
+token and one missing token.
+
+43
+00:03:14,790 --> 00:03:19,820
+The total of a six produced tokens,
+there are six consumed tokens,
+
+44
+00:03:19,820 --> 00:03:22,220
+there is one missing token and
+one remaining token.
+
+45
+00:03:23,300 --> 00:03:28,050
+So, we can put these into
+a formula that looks like this,
+
+46
+00:03:28,050 --> 00:03:32,140
+that computes fitness as
+a number between zero and one.
+
+47
+00:03:33,230 --> 00:03:40,120
+The 0 means, the fitness is as bad as
+is possible, a fitness of 1 means perfect
+
+48
+00:03:40,120 --> 00:03:45,510
+fitness, the trace could be replayed
+without encountering any problems.
+
+49
+00:03:45,510 --> 00:03:50,470
+So in this case p and c are equal to 6,
+m and r are equal to 1.
+
+50
+00:03:50,470 --> 00:03:55,825
+So if we fill that in in this formula,
+we get a conformance of
+
+51
+00:03:55,825 --> 00:04:01,370
+0.83 for this particular trace.
+
+52
+00:04:01,370 --> 00:04:04,070
+So what is this approach based on?
+
+53
+00:04:04,070 --> 00:04:09,010
+It is based on simply counting the number
+of produced, consumed, missing and
+
+54
+00:04:09,010 --> 00:04:09,880
+remaining tokens.
+
+55
+00:04:11,000 --> 00:04:16,670
+Missing tokens are tokens that
+are consumed while they are not there.
+
+56
+00:04:16,670 --> 00:04:22,150
+So we need to add a token, the counter
+
+57
+00:04:22,150 --> 00:04:25,890
+r refers to the tokens that
+are left behind at the end.
+
+58
+00:04:25,890 --> 00:04:27,580
+That were not consumed.
+
+59
+00:04:30,000 --> 00:04:32,950
+So, while replaying a trace.
+
+60
+00:04:34,190 --> 00:04:37,970
+At any point in time,
+the place contains
+
+61
+00:04:37,970 --> 00:04:43,490
+p plus m minus c tokens and
+this number should be positive,
+
+62
+00:04:43,490 --> 00:04:47,070
+because there cannot be a negative
+number of tokens in a place.
+
+63
+00:04:47,070 --> 00:04:49,800
+And at the end,
+we would like this place to be empty.
+
+64
+00:04:51,760 --> 00:04:56,830
+So this leads to a couple of
+invariants that are shown here.
+
+65
+00:04:58,290 --> 00:05:02,730
+If you do the replay,
+p plus m will always be bigger or
+
+66
+00:05:02,730 --> 00:05:07,950
+equal to c, because we cannot have
+a negative number of tokens in a place.
+
+67
+00:05:09,110 --> 00:05:12,650
+C will also be at least m because we
+
+68
+00:05:12,650 --> 00:05:17,390
+are never going to add missing tokens
+if they are not needed for consumption.
+
+69
+00:05:18,760 --> 00:05:23,080
+And at the end, r is the number
+of tokens remaining on the place,
+
+70
+00:05:23,080 --> 00:05:25,910
+so r is equal to p plus m minus c.
+
+71
+00:05:27,240 --> 00:05:31,410
+All these numbers, they hold at
+the level of an individual place.
+
+72
+00:05:31,410 --> 00:05:36,280
+But they also hold at the level
+of all places in the process model.
+
+73
+00:05:38,480 --> 00:05:41,950
+There is a special step needed at
+the beginning and at the end, so
+
+74
+00:05:41,950 --> 00:05:46,980
+in the beginning the environment needs to
+produce a token, for the source place.
+
+75
+00:05:46,980 --> 00:05:51,220
+And at the end, that the environment needs
+to consume a token from the sink place.
+
+76
+00:05:52,550 --> 00:05:59,050
+Note, that in the latter case if there is
+no token remaining on the final place,
+
+77
+00:05:59,050 --> 00:06:02,510
+at the end of the trace,
+you still need to consume it.
+
+78
+00:06:02,510 --> 00:06:07,810
+So this will add an extra
+missing token, if it is not there.
+
+79
+00:06:07,810 --> 00:06:11,760
+This way we really check
+whether the trace,
+
+80
+00:06:11,760 --> 00:06:14,100
+has terminated in the desired final state.
+
+81
+00:06:16,110 --> 00:06:18,780
+Let us take a look at some examples, so
+
+82
+00:06:18,780 --> 00:06:22,950
+here you see a trace that
+is perfectly fitting.
+
+83
+00:06:22,950 --> 00:06:29,670
+So if we replay it, we expect that
+the counters m and r, will remain 0.
+
+84
+00:06:29,670 --> 00:06:34,580
+But still,
+we need to understand the principle so,
+
+85
+00:06:34,580 --> 00:06:37,290
+to start easy we look at
+something that fits perfectly.
+
+86
+00:06:38,730 --> 00:06:43,740
+Initially, the environment puts
+a token into this source place.
+
+87
+00:06:44,880 --> 00:06:49,510
+That means that we need to increment the p
+counter by 1, as has happened here.
+
+88
+00:06:51,670 --> 00:06:57,730
+Now, the event log says that a is
+the first activity to be executed.
+
+89
+00:06:57,730 --> 00:07:01,200
+So in the Petri net,
+we are forced to fire a,
+
+90
+00:07:02,600 --> 00:07:09,330
+if we execute a we are consuming one
+token, and we are producing two tokens.
+
+91
+00:07:09,330 --> 00:07:11,630
+So we update the corresponding counters,
+
+92
+00:07:11,630 --> 00:07:14,160
+now we have three produced
+tokens in total.
+
+93
+00:07:15,890 --> 00:07:20,610
+In the next step we need to execute c and
+again we consume and
+
+94
+00:07:20,610 --> 00:07:25,840
+produce a token, and update a counter,
+we need to execute d.
+
+95
+00:07:25,840 --> 00:07:29,100
+Again, we add a consumed and
+a produced token.
+
+96
+00:07:31,080 --> 00:07:36,920
+Then the event log says we need to
+execute an e, this is indeed possible.
+
+97
+00:07:37,940 --> 00:07:42,720
+And now we are consuming two tokens,
+and producing one token.
+
+98
+00:07:42,720 --> 00:07:46,390
+So now the c counter, has been set to 5.
+
+99
+00:07:46,390 --> 00:07:55,430
+Then we do activity h, and reach
+the state with the token on place ends.
+
+100
+00:07:55,430 --> 00:08:02,010
+Now the environment,
+takes this token and consumes it.
+
+101
+00:08:02,010 --> 00:08:06,967
+So we update the c counter,
+so what we see at the end is
+
+102
+00:08:06,967 --> 00:08:11,612
+that p equals 7, c equals 7,
+m and r equals 0.
+
+103
+00:08:12,850 --> 00:08:18,010
+So, if we fill that out in the formula
+that we've seen before, b is 7,
+
+104
+00:08:18,010 --> 00:08:25,171
+c is 7, m is 0, r is 0,
+then we get this result which equals 1.
+
+105
+00:08:26,220 --> 00:08:28,879
+So, this is perfect
+fitness as we expected.
+
+106
+00:08:30,540 --> 00:08:33,670
+Let's now take a look at
+a more interesting trace,
+
+107
+00:08:33,670 --> 00:08:35,140
+namely a trace that doesn't fit.
+
+108
+00:08:35,140 --> 00:08:39,670
+And you can easily see that it doesn't
+fit, because the trace says that
+
+109
+00:08:39,670 --> 00:08:45,130
+after a we should execute d, which based
+on the model is clearly not possible.
+
+110
+00:08:45,130 --> 00:08:49,980
+Let's again compute fitness using
+the formula that we just have seen.
+
+111
+00:08:51,720 --> 00:08:54,830
+It again starts by the fact
+that environment puts
+
+112
+00:08:54,830 --> 00:08:59,580
+a token on the source place,
+so p is equal to 1.
+
+113
+00:08:59,580 --> 00:09:04,750
+Then, in the event log we see that
+we need to do an a, we execute it,
+
+114
+00:09:04,750 --> 00:09:08,769
+we consume and produce a token,
+getting these counters.
+
+115
+00:09:10,630 --> 00:09:13,420
+Now the event log says
+that we need to do d,
+
+116
+00:09:14,920 --> 00:09:20,240
+and what you can clearly see is that d
+is not possible according to the model,
+
+117
+00:09:20,240 --> 00:09:23,190
+because before, b or
+c should have happened.
+
+118
+00:09:24,200 --> 00:09:31,680
+So, now we record the fact that there is
+a missing token, and so we add a token,
+
+119
+00:09:31,680 --> 00:09:38,160
+but we increment the m counter by one,
+yielding this state,
+
+120
+00:09:38,160 --> 00:09:43,480
+so m is now equal to 1,
+p is equal to 3, c is equal to 2.
+
+121
+00:09:43,480 --> 00:09:46,670
+Now we execute c, we consume and
+
+122
+00:09:46,670 --> 00:09:52,650
+produce one token, update the counters,
+we need to execute e.
+
+123
+00:09:52,650 --> 00:09:56,530
+Consume 1, produce 1,
+finally, we need to do h.
+
+124
+00:09:56,530 --> 00:10:00,000
+We, again, consume and produce 1 token.
+
+125
+00:10:01,900 --> 00:10:06,890
+As before, at the end of the trace
+the environment needs to consume a token,
+
+126
+00:10:06,890 --> 00:10:07,990
+whether it's there or not.
+
+127
+00:10:07,990 --> 00:10:10,970
+In this case the token is there,
+so there's no problem.
+
+128
+00:10:10,970 --> 00:10:16,310
+So it is being consumed,
+and now we see that p and
+
+129
+00:10:16,310 --> 00:10:21,670
+c have the same value, namely equal to 6.
+
+130
+00:10:21,670 --> 00:10:26,590
+What we now see is that at the end
+there is still a token remaining in p2.
+
+131
+00:10:27,730 --> 00:10:33,510
+So, we update the r counter, and these
+are the final values that we get.
+
+132
+00:10:33,510 --> 00:10:39,120
+As we see, values for p and
+c and m and r, are both equal to 1.
+
+133
+00:10:39,120 --> 00:10:44,160
+And we can also overlay the model with
+diagnostic information showing where
+
+134
+00:10:44,160 --> 00:10:44,950
+the problems are.
+
+135
+00:10:46,910 --> 00:10:51,850
+We can put these numbers into the formula
+that we have seen before, and
+
+136
+00:10:51,850 --> 00:10:55,290
+if we do that, we get this result.
+
+137
+00:10:55,290 --> 00:10:57,120
+And so the fitness is 0.83.
+
+138
+00:10:57,120 --> 00:11:02,520
+This is fitness at the level
+of an individual trace.
+
+139
+00:11:04,840 --> 00:11:09,000
+We can lift this notion,
+to an entire event log.
+
+140
+00:11:10,280 --> 00:11:12,080
+And this is the formula that,
+
+141
+00:11:12,080 --> 00:11:17,880
+that describes that, it looks very
+impressive but actually it's quite simple.
+
+142
+00:11:17,880 --> 00:11:21,820
+We are just summing up all the missing and
+
+143
+00:11:21,820 --> 00:11:27,330
+consumed and the remaining and produced
+tokens over all the individual traces.
+
+144
+00:11:27,330 --> 00:11:31,220
+The same trace can appear multiple times,
+we have a multi set,
+
+145
+00:11:31,220 --> 00:11:37,820
+therefore we take the sum over this multiset
+and multiply it by the number of missing,
+
+146
+00:11:37,820 --> 00:11:41,070
+consumed, remaining and produced tokens.
+
+147
+00:11:42,660 --> 00:11:47,530
+So, here you see the individual
+ingredients, and actually it is just
+
+148
+00:11:47,530 --> 00:11:52,060
+exactly the same as we have seen before,
+but lifted to the level of an entire log.
+
+149
+00:11:53,800 --> 00:11:56,540
+So let's take a look at this example.
+
+150
+00:11:56,540 --> 00:12:02,570
+So we see again the event log
+that we also used before.
+
+151
+00:12:02,570 --> 00:12:08,519
+We see four models, and
+we can again compute replay fitness,
+
+152
+00:12:09,740 --> 00:12:11,510
+using the approach that I just described.
+
+153
+00:12:12,620 --> 00:12:15,970
+If you do so,
+then these are the values that you get.
+
+154
+00:12:15,970 --> 00:12:19,440
+So, the first model that was
+discovered using the alpha algorithm of
+
+155
+00:12:19,440 --> 00:12:23,150
+has a fitness of one,
+that is what we expected.
+
+156
+00:12:23,150 --> 00:12:30,200
+But also note that the last model, the so
+called flower model, has a fitness of one.
+
+157
+00:12:30,200 --> 00:12:34,230
+It is too general, but
+from a fitness point of view it is okay,
+
+158
+00:12:34,230 --> 00:12:36,900
+because it allows for
+all the behavior that has been seen.
+
+159
+00:12:37,950 --> 00:12:42,560
+To capture the fact that this model is
+not a good representation of the log,
+
+160
+00:12:42,560 --> 00:12:45,990
+one needs to look at the notion
+of precision to capture this.
+
+161
+00:12:49,840 --> 00:12:54,820
+By doing this replay we can also
+provide very sophisticated and
+
+162
+00:12:54,820 --> 00:12:59,130
+detailed diagnostics, so if you look at
+the diagnostics that I've shown here,
+
+163
+00:12:59,130 --> 00:13:01,540
+by comparing the log
+with the second model.
+
+164
+00:13:03,900 --> 00:13:09,180
+We see that we have a fitness of 0.95,
+but we can also see in terms of
+
+165
+00:13:09,180 --> 00:13:15,250
+the diagnostics how many times
+an activity or a transition in Petri net
+
+166
+00:13:15,250 --> 00:13:20,480
+terms was being executed, how many times
+a token was flowing over a particular arc.
+
+167
+00:13:21,560 --> 00:13:23,590
+The diagnostics clearly show,
+
+168
+00:13:23,590 --> 00:13:29,440
+that there is a problem with respect
+to the ordering of b and c and b.
+
+169
+00:13:29,440 --> 00:13:36,240
+And so, c and b should be concurrent to d,
+but now they are in sequence.
+
+170
+00:13:36,240 --> 00:13:40,560
+So all the traces,
+where d happens before b or
+
+171
+00:13:40,560 --> 00:13:45,370
+c, they don't fit well into this model,
+as is shown by the diagnostics.
+
+172
+00:13:47,340 --> 00:13:49,300
+If we take a look at this model, and
+
+173
+00:13:49,300 --> 00:13:55,500
+again compare it with the original log,
+we can see even more problems.
+
+174
+00:13:55,500 --> 00:13:58,600
+And again,
+by looking at a number of missing and
+
+175
+00:13:58,600 --> 00:14:01,900
+remaining tokens
+in each of the places,
+
+176
+00:14:01,900 --> 00:14:05,338
+we can get a good understanding
+of where the differences are.
+
+177
+00:14:05,338 --> 00:14:09,290
+So, through replay,
+
+178
+00:14:09,290 --> 00:14:14,750
+we can capture diagnostic information,
+where are the differences,
+
+179
+00:14:14,750 --> 00:14:19,490
+and how severe are they, and we can
+also compute a global fitness metric.
+
+180
+00:14:20,980 --> 00:14:25,770
+If you would like to read more
+about token-based replay for
+
+181
+00:14:25,770 --> 00:14:29,880
+conformance checking,
+please read more in chapter seven.
+
+182
+00:14:29,880 --> 00:14:31,680
+In the next lecture,
+
+183
+00:14:31,680 --> 00:14:35,790
+we will consider a more sophisticated
+technique, based on alignments.
+
+184
+00:14:37,240 --> 00:14:40,697
+Thank you for watching,
+and hope to see you soon.
+
+185
+00:14:40,697 --> 00:14:50,697
+[MUSIC]
+

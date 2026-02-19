@@ -1,0 +1,441 @@
+[MUSIC]
+Welcome to this first lecture of
+the course on Process Mining: Data Science
+in Action.
+In this first week, we focus on the
+relationship between Process Mining and
+other types of data analytics.
+Today, I start by discussing the broader
+topic of Data Science and Big Data.
+Today, many people say
+data is the big oil.
+And this is illustrating the incredible
+amount of data that we are collecting and
+the corresponding value.
+If you would think about, how much data
+was generated from pre-historic times,
+until 2003.
+And we think, what we can now do it at.
+We are able to generate such
+amounts of data in just 10 minutes.
+So, in 10 minutes,
+we are generating, as much data now.
+As we were doing from
+prehistoric times until 2003.
+So this is 
+illustrating the incredible
+growth of data.
+So, what kind of data is this?
+What kind of event data are we generating?
+Well, we are generating, when we buy
+a cup of coffee with our credit card.
+When we make a phone call,
+we are generating data.
+When we are getting a speeding ticket.
+And there are many other examples,
+as you can see on this slide, showing
+that we are generating all the time.
+Even while, you are watching this MOOC,
+you are generating data.
+Because all kinds of
+things are being recorded.
+If you take another example and you look
+at the simple telephone that now these
+days everybody owns, then you can see that
+such a phone has many different sensors.
+There is a GPS sensor, telling you where
+you are, but there are many other sensors,
+for example, looking at your fingerprint,
+and stuff like that.
+These are all generating data, and
+therefore we are talking
+about the Internet of Events.
+All the data that is being
+recorded in all kinds of ways.
+Let's look at this Internet
+of Events in more detail.
+What does it consist of?
+One can talk about 4 different
+sources of event data.
+The first source of event data.
+Is the Internet of Content.
+This is the classical Internet that we
+know, from Google and Wikipedia and
+then people typically, talk about Big Data
+they are talking about this Internet.
+But next to this classical
+Internet of Content,
+we now also have an Internet People.
+So we have Twitter messages.
+We have Facebook.
+All kinds of events,
+social events that are generating data.
+Then we have the Internet of Things.
+It's another source of event data.
+Today already many devices
+are connected to the internet but
+in the future many more devices
+will be connected to the Internet.
+For example your shaving device.
+Your refrigerator, everything in
+the future will be connected to
+the Internet and
+this will generate large amounts of data.
+Last but not least, there is the Internet
+of Places, when you are using your mobile
+phone, as I just illustrated, the phone
+contains all kinds of sensors that are
+recording, where you are and
+what you are doing and
+this is another source of information.
+So, this is why today many people talk,
+about Big Data.
+Incredible amounts of event
+data that are being recorded.
+When people talk about Big Data.
+Talk about the exponential growth of data.
+This picture looks very complicated but
+don't be scared of by it.
+It is showing the exponential growth
+of the number of transistors on a chip.
+And this was predicted by
+the founder of Intel, Moore, and
+we can see that this exponential growth
+has continued over the last 40 years.
+Every 2 years, the numbers of
+transistors on a chip is doubling, so
+that means that on a chip now there
+are 1 million times the number of
+Transistors as there was 40 years ago.
+We not only see this in terms
+of the number of transistors but
+also in terms of computing speed.
+The capacity of a hard disk and the number
+of bytes, you get for a Dollar or Euro.
+And so
+this is showing this incredible growth.
+If other fields would have
+had the same growth of data,
+we would see very surprising things.
+For example, if I take the train.
+From Eindhoven to Amsterdam, 40 years ago,
+this would take approximately 1.5 hours.
+The question is now, if transportation
+would have followed more Moore's law,
+how fast would we be able to go from
+Eindhoven to Amsterdam by train today?
+Please think about this question.
+The answer to the question can
+be computed in a very easy way.
+We take one and a half hours times
+60 minutes times 60 seconds and
+divide it by 2 to the power 20.
+And we would see that today we would
+only need 5 milliseconds to travel
+from Eindhoven to Amsterdam.
+We can look at another example,
+do exactly the same calculation.
+If we would fly, from Amsterdam to
+New York 40 years ago
+it would take seven hours.
+How long would it take today,
+if transportation would
+have followed Moore's law?
+We can do exactly the same calculation.
+We take the number of hours.
+Times 60 minutes, times 60 seconds,
+divided by 2 to the power 20.
+And we would see that
+only in 24 milliseconds,
+we would be able to fly
+from Amsterdam to New York.
+As I said, the capacity on the hard
+disk is also growing exponentially.
+And also the costs per
+byte are also
+decreasing exponentially.
+So what does this mean?
+Let's compare it to fuel consumption.
+If 40 years ago, we needed 4000 liters of
+petrol to drive a car around the world,
+how much petrol would we need today if
+we would have followed Moore's Law?
+The answer to this question.
+Can be computed in exactly
+the same way.
+We take 4000 liters divided by 2 to
+the power 20 and we would see that 4
+milliliters of petrol would be sufficient
+to travel all around the world.
+These examples are showing
+the incredible, growth of the data and
+why people talk about Big Data.
+The challenge today is not
+to generate more data, but
+the challenge today is to turn
+this data into real value.
+And this is a crucial topic.
+People often talk about
+the four V's of Big Data.
+The first V.
+I just explained that is the v of Volume.
+So we are generating incredible amounts of
+data, but that's not the only challenge.
+The second challenge is Velocity.
+We are not only generating large
+amounts of data, data is
+continuously being added.
+And things are changing very rapidly.
+So, velocity is the second challenge.
+The third challenge is Variety.
+So it's not one type of data.
+We are confronted with many
+different types of data.
+Ranging from text,
+to images, to audit trails.
+And we need to combine all these
+different sources of information.
+Last but not least,
+a problem of Big Data is Veracity.
+And that means, that you can not be
+completely sure that what you have
+recorded is completely accurate.
+For example, your shaving device of the
+future will have an Internet connection.
+Somebody has bought that shaving device.
+And we are recording events from
+that device, how it is being used.
+But can we be sure that the person
+who purchased the shaving
+device is the actual person using it?
+That is a kind of uncertainty that you see
+if you collect data in a very large scale.
+And you need to be able to deal with that.
+I just spoke a lot about Big Data,
+but data doesn't have to
+be big to be challenging.
+Data analytics questions
+are everywhere and
+that is why there is a very urgent
+demand for data scientists.
+So, what do these data scientists do?
+What is their profession?
+What is their task?
+Well, their goal is to collect,
+analyze, and
+interpret data from a variety of sources.
+I've given you already several examples.
+That is why this will become a very
+important profession in the future.
+And the main goal is to
+turn data into value.
+And in this course,
+we will focus on this particularity,
+If you look at data science there
+are 4 generic data science questions,
+that you can ask in any situation.
+The first data science
+question is the question.
+What happened?
+If we see a bottle neck, if we see
+deviations, we record event data and
+we can actually,
+see that these things have happened.
+Then the second logical question,
+is to ask yourself.
+Why did it happen?
+Why was there this delay?
+Why did people deviate
+from the expected path?
+These things are just about the past, but
+of course data science also aims to
+answer questions about the future.
+So, if you look at the future.
+You also ask yourself the question,
+what will happen?
+What can we learn from historic
+information to make predictions,
+about what is happening at this
+point in time. And then last, but
+not least,
+the fourth question of data science.
+Is to ask yourself,
+what is the best that can happen?
+So, you want to use analytics
+to recommend certain things that
+will improve a situation.
+Remove a bottleneck.
+Make sure that people don't deviate or
+provide a better service.
+So these are the four questions
+of data science.
+And if we look for
+example at the care flows in
+a hospital we can as ourselves
+some of these questions.
+So for example, a hospital you
+could ask yourself the question.
+Why do patients have to wait so long?
+What is causing these delays?
+Do doctors follow the guidelines?
+We have been doing a lot of analysis
+in hospitals, and we see that
+different doctors typically, process
+things in a completely different way.
+So why does one person do something
+different than another person?
+Can we predict waiting times for patients?
+Can we predict how much
+staff we will need tomorrow?
+And last but not least,
+very important in health care,
+how can we reduce costs
+without sacrificing quality?
+So these questions are at, a level
+of what we call a business process.
+But even if you look at
+the technical device, like for
+example an X-ray machine in
+exactly the same hospital,
+we can also see that this X-ray
+machine is generating lots of data.
+And again, we can ask all
+kinds of questions which you
+can answer by analysing
+this data carefully.
+So for example.
+How are the X-ray machines,
+really used in the field?
+There's a very important, question for
+the people making these machines.
+Why and
+when do X-ray machines malfunction?
+When do they break down, and why?
+Which components should be replaced?
+The machine doesn't work anymore.
+Can we generate
+diagnostic information telling
+us which component is broken, so
+that an engineer can go to the device and
+repair it instantly.
+Can we predict,
+whether a machine will break down?
+And last but not least, can we learn from
+existing problems,
+which parts need to be improved?
+So these,
+are all Data science questions and
+you need very different skills to
+address all of these questions.
+So this picture tries to summarize
+the various skills that are important for
+data science.
+There are obvious candidates
+like Statistics and Data Mining.
+You also need to be able to
+visualize large amounts of data.
+You need to be able to deal with
+incredibly large databases.
+But that's not the only thing.
+You also need,
+to have knowledge of social sciences to
+talk about things like ethics and privacy.
+You need to think about the value of data,
+how you can extract value from it.
+So Industrial Engineering
+is also important.
+And last but not least, and
+that the core topic of this course,
+you want to apply Process Mining
+techniques to these data, to learn and
+improve processes in the way
+that I just described.
+So the importance of Data science,
+hopefully is obvious.
+Many people say the Data scientist will
+be the most sexy job of this century.
+And that is why in Eindhoven we have
+started The Data Science Center Eindhoven,
+which groups specialists in the area.
+And educate students in this exciting
+new topic.
+So far, I've been mainly talk about
+Data science in a very general sense.
+This course is about Data science,
+but in particular, we will focus on
+the analysis on process is based on data.
+Processes are key.
+You don't want to improve data.
+You want to improve processes.
+They are the thing that matter.
+Not the data.
+Not the software.
+It's also different from data mining.
+We are not interested in just isolated
+decisions or low level patterns.
+We are interested in improving
+end-to-end processes.
+That is a key thing.
+So if you take this Process-centric
+view on data science, and we
+return to the examples that I gave before,
+we can see that in a hospital setting,
+there are many process related questions
+that we can ask about care flows.
+If we go to an X-ray machine,
+we can see that in such a machine
+there are many processes unfolding.
+And you would like to analyze and
+understand them.
+And they are generating
+terrabytes of data.
+So we have a rich
+source of information to do so.
+So the focus of this course is on
+the interplay between event data and
+processes and process models.
+And that is what the topic
+of process mining, or
+some people refer to it as business
+process intelligence, is all about.
+And so that is what we will focus
+on in the next couple of weeks.
+Let me sketch some use
+cases for process mining.
+The first use case is to
+ask yourself the question,
+what is the process that
+people really follow?
+What do they really do?
+Not what they tell they do,
+but what do they really do?
+What are the bottlenecks?
+Where are they?
+What is causing them?
+Where and why, do people or
+machines deviate from an expected or
+an idealized process?
+These are key questions and
+these are just a few examples.
+There are many more examples.
+What are the highways in my process?
+Which factors are influencing
+a bottleneck, etcetera.
+And so these are the questions that we
+will focus on in the next couple of weeks.
+So, Process Mining is
+Data Science in Action.
+We are looking at
+the dynamics of machines and
+business processes and
+try to learn from them and improve them.
+So, if you want to read more about
+this topic of Process Mining,
+I would advise you to read chapter one of
+the process mining book, and you will
+will be able to
+learn much more about this.
+Thank you for watching and
+hope to see you soon.
+[MUSIC]
+

@@ -1,0 +1,541 @@
+1
+00:00:00,035 --> 00:00:07,185
+[MUSIC]
+
+2
+00:00:07,185 --> 00:00:11,830
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+
+3
+00:00:11,830 --> 00:00:16,470
+Today we will focus on learning
+organizational entities.
+
+4
+00:00:16,470 --> 00:00:21,080
+Using the resource activity matrix,
+we can automatically learn roles and
+
+5
+00:00:21,080 --> 00:00:23,610
+extend the process model
+with this information.
+
+6
+00:00:25,030 --> 00:00:29,690
+In the previous lecture,
+we learned how to create a social network
+
+7
+00:00:29,690 --> 00:00:32,560
+by extracting information
+from the event log.
+
+8
+00:00:33,690 --> 00:00:38,700
+We saw that it is possible to discover
+relationships between people.
+
+9
+00:00:38,700 --> 00:00:40,150
+When do people work together?
+
+10
+00:00:41,260 --> 00:00:45,150
+How is work handed over from
+one person to another person?
+
+11
+00:00:45,150 --> 00:00:51,070
+In this lecture, we will look at
+analyzing event logs to automatically
+
+12
+00:00:51,070 --> 00:00:56,190
+infer role information and
+add that to the process model.
+
+13
+00:00:58,780 --> 00:01:03,856
+In the last lecture we saw how to create
+a so-called resource-activity matrix.
+
+14
+00:01:03,856 --> 00:01:10,020
+So we extract events and
+we simply count the number of times
+
+15
+00:01:10,020 --> 00:01:16,100
+that a resource is executing a particular
+activity and we normalize that per case.
+
+16
+00:01:16,100 --> 00:01:20,930
+So for example, Pete, on average,
+executed a 0.3 times.
+
+17
+00:01:24,070 --> 00:01:29,320
+If we look at such a matrix, then the
+question is, which resources are similar?
+
+18
+00:01:29,320 --> 00:01:31,926
+So please take a look at this example, and
+
+19
+00:01:31,926 --> 00:01:35,658
+try to discover yourself,
+what are the underlying roles?
+
+20
+00:01:38,712 --> 00:01:41,607
+The answer to this
+question is very simple.
+
+21
+00:01:41,607 --> 00:01:46,697
+In this particular example it is
+very clear that Pete, Mike and
+
+22
+00:01:46,697 --> 00:01:51,883
+Ellen are very similar in terms of
+the set of activities that they
+
+23
+00:01:51,883 --> 00:01:57,960
+are executing and how frequent they
+are executing these activities.
+
+24
+00:01:59,150 --> 00:02:04,580
+Sue and Sean are the only people,
+for example, executing activity b.
+
+25
+00:02:04,580 --> 00:02:07,390
+Sara is the only person executing e and f.
+
+26
+00:02:07,390 --> 00:02:10,150
+And so here it very clear.
+
+27
+00:02:10,150 --> 00:02:12,480
+But in general it is not that clear.
+
+28
+00:02:13,690 --> 00:02:17,580
+We can view every resource as a vector,
+
+29
+00:02:17,580 --> 00:02:23,060
+describing how often each
+activity is executed per case.
+
+30
+00:02:23,060 --> 00:02:27,400
+And here you see, for example, the vectors
+corresponding to Pete, Mike and Sara.
+
+31
+00:02:28,830 --> 00:02:33,680
+We can compute distances on these
+vectors using classical notions like
+
+32
+00:02:33,680 --> 00:02:38,610
+the Euclidian distance,
+Manhattan distance and all kinds of other
+
+33
+00:02:38,610 --> 00:02:44,870
+measures of deciding how far
+apart different resources are.
+
+34
+00:02:44,870 --> 00:02:49,550
+And this information can be
+used to infer a social network.
+
+35
+00:02:49,550 --> 00:02:51,840
+And in this social network,
+we expect Pete and
+
+36
+00:02:51,840 --> 00:02:58,480
+Mike to be very close to each other
+because their distances are very small.
+
+37
+00:02:58,480 --> 00:03:01,993
+Sara, on the other hand,
+is quite different in terms of
+
+38
+00:03:01,993 --> 00:03:05,330
+the activities that she's executing,
+than Pete and Mike.
+
+39
+00:03:06,960 --> 00:03:10,600
+So if we create a social network
+based on this information,
+
+40
+00:03:10,600 --> 00:03:12,269
+we would get something like this.
+
+41
+00:03:13,610 --> 00:03:17,600
+Note that similarity is
+the inverse of distance.
+
+42
+00:03:17,600 --> 00:03:21,180
+And so people that are at a short
+distance are very similar so
+
+43
+00:03:21,180 --> 00:03:24,280
+are strongly related
+in the social network.
+
+44
+00:03:26,150 --> 00:03:29,880
+Resources that execute similar
+collections of activities are related.
+
+45
+00:03:30,930 --> 00:03:34,440
+For example,
+here we can see that Sara is quite unique,
+
+46
+00:03:34,440 --> 00:03:38,100
+that is why she is not connected
+to any of the other resources.
+
+47
+00:03:39,770 --> 00:03:43,880
+Note that we have removed
+all the self-loops because,
+
+48
+00:03:43,880 --> 00:03:49,270
+of course,
+every resource is very similar to itself.
+
+49
+00:03:49,270 --> 00:03:51,630
+And so that's why you don't
+see any self-loops here.
+
+50
+00:03:55,090 --> 00:03:59,230
+Looking at similarity between
+different resources to
+
+51
+00:03:59,230 --> 00:04:04,800
+identify roles in a process model
+is very much related to clustering.
+
+52
+00:04:04,800 --> 00:04:08,750
+And in the first week we saw
+techniques like k-means clustering.
+
+53
+00:04:08,750 --> 00:04:13,570
+How we can group things together
+based on the vector representation.
+
+54
+00:04:13,570 --> 00:04:16,110
+So we can use that in
+the context of process mining.
+
+55
+00:04:17,300 --> 00:04:19,180
+There are two typical uses.
+
+56
+00:04:19,180 --> 00:04:24,510
+One use is that we would like to
+group cases which are very similar.
+
+57
+00:04:24,510 --> 00:04:29,930
+And then, per group of similar cases,
+we can infer a process model.
+
+58
+00:04:29,930 --> 00:04:33,950
+So, if in this diagram all
+the dots correspond to cases,
+
+59
+00:04:33,950 --> 00:04:37,210
+then we would find four groups of cases,
+
+60
+00:04:37,210 --> 00:04:42,555
+in other words we would find four
+variants of the same process.
+
+61
+00:04:42,555 --> 00:04:46,860
+And the process model for each of
+these variants is simpler than if we
+
+62
+00:04:46,860 --> 00:04:51,270
+would try to construct one overall
+model for all the different groups.
+
+63
+00:04:53,210 --> 00:04:58,000
+In this lecture,
+we focus on the grouping of resources.
+
+64
+00:04:58,000 --> 00:05:00,240
+So now all the dots are resources.
+
+65
+00:05:00,240 --> 00:05:04,580
+We look at their distances and
+try to group them together.
+
+66
+00:05:04,580 --> 00:05:09,790
+Once we find a group of resources
+we can attach a role to it and
+
+67
+00:05:09,790 --> 00:05:13,720
+use this to extend,
+to enrich the process model.
+
+68
+00:05:15,270 --> 00:05:17,570
+Here you see a real-life examples.
+
+69
+00:05:17,570 --> 00:05:20,730
+The numbers that you see indicate how
+
+70
+00:05:20,730 --> 00:05:26,660
+frequent a particular user is
+executing a particular activity.
+
+71
+00:05:26,660 --> 00:05:28,930
+This is taken from real life data.
+
+72
+00:05:29,960 --> 00:05:35,310
+And in this example you can see that
+it is quite easy to find cliques,
+
+73
+00:05:35,310 --> 00:05:40,090
+clusters of people that
+have a very similar
+
+74
+00:05:40,090 --> 00:05:44,770
+profile when we look at which activities
+are being executed and how frequent.
+
+75
+00:05:45,960 --> 00:05:48,780
+So this result was obtained by ProM.
+
+76
+00:05:48,780 --> 00:05:52,810
+So using ProM, we can infer,
+automatically roles.
+
+77
+00:05:55,330 --> 00:06:00,750
+Then the question is, if we have
+identified these groups, these sets of
+
+78
+00:06:00,750 --> 00:06:06,850
+people having a similar work profile,
+how can we add that to the model?
+
+79
+00:06:06,850 --> 00:06:08,920
+Well, that is very simple.
+
+80
+00:06:08,920 --> 00:06:15,392
+In the model we can simply
+associate activities to roles.
+
+81
+00:06:15,392 --> 00:06:19,743
+So in this example we have three roles,
+manager,
+
+82
+00:06:19,743 --> 00:06:26,100
+expert and the other three resources.
+
+83
+00:06:26,100 --> 00:06:31,720
+And we can relate these roles
+to the process model and
+
+84
+00:06:31,720 --> 00:06:37,660
+we can relate the roles to
+the individual worker in this case.
+
+85
+00:06:39,060 --> 00:06:42,866
+This view is a bit simplified because,
+of course, roles can overlap.
+
+86
+00:06:42,866 --> 00:06:48,850
+One person may be able to
+perform multiple roles and then this
+
+87
+00:06:48,850 --> 00:06:53,260
+picture will become a bit more involved,
+but the basic idea is very simple.
+
+88
+00:06:56,960 --> 00:07:00,650
+Learning role information
+is just a starting point.
+
+89
+00:07:00,650 --> 00:07:03,890
+And so we may be interested
+in very different questions, but
+
+90
+00:07:03,890 --> 00:07:08,950
+also related to the behavior of
+resources in the context of a process.
+
+91
+00:07:08,950 --> 00:07:11,480
+So when are resources available?
+
+92
+00:07:11,480 --> 00:07:14,790
+Do they work at particular
+times during the week?
+
+93
+00:07:14,790 --> 00:07:17,240
+Are they shared among different processes?
+
+94
+00:07:19,020 --> 00:07:21,820
+When do resources collaborate well?
+
+95
+00:07:21,820 --> 00:07:27,510
+Are certain resources better to perform
+specific activities than others?
+
+96
+00:07:27,510 --> 00:07:31,240
+We would like to learn such information
+from event logs, and we can.
+
+97
+00:07:33,580 --> 00:07:40,790
+For example, a rather specific question
+is investigating the relationship
+
+98
+00:07:40,790 --> 00:07:45,862
+between the work load of people and
+how efficient, how fast they work.
+
+99
+00:07:45,862 --> 00:07:52,500
+And the so-called Yerkes-Dodson law
+of arousal predicts that if people
+
+100
+00:07:52,500 --> 00:07:57,910
+get more work, that they start working
+more efficient until a certain point,
+
+101
+00:07:57,910 --> 00:08:01,970
+after which performance will break down,
+as you can see in this diagram.
+
+102
+00:08:03,220 --> 00:08:06,710
+If you are applying process
+mining on real-life logs,
+
+103
+00:08:06,710 --> 00:08:11,000
+you are able to see these phenomena,
+and you can learn from them.
+
+104
+00:08:11,000 --> 00:08:15,310
+They will tell you how to better run
+a particular process or company.
+
+105
+00:08:17,960 --> 00:08:22,580
+So we need process models that
+incorporate different perspectives.
+
+106
+00:08:22,580 --> 00:08:28,120
+In this lecture we focused on the
+relationship between people and processes.
+
+107
+00:08:28,120 --> 00:08:32,710
+People have roles, are
+member of particular departments and
+
+108
+00:08:32,710 --> 00:08:35,520
+we need to look at the relationship
+between these two.
+
+109
+00:08:36,760 --> 00:08:39,198
+If you would like to
+learn more about this,
+
+110
+00:08:39,198 --> 00:08:41,447
+you can read all about it in chapter 8.
+
+111
+00:08:41,447 --> 00:08:43,247
+Thank you for watching this lecture.
+
+112
+00:08:43,247 --> 00:08:44,436
+See you next time.
+
+113
+00:08:44,436 --> 00:08:54,436
+[MUSIC]
+

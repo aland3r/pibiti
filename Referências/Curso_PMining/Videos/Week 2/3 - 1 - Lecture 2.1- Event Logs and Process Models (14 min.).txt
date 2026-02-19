@@ -1,0 +1,339 @@
+[MUSIC]
+A very warm welcome to this
+lecture of the course on
+Process Mining: Data Science in Action.
+This week will focus on process discovery.
+But to do this,
+we first need to understand the input and
+output of process discovery.
+That is why today we start
+looking at event logs and models.
+In one of the earlier lectures,
+we spoke about relating process models to
+event logs, and we spoke about play out,
+play in, and replay.
+Now let me briefly recall the things
+that we have discussed before.
+First, we have play-out.
+From a model we generate behavior, and
+if we are doing simulation that is
+the typical thing that we are doing.
+Also if we build a workflow system
+configured on the basis of models, we're
+also playing out model generating behavior
+based on what we have modeled before.
+There are many other management
+games model checking, and
+all kinds of other things where we take
+a model and generate behavior from it.
+Then we spoke about play-in.
+Play-In is the reverse.
+We start from behavior, and
+we automatically generate
+models based on that.
+We also talk about process discovery.
+Learning what is really
+happening in organizations and
+in systems,
+based on analyzing the event logs.
+Finally we have replay.
+We take a model and we take behavior and
+this is the most important form
+of process mining because we
+confront model and reality.
+And this is useful for
+conformance checking, for
+prediction, for bottleneck analysis,
+and many other purposes.
+This picture again summarizes
+the main idea of process mining and
+highlights the three main
+types of process mining.
+Process discovery conforms
+to playing in a model.
+Conformance checking is a form of
+replay aimed at finding deviations.
+Then we have enhancement.
+It's also a form of replay with
+the goal to find bottlenecks and
+other types of problems or
+ideas for improvement.
+So after looking at this
+overall model we are going to look at
+a problem of getting the right data.
+And in one of the earlier lectures I
+already explained what an event log is.
+But let me briefly state that again.
+So we assume that there is an event
+log where each event refers to a case,
+to an activity, and a point in time.
+A timestamp.
+An event log can be seen as
+a collection of cases which we
+sometimes also refer to as traces.
+So each case corresponds to
+a sequence of events and, as I said,
+is often called a trace.
+Where may event data come from?
+From a variety of sources.
+So we can look at the database system.
+If we go to a hospital,
+we will easily find hundreds of
+tables with patient data that
+we can use for process mining.
+We can also look at simple data
+sources like a CSV file or
+an Excel spreadsheet that have the
+information needed to do process mining.
+There may be transaction logs.
+We can look at the data in SAP.
+We can look at the data
+used in middleware systems.
+Or we can
+use for example, the data which
+you can find in Twitter or Facebook.
+So event data may come from
+many different sources and
+these are some examples that
+I already showed you earlier.
+So we have different columns, every row
+corresponds to an event and we always need
+to identify what is the case ID, what is
+the activity, and what is the timestamp.
+So here we see one example
+of students taking a course.
+Here we see another
+example of order handling.
+And again we need to identify what is the
+case id, what is the activity name, and
+what is the timestamp.
+And we can find such information in
+many places, as I explained before.
+For example, in a hospital,
+you will easily find hundreds of
+tables containing patient data, having
+exactly the information that is needed.
+But, it is not always as
+clear as was the case in
+examples that I just explained to you.
+For example, we can look at your mailbox.
+We can think of every email as an event,
+and an email has a sender field,
+a receiver field, a to field, a subject,
+a timestamp, a body, etcetera.
+So think now about the following question,
+if an email represents an event, what
+would be the role of the different types
+of information that you find in an email?
+So what is the case ID?
+What is the activity?
+What is the timestamp?
+So take a moment to think about this.
+There are several answers possible.
+What you see here on this slide is that
+I'm showing you a particular mapping where
+I consider the subject of an email
+message to be the case id.
+So we want to group all emails having
+a particular subject into a single trace.
+We do this based on the subject field.
+We use the timestamps to sort
+the events within a case.
+And in this case we see the sender
+field as the activity name.
+The other fields, we consider
+that to be other data variables.
+And we can interpret the sender
+field also as the resource.
+But there are many other
+mappings possible.
+For example, we could consider
+the sender to be the case and
+the subject to be the activity name.
+Many mappings are possible and
+it depends on the context and the
+question, what is the best thing to do.
+We can look at another question.
+This is related to an example
+that I showed to you before.
+We again look at student data and
+looking at this type of data.
+What is the case field?
+What is the timestamp field?
+What is the activity name field?
+Again think a bit about this for a moment.
+And if we look at a possible
+solution we see this.
+So the student id is the case id
+the course is the activity name,
+and the date of the course is
+considered to be the timestamp.
+The student id is also the resource.
+the other fields correspond to optional
+information that we can use in
+process mining.
+Again, other alternative
+mappings are possible.
+And it depends on the question
+what you need to take.
+For example one could also think of
+the course as being the case and
+the student as being the activity,
+and so many mappings are possible.
+It is not just basic information,
+sometimes we
+have event logs that contain
+much more extensive information.
+In all the examples that we have seen so
+far, we just see an event
+as an atomic activity.
+But in some cases activities take time and
+we can see an explicit start and
+complete event.
+So many event logs have this type
+of transactional information.
+And if we have this information we can for
+example measure 
+duration of an activity.
+Also if we look at the attributes.
+So far we considered all
+the attributes to be event attributes.
+But also at the case level
+there may be attributes, and
+these are the attributes that don't change
+while executing the particular case.
+And so these extensions can also
+be used for process mining and
+structure the input format in a better way.
+The XES standard, XES stands for
+Extensible Event Stream,
+is a standard adopted by the IEEE
+task force on process mining.
+And it is a format supported by the tools
+that you are using in this course.
+It, unlike CSV files, it already
+interprets all the different columns and
+you can load these files into process
+mining tools like ProM and Disco.
+And there is nothing that
+you need to do further.
+You can immediately start the analysis.
+If you want to know more about
+the standard, please visit this URL and
+you can find lots of examples.
+So, we assume that we
+have XES information.
+It's really easy to get
+because the conversions are often
+just of a syntactical nature.
+After having the event data,
+we want to look at the process models.
+Again, just like with event data,
+I will give some examples of what kind
+of process models we are talking about.
+Before we have seen simple process models,
+typically focusing on the control flow.
+Here you see a Petri net model which
+describes the sequence of activities.
+What are activity
+sequences that are allowed,
+not elaborating on all
+the other perspectives.
+So this is just control flow.
+But next to control flow, one can
+look at all kinds of other elements.
+Like, for example, we can look at
+data elements that are driving
+particular decisions in the process.
+We can look at timing information and
+somehow model time in the process
+models that we are generating.
+We can enrich process models with
+resource information, cost, risks,
+and all kinds of other perspectives.
+We will deal with this in later weeks.
+In this week we will
+focus on control-flow and
+on the discovery of just
+control-flow models.
+But it's important to know that
+process models can also express all of
+these other perspectives.
+There are many process model notations.
+Here you see a long list on this slide.
+And some of these notations we
+will revisit in later lectures.
+What is crucial to see is that
+the representation is important for
+two different purposes.
+The first purpose is that the
+representation that you are using while,
+for example, doing process discovery,
+is driving your search process.
+So you need to have
+a representation that helps you to
+find the model that captures reality well.
+This is internal in the process
+discovery technique.
+At the same time you want to visualize
+models in a particular way so you need to
+think what kind of process model
+notation does the end user want to see?
+So.
+It's important to realize that
+the notation used during discovery may be
+different than the notation that you're
+using to present the end results.
+That's why we revisit and
+look at many different process
+model notations in this lecture.
+For example if you look at disco it
+is using so-called fuzzy models and
+here you can see an example of that.
+All the squares represent activities,
+the arcs represent causal penalties.
+But unlike petri nets, we do not exactly
+specify in the graphical notation
+whether something is an and join,
+and split, x or split, x or join.
+We allow for all kinds of mixtures and
+do not explicitly express that.
+We don't get an executable model, but
+we get a model that is much simpler and
+maybe much more intuitive.
+I already mentioned several times
+in this lecture the tool ProM,
+the tools ProM and Disco.
+I think now is the right time for
+you to install these tools, so
+please take a look at the instructions.
+We will look at these
+tools in much more detail later.
+What you have to realize
+now is that ProM is a very
+extensive tool which allows for
+dozens of different model types.
+It allows for many different
+input formats and it allows for
+many different types of process mining.
+So it's a tool that is quite complicated
+to use but very powerful and very broad.
+Disco, on the other hand, is a commercial
+tool which is simple, fast, and
+easy to use.
+But in terms of functionality covers
+only smaller parts of this this course.
+But advantages by that it is much
+easier and much more pleasant to use.
+It is mainly using fuzzy models in
+the way that I've just described.
+So this ends this lecture.
+If you would like to read more
+about these things, take a look at
+the chapters that are highlighted here.
+You can read about process models and
+you can read about event logs.
+Thank you very much for
+watching and hope to see you soon.
+[MUSIC]
+

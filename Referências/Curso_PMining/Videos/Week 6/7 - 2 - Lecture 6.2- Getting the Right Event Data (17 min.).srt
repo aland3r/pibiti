@@ -1,0 +1,1111 @@
+1
+00:00:00,000 --> 00:00:07,075
+[MUSIC]
+
+2
+00:00:07,075 --> 00:00:08,540
+Welcome to this lecture.
+
+3
+00:00:08,540 --> 00:00:12,080
+Today we will focus on the input
+side of process mining.
+
+4
+00:00:12,080 --> 00:00:15,390
+How to get and preprocess the event data.
+
+5
+00:00:15,390 --> 00:00:18,960
+How to flatten this
+information into an event log.
+
+6
+00:00:18,960 --> 00:00:22,090
+What are possible data quality problems?
+
+7
+00:00:22,090 --> 00:00:24,700
+These are the questions that
+we would like to answer today.
+
+8
+00:00:26,490 --> 00:00:31,070
+So, we will focus on the input side
+of process mining, the event data.
+
+9
+00:00:32,360 --> 00:00:35,360
+In earlier lectures we
+gave some examples of
+
+10
+00:00:35,360 --> 00:00:40,880
+sources of information that can
+be used to extract event logs.
+
+11
+00:00:40,880 --> 00:00:44,100
+We can look at an ERP system like SAP.
+
+12
+00:00:44,100 --> 00:00:46,990
+Which has many tables
+filled with information.
+
+13
+00:00:46,990 --> 00:00:50,420
+We can look at middlewear for
+example from IBM WebSphere.
+
+14
+00:00:51,620 --> 00:00:55,360
+We can also look at simple sources
+of information like a CSV file.
+
+15
+00:00:56,420 --> 00:01:02,400
+We can look at social media and the data
+that is provided by these open APIs.
+
+16
+00:01:03,680 --> 00:01:07,360
+We can look at the transaction
+log of a financial system.
+
+17
+00:01:07,360 --> 00:01:10,200
+So there are all these
+sources of information.
+
+18
+00:01:10,200 --> 00:01:13,060
+And when we were talking
+about the internet of events,
+
+19
+00:01:13,060 --> 00:01:19,060
+we saw that in the future, there will be
+many more ways to generate events.
+
+20
+00:01:19,060 --> 00:01:22,610
+For example, through the internet
+of things where all kinds of
+
+21
+00:01:22,610 --> 00:01:25,100
+devices will emit events.
+
+22
+00:01:26,400 --> 00:01:28,770
+So there are all these
+sources of information.
+
+23
+00:01:28,770 --> 00:01:33,260
+And the question is, how to convert them
+into event logs that can be used for
+
+24
+00:01:33,260 --> 00:01:33,960
+process mining?
+
+25
+00:01:36,230 --> 00:01:39,260
+If you would like to do process mining,
+we need to have an event log.
+
+26
+00:01:39,260 --> 00:01:44,390
+And this is the conceptual model
+that describes the input needed.
+
+27
+00:01:44,390 --> 00:01:46,730
+We have seen this model before.
+
+28
+00:01:46,730 --> 00:01:51,020
+So it is describing that
+a process consists of cases,
+
+29
+00:01:52,390 --> 00:01:58,750
+each case consists of events,
+events may have attributes.
+
+30
+00:01:58,750 --> 00:02:01,270
+There are special attributes
+like a time stamp and
+
+31
+00:02:01,270 --> 00:02:05,179
+a resource,
+also cases may have attributes.
+
+32
+00:02:06,450 --> 00:02:11,130
+And because there can be start and
+complete events, suspend and
+
+33
+00:02:11,130 --> 00:02:17,155
+resume, we may also want to identify
+so-called activity instances.
+
+34
+00:02:17,155 --> 00:02:22,190
+And so, groups of events corresponding
+to the execution of a single activity.
+
+35
+00:02:23,410 --> 00:02:28,560
+So this is the type of data that we need,
+and how to convert the data from
+
+36
+00:02:28,560 --> 00:02:33,210
+the sources that were mentioned on
+the previous slide to this type of data.
+
+37
+00:02:35,560 --> 00:02:38,630
+Well, many people think that
+this is difficult because you
+
+38
+00:02:38,630 --> 00:02:40,980
+need to do a syntactical conversion.
+
+39
+00:02:42,300 --> 00:02:46,920
+Translate for example one XML
+format into another XML format.
+
+40
+00:02:46,920 --> 00:02:48,820
+But this is not the challenge.
+
+41
+00:02:48,820 --> 00:02:53,760
+The challenge is to locate
+the relevant data, to identify what
+
+42
+00:02:53,760 --> 00:02:59,180
+the process instances are that you would
+like to analyze, to scope the problem.
+
+43
+00:02:59,180 --> 00:03:03,390
+Also to get authorization to
+use particular types of data.
+
+44
+00:03:04,460 --> 00:03:09,200
+So it's not in the syntactical conversion,
+the problem is at a different level.
+
+45
+00:03:10,850 --> 00:03:15,560
+For example, if people ask,
+can you mine SAP?
+
+46
+00:03:15,560 --> 00:03:18,180
+Of course you can mine an SAP system.
+
+47
+00:03:18,180 --> 00:03:21,900
+It contains lots of
+event-related information.
+
+48
+00:03:21,900 --> 00:03:27,270
+However if you look at SAP, a typical
+installation has thousands of tables.
+
+49
+00:03:27,270 --> 00:03:30,830
+So you need to know
+where you are starting.
+
+50
+00:03:30,830 --> 00:03:33,530
+What is the process that
+you would like to analyze?
+
+51
+00:03:33,530 --> 00:03:38,410
+So it's about identifying the data,
+locating it, and extracting it.
+
+52
+00:03:39,570 --> 00:03:41,100
+If you look at a hospital,
+
+53
+00:03:41,100 --> 00:03:47,180
+you can easily find 1,000 tables
+with patient-related information.
+
+54
+00:03:47,180 --> 00:03:51,640
+This is again an example, but it is not a
+question, can you apply process mining in
+
+55
+00:03:51,640 --> 00:03:55,900
+a hospital, but know, what is the process
+that you would like to analyze and
+
+56
+00:03:55,900 --> 00:03:58,070
+how can you get the corresponding data?
+
+57
+00:03:59,570 --> 00:04:04,090
+So you need to understand
+the underlying data model and scope and
+
+58
+00:04:04,090 --> 00:04:05,650
+select event data.
+
+59
+00:04:05,650 --> 00:04:08,900
+That is the key thing
+that needs to be done.
+
+60
+00:04:08,900 --> 00:04:10,420
+And there are many challenges.
+
+61
+00:04:11,760 --> 00:04:17,800
+One of the most difficult challenges
+is that process models are flat,
+
+62
+00:04:17,800 --> 00:04:20,780
+and what I mean by that I
+will explain in a minute.
+
+63
+00:04:20,780 --> 00:04:27,540
+But the basic idea is that you have this
+data scattered over multiple tables.
+
+64
+00:04:27,540 --> 00:04:31,800
+And if you would like to do process
+mining, you need to flatten that
+
+65
+00:04:31,800 --> 00:04:37,010
+data in such a way that you can
+extract a process model from it, or
+
+66
+00:04:37,010 --> 00:04:40,400
+check conformance, or analyze bottlenecks.
+
+67
+00:04:40,400 --> 00:04:43,970
+Then if you take a look
+at a process model.
+
+68
+00:04:43,970 --> 00:04:46,660
+It is about handling instances.
+
+69
+00:04:46,660 --> 00:04:49,880
+So, events refer to cases.
+
+70
+00:04:49,880 --> 00:04:53,630
+Here we see an event log that we
+have seen several times before.
+
+71
+00:04:55,500 --> 00:05:02,000
+Every event refers to a case, and
+has an activity name associated to it.
+
+72
+00:05:03,580 --> 00:05:05,210
+Why is this?
+
+73
+00:05:05,210 --> 00:05:09,690
+We need to have such information
+because if we look at process models,
+
+74
+00:05:09,690 --> 00:05:14,420
+in notations like BPMN, but
+also if we look at Petri nets,
+
+75
+00:05:14,420 --> 00:05:19,200
+UML diagrams, all kinds of other
+notations, you will see that
+
+76
+00:05:19,200 --> 00:05:25,180
+process models model the life cycle
+of a process instance in isolation.
+
+77
+00:05:25,180 --> 00:05:29,710
+So here you see the handling
+of a request for compensation.
+
+78
+00:05:29,710 --> 00:05:33,420
+So every activity is about such a case.
+
+79
+00:05:34,940 --> 00:05:40,623
+There are few other notations,
+like proclets and artifact-centric models,
+
+80
+00:05:40,623 --> 00:05:44,750
+that describe multiple
+instances at the same time.
+
+81
+00:05:44,750 --> 00:05:49,400
+But typically mainstream notations like
+the ones that we see in this course,
+
+82
+00:05:49,400 --> 00:05:52,860
+like BPMN, what you see in this diagram.
+
+83
+00:05:52,860 --> 00:05:56,920
+They describe the life cycle
+of an instance in isolation.
+
+84
+00:05:56,920 --> 00:05:59,900
+So we need to flatten the event data and
+
+85
+00:05:59,900 --> 00:06:05,350
+decide, for events, what is
+the corresponding process instance?
+
+86
+00:06:05,350 --> 00:06:11,950
+This may sound trivial, but it's actually
+quite challenging in many real life cases.
+
+87
+00:06:13,430 --> 00:06:18,410
+To illustrate this, let's take a look
+at a database for booking tickets.
+
+88
+00:06:20,010 --> 00:06:24,190
+Here we see different entities like
+a ticket and a booking and
+
+89
+00:06:24,190 --> 00:06:27,480
+a concert, and a payment and a customer.
+
+90
+00:06:27,480 --> 00:06:34,460
+And all of these different entities have
+events, or actions associated to it.
+
+91
+00:06:34,460 --> 00:06:39,660
+And we assume that every change
+to this database we can monitor.
+
+92
+00:06:39,660 --> 00:06:41,319
+For example using redo logs.
+
+93
+00:06:42,740 --> 00:06:48,990
+If we can see changes to
+these objects then the question is
+
+94
+00:06:48,990 --> 00:06:54,730
+how do we now turn this type of
+information, into an event log?
+
+95
+00:06:54,730 --> 00:06:59,290
+And then the foundational question is,
+what is the process instance?
+
+96
+00:06:59,290 --> 00:07:01,220
+What is the case?
+
+97
+00:07:01,220 --> 00:07:08,410
+So here you can see in a bit more
+detail what a data model is all about.
+
+98
+00:07:08,410 --> 00:07:10,520
+So we have the notion of a ticket.
+
+99
+00:07:10,520 --> 00:07:12,980
+We have the notion of a concert.
+
+100
+00:07:12,980 --> 00:07:19,280
+We have a notion of a
+seat in a particular hall.
+
+101
+00:07:19,280 --> 00:07:26,310
+And if we move down the diagram,
+we can see that we can have bookings,
+
+102
+00:07:26,310 --> 00:07:32,350
+bookings have associated payments and
+they refer to a particular customer.
+
+103
+00:07:33,830 --> 00:07:36,290
+So this is the type of
+data that we start with.
+
+104
+00:07:37,370 --> 00:07:41,850
+And then we need to convert such
+information into an event log.
+
+105
+00:07:44,300 --> 00:07:50,671
+So the first decision that we need to
+make is what is the process instance?
+
+106
+00:07:50,671 --> 00:07:54,499
+And we see eight different
+entities here and
+
+107
+00:07:54,499 --> 00:07:58,646
+the question is,
+which entity is the process?
+
+108
+00:07:58,646 --> 00:08:00,370
+What is the process model about?
+
+109
+00:08:00,370 --> 00:08:01,680
+Is it about the ticket?
+
+110
+00:08:01,680 --> 00:08:03,320
+Is it about booking?
+
+111
+00:08:03,320 --> 00:08:04,920
+Is it about a band?
+
+112
+00:08:04,920 --> 00:08:07,980
+Is it about the concert or
+the concert hall?
+
+113
+00:08:07,980 --> 00:08:09,200
+Is it about the payment?
+
+114
+00:08:10,560 --> 00:08:12,100
+What is the process model about?
+
+115
+00:08:13,940 --> 00:08:15,730
+Suppose that we say, okay.
+
+116
+00:08:15,730 --> 00:08:19,990
+We want to have a process model that
+describes the life cycle of a ticket.
+
+117
+00:08:19,990 --> 00:08:24,569
+Then we need to think,
+what are the corresponding activities?
+
+118
+00:08:25,760 --> 00:08:30,670
+And then we can see that
+multiple process instances,
+
+119
+00:08:30,670 --> 00:08:34,880
+multiple tickets,
+may share the same booking or
+
+120
+00:08:34,880 --> 00:08:41,630
+payment event, because in one booking,
+we can order multiple tickets.
+
+121
+00:08:41,630 --> 00:08:47,528
+So, many different process instances
+refer to the same booking.
+
+122
+00:08:49,897 --> 00:08:53,841
+We could also have taken as a perspective
+that the process model should be
+
+123
+00:08:53,841 --> 00:08:55,080
+about the booking.
+
+124
+00:08:55,080 --> 00:08:57,410
+We want to model the life
+cycle of a booking, and
+
+125
+00:08:57,410 --> 00:09:00,550
+again we have the question,
+what are activities?
+
+126
+00:09:00,550 --> 00:09:06,900
+We can see that it is not as clear-cut
+as one may afford from the beginning
+
+127
+00:09:06,900 --> 00:09:11,562
+because the same booking instance
+may have multiple tickets or
+
+128
+00:09:11,562 --> 00:09:14,180
+payment-related events.
+
+129
+00:09:14,180 --> 00:09:18,080
+So one booking may refer
+to ten tickets and
+
+130
+00:09:18,080 --> 00:09:21,080
+there may have been two
+payments to pay for it.
+
+131
+00:09:22,650 --> 00:09:28,260
+Also, if we look at an event like
+the cancellation of a concert,
+
+132
+00:09:28,260 --> 00:09:31,640
+then that is impacting all the tickets and
+
+133
+00:09:31,640 --> 00:09:36,140
+all the bookings related
+to that particular concert.
+
+134
+00:09:36,140 --> 00:09:39,260
+So there is not a simple one
+to one correspondence
+
+135
+00:09:39,260 --> 00:09:40,600
+between things, and
+
+136
+00:09:40,600 --> 00:09:45,000
+you need to pre-process the data to get
+the event log that you would like to have.
+
+137
+00:09:46,730 --> 00:09:50,180
+The situation that I'm
+describing here is not unique.
+
+138
+00:09:50,180 --> 00:09:53,520
+You can find it in any
+real life situation.
+
+139
+00:09:53,520 --> 00:09:56,970
+Suppose that you are ordering
+books from Amazon.
+
+140
+00:09:56,970 --> 00:10:01,430
+And suppose that on one
+day you order two books.
+
+141
+00:10:03,050 --> 00:10:07,140
+The next day, you order, again, two books.
+
+142
+00:10:07,140 --> 00:10:13,790
+So we have two orders and,
+in total we have four orderlines.
+
+143
+00:10:13,790 --> 00:10:15,930
+Two books that we ordered
+on the first day,
+
+144
+00:10:15,930 --> 00:10:19,140
+and the two books that we ordered
+on the second day.
+
+145
+00:10:21,120 --> 00:10:23,310
+Then there may be a delivery.
+
+146
+00:10:23,310 --> 00:10:27,396
+And suppose that one book of
+the first order is in stock, and
+
+147
+00:10:27,396 --> 00:10:31,180
+the other book is not in stock.
+
+148
+00:10:31,180 --> 00:10:36,150
+On the order that we placed in the second
+day, the first book is in stock but
+
+149
+00:10:36,150 --> 00:10:38,080
+the second book is not.
+
+150
+00:10:38,080 --> 00:10:44,620
+Then there may be a delivery that is
+referring to one book of the first order.
+
+151
+00:10:44,620 --> 00:10:47,210
+And another book of the second order.
+
+152
+00:10:47,210 --> 00:10:52,180
+So there is a many to many relationship
+between orders and deliveries.
+
+153
+00:10:52,180 --> 00:10:54,880
+And things are partially overlapping.
+
+154
+00:10:54,880 --> 00:11:00,610
+So if you would like to create
+a process model from such event
+
+155
+00:11:00,610 --> 00:11:06,070
+related data, then you carefully have
+to think, what is the process instance?
+
+156
+00:11:06,070 --> 00:11:07,410
+Is it the order?
+
+157
+00:11:07,410 --> 00:11:08,660
+Is it the orderline?
+
+158
+00:11:08,660 --> 00:11:10,060
+Or is it the delivery?
+
+159
+00:11:10,060 --> 00:11:12,690
+And this is a challenging task.
+
+160
+00:11:14,330 --> 00:11:17,960
+But it's not the only
+challenge that we have.
+
+161
+00:11:17,960 --> 00:11:22,849
+Next to selection and mapping problems,
+there may be many data quality issues.
+
+162
+00:11:25,090 --> 00:11:28,130
+So what kind of problems can there be?
+
+163
+00:11:28,130 --> 00:11:32,470
+If we look at event data,
+there may be missing data.
+
+164
+00:11:32,470 --> 00:11:33,960
+Things are not recorded.
+
+165
+00:11:33,960 --> 00:11:40,960
+And one can think of things as things like
+cases, events, attributes of an event.
+
+166
+00:11:42,670 --> 00:11:45,080
+The data may be incorrect.
+
+167
+00:11:45,080 --> 00:11:48,760
+For example we see an event, and
+with the event it is recorded that it
+
+168
+00:11:48,760 --> 00:11:51,500
+was executed by
+a particular resource but
+
+169
+00:11:51,500 --> 00:11:55,060
+it may have been that it was actually
+executed by another resource.
+
+170
+00:11:55,060 --> 00:11:56,370
+So this is incorrect data.
+
+171
+00:11:57,510 --> 00:11:59,990
+Data may also be imprecise.
+
+172
+00:11:59,990 --> 00:12:02,140
+It's not at a desired level of detail.
+
+173
+00:12:04,090 --> 00:12:09,050
+Another problem is that there may
+be lots of irrelevant data, making it
+
+174
+00:12:09,050 --> 00:12:14,050
+very difficult to see the relevant
+things that you would like to analyze.
+
+175
+00:12:14,050 --> 00:12:18,440
+You need to spend lots of time on
+cleaning the data to get to the data that
+
+176
+00:12:18,440 --> 00:12:19,210
+really matters.
+
+177
+00:12:20,890 --> 00:12:25,100
+So this matrix is identifying some of
+
+178
+00:12:25,100 --> 00:12:31,350
+the typical problems that we
+encounter if we look at event logs.
+
+179
+00:12:31,350 --> 00:12:35,880
+Data quality problems related
+to the input of process mining.
+
+180
+00:12:35,880 --> 00:12:40,490
+On the one dimension, we can see missing
+data, incorrect data, imprecise data, and
+
+181
+00:12:40,490 --> 00:12:42,450
+irrelevant data, as just explained.
+
+182
+00:12:43,620 --> 00:12:47,520
+In the other dimension we see
+the typical elements of a log.
+
+183
+00:12:47,520 --> 00:12:48,870
+So we have cases.
+
+184
+00:12:48,870 --> 00:12:50,080
+We have events.
+
+185
+00:12:50,080 --> 00:12:52,150
+We have the different types of attributes.
+
+186
+00:12:52,150 --> 00:12:56,010
+We have, for example,
+time stamps, resources.
+
+187
+00:12:56,010 --> 00:12:58,980
+And if you look at the combination
+of these two dimensions,
+
+188
+00:12:58,980 --> 00:13:04,560
+we can kind of characterize different
+data quality-related problems.
+
+189
+00:13:04,560 --> 00:13:08,280
+As an example,
+let's focus on the the timestamp column.
+
+190
+00:13:09,340 --> 00:13:14,210
+So, if we look at missing data
+in combination with timestamps,
+
+191
+00:13:14,210 --> 00:13:17,450
+then this refers to timestamps
+of events are missing.
+
+192
+00:13:17,450 --> 00:13:18,640
+Clearly this is a problem.
+
+193
+00:13:19,890 --> 00:13:23,080
+Timestamps can also be incorrect.
+
+194
+00:13:23,080 --> 00:13:27,810
+So the time that something was
+recorded is different from
+
+195
+00:13:27,810 --> 00:13:30,650
+the time at which it actually happened.
+
+196
+00:13:30,650 --> 00:13:31,360
+For example,
+
+197
+00:13:31,360 --> 00:13:36,780
+in a hospital, a nurse is entering
+information in an information system
+
+198
+00:13:36,780 --> 00:13:41,070
+at a different time from the time at which
+the activity was actually performed.
+
+199
+00:13:42,490 --> 00:13:45,270
+Data may also be imprecise.
+
+200
+00:13:45,270 --> 00:13:49,610
+Again if we look at the hospital,
+there may be events, for
+
+201
+00:13:49,610 --> 00:13:55,240
+example, in a lab that are recorded
+with millisecond precision.
+
+202
+00:13:55,240 --> 00:14:00,580
+There may be other events where we
+just know on which day it happened and
+
+203
+00:14:00,580 --> 00:14:03,670
+not the particular time at that day.
+
+204
+00:14:03,670 --> 00:14:06,780
+So this is a very difficult problem for,
+for
+
+205
+00:14:06,780 --> 00:14:11,610
+process mining, because we,
+we'd like to order the different events.
+
+206
+00:14:13,280 --> 00:14:14,990
+We can also look at the resource column.
+
+207
+00:14:16,130 --> 00:14:21,260
+Missing data means that we do not know
+which resource executed the activity.
+
+208
+00:14:21,260 --> 00:14:27,420
+Incorrect data means that, for
+example, it is recorded that one nurse
+
+209
+00:14:27,420 --> 00:14:32,730
+executed the particular activity, but
+it was actually done by a different nurse.
+
+210
+00:14:32,730 --> 00:14:38,710
+Or the granularity of logging is not
+suitable for the questions that we have.
+
+211
+00:14:38,710 --> 00:14:40,940
+Or for example we do not see which nurse,
+
+212
+00:14:40,940 --> 00:14:47,370
+we just see at which department in
+the hospital something was executed.
+
+213
+00:14:47,370 --> 00:14:51,880
+So this illustrates the typical
+data quality problems that
+
+214
+00:14:51,880 --> 00:14:54,980
+one may encounter in
+a practical situation.
+
+215
+00:14:56,680 --> 00:14:58,200
+So in this lecture,
+
+216
+00:14:58,200 --> 00:15:03,150
+we focused on challenges related
+to the input of process mining.
+
+217
+00:15:03,150 --> 00:15:08,990
+The first challenge is to find and select
+the data, there may be thousands of tables
+
+218
+00:15:08,990 --> 00:15:13,890
+so you need to
+understand the underlying data model in
+
+219
+00:15:13,890 --> 00:15:19,020
+order to identify what the data
+is that you actually need.
+
+220
+00:15:20,550 --> 00:15:25,514
+The second problem is that you need to
+flatten event data each time you want to
+
+221
+00:15:25,514 --> 00:15:28,340
+generate a particular process model.
+
+222
+00:15:28,340 --> 00:15:33,790
+So you need to choose a particular view,
+and given certain event data,
+
+223
+00:15:33,790 --> 00:15:36,390
+you may choose to have different views.
+
+224
+00:15:36,390 --> 00:15:42,080
+We may view it from the viewpoint
+of an order, from an order line or
+
+225
+00:15:42,080 --> 00:15:43,550
+from a delivery.
+
+226
+00:15:43,550 --> 00:15:47,430
+We may view it from the perspective
+of the concert as a whole.
+
+227
+00:15:47,430 --> 00:15:51,930
+Or we may look at it from the viewpoint
+of a booking on a particular ticket.
+
+228
+00:15:51,930 --> 00:15:56,629
+And, last but not least,
+we focused on data quality problems.
+
+229
+00:15:57,870 --> 00:16:00,980
+In the next lecture we will
+look at guidelines for
+
+230
+00:16:00,980 --> 00:16:06,000
+logging to address some of the issues
+that we see in existing systems.
+
+231
+00:16:08,070 --> 00:16:11,983
+If you would like to read
+more on this in Chapter 4,
+
+232
+00:16:11,983 --> 00:16:15,630
+we describe the nature of event data.
+
+233
+00:16:15,630 --> 00:16:19,220
+Where we explain some of the problems
+that we have seen in this lecture.
+
+234
+00:16:19,220 --> 00:16:22,797
+You can also look at the paper
+that is highlighted here at
+
+235
+00:16:22,797 --> 00:16:27,722
+the bottom which talks specifically about
+the matrix with data quality problems.
+
+236
+00:16:27,722 --> 00:16:30,758
+Thank you for watching and
+hope to see you soon.
+
+237
+00:16:30,758 --> 00:16:31,258
+[MUSIC]
+

@@ -1,0 +1,913 @@
+1
+00:00:00,000 --> 00:00:07,122
+[MUSIC]
+
+2
+00:00:07,122 --> 00:00:12,090
+Welcome to this lecture of the course on
+process mining, data science in action.
+
+3
+00:00:12,090 --> 00:00:17,160
+Today we will show that there are many
+ways to construct a transition system,
+
+4
+00:00:17,160 --> 00:00:19,100
+based on an event log.
+
+5
+00:00:19,100 --> 00:00:23,520
+This will be used for process discovery,
+based on state-based regions.
+
+6
+00:00:25,100 --> 00:00:30,700
+In earlier lectures, we have seen many
+different process discovery algorithms.
+
+7
+00:00:30,700 --> 00:00:34,240
+We started by looking at
+the Alpha algorithm, and
+
+8
+00:00:34,240 --> 00:00:37,840
+we showed that it is
+possible to discover places,
+
+9
+00:00:37,840 --> 00:00:42,880
+that capture concurrency, sequences,
+loops, and all of these types of things.
+
+10
+00:00:43,950 --> 00:00:49,160
+After that we looked at heuristic mining,
+consisting of two steps building a
+
+11
+00:00:49,160 --> 00:00:54,910
+dependency graph and, then building
+a C-net capturing the nature of splits and
+
+12
+00:00:54,910 --> 00:00:59,590
+joins also,
+being able to handle infrequent behavior.
+
+13
+00:01:00,820 --> 00:01:05,430
+We also looked at various tools, like for
+example the fuzzy miner in ProM.
+
+14
+00:01:05,430 --> 00:01:07,670
+And a disco tool,
+
+15
+00:01:07,670 --> 00:01:11,980
+which also provides different ways
+of discovering process models.
+
+16
+00:01:13,800 --> 00:01:18,190
+Today we will look at
+another two-phase approach.
+
+17
+00:01:18,190 --> 00:01:23,850
+This approach is based on state-based
+regions, and in the first step we create
+
+18
+00:01:23,850 --> 00:01:27,900
+a transition system from an event log, and
+that will be the focus of this lecture.
+
+19
+00:01:29,800 --> 00:01:32,080
+After building the transition system,
+
+20
+00:01:32,080 --> 00:01:35,310
+we convert it to a Petri net
+by detecting concurrency.
+
+21
+00:01:36,400 --> 00:01:40,940
+The result is a Petri net, and if we want
+we can translate it to another language
+
+22
+00:01:40,940 --> 00:01:46,220
+like, for example, BPMN, so
+this is the approach that we will look at.
+
+23
+00:01:47,890 --> 00:01:51,610
+In the next lecture we will
+zoom in a lot of detail,
+
+24
+00:01:51,610 --> 00:01:57,740
+into the discovery of places using the
+notion of so called state-based regions.
+
+25
+00:01:57,740 --> 00:02:02,430
+Here you see an illustration of that,
+the basic idea is that a set of states in
+
+26
+00:02:02,430 --> 00:02:07,300
+the transition system,
+corresponds to a place in the Petri net.
+
+27
+00:02:07,300 --> 00:02:11,050
+But today, we will focus on first
+creating the transition system.
+
+28
+00:02:12,170 --> 00:02:18,490
+So from an event log, we want to
+automatically create a transition system,
+
+29
+00:02:18,490 --> 00:02:21,170
+which can be compared to
+the reachability graph of a Petri net.
+
+30
+00:02:22,810 --> 00:02:23,930
+So how does it work?
+
+31
+00:02:25,240 --> 00:02:29,950
+An event log consists of traces and
+in every trace,
+
+32
+00:02:29,950 --> 00:02:32,390
+we can look at any of the positions.
+
+33
+00:02:32,390 --> 00:02:38,580
+So for example, here in this trace,
+we look at the position between e and f.
+
+34
+00:02:38,580 --> 00:02:42,610
+In the longer trace,
+it starts with a and ends with i.
+
+35
+00:02:42,610 --> 00:02:48,280
+So what is the state that this case
+is in if it's in between e and f?
+
+36
+00:02:49,440 --> 00:02:54,020
+Well there are many ways of
+defining such a state notion.
+
+37
+00:02:54,020 --> 00:02:56,790
+We can for example look at the past, and
+
+38
+00:02:56,790 --> 00:03:02,170
+consider all the activities that have
+happened before, and also their order.
+
+39
+00:03:02,170 --> 00:03:07,709
+And now in the state you see annotated
+what the description of that state is.
+
+40
+00:03:09,100 --> 00:03:14,130
+We can also look at the future,
+and it may sound very odd, but
+
+41
+00:03:14,130 --> 00:03:18,630
+if we have complete traces and
+we look at the position in such a trace,
+
+42
+00:03:18,630 --> 00:03:21,880
+we know what the future of
+the case is going to be.
+
+43
+00:03:21,880 --> 00:03:25,460
+In this situation the next
+step will be an f.
+
+44
+00:03:25,460 --> 00:03:28,380
+The step after that will be an a, etc.
+
+45
+00:03:28,380 --> 00:03:31,570
+So we can also characterize
+the state where we are in,
+
+46
+00:03:31,570 --> 00:03:36,280
+by what is going to happen in the future,
+and we can combine both.
+
+47
+00:03:36,280 --> 00:03:40,010
+So a state may be described by
+what happened in the past, and
+
+48
+00:03:40,010 --> 00:03:41,330
+what will happen in the future.
+
+49
+00:03:42,400 --> 00:03:48,840
+So there are various ways of building
+states of a transition system.
+
+50
+00:03:48,840 --> 00:03:53,840
+Once we have captured the states, it is
+very easy to add the missing transitions.
+
+51
+00:03:56,820 --> 00:04:01,330
+If we do this it may be that we
+have too many different states, and
+
+52
+00:04:01,330 --> 00:04:02,570
+that all states are more or
+
+53
+00:04:02,570 --> 00:04:08,880
+less unique or very infrequently visited,
+so often we need to use abstractions.
+
+54
+00:04:08,880 --> 00:04:15,070
+If we use no abstraction, we look at
+the full sequence, as you can see here.
+
+55
+00:04:15,070 --> 00:04:18,570
+So now if we look at the past,
+both the order and
+
+56
+00:04:18,570 --> 00:04:20,490
+frequency of all activities matter.
+
+57
+00:04:21,730 --> 00:04:26,510
+But we can use an abstraction,
+like for example the set abstraction
+
+58
+00:04:27,900 --> 00:04:33,690
+that captures the activities
+that have happened in the past.
+
+59
+00:04:33,690 --> 00:04:38,731
+While we can ignore the order in which
+these activities have been executed now so
+
+60
+00:04:38,731 --> 00:04:40,640
+for how many times.
+
+61
+00:04:40,640 --> 00:04:45,360
+So for example, now in the state
+description we can not see that c and
+
+62
+00:04:45,360 --> 00:04:49,060
+d have been executed twice, and
+we can tell nothing about the order.
+
+63
+00:04:50,940 --> 00:04:55,950
+We can also use the so-called multi-set
+abstraction, if you now look at the state,
+
+64
+00:04:55,950 --> 00:05:00,480
+you can see that we capture how
+many times every activity has been
+
+65
+00:05:00,480 --> 00:05:05,499
+executed in the past, but not their
+order so, only the frequencies matter.
+
+66
+00:05:07,780 --> 00:05:12,370
+We can also use a time window,
+an horizon of four events,
+
+67
+00:05:12,370 --> 00:05:16,340
+in this case we look at the four
+events in the past, and
+
+68
+00:05:16,340 --> 00:05:20,750
+we can see that the state when
+we are in between e and f for
+
+69
+00:05:20,750 --> 00:05:25,930
+this particular trace,
+is determined by d c d e.
+
+70
+00:05:27,410 --> 00:05:33,460
+This is also called the k-tail, in this
+case k is four of that particular state.
+
+71
+00:05:35,180 --> 00:05:40,330
+We can also a set abstraction, now we can
+no longer so that d has happened twice and
+
+72
+00:05:40,330 --> 00:05:43,160
+we can no longer see the order,
+in which things have happened.
+
+73
+00:05:45,120 --> 00:05:51,090
+We can also use the multiset abstraction,
+combined with an horizon of four events.
+
+74
+00:05:51,090 --> 00:05:53,570
+And now we can see that
+d has happened twice.
+
+75
+00:05:53,570 --> 00:05:54,840
+C has happened once.
+
+76
+00:05:54,840 --> 00:05:57,330
+E happened also once.
+
+77
+00:05:57,330 --> 00:06:01,090
+In the past four events, but
+we cannot see the order.
+
+78
+00:06:01,090 --> 00:06:06,340
+So, different orderings of
+the same multiset of activities,
+
+79
+00:06:06,340 --> 00:06:08,140
+will be mapped onto the same state.
+
+80
+00:06:09,810 --> 00:06:12,720
+We can also look into the future,
+and look at the next two events.
+
+81
+00:06:12,720 --> 00:06:16,500
+In this case, we ignore the order,
+so we can just see that,
+
+82
+00:06:16,500 --> 00:06:21,272
+in the next two steps, a and
+f will happen, not knowing their order.
+
+83
+00:06:22,730 --> 00:06:28,520
+So there are different ways of capturing
+the state, can be based on the past,
+
+84
+00:06:28,520 --> 00:06:31,830
+on the future or
+a combination of these things.
+
+85
+00:06:31,830 --> 00:06:34,920
+We can use a set or
+a multiset abstraction, and
+
+86
+00:06:34,920 --> 00:06:40,009
+we can look at just the last two,
+three or four events.
+
+87
+00:06:42,670 --> 00:06:46,600
+Let's take a look at an example, and
+that will also illustrate how we
+
+88
+00:06:46,600 --> 00:06:49,540
+capture the transitions and
+the labels of the transitions.
+
+89
+00:06:49,540 --> 00:06:55,100
+So here we see an event log, that we have
+seen several times before consisting of
+
+90
+00:06:55,100 --> 00:06:59,960
+the sequence a, b, c, d,
+a, c, b, d and a, e, d.
+
+91
+00:07:01,050 --> 00:07:06,660
+And let's build a transition system,
+using different types of abstractions.
+
+92
+00:07:06,660 --> 00:07:12,820
+So here we look at the complete prefixes,
+so
+
+93
+00:07:12,820 --> 00:07:17,550
+for example it starts with the empty
+prefix, then we do an a, and then we
+
+94
+00:07:17,550 --> 00:07:22,580
+end up in the state, which is described
+by the sequence consisting of just a.
+
+95
+00:07:22,580 --> 00:07:23,850
+If we then take a b,
+
+96
+00:07:23,850 --> 00:07:29,340
+we end up in the state, described by
+the sequence a comma b, et cetera.
+
+97
+00:07:29,340 --> 00:07:32,190
+So this is based on the past, and
+
+98
+00:07:32,190 --> 00:07:35,470
+we care about the ordering
+of the different activities.
+
+99
+00:07:37,360 --> 00:07:43,030
+This is known as the so called prefix
+automaton and it's an abstraction
+
+100
+00:07:43,030 --> 00:07:46,359
+that we will frequently use
+to build transition systems.
+
+101
+00:07:47,760 --> 00:07:51,550
+We can also look at the future,
+it may be very counterintuitive,
+
+102
+00:07:51,550 --> 00:07:56,300
+as I mentioned before, but if we are at
+a particular position in the log,
+
+103
+00:07:56,300 --> 00:07:58,960
+we know what is going to
+happen to that trace.
+
+104
+00:07:58,960 --> 00:08:02,350
+So we can describe
+the corresponding state,
+
+105
+00:08:02,350 --> 00:08:06,660
+by the events that will happen in
+the future that is what you see here.
+
+106
+00:08:08,530 --> 00:08:11,810
+We can also look again at the past, and
+
+107
+00:08:11,810 --> 00:08:16,780
+then take a so-called multi set
+abstraction, so now we no longer know
+
+108
+00:08:16,780 --> 00:08:22,520
+the order, but we know which activities
+have happened and how many times.
+
+109
+00:08:22,520 --> 00:08:27,860
+What is interesting here is to look at the
+state, labelled with a multi set a, b, c.
+
+110
+00:08:29,010 --> 00:08:34,040
+In this state, we do not know
+whether first b has happened and
+
+111
+00:08:34,040 --> 00:08:39,590
+then c or the other way around,
+they are both mapped onto the same state.
+
+112
+00:08:39,590 --> 00:08:43,660
+And again, we get a transition system
+capturing the behavior that we
+
+113
+00:08:43,660 --> 00:08:44,500
+have seen in the log.
+
+114
+00:08:46,450 --> 00:08:51,200
+We can use a more rigorous extraction,
+and just look at the last event.
+
+115
+00:08:51,200 --> 00:08:55,590
+So here, every state is described,
+by the last event that was being executed.
+
+116
+00:08:58,780 --> 00:09:03,980
+We can also look at the next event,
+this is, again, a transition
+
+117
+00:09:03,980 --> 00:09:09,060
+system which is able to replay the log,
+it's also generalizing a bit.
+
+118
+00:09:09,060 --> 00:09:14,810
+And now every state is described,
+by what the next step will be.
+
+119
+00:09:14,810 --> 00:09:17,760
+So in the initial state of
+this transition system,
+
+120
+00:09:17,760 --> 00:09:19,910
+we see that we will always do an a.
+
+121
+00:09:22,850 --> 00:09:27,390
+So let's see whether you understand
+the abstractions that have been discussed.
+
+122
+00:09:27,390 --> 00:09:30,840
+So here you see a more
+complicated event log.
+
+123
+00:09:30,840 --> 00:09:33,310
+I also show a transition system.
+
+124
+00:09:33,310 --> 00:09:36,200
+So, what kind of
+abstraction was being used?
+
+125
+00:09:36,200 --> 00:09:37,870
+Was it the set?
+
+126
+00:09:37,870 --> 00:09:40,630
+The multi-set, or
+the sequence abstraction?
+
+127
+00:09:40,630 --> 00:09:43,700
+Did we look at the past,
+or the future, or both?
+
+128
+00:09:44,730 --> 00:09:46,476
+So, take a moment to think about this.
+
+129
+00:09:46,476 --> 00:09:54,260
+The answer is that when building
+this transition system,
+
+130
+00:09:54,260 --> 00:09:59,960
+the states are determined by the last
+event that was being executed, and
+
+131
+00:09:59,960 --> 00:10:01,570
+then the corresponding activity net.
+
+132
+00:10:02,850 --> 00:10:09,450
+Let's take a look at another event log and
+corresponding transition system.
+
+133
+00:10:09,450 --> 00:10:12,660
+Again there is the question what
+kind of abstraction was used?
+
+134
+00:10:16,440 --> 00:10:22,940
+The answer is that we use an abstraction,
+that only considered the last two events,
+
+135
+00:10:22,940 --> 00:10:25,910
+ignoring the ordering of
+these two activities.
+
+136
+00:10:29,310 --> 00:10:33,040
+I've shown you several transition systems,
+
+137
+00:10:33,040 --> 00:10:36,320
+also when we were talking about
+a reachability graph of a Petri net,
+
+138
+00:10:36,320 --> 00:10:39,550
+we were already talking
+about transition systems.
+
+139
+00:10:39,550 --> 00:10:43,620
+You can see that the notation
+varies slightly, and
+
+140
+00:10:43,620 --> 00:10:47,970
+it has to do whether we want to
+put inscriptions in the states.
+
+141
+00:10:47,970 --> 00:10:53,060
+So, if you want to label or color the
+states, we don't use these black dots, but
+
+142
+00:10:53,060 --> 00:10:58,370
+then we don't care about their labeling,
+or we don't care about
+
+143
+00:10:58,370 --> 00:11:02,330
+coloring them in a particular way,
+we will just show them as black dots and
+
+144
+00:11:02,330 --> 00:11:07,410
+we also have these two notations to show
+final stage, but this is not relevant.
+
+145
+00:11:10,610 --> 00:11:15,090
+So I've shown you the basic mechanism
+to build a transition system, but if we
+
+146
+00:11:15,090 --> 00:11:20,190
+look at an event log, events may have
+many other attributes that can be used.
+
+147
+00:11:20,190 --> 00:11:23,830
+So for example,
+an event may have a description of
+
+148
+00:11:23,830 --> 00:11:27,390
+the resource executing
+the corresponding activity.
+
+149
+00:11:27,390 --> 00:11:33,350
+We may know the location of the event,
+we may know the associated cost.
+
+150
+00:11:33,350 --> 00:11:37,700
+There can be all kind of attributes
+associated to events, and
+
+151
+00:11:37,700 --> 00:11:40,830
+we can use them while building
+the transition system.
+
+152
+00:11:41,880 --> 00:11:47,580
+So, for example, states may correspond
+to resources rather than activities.
+
+153
+00:11:47,580 --> 00:11:51,020
+Also the transitions from
+one state to another state,
+
+154
+00:11:51,020 --> 00:11:54,480
+may have a label that is not
+a corresponding activity, but
+
+155
+00:11:54,480 --> 00:11:58,270
+is the corresponding resource or
+the corresponding customer type.
+
+156
+00:12:00,610 --> 00:12:04,130
+We can also filter infrequent paths,
+it's very easy to do that.
+
+157
+00:12:04,130 --> 00:12:06,670
+We just replay the log on
+the transition system, and
+
+158
+00:12:06,670 --> 00:12:11,540
+leave out the paths that are not often
+taken the same holds for activities.
+
+159
+00:12:11,540 --> 00:12:17,500
+So we can prune the transition system,
+to remove infrequent or noisy behavior.
+
+160
+00:12:20,110 --> 00:12:24,470
+Once we have the transition system,
+we may also want to postprocess it,
+
+161
+00:12:25,500 --> 00:12:27,560
+so in some cases for
+
+162
+00:12:27,560 --> 00:12:33,480
+readability we may want to remove
+self loops in this case transition x.
+
+163
+00:12:33,480 --> 00:12:37,740
+Note that this will jeopardize fitness,
+if the log was
+
+164
+00:12:37,740 --> 00:12:42,680
+perfectly fitting the transition system
+before, it may no longer be the case.
+
+165
+00:12:43,980 --> 00:12:49,710
+We can also improve the diamond structure,
+in this situation we have,
+
+166
+00:12:49,710 --> 00:12:52,420
+for example, activities a and b.
+
+167
+00:12:52,420 --> 00:12:56,400
+If we know,
+that there is a choice between a and b and
+
+168
+00:12:56,400 --> 00:12:58,410
+after taking a we can still do b.
+
+169
+00:12:59,650 --> 00:13:04,790
+Then it is reasonable to assume that a and
+b are concurrent, but that we
+
+170
+00:13:04,790 --> 00:13:09,210
+did not happen to see
+the interleaving b followed by a.
+
+171
+00:13:09,210 --> 00:13:15,000
+So we can improve the diamond structure,
+to later be able to discover concurrency.
+
+172
+00:13:17,080 --> 00:13:22,020
+We also may want to merge states
+having similar inputs, or
+
+173
+00:13:22,020 --> 00:13:26,250
+merge states having similar
+outputs as is shown here.
+
+174
+00:13:26,250 --> 00:13:30,200
+These are all ways of
+generalizing the behavior,
+
+175
+00:13:30,200 --> 00:13:33,620
+to avoid that we have a transition
+system that is over fitting.
+
+176
+00:13:35,780 --> 00:13:43,250
+So if we us ProM, we can take a log,
+we can build a transition system by it.
+
+177
+00:13:43,250 --> 00:13:47,860
+And if we actually do this,
+we can see that all the different
+
+178
+00:13:47,860 --> 00:13:52,590
+configuration choices that I've
+mentioned before, you can actually take.
+
+179
+00:13:52,590 --> 00:13:57,910
+And the result is always a transition
+system, and under most parameters,
+
+180
+00:13:57,910 --> 00:14:02,660
+it is guaranteed that transition system is
+able to replay the log from beginning to
+
+181
+00:14:02,660 --> 00:14:04,700
+end, as you can see here.
+
+182
+00:14:07,790 --> 00:14:09,630
+Once you have a transition system,
+
+183
+00:14:09,630 --> 00:14:16,130
+we can apply so-called state-based regions
+to create a corresponding process model.
+
+184
+00:14:16,130 --> 00:14:19,462
+And, this will be the topic
+of the next lecture,
+
+185
+00:14:19,462 --> 00:14:25,252
+how to convert transition systems into
+process models, for example, a Petri net.
+
+186
+00:14:25,252 --> 00:14:30,133
+If you would like to read more
+about this particular approach,
+
+187
+00:14:30,133 --> 00:14:32,629
+it is described in chapter six.
+
+188
+00:14:32,629 --> 00:14:36,281
+Thank you for watching this lecture,
+see you next time.
+
+189
+00:14:36,281 --> 00:14:46,281
+[MUSIC]
+

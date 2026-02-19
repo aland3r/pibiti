@@ -1,0 +1,1032 @@
+1
+00:00:00,000 --> 00:00:06,974
+[MUSIC]
+
+2
+00:00:06,974 --> 00:00:12,330
+Welcome to this lecture of the course on
+Process Mining, Data Science in Action.
+
+3
+00:00:12,330 --> 00:00:15,790
+Today, we will dive into
+the world of process modeling and
+
+4
+00:00:15,790 --> 00:00:19,890
+start by introducing
+a foundational process notation.
+
+5
+00:00:19,890 --> 00:00:20,990
+Namely, Petri nets.
+
+6
+00:00:22,790 --> 00:00:25,450
+On this slide,
+you can see an illustration of
+
+7
+00:00:25,450 --> 00:00:29,820
+a traffic light as a very simple
+process consisting of three states.
+
+8
+00:00:30,830 --> 00:00:35,440
+If we try to represent this in
+terms of a Petri net process model,
+
+9
+00:00:35,440 --> 00:00:37,930
+we get a process model
+that looks like this.
+
+10
+00:00:37,930 --> 00:00:41,490
+So we have the stage red,
+green and orange.
+
+11
+00:00:42,630 --> 00:00:46,810
+We have transitions to switch from
+one state to the other state.
+
+12
+00:00:47,880 --> 00:00:51,620
+So a Petri net is
+a network that is static.
+
+13
+00:00:51,620 --> 00:00:53,600
+It does not change itself.
+
+14
+00:00:53,600 --> 00:00:57,440
+But in the Petri net we have so
+called tokens.
+
+15
+00:00:57,440 --> 00:00:58,570
+Can be more of them.
+
+16
+00:00:58,570 --> 00:01:00,730
+In this case there's only one.
+
+17
+00:01:00,730 --> 00:01:06,510
+And the tokens can move from
+one place to another place.
+
+18
+00:01:06,510 --> 00:01:11,180
+So the circles are places,
+the squares are transitions.
+
+19
+00:01:11,180 --> 00:01:15,580
+And for example,
+in this case transition rg can fire,
+
+20
+00:01:15,580 --> 00:01:20,030
+moving the token from
+state red to state green.
+
+21
+00:01:21,930 --> 00:01:24,270
+The token in place green.
+
+22
+00:01:24,270 --> 00:01:29,180
+Can again be consumed by transition go,
+and
+
+23
+00:01:29,180 --> 00:01:34,290
+the resulting state is the state orange,
+with the token in place orange.
+
+24
+00:01:35,550 --> 00:01:42,990
+Finally, transition or can fire, resulting
+in a state with the token in red.
+
+25
+00:01:42,990 --> 00:01:47,620
+So the network is static but
+tokens can move over the network.
+
+26
+00:01:50,740 --> 00:01:53,720
+The state in a petri net
+is called the marking.
+
+27
+00:01:53,720 --> 00:01:58,590
+So the initial marking is
+the initial state of the process.
+
+28
+00:01:58,590 --> 00:02:03,420
+So the traffic light, if the initial
+state is red we put a token in place red.
+
+29
+00:02:04,590 --> 00:02:07,610
+This is an example of a reachable marking.
+
+30
+00:02:07,610 --> 00:02:10,560
+When I was playing the token game,
+
+31
+00:02:10,560 --> 00:02:13,200
+you could see that we
+visited the stage orange.
+
+32
+00:02:13,200 --> 00:02:14,690
+So, it's a state that is reachable.
+
+33
+00:02:16,020 --> 00:02:19,560
+This s an example of a state, a marking,
+
+34
+00:02:19,560 --> 00:02:22,140
+that is not reachable
+from the initial state.
+
+35
+00:02:23,490 --> 00:02:25,840
+Let's take a look at another example.
+
+36
+00:02:25,840 --> 00:02:29,440
+Now initially there are two
+tokens in place red.
+
+37
+00:02:30,770 --> 00:02:37,080
+So a possible reachable marking is
+the marking with the token in green,
+
+38
+00:02:37,080 --> 00:02:38,250
+and a token in orange.
+
+39
+00:02:39,360 --> 00:02:45,770
+This is the marking that we
+reach if we fire rg twice.
+
+40
+00:02:45,770 --> 00:02:47,020
+And go once.
+
+41
+00:02:47,020 --> 00:02:48,040
+So this is a reachable marking.
+
+42
+00:02:48,040 --> 00:02:53,040
+This is a marking that is not reachable,
+
+43
+00:02:53,040 --> 00:02:57,030
+that if we start with two tokens in this
+particular example, we will always have
+
+44
+00:02:57,030 --> 00:03:00,440
+two tokens, so we can never end up
+with this state having three tokens.
+
+45
+00:03:02,840 --> 00:03:07,970
+I already mentioned the terms,
+enabling and firing.
+
+46
+00:03:07,970 --> 00:03:13,140
+So a transition is enabled if each of
+the input places contains a token.
+
+47
+00:03:15,210 --> 00:03:21,620
+For example, if p1 contains a token and
+p2 is empty, t1 is not enabled,
+
+48
+00:03:21,620 --> 00:03:27,350
+but if we add a token to p2,
+then suddenly t1 is enabled.
+
+49
+00:03:27,350 --> 00:03:29,920
+And transitions that are enabled can fire.
+
+50
+00:03:31,480 --> 00:03:33,690
+So what does firing mean?
+
+51
+00:03:33,690 --> 00:03:37,140
+One can think of firing as
+the occurrence of a transition,
+
+52
+00:03:37,140 --> 00:03:39,810
+the execution of a transition.
+
+53
+00:03:39,810 --> 00:03:45,260
+And in a petri net, a transition that
+fires will consume one token from
+
+54
+00:03:45,260 --> 00:03:50,679
+each of the input places, and will produce
+one token for each of the output places.
+
+55
+00:03:51,860 --> 00:03:55,800
+And so you have consumption and
+production.
+
+56
+00:03:55,800 --> 00:03:57,150
+So this particular example.
+
+57
+00:03:57,150 --> 00:04:02,480
+If t1 fires, it will consume
+the token from p1 and p2, and
+
+58
+00:04:02,480 --> 00:04:05,520
+produce tokens on the three output places.
+
+59
+00:04:05,520 --> 00:04:10,040
+So this example is already illustrating
+that the number of tokens may change.
+
+60
+00:04:10,040 --> 00:04:11,580
+This case, from two to three.
+
+61
+00:04:13,670 --> 00:04:18,540
+Let's lake, look at several examples
+to get a more intuitive feeling of
+
+62
+00:04:18,540 --> 00:04:19,870
+what these Petri Nets can do.
+
+63
+00:04:20,960 --> 00:04:22,700
+So in this case,
+there are two tokens in p1 and
+
+64
+00:04:22,700 --> 00:04:27,080
+there are also already tokens
+on the output place, p3.
+
+65
+00:04:27,080 --> 00:04:29,020
+Still t1 can fire.
+
+66
+00:04:29,020 --> 00:04:33,820
+It consumes a token from each of
+the input places and produces a token for
+
+67
+00:04:33,820 --> 00:04:35,810
+each of the output places.
+
+68
+00:04:35,810 --> 00:04:38,540
+Note that there were two tokens in p1 and
+
+69
+00:04:38,540 --> 00:04:42,050
+in this state,
+one of these two tokens has been consumed.
+
+70
+00:04:44,430 --> 00:04:48,420
+We can also have situations where
+a place is both input place and
+
+71
+00:04:48,420 --> 00:04:52,190
+output place of a transition,
+p3 is such a place.
+
+72
+00:04:53,400 --> 00:04:58,060
+Now if in this initial marking
+that is shown here, we execute t1.
+
+73
+00:04:58,060 --> 00:05:03,470
+We will remove a token from p1 and
+p2 as before.
+
+74
+00:05:03,470 --> 00:05:06,940
+But there also has to be a token in p3.
+
+75
+00:05:06,940 --> 00:05:11,610
+We take a token and
+then return it when we execute it.
+
+76
+00:05:11,610 --> 00:05:15,900
+So the state after
+firing t1 is this state.
+
+77
+00:05:15,900 --> 00:05:21,070
+So although the number of tokens
+in p3 didn't change the token was
+
+78
+00:05:21,070 --> 00:05:24,180
+necessary for t1 to occur.
+
+79
+00:05:26,480 --> 00:05:30,470
+Let's take a look at some
+more complicated situations.
+
+80
+00:05:30,470 --> 00:05:36,540
+Here you see p1 and p2 having
+several tokens, p3 having one token.
+
+81
+00:05:36,540 --> 00:05:39,230
+So how many times can t1 fire?
+
+82
+00:05:40,550 --> 00:05:42,130
+In this particular initial marking.
+
+83
+00:05:43,860 --> 00:05:49,260
+If you look carefully you can see
+that p2 is the limiting factor.
+
+84
+00:05:49,260 --> 00:05:54,630
+There are three tokens there,
+so t1 can fire three times and
+
+85
+00:05:54,630 --> 00:05:56,990
+this results in this marking.
+
+86
+00:05:58,550 --> 00:06:04,170
+Note that t1 fired three times, and
+each of these firings was atomic, so
+
+87
+00:06:04,170 --> 00:06:07,000
+consumption and
+production happened at the same time.
+
+88
+00:06:09,540 --> 00:06:11,920
+What if there are multiple transitions?
+
+89
+00:06:11,920 --> 00:06:14,930
+So here we have t1 and t2.
+
+90
+00:06:14,930 --> 00:06:20,270
+T2 is enabled, but
+t1 is not enabled because p1 is empty.
+
+91
+00:06:20,270 --> 00:06:24,180
+So the only thing that can
+happen is that t2 will fire,
+
+92
+00:06:24,180 --> 00:06:26,220
+moving a token from p2 to p5.
+
+93
+00:06:29,390 --> 00:06:33,828
+Now we look at the situation where
+we have three transitions which can
+
+94
+00:06:33,828 --> 00:06:35,980
+occur concurrently.
+
+95
+00:06:35,980 --> 00:06:39,060
+That is a so called,
+parallel construction.
+
+96
+00:06:39,060 --> 00:06:44,000
+So, t1 and t2 and t3 can fire
+without influencing each other.
+
+97
+00:06:45,070 --> 00:06:51,130
+So that means that they can fire in any
+order, or perhaps even at the same time.
+
+98
+00:06:51,130 --> 00:06:54,330
+So look,
+let's take a look at a possible scenario.
+
+99
+00:06:54,330 --> 00:07:01,390
+T2 can fire, then t3 can fire, then t1
+can fire, resulting in this final state.
+
+100
+00:07:03,830 --> 00:07:07,310
+In this particular initial marking.
+
+101
+00:07:07,310 --> 00:07:09,760
+There are eight reachable states.
+
+102
+00:07:09,760 --> 00:07:13,940
+Because t1, t2, and
+t3 can fire in any order.
+
+103
+00:07:17,370 --> 00:07:21,910
+In this course, we will typically
+assume an interleaving semantics.
+
+104
+00:07:21,910 --> 00:07:24,830
+That, although things are concurrent, and
+
+105
+00:07:24,830 --> 00:07:27,880
+in principle can happen at
+the same point in time.
+
+106
+00:07:27,880 --> 00:07:31,630
+We will always assume that they
+happen in a particular order.
+
+107
+00:07:31,630 --> 00:07:35,940
+This is no limitation whatsoever
+because all the states that you
+
+108
+00:07:35,940 --> 00:07:39,070
+can reach when you fire
+things concurrently,
+
+109
+00:07:39,070 --> 00:07:42,850
+you can also reach by firing
+transitions in a particular order.
+
+110
+00:07:42,850 --> 00:07:46,960
+So there is really no difference
+from a practical point of view.
+
+111
+00:07:49,970 --> 00:07:53,400
+Here you can see an example of
+the state explosion problem.
+
+112
+00:07:53,400 --> 00:07:59,540
+So we have now six transitions and each
+of the input places contain six tokens.
+
+113
+00:07:59,540 --> 00:08:04,910
+So think about how many
+states can be reached.
+
+114
+00:08:04,910 --> 00:08:07,765
+What is the number of reachable
+markings of this petri net.
+
+115
+00:08:08,920 --> 00:08:11,990
+Well, more than 100,000
+states are reachable.
+
+116
+00:08:13,380 --> 00:08:18,330
+Because they can fire in any order and
+if we
+
+117
+00:08:18,330 --> 00:08:22,870
+look at every transition,
+there are seven possible states
+
+118
+00:08:22,870 --> 00:08:27,179
+because any of the tokens can be before
+the transition or after the transition.
+
+119
+00:08:29,840 --> 00:08:34,340
+So let's again take a look at
+another example, showing let's say,
+
+120
+00:08:34,340 --> 00:08:37,390
+concurrency and, conflict.
+
+121
+00:08:37,390 --> 00:08:44,060
+So here we see a situation where t1 and
+t2 are both enabled, but
+
+122
+00:08:44,060 --> 00:08:50,500
+only one of them can occur because they
+are fighting for the same token in p2.
+
+123
+00:08:50,500 --> 00:08:56,090
+So for example if t1 occurs, this is
+the state that we will end up with.
+
+124
+00:08:56,090 --> 00:08:57,830
+But t2 can no longer happen.
+
+125
+00:08:59,640 --> 00:09:01,870
+So t1 disabled t2.
+
+126
+00:09:02,900 --> 00:09:04,970
+Let's take a look at this example.
+
+127
+00:09:04,970 --> 00:09:09,670
+So in this example,
+we see that there are three tokens in p1,
+
+128
+00:09:09,670 --> 00:09:12,700
+and they can be consumed by t1 and t2.
+
+129
+00:09:12,700 --> 00:09:16,580
+So the question is how many
+final markings there are.
+
+130
+00:09:18,820 --> 00:09:22,740
+Think about this and
+what you will see is that each of
+
+131
+00:09:22,740 --> 00:09:27,580
+the tokens can be consumed by
+any of the two transitions.
+
+132
+00:09:27,580 --> 00:09:32,140
+So this yields, in total,
+four different states.
+
+133
+00:09:32,140 --> 00:09:38,830
+One state, where t1 has happened three
+times, and t2 has happened zero times.
+
+134
+00:09:38,830 --> 00:09:45,240
+One state, where t1 happened twice,
+and t2 happened once, etcetera.
+
+135
+00:09:47,990 --> 00:09:49,880
+This is another example.
+
+136
+00:09:49,880 --> 00:09:54,960
+Again, think about what is the number
+of possible final markings.
+
+137
+00:09:56,030 --> 00:10:02,500
+And if you look carefully you will
+see that p1 is a limiting place for
+
+138
+00:10:02,500 --> 00:10:07,070
+t1, and p3 is a limiting place for t2.
+
+139
+00:10:07,070 --> 00:10:11,630
+So in this case,
+there is only one possible final marking,
+
+140
+00:10:11,630 --> 00:10:13,330
+because there are sufficient tokens in p2.
+
+141
+00:10:13,330 --> 00:10:17,930
+In fact one token remains there.
+
+142
+00:10:17,930 --> 00:10:22,790
+If we look at the situation where
+there are more tokens in p1 and p3,
+
+143
+00:10:22,790 --> 00:10:27,710
+than there are in p2,
+then p2 becomes a limiting factor.
+
+144
+00:10:27,710 --> 00:10:30,670
+And if we look at the number
+of possible final markings,
+
+145
+00:10:30,670 --> 00:10:34,880
+we will find that there are two
+possible final markings.
+
+146
+00:10:34,880 --> 00:10:36,560
+This is one of them.
+
+147
+00:10:36,560 --> 00:10:41,830
+In this case, t1 fired twice,
+t2 fired only once, or
+
+148
+00:10:41,830 --> 00:10:48,410
+you can have this state, where t2
+fired twice, and t1 fired only once.
+
+149
+00:10:48,410 --> 00:10:51,640
+And these are both final markings but
+nothing can happen anymore.
+
+150
+00:10:53,800 --> 00:10:57,740
+Let's now revisit our
+traffic light example.
+
+151
+00:10:57,740 --> 00:11:02,970
+We are now interested in the question
+of modeling two traffic lights.
+
+152
+00:11:02,970 --> 00:11:04,740
+How do we model two traffic lights?
+
+153
+00:11:05,810 --> 00:11:09,014
+Well there are two viewpoints.
+
+154
+00:11:09,014 --> 00:11:13,550
+One viewpoint is that we simply
+take a copy, so we take
+
+155
+00:11:13,550 --> 00:11:16,700
+two copies of the traffic light example
+and put them next to each other.
+
+156
+00:11:18,150 --> 00:11:22,770
+Another way that we can model two traffic
+lights is by simply putting two tokens in
+
+157
+00:11:22,770 --> 00:11:23,890
+place red.
+
+158
+00:11:23,890 --> 00:11:25,470
+Each representing a traffic light.
+
+159
+00:11:26,860 --> 00:11:31,250
+These are two possible ways
+of modeling a traffic light.
+
+160
+00:11:31,250 --> 00:11:38,500
+But in the first traffic light the
+different traffic lights are identifiable.
+
+161
+00:11:38,500 --> 00:11:41,680
+We can talk about one is red and
+the other is green.
+
+162
+00:11:41,680 --> 00:11:43,860
+In the second one that is not possible.
+
+163
+00:11:43,860 --> 00:11:49,260
+So if we look at a number of reachable
+markings, there is a difference.
+
+164
+00:11:49,260 --> 00:11:52,540
+In the first model there
+are nine reachable markings.
+
+165
+00:11:52,540 --> 00:11:54,630
+In the second model, there are
+
+166
+00:11:54,630 --> 00:11:59,320
+fewer reachable markings because we
+cannot distinguish, for example,
+
+167
+00:11:59,320 --> 00:12:04,459
+between one traffic light being green and
+the other being orange, and reversed.
+
+168
+00:12:05,510 --> 00:12:08,010
+So that's why we have less
+reachable markings.
+
+169
+00:12:09,620 --> 00:12:13,870
+If we take a look at the example,
+by just simply copying the two
+
+170
+00:12:13,870 --> 00:12:17,850
+traffic lights next to each other,
+one can see a problem.
+
+171
+00:12:17,850 --> 00:12:23,930
+Both can switch to green at the same time,
+yielding to all kinds of problems.
+
+172
+00:12:23,930 --> 00:12:31,170
+So we would like to avoid the situation
+where both traffic lights switch to green.
+
+173
+00:12:31,170 --> 00:12:35,040
+In fact we want to ensure that
+at any point in time one of
+
+174
+00:12:35,040 --> 00:12:36,960
+the two traffic lights is red.
+
+175
+00:12:38,600 --> 00:12:40,040
+So how to do that?
+
+176
+00:12:40,040 --> 00:12:41,430
+How to make them safe?
+
+177
+00:12:43,440 --> 00:12:49,060
+So we have two concurrent processes and
+we want to synchronize them in some way.
+
+178
+00:12:49,060 --> 00:12:51,300
+That they exhibit a safe behavior.
+
+179
+00:12:51,300 --> 00:12:53,590
+In other words,
+
+180
+00:12:53,590 --> 00:12:58,060
+we want to limit the set of reachable
+markings to the markings that are safe.
+
+181
+00:12:59,410 --> 00:13:01,740
+Well, the way to do that.
+
+182
+00:13:01,740 --> 00:13:03,670
+If we, don't want to,
+
+183
+00:13:04,980 --> 00:13:10,940
+enforce a certain order on the way that
+they switch to green, is this solution.
+
+184
+00:13:10,940 --> 00:13:16,470
+So carefully look at
+place x in this example.
+
+185
+00:13:16,470 --> 00:13:21,350
+This place is ensuring that only
+one of the two traffic lights can
+
+186
+00:13:21,350 --> 00:13:22,260
+switch to green.
+
+187
+00:13:23,570 --> 00:13:25,810
+If the traffic light switches to green.
+
+188
+00:13:25,810 --> 00:13:28,760
+The token from x will be removed.
+
+189
+00:13:28,760 --> 00:13:33,500
+There by disabling the other traffic
+lights to also switch to green.
+
+190
+00:13:35,320 --> 00:13:40,200
+And then, the token is only returned
+to x once the traffic light,
+
+191
+00:13:40,200 --> 00:13:44,740
+that was first green, then orange,
+switches back to red.
+
+192
+00:13:44,740 --> 00:13:47,310
+Only if it's red again,
+there is a token in x and
+
+193
+00:13:47,310 --> 00:13:50,990
+the whole process starts again
+from that initial marking.
+
+194
+00:13:52,020 --> 00:13:56,620
+So this is a safe way of
+modeling traffic lights, but
+
+195
+00:13:56,620 --> 00:14:00,560
+it yields the situation that
+it is nondeterministic.
+
+196
+00:14:01,850 --> 00:14:08,050
+It is unclear which of the two traffic
+lights will switch to green first.
+
+197
+00:14:08,050 --> 00:14:13,190
+It is even possible that always the same
+traffic light will switch to green.
+
+198
+00:14:13,190 --> 00:14:16,220
+And that the second traffic light
+will never switch to green.
+
+199
+00:14:16,220 --> 00:14:17,950
+That is allowed by this model.
+
+200
+00:14:19,850 --> 00:14:22,740
+So a question that you could ask
+yourself, if you take a look at
+
+201
+00:14:22,740 --> 00:14:28,860
+this model, how to make a traffic light
+where things all are alternating?
+
+202
+00:14:28,860 --> 00:14:32,280
+So first,
+the first traffic light switches to green.
+
+203
+00:14:32,280 --> 00:14:35,860
+Then the second, then again the first,
+then the second, etcetera.
+
+204
+00:14:36,900 --> 00:14:43,000
+Well this can be modeled by splitting
+this place x, in two places.
+
+205
+00:14:44,060 --> 00:14:49,140
+And these places,
+exhibit the following behavior,
+
+206
+00:14:49,140 --> 00:14:53,760
+they trigger the other traffic
+light to switch to green.
+
+207
+00:14:53,760 --> 00:14:59,360
+For example the token in x that
+you can see in the current state,
+
+208
+00:15:01,680 --> 00:15:06,090
+it is triggering the second
+traffic light to switch to green.
+
+209
+00:15:06,090 --> 00:15:10,280
+And when the second traffic light
+has gone through the cycle it will
+
+210
+00:15:10,280 --> 00:15:14,850
+put a token in y, thereby
+triggering the first traffic light.
+
+211
+00:15:16,250 --> 00:15:18,450
+And this way they will alternate.
+
+212
+00:15:18,450 --> 00:15:21,560
+So we no longer have
+a non-deterministic system.
+
+213
+00:15:21,560 --> 00:15:26,760
+We now have a process where the next
+state is always fixed and clear.
+
+214
+00:15:28,820 --> 00:15:33,020
+So this gave you some more
+insight into process modeling and
+
+215
+00:15:33,020 --> 00:15:34,750
+particular petri nets.
+
+216
+00:15:34,750 --> 00:15:40,400
+In the next lecture, we will tell more
+about this very foundational notation
+
+217
+00:15:40,400 --> 00:15:45,040
+that is very important to understand,
+before we look at process discovery and
+
+218
+00:15:45,040 --> 00:15:47,233
+other process finding techniques.
+
+219
+00:15:47,233 --> 00:15:51,018
+Thank you for watching,
+and hope to see you soon.
+
+220
+00:15:51,018 --> 00:16:01,018
+[MUSIC]
+

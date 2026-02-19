@@ -1,0 +1,589 @@
+[MUSIC].
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+Before we focus on process mining,
+it is good t have a solid understanding
+of the mainstream data mining techniques.
+Hence, there will be several
+lectures on data mining.
+Today we start by presenting
+a technique to learn decision trees.
+This slide shows that process
+mining is the linking pin
+between data-oriented analysis,
+and process-oriented analysis.
+Before we focus on process discovery
+techniques, conformance checking.
+Predictive analytics, and
+other forms of process mining.
+We now look at so-called
+decision tree learning,
+which is one of many available
+data mining techniques.
+So what is a decision tree?
+In a decision tree we have a number
+of predictor variables, and
+based on these predictor variables.
+We try to predict,
+what the so-called response variable is.
+Decision tree learning is
+a form of supervised learning,
+because the data is labeled.
+Labeled using the response variable.
+In our case, this is categorical data.
+Let's take a look at some examples.
+For example, we would like
+to know what the effect is of
+lifestyle on how old people get.
+One can take this as input data, so
+we know whether people are drinking,
+smoking, what their weight is.
+And we know the age at
+which people have died.
+Now we try to predict, whether people will
+die at an older age or at a younger age.
+So as a response variable,
+we take the age and we make it discrete.
+We turn it into a categorical variable,
+so people that die about 70.
+Are labeled old, people that
+die under the age of 70 are labeled young.
+And the other variables are used
+as predictor variables.
+So we would like to predict
+the response variable in terms of
+these predictor variables.
+This is a so called decision tree.
+It is learned based on the data,
+and what it tells you, for
+example, that if people are smoking,
+they are likely to die young.
+If people are not smoking, they are not
+drinking, then they are likely to die old.
+We can also see numbers in
+the leaves of such a tree.
+This is explaining,
+what was done with the training set
+used to learn this decision tree.
+In this case there were 195 smokers.
+They were all classified as young,
+but there were
+11 smokers that actually died at an older
+age so that are classified incorrectly.
+The other leaves have similar numbers.
+For example, there were two
+people that were not drinking,
+that were not smoking,
+but still died young.
+Okay.
+Let's see whether we can
+read such a decision tree.
+Take Mary.
+She is drinking, but she's not smoking.
+Her weight is 70 kilos, and
+she died at the age of 85.
+So the question is, is Mary classified
+correctly in this decision tree.
+The answer is yes.
+And the red path shows what
+Mary's path is through this decision tree.
+So Mary was not smoking, she was drinking,
+and her weight was below 90,
+so according to the decision tree
+she should be classified as old,
+dying above the age of 70.
+And indeed she did.
+Let's take a look at another person, Sue.
+Is she classified correctly
+according to this decision tree?
+Again we follow the path.
+So Sue is not a
+smoker and is not a drinker.
+So it is predicted that she will die at an
+older age, above 70, but she died at 35.
+So she's not classified correctly
+according to this decision tree.
+Let's take a look at another data set.
+Suppose that we have data about.
+The marks that student had for
+individual courses.
+If there is a dash in this table it means
+that the course was actually not taken,
+and so no result is known.
+In all the other cases,
+there's a number between one and
+ten indicating how well somebody made
+the exam for that particular course.
+Then we could be interested in
+the duration, or we could also be
+interested in the fact whether people
+pass, fail, or graduate cum laude.
+If we are interested
+in the latter column.
+Then the response variable is the result,
+which is cum laude, passed, or
+failed, and the predictor variables are
+the grades for all the individual courses.
+Using such data,
+we can again learn a decision tree, and
+here you see an example of it.
+So.
+People that had a mark lower than 8 for
+logic and had a mark of 6 or
+higher for linear algebra, it is predicted
+that they have, that they will pass.
+People that did not make
+the course on logic, or
+did not have a grade for
+it are predicted to fail.
+So again, the decision tree makes
+predictions by learning from
+a larger set of examples.
+Let's take a look at the third data set.
+Here we see what people are buying
+in a coffee shop, and so
+people may order cappuccino.
+latte, espresso.
+Cafe Americano, tea, and
+they may eat a muffin or a bagel.
+As a response variable we
+take the column muffin, and
+we again make it discrete into a
+categorical variable, muffin or no muffin.
+And so
+we ignore the numbers in this table.
+Just whether things are present or not.
+So this is decision tree that
+we could learn over this data.
+So what we see is that people
+that drink tea according to
+this decision tree also eat a muffin.
+People that do not drink a tea,
+do not drink latte.
+Are predicted to not order a muffin.
+So, let's take again
+a look at some questions.
+So here you see the check
+of a visitor of this cafe.
+And this visitor ordered 2 cappuccinos,
+3 lattes, 1 muffin and 2 bagels.
+Is this particular example classified
+correctly according to the decision tree?
+The answer is yes, and here in red,
+you can see again the path.
+People that, do not drink tea but
+drink at least two lattes.
+They are predicted to also order a muffin.
+And that is the case in this situation.
+Let's take a look at another example.
+A person ordered a bagel,
+a latte, and a ristretto.
+The question is,
+is this person classified correctly?
+If we follow the path
+through the decision tree,
+it is predicted that such
+a person would order a muffin.
+But this is actually not the case.
+And so this would be an instance that
+would be classified incorrectly by this
+decision tree.
+We can use the decision tree to make
+predictions over unseen instances.
+So, suppose that we have this check,
+we know that somebody ordered the bagel,
+two lattes, and one cappuccino.
+Then the question is, is it likely that
+the person also ordered a muffin?
+Then we can use a decision tree.
+So, in this situation what
+would a decision tree tell?
+The decision tree would tell that this
+person would indeed order a muffin,
+and that is the case because
+the person ordered no tea.
+At least 2 lattes, and
+people that fall into this class
+are predicted to order a muffin.
+So how does this work?
+We now have seen what a decision tree is,
+how we can use it.
+It can be used for understanding data, for
+predicting data, but how when can we
+automatically learn such a decision tree.
+Well, it is done by splitting nodes to
+reduce the variability within every node.
+So, if we look at this,
+if we look at 6, persons, and
+they are all in the same category,
+3 are red and 3 are green.
+Then we have a high entropy.
+We are very uncertain,
+wether it should be green or red.
+The idea is that we split nodes
+that we are uncertain about into
+smaller sets,
+smaller classes that are more homogenous.
+So, for example, if we split a set of
+people, into smokers and non-smokers,
+and we find that the 2 smokers died
+at a younger age labeled here as red
+then we reduce the variation
+within the individual subsets.
+So, we are still uncertain
+about people who do not smoke.
+And we could again split the group
+of non-smokers into two groups.
+The people that drink, and
+the people that do not drink.
+What we then find is that
+the variation within the group of
+people that do not drink.
+And do not smoke.
+That all of these people live longer.
+So, this overview slide shows that we
+try to go from a bigger
+class with high entropy,
+a high degree of uncertainty, to smaller
+classes where we are more certain about.
+And, this way we can incrementally
+build a decision tree.
+What is crucial for
+understanding decision trees,
+is that you have a good understanding
+of the notion of entropy.
+So, entropy is the degree of uncertainty.
+One can also think of entropy as
+the inverse of compressibility.
+Or zippability.
+If there is very little
+variation within a group,
+then we can compress the data very much.
+The goal is now to reduce the entropy
+in the leaves of the decision tree.
+And in this way we improve
+the predictability.
+Of elements that belong
+to a particular class.
+To formalize the notion of entropy,
+we need to use logarithms.
+And this is, basic high school math,
+mathematics.
+But still it is repeated so
+that you easily can apply
+the formulas on the coming slides.
+For example if we take the logarithm of
+2 to the power n, then the result is n.
+If we take the logarithm of 1 divided
+by 2 to the power n, we get minus n.
+Here you can see some examples.
+So for example,
+the logarithm of 1 is equal to zero.
+The logarithm of 1024 is equal to 10.
+So what is not the formula for entropy?
+The formula for entropy takes
+the sum over a set of values.
+So suppose that we have k possible values.
+We enumerate them from 1 to k and
+then pi is the probability
+or in other words, the fraction
+of elements having this value.
+So we can estimate this pi,
+this probability by taking the number.
+Of elements that have that particular
+value by the set of all elements.
+As we divide ci by n, and
+then we get the fraction pi.
+And then we apply this formula.
+So we take the sum over pi
+times the logarithm of pi.
+This looks very complicated,
+but if one starts to apply it,
+it will become more clear.
+So, if we have two groups of people
+that are represented in
+a particular class, and of both
+types of people we have the same amount,
+then that is the worst case situation.
+And so we have 3 reds, and 3 green dots.
+So the entropy if we apply
+this formula is equal to 1.
+What this means is that we
+need to have one bit to
+encode whether a person belongs to the
+red labeled class or
+the green labeled class.
+If we now split based on the attribute
+smoker we get more homogeneous groups.
+Let's see how this is
+reflected in entropy.
+So if we compute
+the entropy of the smokers.
+There are 2 smokers, and
+they are both labeled red,
+meaning that they both
+die at a younger age.
+If we now look at the entropy and
+we fill out a formula,
+the entropy is equal to zero.
+We need no information.
+We need no bits to encode.
+What people in this class,
+whether they are dying young or not.
+Because that they all have the same label.
+Now we can take a look at the class
+of all people that do not smoke.
+3 persons in the class, live longer.
+1 person in this class live shorter.
+If you now apply the formula,
+then we get a value of 0.8.
+And so we can see that the entropy,
+we do not need to have one bit,
+we can use slightly less.
+We can split further based on
+whether people are drinking or not.
+So again, we have the class of smokers.
+Still the entropy is equal to zero.
+We can take a look at the people
+that do not smoke but
+that do drink, and
+the entropy is equal to 1.
+Because both groups
+are equally represented.
+It is a one-to-one relationship.
+Finally, we have the people
+who do not drink and
+do not smoke,
+the entropy of the group is equal to zero.
+So this is the way that we
+can compute entropy, and
+here we can see all the numbers
+that we have just computed.
+Using this basic formula.
+We can now take the weighted
+average of these 3 decision trees.
+So if we take a look at the first
+decision tree there is just one leaf.
+And in this leaf
+the entropy is equal to 1.
+And it is the complete fractions,
+so 6 divided by 6.
+So, the overall weighted average
+of entropy is equal to 1.
+If we take a look at the second
+decision tree where we split
+based on the label smoker, and we take
+the weighted average of zero and 0.811.
+Then we can see that the entropy is 0.54.
+Note that 2 of the 6 persons ended up in
+the class that had
+an entropy equal to zero.
+The rest.
+Had an entropy of, 0.811.
+That is why we need to apply
+the formula in this way.
+We can split based on the label smoker.
+Now we have three, leaves.
+Each of these leaves has a weight,
+depending on the number of
+people in that particular leaf.
+We take the weighted average of
+the different entropy values, and
+we see that the resulting entropy is 0.33.
+So what we can see is that
+in the first decision tree,
+the weighted average over all
+these entropy values was 1, and
+by splitting, based on the label smoker,
+it went down from one to 0.54.
+This means that we had
+an information gain of 0.46.
+If we take the tree in the middle,
+we can split based on the level drinker.
+And we get an entropy of one-third.
+So now the information gain is 0.21.
+So we would like to reduce the entropy.
+And we would to split on the labels that
+maximize the reduction of this entropy,
+so that maximize information gain.
+So the idea of the algorithm is now
+that we continue splitting labels.
+Trying to maximize information gain,
+but stop if this is no longer possible.
+So let's take a look at some
+questions to see whether you
+really understand the notion of entropy.
+Here you see several
+sets of colored balls.
+And we would like to compute the entropy
+of all the individual cells.
+If you do that then you can
+compute the overall entropy
+of all of these 9 different squares.
+And we can compare that with the overall.
+Entropy if it would put all the balls in
+1 big bin, and then compute the entropy.
+And so please, try to compute these
+values that are asked for here.
+Okay, let's first take a look
+at the cell in the middle.
+If we look at the cell in the middle.
+There are, 16 balls.
+Two of each color.
+And there are 8 different colors.
+If we then apply the entropy formula, we
+find that the entropy is equal to three.
+So, we need to have 3 bits to
+encode the color of a single ball.
+In the square in the middle.
+If we not take a look at the other cells,
+they all contain 16 balls.
+But they all have the same color.
+So the entropy for
+all these other cells is equal to zero.
+And we can learn that by just filling out
+the formula that we have seen before.
+So, if we now look at the over all
+entropy, we need to take the weighted
+average of these 9 different squares and
+we get an entropy of one-third.
+That's right,
+entropy of all cells is zero,
+the cell in the middle
+has an entropy of three.
+There are nine cells, so
+the resulting weighted average is 0.33.
+What is the entropy after we take all
+the different cells and mix them?
+Then we have 144 balls
+having 18 different colors.
+So this is the distribution
+that we then get, and
+this corresponds to an entropy of three.
+So if we now compare these 2 situations,
+if we have these 9 different cells.
+Where the cell in the middle
+has all the colors, and
+all the other cells have just 1 color,
+we have a much lower entropy.
+Then when we have one big
+cell containing all balls,
+because then the entropy is equal to 3.
+So, if we move from
+the situation with an entropy
+of 3 to the entropy of one-third, we
+have an information gain equal to 2.666.
+So this is what is being used
+when learning a decision tree.
+So, you see another example.
+We start by classifying
+all people as dying young.
+Then we split on the attribute smoker.
+So we go from the attribute
+that is listed here.
+To these entropies for
+the 2 new leaves that we find.
+Then we can take the weighted average, and
+compare this weighted average of the
+overall entropy to the original entropy.
+And we can see that there is indeed
+an information gain of 0.107.
+Although the classification did not
+change there was information gain.
+And this is because the group of smokers
+is now more homogenous that it was before.
+We can split further.
+And again, we can look at
+the original entropy values.
+This is the weighted average.
+And compare that to the new situation,
+where we can basically apply
+the formulas that we have seen before.
+So these are the entropy values for
+the different leaves.
+We again take the weighted average.
+We can compare both, and
+we see that there is an information gain.
+Of 0.07.
+So, this shows you the basic idea
+of the decision tree algorithm.
+We start with the root node
+that has all instances, and
+then we iteratively go
+through all the nodes.
+And see whether we can
+achieve an information gain.
+We do that by trying to split on
+all the possible attributes, and
+see whether the entropy is indeed reduced.
+So we select the attribute with
+the biggest information gain,
+above a certain threshold.
+And then we split that node, and
+we continue doing that until no
+significant improvements are possible.
+Then we return the decision tree.
+So that's the basic idea of
+learning a decision tree,
+using the notion of entropy.
+There are many parameters and
+variations possible to do this.
+For example one can define a minimal size
+of a node before or after splitting,
+to avoid overfitting, having all
+kinds of leaves that correspond to for
+example just a single instance.
+We can set the threshold on
+the minimal gain that is needed, and
+stop splitting if this
+gain cannot be achieved.
+We can define a maximal depth of the tree.
+We can also have, allow for
+multiple times using a label.
+Along a certain path.
+Some decision tree algorithms
+do not allow it, others do.
+But rather than using entropy,
+we can use alternative notions,
+like the Gini index of diversity.
+If we have a numerical variable,
+we can make it.
+Automatically categorical,
+using particular types of techniques.
+And so we split the domain of a numerical
+variable to make it categorical.
+We can also do a post pruning of the tree
+to remove the leaf notes that do not
+significantly increase the explanatory
+power of the resulting decision trees.
+Decision tree learning has many
+applications also in the field of
+process mining.
+So for example,
+if we take a look at this process model,
+then we ask ourselves what
+is driving these decisions?
+These 2 decision points in this
+process model, why are certain
+instances going left and
+our other instances going right.
+What is the most likely path of
+a running case giving it's attributes?
+If we look at the particular case,
+we would like to predict whether
+it will be late or rejected.
+Using decision tree learning on top
+of process models, we can do that.
+But it is crucial to see that these
+questions require a discovered process,
+otherwise none of this is possible.
+So process discovery is necessary before
+we can use decision tree learning.
+Today was the first lecture that we start
+talking about data mining techniques.
+Please read chapter 3 to learn
+more about decision tree learning.
+Thank you for watching this lecture,
+see you next time
+[MUSIC].
+

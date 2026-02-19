@@ -1,0 +1,291 @@
+[MUSIC]
+Hi there.
+I'm Anne Rozinat from Fluxicon, and
+I would like to welcome you
+to this process mining MOOC.
+Process mining is a very
+interesting topic.
+Very relevant for today's organizations.
+Based on just data you can
+automatically discover processes.
+And this can be done very fast and
+very quickly and for
+many different processes
+in these organizations.
+There are so many processes and
+so much data is around.
+Well, process mining is already picking
+up in several companies nowadays,
+and those companies who are using it,
+they get lots of value out of it and
+are expanding their usage.
+But many more companies will start
+using process mining in the future and
+will become an indispensable tool for
+process analysts, process managers, and
+auditors, and, and
+many other process roles.
+So, it's not just a very interesting
+topic that you chose, but
+also a very relevant one.
+And, there's no better person
+to learn process mining from
+than professor Bill Finoust, who is also
+called the godfather of process mining.
+Well, as for
+us at Fluxicon, we caught the process
+mining back more than ten years ago.
+When we were still studying in Germany we
+came across this topic and then we went to
+Eindhoven to do PhD in the process mining
+group of And this was a really great time.
+Well, first of all,
+lots of other colleagues also working
+on different process mining topics, but
+also we had the chance to work with
+industry partners such as and Phillips.
+And in those projects
+what we learned first of
+all is that the processes were
+really much more complex.
+And we had the chance to develop
+our algorithms to meet those,
+yeah, complex processes in the real world.
+Back then most things were really
+just working based on toy examples.
+So for example, the fuzzy miner was one
+of the first algorithms that, yeah,
+really was able to deal with very
+complex and heterogeneous processes.
+So that was one thing.
+But, at the same time, what we notice is
+that people were always really amazed and
+enthusiastic about what we could show
+them when we took their data and
+made their processes visible for them.
+They couldn't believe
+that that was possible.
+So there was this huge gap between
+what we were able to do, and
+what they thought were possible, or what
+they were doing in their everyday life.
+So, for
+us that was the trigger that we said,
+well we have to do something with it.
+And we started Fluxicon as
+a company to make business, yeah,
+process mining software for
+business users.
+and, yeah, with the goal to really
+make this technology accessible to
+businesses around the world.
+And well, when we started out we
+just started doing consulting for
+Jake's with prom, and
+the academic tool set.
+yeah, under, under, under our arms,
+which we knew very well because we
+had developed large parts of it.
+And we learned what kind
+of questions people had and
+what kind of problems they wanted
+to solve with process mining.
+And then, we started developing
+our own software [COUGH] to,
+to address those needs and
+to kind of build the perfect tool for
+those business users that
+we met in those projects.
+So, this is what Disco is about,
+Disco stands for discovery.
+And Disco it's on the market now for,
+yeah, since 2012.
+And [COUGH].
+So, our prom is really a great academic
+tool set, which makes it very easy for
+our researchers develop,
+to develop new algorithms.
+For example, Disco's really meant for
+a business professional,
+who does not need to know anything about
+how these algorithms works, work, and
+how the technology looks
+like under the hood.
+We have hidden that away from them.
+But we make it available for them, so
+that based on their domain knowledge and
+process knowledge, they can yeah,
+use these results and
+draw the right conclusions and
+interpretations from it.
+Now with Disco,
+process mining becomes really easy.
+You have an Excel sheet for
+example, with some data, and
+you can sim, simply import the CSV or
+Excel sheet in a visual way,
+map the different columns to
+case ID activity name and
+time stamp, and then once you import you
+are directly taken into the process map.
+You can interactively determine the level
+of detail that you want to look at
+the process map.
+And then you can interactively very
+easily answer different questions about
+the process through filters.
+For example, performance filter that
+focuses on the long running cases,
+taking longer than an expected time.
+And focus in on those bottlenecks
+that you can then find and
+see where things are really
+taking very long in the process.
+Now, you can even animate that process in
+a, in a very easy way, and this brings
+the process to life, and helps a lot in
+communicating the problems at hand and, so
+that people can point their finger on
+the place where the problem occurs, and
+discuss why this is happening,
+and what they can do about it.
+Now [COUGH].
+well, with as a participant of this MOOC,
+we make Disco available for
+you for the time of the MOOC
+with a training license.
+You can use this license to import
+data sets up to 1 million records.
+And this is enough to do
+all the exercises, but
+you can also import some of
+your own data if you have any.
+And in fact,
+we would encourage you to do that.
+Because there's no better way to learn
+about process mining than to, yeah,
+to play around with some
+of your own data and
+to get a good understanding of what it
+can really do for your own business.
+And yeah.
+So we really hope this will spread the,
+the, the knowledge about this
+technology which still very few people
+know about, that it even exists.
+And yeah, I just want to mention also that
+we have an academic initiative with close
+to 200 universities all around the world
+where we provide lecture materials and
+also free academic licenses.
+So you can take a look at our website
+to find more about it as well.
+Now I would like you to realize that
+process mining is really a very special
+yeah, data science technique or
+data analytics technique because yeah.
+Most of those other data
+analytics techniques they make
+assumptions about the process.
+Or, if you think of, for example BI,
+business intelligence technology, you
+have to set up an implementation project.
+And it's all very heavyweight.
+With process mining you just need to
+get some data and you can start mining.
+It's very lightweight and very powerful.
+But, what is especially
+interesting about process mining,
+is what it makes possible for
+the business user.
+So, let's take a look at this graph.
+Well, the business users what they have
+access to typically is, well first of all,
+specific reports and dashboards that
+are made specifically for them.
+They're very accessible for them,
+but it's also kind of limited,
+because those reports they include exactly
+that kind of information that was pre-pro,
+programmed for them to contain.
+Well, Excel, on the other hand is a very
+popular tool among professionals
+not without reason.
+Excel is a very powerful tool, and
+you can do lots of things with it.
+And it's something that the,
+the business user can use themselves.
+On the other end of the spectrum, you
+have those data science techniques that
+everyone talks about today
+in the big data craze.
+And well, that's,
+those techniques are very powerful but
+at the same time you really need to be
+an engineer or a specialist to use them.
+Now process mining,
+on the other hand, is particularly
+interesting because it's very powerful.
+It's much more powerful for
+analyzing processes than Excel, because
+processes consist of multiple steps, and
+that's a thing that's very
+difficult to do in Excel.
+But it's still accessible for
+the business user.
+So the business user who has the knowledge
+about their business process and
+about the problems in the process,
+they can use process mining yeah,
+in their own hands to really yeah,
+get great results based on that analysis.
+And so,
+if you think that process mining is
+just a way to automate something
+that was being done manually before.
+Like previously we were modeling
+processes, manually modeling them by hand,
+now we can do it automatically
+with process mining.
+That falls way too short.
+Process mining can do much more than that.
+And in a way, you can compare it with
+spreadsheets because when, before
+spreadsheets were around, people had to do
+everything manually using a calculator.
+So if you wanted to do a projection or
+some kind of forecast, you had to type it
+in and you had to manually calculate it.
+But once spreadsheets were around,
+it's not just that the things that you
+did manually before those could now,
+now be automated, but
+much more things could be done.
+Many more things could be done.
+And yeah, so
+it gave you much more power to do
+all kinds of things that nobody
+thought about were possible before.
+Process mining works in the same way for
+processors.
+And is as revolutionary as
+spreadsheets for, for numbers.
+So, for business professionals,
+who have the knowledge to
+draw the right interpretation and make the
+right decisions based on those results,
+process mining really brings
+kind of special powers to them.
+So we kind of, that's how we like
+to see our, our Disco users also,
+that we can now give them super powers for
+their own processes.
+Well I'm really glad you're
+participating in this MOOC.
+I would like to welcome you to
+the process mining community and
+I'm sure you will love this
+topic as much as we do.
+And happy mining.
+[MUSIC]
+

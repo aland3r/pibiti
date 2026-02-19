@@ -1,0 +1,466 @@
+[MUSIC]
+Welcome to this lecture.
+Today we will continue
+with decision trees.
+The last lecture presented
+the main concepts.
+Today, we show more examples and
+focus on the application of
+such classification techniques.
+Here you can see the running example
+that we have used in the last lecture.
+Using the notion of entropy,
+we were splitting notes into smaller
+notes until they were more homogenous.
+In such a way that we could understand
+the data in a better way, and
+we could make predictions.
+Today we will look at much more
+examples to get a better understanding,
+what the decision tree is,
+and how it can be used.
+So let's take a look at this small
+example, where we have a group of
+160 students 100 of these 160
+students passed, 60 failed.
+Suppose that we know
+the gender of these students.
+We know whether they are smoking or no.
+We know whether they
+are attending lectures.
+Can we then predict whether
+students are going to pass or
+fail based on these attributes?
+We can do this by building
+a decision tree and whenever we
+want to split a node, in this case a root
+node we want to know what the entropy is.
+So if we would like to split
+on the attribute smoker.
+We are interested to see what
+the information gain is.
+On this slide you can see the numbers
+indicating for the people that smoke and
+do not smoke.
+How many people passed and
+how many people did not pass.
+So please compute the information
+gain of this split.
+The answer can be computed as follows.
+First we take a look at the root node,
+we apply the standard formula for
+entropy, and
+we find that the entropy is 0.95.
+Then we split based on
+the attribute smoker.
+We get two smaller groups and for
+each group we compute the entropy.
+So for one group it is 0.95.
+For the other group it is also 0.95.
+So the entropy values in both of the leaf
+nodes did not go down,
+compared to the root node.
+To compute the overall entropy,
+we need to take the weighted average, and
+if we do that, we get the entropy for
+the root node.
+And of course it is also 0.95.
+And if we compute the weighted
+average of the entropy of the two
+new leaf nodes we find
+exactly the same value.
+So there is no information gain, and
+actually there was no need to do all of
+these computations because we
+could see that the fraction within
+the two child nodes was exactly
+the same as it was before, so
+we did not gain any information.
+Let us therefore take a look
+at another attribute.
+We can split the set of all students
+into the students that are male and
+the students that are female.
+And we now can see that the fractions are
+different from females compared to males.
+So the question is,
+what is the information gain?
+To compute the answer we need to compare
+the original entropy of the root
+node with the weighted average
+of the entropy of the two new leaf nodes.
+This is the entropy of one leaf node.
+This is the entropy of
+the other leaf node.
+We can take the weighted average
+of these two values, and
+if we do so we can see that there
+is actually a change in entropy.
+Unlike based on the label
+smoker we can see that there
+is a considerable information gain of 0.2.
+And so, we are seeing here,
+if we inspect the decision tree,
+that females typically have
+a better study result.
+So by splitting on this label for
+the group of females,
+we know we can better predict
+what their study results will be.
+As a last label we look at
+the attribute attended all lectures.
+So people that attended all lectures
+we make a prediction for those and
+we also make a prediction for the people
+that did not attend all lectures.
+So the question is what is
+the information gain?
+Again, we can do the same computations.
+So, we can compare the original
+entropy of the root node
+with the weighted average of
+the entropies of the two child nodes.
+So, for one child node it is 0.81.
+For the other child node it's 0.
+So people that attended all
+lectures always passed so
+that's why the entropy within
+this group is equal to 0.
+Again we need to compare the weighted
+averages of the original situation and
+the situation after splitting and
+if we do that we get these values.
+And we can see that there is
+a considerable information gain
+by splitting based on this
+particular attribute.
+So the information gain is 0.54.
+If we now compare the three
+attributes based on
+which we could split,
+it is clear that splitting based on
+whether all lectures were attended
+provides the best information.
+So if we build a decision tree,
+it is reasonable to start
+with this particular attribute, and then
+see whether we need to split other nodes.
+So if we take a look at the decision tree
+after one split, attended all lectures,
+then we find one group which we
+classify as pass where no further
+information gain is possible because all
+the instances are classified correctly.
+If you take a look,
+at the other group,
+the people that did not attend all
+lectures, we can still look at
+the other attributes to see whether
+we can achieve more information gain.
+All of this can be seen best
+by simply applying a tool.
+So in this course we will often use
+examples taken from RapidMiner.
+The installation of RapidMiner
+is optional, but
+if you would like to play with these
+ideas using software in the lecture
+guide you can see how to install it,
+where to get it, and how to use it.
+RapidMiner is an integrated extendable
+environment for machine learning and
+all kinds of other types of
+analysis that are focusing on data.
+RapidMiner also has
+a so-called marketplace.
+And there you can also download to so
+called ProM extension.
+So in RapidMiner, you can also
+do process mining using many of
+the techniques that you
+will see in later lectures.
+There are two versions,
+there are commercial and
+open-source version and
+we are using here the open-source version.
+So, let's take a look at an example.
+So we take a data set, you can see
+it's a simple CSV file where we have
+a column gender, a column age,
+a column smoker, a column car brand,
+and a column claim and
+the latter deserves some explanation.
+This is a variable indicating whether
+somebody has claimed insurance,
+car insurance, in the last year.
+So for example the first row
+in this table says there is a,
+a female customer that has insurance,
+age 47, is a smoker,
+drives a Volvo, and she did not claim
+any insurance in the last year.
+So if we take such a data set,
+we are interested in seeing which
+people are claiming insurance.
+Can we predict that?
+So the,
+we took a data set of 999 customers of
+an insurance company to
+learn these types of things.
+So we would like to know which
+customers claim insurance
+by simply using this CSV file.
+So, the response variable
+is the column claim.
+All the other columns correspond
+to predicted variables.
+And we would like to explain
+the response variable in terms of
+these predicted valuables.
+So we can feed this to RapidMiner.
+So we can simply take this CSV file,
+download it in RapidMiner,
+then we need to indicate what our
+role is of all the different columns.
+And after doing that we have loaded
+it in the repository of RapidMiner.
+And now we can apply all kinds
+of analysis techniques to it.
+For example,
+a workflow to build a decision tree.
+So here we see a sketch of this workflow,
+in RapidMiner.
+So we first load the data,
+then we create a decision tree.
+Then we apply the decision
+tree to the data set.
+And then we look at
+the resulting performance.
+So if we take this data set and
+we apply the workflow just indicated,
+this is the decision tree that we get.
+So you can read this decision
+tree just as you did before.
+So for example, female drivers don't claim
+insurance according to this decision tree.
+Male Alfa Romeo drivers typically
+claim insurance in the last year
+as you can see in this decision tree.
+Male Volvo drivers younger
+than 25 claim insurance.
+It's another fact that we can
+read from this decision tree.
+So the decision tree predicts for
+certain groups of customers
+whether they will claim or not.
+So what is the quality
+of this decision tree?
+We were measuring the performance.
+And if we, after learning the decision
+tree, apply it to the same dataset.
+We can see that of the 513 females,
+498 actually did not claim.
+So less than 3% was wrong.
+If you look at Alfa Romeo drivers,
+there were 90 male
+Alfa Romeo drivers,
+four did not claim, 86 claimed.
+The label says they will claim.
+So less than 5% is wrong.
+If we look at the group
+of male BMW drivers,
+we can see that more than 20% is wrong.
+So we can measure the quality of this
+classification using the set that we
+have used to learn this decision tree.
+In this table you can
+see again the data set.
+But now there is an additional label
+telling what the predicted class is.
+So, this is the real class and
+this the predicted class.
+So, if we take a look at the smaller
+fragment of this table one can look at it
+and try to see, are there any instances
+that are classified incorrectly here.
+If you do so
+you will see that row 11 shows an instance
+that was classified incorrectly.
+A male 43 year old
+non-smoking Subaru driver was
+predicted to claim but in reality did not.
+If you look at row 12 you
+will find a similar problem.
+As our BMW driver that was predicted
+not to claim but actually did claim.
+So these are examples of where we
+can see that the decision tree
+is only making a prediction
+that will hold for
+probably the majority of instances, but
+will not hold for all the instances.
+You can show this using
+a so-called confusion matrix.
+So there were 761 customers that were
+predicted not to claim and
+actually did not claim.
+There were 24 customers that did not
+claim, but that were predicted to claim.
+And so the numbers in the green cells,
+they correspond to things that are good.
+The numbers in the red cell,
+they indicate two misclassifications
+using the decision tree.
+Let's take a look at a larger data set.
+Consider an Italian restaurant, where we
+have 5,000 parties that have a dinner.
+The menu includes all of these
+dishes that you see here.
+But unfortunately of these 5,000 parties,
+470 parties had
+members that got very sick,
+313 parties got nauseous,
+and the remaining parties did
+not experience any problems.
+The question is now using
+decision trees can we predict
+which people will become
+sick after eating what.
+Or if we look at things in hindsight.
+We would like to understand what
+are people that got sick or
+nauseous,
+what they had in common.
+What was the dish that caused
+all of these problems?
+Again we can formulate a problem
+in terms of a CSV file.
+So here you see a data set where all the
+columns correspond to dishes and drinks.
+The numbers indicate how many times that
+particular dish or drink was ordered.
+And all the row corresponds to a party.
+And in total we have 5,000 parties.
+This is the workflow that we have
+to learn the decision tree problem.
+Note that all of the parties were
+labeled in one of these three groups.
+Very sick, not sick, or nauseous.
+And then we apply this
+workflow on this data.
+So first, we load the data,
+then we create a decision tree.
+Then we apply the decision
+tree to the data set and
+we measure conformance,
+exactly as we did before.
+We set the minimal
+information gain to 0.1.
+And so we are using this
+parameter to see when
+we need to stop
+extending the decision tree.
+If we do this the RapidMiner
+returns this decision tree.
+It's showing that people,
+that ate this particular pizza
+and were drinking beer that
+they typically got very sick.
+The other parties, according to this
+decision tree, did not become sick.
+And so people that did not eat
+any pizza marinara were okay,
+that just ate one pizza,
+they're also still okay.
+Also the people that were eating
+this particular pizza and
+not drinking beer,
+they also did not get sick.
+So this node corresponds to parties
+that ate less than two pizzas marinara,
+and they did not get sick.
+This node corresponds to parties
+that ate multiple pizzas marinara,
+and that drank beer, and got very sick.
+These are the people that did not
+drink beer and also did not get sick.
+Just like the people that
+did not eat the pizza.
+So, the decision tree
+clearly indicates that
+the combination of pizzas marinara and
+beer caused the sickness.
+What is remarkable if you look at
+this decision tree is that there were
+several parties that were
+classified as nauseous.
+But it is not, there's no class in this
+decision tree that is labeled as such.
+We can see this if we look
+at the confusion matrix.
+So in the confusion matrix we
+can see that 307 of the 313
+parties that were nauseous
+were classified as non sick.
+The other 6 were classified as very sick.
+So the decision tree is unable
+to identify this group.
+Apparently there is not enough
+that they have in common to make
+a proper prediction for
+this particular class.
+We can change the information gain and
+continue to split the tree further.
+So if we set the information gain to
+0.5, this is the decision tree that we get.
+And you can see that it is
+becoming very complicated and
+also seems to over fit.
+For example, if we look at the node
+nauseous, that is labeled as nauseous now.
+You can see that this refers
+to a very particular group of
+customers that ate a very
+specific combination of things.
+We get an improvement, but we get the
+improvement only at the cost of severely
+over fitting the data, a topic that will
+be addressed also in later lectures.
+So, we can either classify
+everybody as not sick.
+We can have a very detailed decision
+tree if we set the information gain to
+even lower values.
+We get trees that are bigger and bigger.
+But these bigger trees,
+they are clearly overfitting.
+And if we just predict for
+everybody that they will not get sick
+we have a tree that is underfitting.
+So the idea of these parameters is to
+balance between these two extremes.
+It seems that the tree that
+we showed at the beginning
+provides a reasonable balance between
+underfitting and overfitting.
+It can be used to understand
+what is happening and
+it can be used to make predictions or
+recommendations.
+And this is exactly how we would
+like to use these decision trees.
+So the last two lectures were
+devoted to decision tree learning.
+We will look at two additional data
+mining techniques, but much shorter.
+That will be association rule learning and
+clustering.
+And these will be addressed in
+the next couple of lectures.
+As indicated before,
+chapter three is devoted to these
+different data mining techniques.
+Thank you for watching and
+hope to see you soon.
+[MUSIC]
+

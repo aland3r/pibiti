@@ -1,0 +1,685 @@
+1
+00:00:00,000 --> 00:00:07,009
+[MUSIC]
+
+2
+00:00:07,009 --> 00:00:08,460
+Welcome to this lecture.
+
+3
+00:00:08,460 --> 00:00:13,170
+Today I will provide a brief outlook
+on the last two weeks of this course.
+
+4
+00:00:14,390 --> 00:00:18,540
+In the last four weeks we
+have focused on control flow.
+
+5
+00:00:18,540 --> 00:00:21,590
+First we looked at process discovery.
+
+6
+00:00:21,590 --> 00:00:23,860
+Finding the ordering of activities.
+
+7
+00:00:23,860 --> 00:00:28,500
+And we use the metaphor of discovering
+a desire line to see what the process of
+
+8
+00:00:28,500 --> 00:00:30,270
+discovery is actually all about.
+
+9
+00:00:31,360 --> 00:00:35,850
+In the last week we focused very
+much on conformance checking.
+
+10
+00:00:35,850 --> 00:00:39,000
+We were comparing modeled and
+observed behavior.
+
+11
+00:00:39,000 --> 00:00:43,109
+Thereby diagnosing
+the deviations that took place.
+
+12
+00:00:44,780 --> 00:00:49,430
+Replaying an event log on
+a control flow model allows us to
+
+13
+00:00:49,430 --> 00:00:53,680
+breath life into models that
+are otherwise completely static.
+
+14
+00:00:53,680 --> 00:01:00,480
+You can see a nice example here of
+breathing life into a static model.
+
+15
+00:01:00,480 --> 00:01:02,720
+And for that, event data, is crucial.
+
+16
+00:01:04,490 --> 00:01:09,220
+As we have seen before,
+event data contains much more information.
+
+17
+00:01:09,220 --> 00:01:12,730
+For example,
+if you look at the animation next to me,
+
+18
+00:01:12,730 --> 00:01:18,480
+this is only possible because we
+have timestamps in event logs.
+
+19
+00:01:18,480 --> 00:01:22,550
+But in event logs we also have
+information about resources.
+
+20
+00:01:22,550 --> 00:01:24,760
+We have information about.
+
+21
+00:01:24,760 --> 00:01:31,140
+The properties of customers, we have all
+kind of other data attributes that we can use.
+
+22
+00:01:31,140 --> 00:01:36,470
+In the last two weeks we will focus on
+these other perspectives, we will look
+
+23
+00:01:36,470 --> 00:01:42,150
+at new process mining tasks related
+to these additional perspectives and
+
+24
+00:01:42,150 --> 00:01:46,710
+overall we will focus more on
+the practical side of process mining.
+
+25
+00:01:48,560 --> 00:01:53,350
+Also the nature of this
+course will change markedly.
+
+26
+00:01:53,350 --> 00:01:56,160
+Lectures will be shorter and
+less technical.
+
+27
+00:01:56,160 --> 00:02:02,160
+And this is done to give you all the time
+to do experiments using data and
+
+28
+00:02:02,160 --> 00:02:03,640
+the tools that are provided.
+
+29
+00:02:04,850 --> 00:02:10,900
+Please be aware of the fact that there
+are lots and lots of event logs available,
+
+30
+00:02:10,900 --> 00:02:16,000
+and there is nothing stopping you from
+actually starting analyzing event logs.
+
+31
+00:02:16,000 --> 00:02:19,834
+As a starting point,
+you can go to processmining.org.
+
+32
+00:02:22,540 --> 00:02:25,810
+So this slide shows the focus so far.
+
+33
+00:02:25,810 --> 00:02:29,620
+We have been looking at discovery and
+conformance checking.
+
+34
+00:02:29,620 --> 00:02:33,200
+For discovery we start from a log and
+create a model.
+
+35
+00:02:33,200 --> 00:02:36,570
+For conformance checking we take a log and
+a model.
+
+36
+00:02:36,570 --> 00:02:41,790
+And we provide diagnostics and
+quantify differences between modeled and
+
+37
+00:02:41,790 --> 00:02:42,730
+observed behavior.
+
+38
+00:02:44,280 --> 00:02:48,780
+In all of these things we have been
+focusing on control flow only.
+
+39
+00:02:48,780 --> 00:02:50,740
+But this is only part of the story.
+
+40
+00:02:51,740 --> 00:02:55,800
+For example, if you look at this matrix,
+you can see the bigger picture.
+
+41
+00:02:55,800 --> 00:03:00,480
+Next to discovery and conformance
+checking we also have enhancement.
+
+42
+00:03:00,480 --> 00:03:05,930
+So we take a log and
+an initial model and we repair or
+
+43
+00:03:05,930 --> 00:03:09,210
+enrich the model with
+additional information.
+
+44
+00:03:09,210 --> 00:03:14,070
+For example we can use conformance
+checking to change the model in
+
+45
+00:03:14,070 --> 00:03:17,220
+such a way that it better fit reality.
+
+46
+00:03:17,220 --> 00:03:22,630
+Or we can exploit the time stamps to
+extend the model with stochastic or
+
+47
+00:03:22,630 --> 00:03:23,860
+performance information.
+
+48
+00:03:25,720 --> 00:03:31,310
+To do these things we often
+not just look at control flow,
+
+49
+00:03:31,310 --> 00:03:35,520
+but also include time, resources and data.
+
+50
+00:03:35,520 --> 00:03:41,100
+And here we often use techniques that,
+are adopted from other areas.
+
+51
+00:03:41,100 --> 00:03:45,640
+Like data mining, for example we will
+talk about decision mining in
+
+52
+00:03:45,640 --> 00:03:49,710
+processes and for that we will be using
+standard data mining techniques that we
+
+53
+00:03:49,710 --> 00:03:50,890
+have seen in the first week.
+
+54
+00:03:52,090 --> 00:03:54,830
+We will analyze resource behavior for
+
+55
+00:03:54,830 --> 00:03:58,720
+that, we will look at techniques
+related to social network analysis.
+
+56
+00:03:59,730 --> 00:04:02,790
+We often look at performance of processes.
+
+57
+00:04:02,790 --> 00:04:07,180
+Thereby we can relate techniques
+from operations research like for
+
+58
+00:04:07,180 --> 00:04:11,809
+example, simulation or queuing
+networks to process mining techniques.
+
+59
+00:04:13,630 --> 00:04:18,560
+So, what are typical topics that we
+will talk about in the next two weeks?
+
+60
+00:04:18,560 --> 00:04:23,970
+We will talk about mining decision points,
+understanding why
+
+61
+00:04:23,970 --> 00:04:28,730
+certain cases take a particular route,
+other cases take another route.
+
+62
+00:04:29,870 --> 00:04:32,020
+We will mine for bottlenecks.
+
+63
+00:04:32,020 --> 00:04:33,500
+Where are the bottlenecks?
+
+64
+00:04:33,500 --> 00:04:34,490
+Why are they there?
+
+65
+00:04:35,750 --> 00:04:37,670
+We will mine social networks.
+
+66
+00:04:37,670 --> 00:04:41,290
+In general we will focus
+on the resource behavior.
+
+67
+00:04:41,290 --> 00:04:44,300
+For example which people
+are working together?
+
+68
+00:04:45,830 --> 00:04:48,420
+When are people most effective?
+
+69
+00:04:48,420 --> 00:04:51,710
+Do people start working faster
+if they have more work?
+
+70
+00:04:53,790 --> 00:04:57,130
+We will also look at comparing processes.
+
+71
+00:04:57,130 --> 00:05:00,420
+For example,
+what is the difference of the process for
+
+72
+00:05:00,420 --> 00:05:04,430
+gold customer, versus the process for
+silver customers?
+
+73
+00:05:04,430 --> 00:05:08,860
+What are differences between the study
+behavior of students that pass and
+
+74
+00:05:08,860 --> 00:05:12,930
+the study behavior of
+students that fail a course?
+
+75
+00:05:12,930 --> 00:05:14,880
+For this,
+we use comparative process mining.
+
+76
+00:05:16,200 --> 00:05:18,610
+We will look at operational support.
+
+77
+00:05:18,610 --> 00:05:23,240
+Everything we have done so
+far was done offline.
+
+78
+00:05:23,240 --> 00:05:27,260
+For operational support, we go to
+an online setting where we look at
+
+79
+00:05:27,260 --> 00:05:33,260
+techniques like detecting that things
+go wrong, that there are deviations.
+
+80
+00:05:33,260 --> 00:05:38,680
+Not after the fact, but at a point in
+time when these deviations happen.
+
+81
+00:05:38,680 --> 00:05:40,230
+We will look at predictions.
+
+82
+00:05:40,230 --> 00:05:44,420
+For example, what is the remaining
+processing time of a particular case?
+
+83
+00:05:45,580 --> 00:05:48,340
+We will even look at
+the recommendations where we
+
+84
+00:05:48,340 --> 00:05:51,170
+say based on historic information,
+
+85
+00:05:51,170 --> 00:05:54,270
+and information about
+the current state of cases,
+
+86
+00:05:54,270 --> 00:05:58,440
+we recommend these are the best
+activities to be executed.
+
+87
+00:05:58,440 --> 00:06:02,050
+Or that these are the best resources
+to do a particular activity.
+
+88
+00:06:04,520 --> 00:06:09,030
+All these things lead to a more refined
+process mining framework that will be
+
+89
+00:06:09,030 --> 00:06:10,180
+explained in detail.
+
+90
+00:06:11,780 --> 00:06:15,590
+We will also make a link
+to other types of analysis.
+
+91
+00:06:15,590 --> 00:06:19,010
+Earlier I mentioned operations research.
+
+92
+00:06:19,010 --> 00:06:22,700
+For example,
+we can use the discovered process models,
+
+93
+00:06:22,700 --> 00:06:28,050
+using process mining, to do simulation
+experiments to do what if analysis.
+
+94
+00:06:29,690 --> 00:06:32,750
+We will look at the problem
+of data extraction.
+
+95
+00:06:32,750 --> 00:06:35,580
+How can we convert data into event logs?
+
+96
+00:06:36,920 --> 00:06:39,380
+But we will also give guidelines for
+logging.
+
+97
+00:06:39,380 --> 00:06:44,930
+If you are designing a new system, what
+should you actually record to be able to
+
+98
+00:06:44,930 --> 00:06:50,570
+do process mining, and to,
+to get the best analysis answers possible?
+
+99
+00:06:52,580 --> 00:06:56,130
+We will also talk about conducting
+a process mining project.
+
+100
+00:06:56,130 --> 00:06:57,730
+What are the phases?
+
+101
+00:06:57,730 --> 00:07:00,520
+What are the
+points that you should be aware of?
+
+102
+00:07:02,450 --> 00:07:06,240
+In the context of this, we will see
+that there is a wide range of processes,
+
+103
+00:07:06,240 --> 00:07:09,870
+some processes we refer
+to lasagna processes.
+
+104
+00:07:09,870 --> 00:07:13,110
+Structured processes,
+where it is not that interesting to
+
+105
+00:07:13,110 --> 00:07:17,220
+do process discovery because we already
+know what the process looks like.
+
+106
+00:07:17,220 --> 00:07:21,830
+But where we are very interested in
+trying to see how we can improve it.
+
+107
+00:07:21,830 --> 00:07:24,230
+For example, through bottleneck analysis,
+
+108
+00:07:24,230 --> 00:07:29,360
+through understanding what are the best
+resources at a particular point in time.
+
+109
+00:07:30,890 --> 00:07:34,840
+Well, at the other end of the spectrum
+we will find spaghetti processes.
+
+110
+00:07:34,840 --> 00:07:37,550
+Processes that are very unstructured,
+
+111
+00:07:37,550 --> 00:07:42,660
+where it makes no sense to try to predict
+what is going to happen tomorrow.
+
+112
+00:07:42,660 --> 00:07:45,270
+You first need to provide insights.
+
+113
+00:07:45,270 --> 00:07:49,010
+And process discovery itself
+is already very valuable.
+
+114
+00:07:50,970 --> 00:07:55,150
+All of these things are related
+to creating a toolbox for
+
+115
+00:07:55,150 --> 00:07:58,870
+the data scientist or
+the process scientist of the future.
+
+116
+00:08:00,030 --> 00:08:05,610
+People need these types of instruments
+to do analysis that really matters,
+
+117
+00:08:05,610 --> 00:08:09,519
+and that really helps organizations
+to improve systems and processes.
+
+118
+00:08:11,960 --> 00:08:16,360
+As mentioned before,
+the next two weeks will be very different.
+
+119
+00:08:16,360 --> 00:08:18,020
+They will be less technical.
+
+120
+00:08:18,020 --> 00:08:20,090
+The lectures will be shorter.
+
+121
+00:08:20,090 --> 00:08:22,350
+It will have a more applied flavor.
+
+122
+00:08:24,500 --> 00:08:28,240
+One of the reasons for having shorter
+lectures is that we would like to
+
+123
+00:08:28,240 --> 00:08:32,715
+provide opportunities to actually use the,
+the software.
+
+124
+00:08:32,715 --> 00:08:38,440
+Prom/Disco, and the data set, to get hands
+on experience with the process mining.
+
+125
+00:08:40,100 --> 00:08:45,180
+Also, try to think beyond
+the data sets that are provided.
+
+126
+00:08:45,180 --> 00:08:48,310
+If you go to processmining.org,
+you can find many,
+
+127
+00:08:48,310 --> 00:08:50,239
+many data sets that you can use.
+
+128
+00:08:51,300 --> 00:08:55,560
+You can also look at,
+process mining data used for competitions.
+
+129
+00:08:55,560 --> 00:09:01,190
+For example, the BPI challenges, where
+you can apply process mining to real,
+
+130
+00:09:01,190 --> 00:09:02,480
+live, event logs.
+
+131
+00:09:03,490 --> 00:09:07,890
+You can also look at the many data
+sets that are publicly available for
+
+132
+00:09:07,890 --> 00:09:09,340
+data mining.
+
+133
+00:09:09,340 --> 00:09:17,010
+Many of these data sets, one can see that
+in some way, events are being described.
+
+134
+00:09:17,010 --> 00:09:19,370
+So you could convert them to event logs.
+
+135
+00:09:20,960 --> 00:09:27,370
+There is a, a large movement taking place
+at this point in time, to make data open.
+
+136
+00:09:27,370 --> 00:09:29,230
+Many governments.
+
+137
+00:09:29,230 --> 00:09:33,940
+Are forced or
+really want to provide data to the,
+
+138
+00:09:33,940 --> 00:09:38,440
+citizens, and that is creating new
+possibilities for process mining.
+
+139
+00:09:39,480 --> 00:09:41,840
+Also, you can look at social media.
+
+140
+00:09:41,840 --> 00:09:46,720
+If you look at Twitter, Facebook, and
+Google, they all provide open APIs.
+
+141
+00:09:46,720 --> 00:09:52,730
+So they allow you to extract event logs
+from things that you find interesting.
+
+142
+00:09:55,290 --> 00:10:00,870
+These are the chapters that will be
+covered in the next, couple of lectures.
+
+143
+00:10:00,870 --> 00:10:07,103
+And as I said before, the focus will now
+be more on the practical side of things.
+
+144
+00:10:07,103 --> 00:10:09,070
+Thank you for watching this lecture.
+
+145
+00:10:09,070 --> 00:10:10,453
+Hope to see you soon.
+
+146
+00:10:10,453 --> 00:10:20,453
+[MUSIC]
+

@@ -1,0 +1,407 @@
+[MUSIC]
+Glad to see you again.
+Today we will continue with Petri Nets,
+a foundation of process modeling notation,
+that you need to understand first before
+we can look at process mining approaches.
+In the last lecture, we took a look at
+these two Petri Nets that both
+model a safe traffic light.
+And they both have the property,
+that at any point in time at least
+one of the two traffic lights is red.
+One is alternating,
+the other is non-deterministic.
+If we take a look at the non-deterministic
+model of these two safe traffic lights,
+we can see that initial marking
+is a multi-set of tokens.
+There is one token in place r1.
+One token in place r2,
+and one token in place x.
+Then we can talk about a set
+of reachable markings, and
+we will find several reachable markings.
+Each represented as has a multi-set.
+And so here, on this slide,
+there are enumerated and
+we can see all the reachable markings.
+If we want to know what
+are the reachable markings,
+we typically construct
+a reachability graph, and
+a reachability graph can be seen as
+a particular type of transition system.
+A transition system with
+one initial state, and
+with an undefined number
+of final markings.
+So for the traffic lights, this is
+the corresponding reachability graph, and
+it is showing the five reachable
+states that I showed earlier.
+So the arrow indicates that the traffic
+light starts in the state with
+the token in r1, r2, and x.
+And from that state,
+two transitions are possible.
+One is rg1, one is rg2.
+And by just simply trying
+all possibilities we get
+this reachability graph showing
+all the reachable markings.
+So, let's take a look at another example.
+So, here you see a Petri
+net with two transitions.
+There are two tokens in p1.
+There's one token in p3.
+And we can look at what
+are the reachable markings,
+by creating the reachability graph.
+This is the reachability graph.
+So let's take a look at it.
+We start in the initial states,
+where there is a token in p3,
+and there are two tokens in p1,
+indicated by the small 2.
+So we are talking about
+the multi-set of tokens in places.
+In this particular initial marking,
+transition t1,
+is enabled and transition t2 is enabled.
+Assume that we execute transition t1,
+then we consume a token from p1,
+and produce a token for p2.
+So the resulting marking is
+the marking with a token in p1,
+a token in p2, and a token in p3.
+So in the reachability graph,
+we add this particular marking.
+Then in this marking,
+we can again look what are the transitions
+that are enabled t1 is still enabled,
+because there were two tokens is p1, and
+now one remains and t2 is also enabled.
+Assume that t1 occurs,
+then we end up in this,
+in the marking with two tokens in p2,
+and one token in p3.
+And now there is only one possibility,
+namely that t2 fires,
+removing the token from p3,
+and putting a token in p4.
+This is just one of several
+possible scenarios when we start in
+the initial state.
+We could also have executed first t2,
+ending up in this marking.
+And then we would have to execute t1 once,
+and t1 for the second time.
+Another scenario would have been that
+we would have executed t1 first,
+then t2 and then t1.
+And then we have explored all
+possibilities and we get a reachability
+graph that you see here, which is simply
+showing all the reachable markings,
+and showing the transitions from
+one marking to another marking.
+And this is also called
+a transition system.
+Let's take a look at the slightly
+more complicated situation,
+where t2 is also consuming tokens from p1.
+So they are competing for
+the tokens in p1.
+So construct the reachability graph.
+If you construct it, this is what you see.
+So initially both t1 and t2 are enabled.
+If t2 occurs, then a token is removed
+from p3, and a token is removed from p1.
+And that results in the state with
+the token in p1, and a token in p4.
+In that state, the only thing that
+can happen is that we execute t1,
+and then we end up in the state p2, p4.
+But there is another scenario
+that we first execute t1.
+If we execute t1,
+we end up in a state where there is
+still a choice between t1 and t2.
+And then we have explored
+all possibilities.
+So this is the reachability graph
+of this particular Petri net.
+So far, we only looked at Petri nets,
+where there is just a single arc between
+a place and a transition, but
+in a Petri net, if you want,
+it can also be multiple arcs.
+So in this particular example,
+t2 requires two tokens from p1,
+t2 if it occurs,
+it will produce three tokens for p2.
+So t1 has three output
+arcs to the same place,
+t2 has two input arcs from the same place,
+and the meaning is obvious.
+It indicates a number of
+tokens to be consumed and
+the number of tokens to be produced.
+So if we construct a reachability graph,
+this is what we get.
+So again, if we look at initial situation,
+both t1 and t2 are enabled.
+If we execute t2,
+we remove two tokens from p1,
+and one token from p3,
+and produce one token for
+p4, as is indicated in
+the reachability graph.
+If on the other hand t1 executes,
+then we consume a token from p1,
+and produce three tokens for p3.
+Sorry, for p2.
+So in this model,
+it is possible that t1 fires once.
+Fires again.
+And fires for a third time.
+Resulting in nine tokens in p2.
+So this shows that in a Petri net,
+arcs can have multiplicities and
+their meaning is obvious.
+And we can still construct
+the reachability graph.
+One of the interesting features
+of a reachability graph is
+that given a small Petri net
+like the one that is shown here,
+the corresponding reachability
+graph may be infinitely large.
+So if you would construct
+the reachability graph of this model,
+you would end up in a process
+that would never terminate.
+If you look at the model carefully,
+you will see that you can execute t1,
+you can execute t2.
+And if you execute t2,
+you also put a token in p3.
+And again, you can execute t1,
+t2, t1, t2.
+And you can repeat this as
+many times as you want.
+And in every round,
+there will be a token in p3.
+And this will continue
+until you execute t3.
+And in each round that you execute t1 and
+t2, you will put
+an additional token in p3.
+So the number of reachable
+markings is infinite.
+So this gave you some idea that given
+a Petri net generate behavior, and
+that behavior can be expressed in
+terms of a reachability graph,
+which is actually a transition system.
+Now let us take a look at a slightly
+more involved Petri net, and
+then you can see that
+modeling is very challenging.
+And that is why you need to make
+exercises to really understand
+the process of modeling a process,
+because this is far from trivial.
+Let us take a look at an example and
+I should warn you,
+this is not a trivial exercise.
+You will need quite some time
+to model this from scratch.
+If you are not used to
+the Petri net notation or
+you are not experienced in
+process modeling in general.
+So suppose that we have one train.
+And that we would like to model a circular
+railway system, with four stations.
+We also have passengers and
+they may hop on or
+hop off at the various stations,
+but they can only hop on or
+hop off, if the train is standing
+still in one of the four stations.
+The train has a capacity of 50 persons.
+So if the train is full,
+no passengers can hop on.
+And, of course, no passengers can
+hop off if the train is empty.
+So I would like to ask you to model
+the above process in terms of a Petri net.
+And after you have answered that question,
+please tell me what a number
+of reachable states is.
+And again, this will take some time for
+you to model.
+I hope you've tried to make this model.
+Let's now take a look at the solution and
+let me start by giving a couple of hints.
+So, how to describe
+the state of the train?
+The state of the train is
+determined by the location, and
+by the number of passengers it holds.
+How to model that?
+What are possible actions?
+A train can move and
+people can hop on and hop off.
+And you also need to think
+when they are possible.
+If you model this small process in terms
+of a Petri net, it looks like this.
+And this solution may
+look a bit intimidating,
+if you're not used to things like this.
+But let me try to explain it step by step.
+So let's first take a look,
+at the state of the train.
+And now I mean by the state of the train,
+the location where it is.
+It is in one of the four stations, or it
+is moving from one station to another one.
+So you get to circular Petri net
+with one token representing the train and
+indicating where it is.
+So I think everybody can understand
+this model in isolation.
+We didn't model any of the passengers,
+so let's try to model the passengers.
+So that is indicated by this small model.
+So what this model is indicating
+is that there are tokens
+that either represent
+a free slot in the train,
+a free position or that represent
+a passenger being on that train.
+So there are 50 tokens distributed
+over two places.
+Now all the 50 tokens, are in the place
+indicating that there
+is still three places.
+But these tokens can also be in
+the other place indicating that
+there are passengers on this train.
+The transitions model hopping on and
+hopping off, at the different stations.
+So I hope that everybody
+can understand this model.
+And now we can merge these two simpler
+models, into this overall model.
+So I've merged the two models
+that I've showed to you before.
+And it is important that you
+take a look at the green arcs,
+that actually represent two arcs.
+One arc for consumption,
+and one arc for production.
+And together, they provide
+a solution of the overall exercise.
+It is now enforced that
+passengers can only hop on and
+hop off, in stations when the train
+is standing still, and they
+cannot do this when the train is moving
+from one station to another station.
+Another part of the question was,
+how many reachable states there are?
+In total there are 51 times 8.
+So we can look at the location
+of the train, and
+we can look at the number of passengers.
+And there are 51 possible states when
+we look at the number of passengers.
+We count from 0 to 50.
+So there are 408 reachable markings.
+And this example illustrates that
+very quickly you cannot model
+things anymore in terms of reachability
+graph, a computer can compute
+the reachability graphs in a matter of
+milliseconds for such a small example.
+But when you try to draw it,
+it's already very large.
+And this shows the power of higher
+level models like Petri net.
+So let's go back to the,
+to the process mining challenge, and
+look at Petri nets in the context
+of play-in, play-out and replay.
+So this is the classical use of models,
+Play-Out and we see nothing surprising.
+Now you have a background in Petri nets,
+and
+you can easily see that this is
+a possible trace of this model.
+But now you need to think in of it
+in terms of, creating an event log.
+By playing out the model,
+we can create an event log.
+
+So, that's play-out.
+Play-In, we get a bunch of traces, and
+we automatically would
+like to construct a model.
+Later, we will see for example,
+the alpha algorithm,
+which will produce exactly this model
+given this set of example traces.
+Then we have Replay.
+It looks very much the same
+as what I showed you before.
+So, we are now replaying a trace that
+we saw in a reality on top of a model.
+Now we illustrate it in
+terms of a Petri net.
+So we did not find any deviations.
+We can look at another example,
+where we execute a trace a, e, d.
+And again,
+we find no surprises whatsoever.
+So again, we see no deviations.
+But the replay becomes very interesting,
+if reality deviates from the model.
+So now we look at the trace a, c, d.
+And it does not fit into this model.
+And we can very easily see that using
+the firing rule of Petri nets and
+just by playing the token game,
+we can see that there is a problem.
+So we, we did a, we executed transition c.
+Now in the trace, it is indicated
+that in reality d happened,
+whereas in the model this is not possible,
+because place p3 is empty.
+So we can mark that we
+have a problem here.
+We are missing a token.
+We can simply add it, and
+execute the code to the final state.
+And what we seen then is that there
+is a token remaining in place p1.
+So we can see two problems.
+We missed a token and in the end,
+the token is remaining.
+Indicating that b should
+have been executed.
+So we can use, replay on top of
+a Petri net to detect problems.
+We are still talking very
+much about process models, so
+please take a look at chapter two
+to see more of the details of
+the things that I've
+discussed in this lecture.
+Thank you very much for watching,
+and hope to see you soon.
+[MUSIC]
+

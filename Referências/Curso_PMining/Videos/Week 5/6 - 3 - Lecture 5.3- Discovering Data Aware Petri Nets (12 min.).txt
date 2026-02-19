@@ -1,0 +1,283 @@
+[MUSIC]
+Welcome to this lecture.
+In the last lecture, we showed that
+the combination of process mining and
+data mining can be used to learn
+more about decision points.
+The information can be used to
+enrich the process model, and
+serve as a starting point for
+all kinds of process improvements.
+So the focus of the last lecture
+was on mining decision points.
+We have one response variable.
+Namely the activity that is being chosen
+and we would like to understand this
+response variable in terms of predictor
+variables, like which was the person that
+executed the last activity or what is the
+type of customer that is being processed?
+So this is just a starting point for
+all kinds of
+analysis where we combine data mining
+together with process mining.
+So today's focus is on
+discovering the guards.
+So taking the output
+of a decision tree and
+translating it to a data-aware Petri net,
+so a process model extended with data.
+So very concretely, if we take a look
+at this example where there is a choice
+between b and c, we would like
+to create guards conditions for
+b and c describing which cases,
+under which circumstances we do b,
+and under which circumstances we do c.
+So how does it work?
+If we focus on the choice between b and
+c, following a,
+we can take as response variable,
+whether b or c is done.
+And as predictor variables,
+we can, for example,
+look at the attributes of the event
+corresponding to activity a.
+We could also take other predictor
+variables like the weather or
+how busy things are.
+But here we focus on the attributes
+of the preceding event.
+So here you see a table with data
+describing events executing for
+different cases.
+So if we look at this table, we only
+have to focus on activities a, b, and c.
+We only have to look at
+whether b of c is being executed.
+We do not need to look at
+the attributes associated to it.
+With respect to a,
+we need to look at the variables,
+the attributes corresponding
+to this a event.
+We can combine such
+information as is shown here.
+So, for example for
+case 1 John executed activity a, and
+then this was followed by activity b.
+So we can take this information and
+convert it into
+a new table that we can use
+for the decision tree learning.
+So here, if we take a look at the first
+row, it corresponds to the choice for
+activity b, which was following
+activity a, which was executed by John,
+done for a silver customer and
+corresponding to an amount of 500 Euros.
+So this is how we create
+a decision tree learning problem.
+If we do this, then using
+the techniques that we saw in week 1,
+we can create a decision tree.
+So, for example, here we decided to
+split on the attribute customer.
+And we get a decision tree which
+is classifying instances based
+on whether they are silver customers or
+gold customers.
+And it turns out that silver and
+gold customers typically have
+different characteristics
+when it comes to this choice.
+We can encode the information that we see
+in the decision tree in the process model.
+And the process model now very clearly
+shows that for silver customers, we do b.
+For gold customers, we execute c.
+So the result of doing this, and
+if we do that for every choice,
+is a data-
+ process model, where
+we combine control flow with data flow.
+So let's take a look
+at another example and
+see whether you understand these things.
+So look at the second decision
+point in the same process.
+Take a look at the decision tree
+which was discovered based on
+a set of predicted valuables.
+And convert this decision tree into
+guards for the second decision point.
+This slide shows the answer.
+So what you see is that we add
+conditions to all the different
+transitions involved in
+this particular choice.
+And so we can see that there
+are three classes, pay, reject, or
+reinitiate the request.
+And these correspond to different
+leaves of this decision tree.
+And if you follow the paths
+in the decision tree and
+convert them to logical expressions,
+you will see that this is the case.
+Note that there is at any point in time,
+just one of the guards evaluates to true.
+It cannot be that multiple
+guards evaluate to true.
+However if we look at the decision tree,
+we can see that
+there are certain leaves where we
+are more certain about than other leaves.
+So the
+leaves that are indicated in red,
+they are classified
+according to a certain class.
+But if you look at the underlying data
+there is not consensus about these things.
+And not enough information
+gain could be achieved.
+If we have such uncertainty, we can
+also add that uncertainty to the model,
+by making non-deterministic decisions.
+So decisions where multiple transitions
+are enabled and we can pick one of them.
+So if we take a look at
+this particular example.
+All the leaves that correspond to red,
+lead to the situation where all tree
+transitions are enabled at the same
+time but only one of them is chosen.
+And so if you look at the guards,
+you will see that they are now weaker and
+therefore they are overlapping.
+It can be the case that for some
+cases, all tree guards evaluate to true.
+We look at the decision tree and
+the data underneath the decision tree,
+we can also see that there is,
+often no consensus.
+And there are certain probabilities
+associated to the leaves that are shown.
+So we can encode also
+this into the process model.
+So then we get a process model that
+depending on data attributes, assigns
+certain probabilities to transitions,
+and that is illustrated in this diagram.
+It's a bit dense so if we zoom in and
+we look at the guards corresponding
+to the choice to pay the request.
+Then you can see that the guard is
+following the decision tree and
+then looking at
+the different probabilities.
+So for example,
+if examination is not okay,
+then we can look at the decision
+tree at the underlying data, and
+then we can see that in one of the 30
+cases, where examination was no okay.
+Actually a payment took place, and
+we can add this as a probability
+to the process model.
+We can see a combination of
+probabilistic elements and
+of using the data of the cases
+associated to them.
+The models that we learn
+may sometimes look
+a bit strange with very strange guards.
+And therefore it's very important to
+understand that the models that we
+are discovering are descriptive.
+They are describing what happened.
+They're not describing what should happen.
+If you have models that are describing
+what should have happened,
+we are looking at prescriptive models.
+This is very important
+to see this difference.
+Both descriptive and
+prescriptive models can be used for
+conformance checking as
+we have seen before.
+And everything that was discussed in
+the context of conformance checking can
+also be applied to Petri net's bit data.
+And so
+if you take a look at this Petri net,
+with these guards,
+we can replay the event log and
+we can detect where there are deviations
+between reality and the model.
+All of the things that we have discussed
+so far are also supported by ProM.
+For example here you see a screen shot
+of ProM where we take an event log and
+we take a control flow model,
+not holding any information about data and
+we combine them to discover
+a data-aware Petri net.
+So this is the result of applying
+the plug-in on this event log and
+this classical Petri net model.
+And we get a Petri net extended with time.
+So the two decision points
+are highlighted here.
+And if we zoom in,
+we can see that there are two
+variables that are influencing
+the decisions that we see here.
+The dashed lines correspond to writes and
+reads, and the transitions
+that are highlighted in red or have a red
+name, they have guards associated to them.
+So let's take a look at these guards.
+If you look at the top guard,
+you can see that we invite reviewers,
+additional reviewers, if there are two or
+less accepts or
+there are two or less rejects.
+If there are three or
+more accepts or there are three or
+more rejects,
+we make the decision to accept or reject.
+That is reflected by these guards.
+We can also the second decision
+point where the actual decision is
+made to accept or reject.
+We take one of the two paths and
+then go to the end.
+We can also use conformance
+checking in conjunction with
+these data-aware Petri nets.
+So we take an event log and
+a data-aware Petri net, and
+we can do conformance checking and we can
+show where the deviations take place.
+And so here you can see
+data-aware alignments also taking
+into account possible
+problems related to data.
+So, in this lecture,
+we have seen that we can combine data and
+processes in a very natural way.
+In that way, we can also clearly see that
+there is a very nice interaction and
+integration possible between data
+mining and process mining, and
+in the next couple of lectures,
+we will see more examples of that.
+If you would like to read more
+about discovering guards and
+the combination of data mining and
+process mining, please read chapter 8.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

@@ -1,0 +1,401 @@
+[MUSIC]
+Welcome to this lecture.
+Today we will focus on the input
+side of process mining.
+How to get and preprocess the event data.
+How to flatten this
+information into an event log.
+What are possible data quality problems?
+These are the questions that
+we would like to answer today.
+So, we will focus on the input side
+of process mining, the event data.
+In earlier lectures we
+gave some examples of
+sources of information that can
+be used to extract event logs.
+We can look at an ERP system like SAP.
+Which has many tables
+filled with information.
+We can look at middlewear for
+example from IBM WebSphere.
+We can also look at simple sources
+of information like a CSV file.
+We can look at social media and the data
+that is provided by these open APIs.
+We can look at the transaction
+log of a financial system.
+So there are all these
+sources of information.
+And when we were talking
+about the internet of events,
+we saw that in the future, there will be
+many more ways to generate events.
+For example, through the internet
+of things where all kinds of
+devices will emit events.
+So there are all these
+sources of information.
+And the question is, how to convert them
+into event logs that can be used for
+process mining?
+If you would like to do process mining,
+we need to have an event log.
+And this is the conceptual model
+that describes the input needed.
+We have seen this model before.
+So it is describing that
+a process consists of cases,
+each case consists of events,
+events may have attributes.
+There are special attributes
+like a time stamp and
+a resource,
+also cases may have attributes.
+And because there can be start and
+complete events, suspend and
+resume, we may also want to identify
+so-called activity instances.
+And so, groups of events corresponding
+to the execution of a single activity.
+So this is the type of data that we need,
+and how to convert the data from
+the sources that were mentioned on
+the previous slide to this type of data.
+Well, many people think that
+this is difficult because you
+need to do a syntactical conversion.
+Translate for example one XML
+format into another XML format.
+But this is not the challenge.
+The challenge is to locate
+the relevant data, to identify what
+the process instances are that you would
+like to analyze, to scope the problem.
+Also to get authorization to
+use particular types of data.
+So it's not in the syntactical conversion,
+the problem is at a different level.
+For example, if people ask,
+can you mine SAP?
+Of course you can mine an SAP system.
+It contains lots of
+event-related information.
+However if you look at SAP, a typical
+installation has thousands of tables.
+So you need to know
+where you are starting.
+What is the process that
+you would like to analyze?
+So it's about identifying the data,
+locating it, and extracting it.
+If you look at a hospital,
+you can easily find 1,000 tables
+with patient-related information.
+This is again an example, but it is not a
+question, can you apply process mining in
+a hospital, but know, what is the process
+that you would like to analyze and
+how can you get the corresponding data?
+So you need to understand
+the underlying data model and scope and
+select event data.
+That is the key thing
+that needs to be done.
+And there are many challenges.
+One of the most difficult challenges
+is that process models are flat,
+and what I mean by that I
+will explain in a minute.
+But the basic idea is that you have this
+data scattered over multiple tables.
+And if you would like to do process
+mining, you need to flatten that
+data in such a way that you can
+extract a process model from it, or
+check conformance, or analyze bottlenecks.
+Then if you take a look
+at a process model.
+It is about handling instances.
+So, events refer to cases.
+Here we see an event log that we
+have seen several times before.
+Every event refers to a case, and
+has an activity name associated to it.
+Why is this?
+We need to have such information
+because if we look at process models,
+in notations like BPMN, but
+also if we look at Petri nets,
+UML diagrams, all kinds of other
+notations, you will see that
+process models model the life cycle
+of a process instance in isolation.
+So here you see the handling
+of a request for compensation.
+So every activity is about such a case.
+There are few other notations,
+like proclets and artifact-centric models,
+that describe multiple
+instances at the same time.
+But typically mainstream notations like
+the ones that we see in this course,
+like BPMN, what you see in this diagram.
+They describe the life cycle
+of an instance in isolation.
+So we need to flatten the event data and
+decide, for events, what is
+the corresponding process instance?
+This may sound trivial, but it's actually
+quite challenging in many real life cases.
+To illustrate this, let's take a look
+at a database for booking tickets.
+Here we see different entities like
+a ticket and a booking and
+a concert, and a payment and a customer.
+And all of these different entities have
+events, or actions associated to it.
+And we assume that every change
+to this database we can monitor.
+For example using redo logs.
+If we can see changes to
+these objects then the question is
+how do we now turn this type of
+information, into an event log?
+And then the foundational question is,
+what is the process instance?
+What is the case?
+So here you can see in a bit more
+detail what a data model is all about.
+So we have the notion of a ticket.
+We have the notion of a concert.
+We have a notion of a
+seat in a particular hall.
+And if we move down the diagram,
+we can see that we can have bookings,
+bookings have associated payments and
+they refer to a particular customer.
+So this is the type of
+data that we start with.
+And then we need to convert such
+information into an event log.
+So the first decision that we need to
+make is what is the process instance?
+And we see eight different
+entities here and
+the question is,
+which entity is the process?
+What is the process model about?
+Is it about the ticket?
+Is it about booking?
+Is it about a band?
+Is it about the concert or
+the concert hall?
+Is it about the payment?
+What is the process model about?
+Suppose that we say, okay.
+We want to have a process model that
+describes the life cycle of a ticket.
+Then we need to think,
+what are the corresponding activities?
+And then we can see that
+multiple process instances,
+multiple tickets,
+may share the same booking or
+payment event, because in one booking,
+we can order multiple tickets.
+So, many different process instances
+refer to the same booking.
+We could also have taken as a perspective
+that the process model should be
+about the booking.
+We want to model the life
+cycle of a booking, and
+again we have the question,
+what are activities?
+We can see that it is not as clear-cut
+as one may afford from the beginning
+because the same booking instance
+may have multiple tickets or
+payment-related events.
+So one booking may refer
+to ten tickets and
+there may have been two
+payments to pay for it.
+Also, if we look at an event like
+the cancellation of a concert,
+then that is impacting all the tickets and
+all the bookings related
+to that particular concert.
+So there is not a simple one
+to one correspondence
+between things, and
+you need to pre-process the data to get
+the event log that you would like to have.
+The situation that I'm
+describing here is not unique.
+You can find it in any
+real life situation.
+Suppose that you are ordering
+books from Amazon.
+And suppose that on one
+day you order two books.
+The next day, you order, again, two books.
+So we have two orders and,
+in total we have four orderlines.
+Two books that we ordered
+on the first day,
+and the two books that we ordered
+on the second day.
+Then there may be a delivery.
+And suppose that one book of
+the first order is in stock, and
+the other book is not in stock.
+On the order that we placed in the second
+day, the first book is in stock but
+the second book is not.
+Then there may be a delivery that is
+referring to one book of the first order.
+And another book of the second order.
+So there is a many to many relationship
+between orders and deliveries.
+And things are partially overlapping.
+So if you would like to create
+a process model from such event
+related data, then you carefully have
+to think, what is the process instance?
+Is it the order?
+Is it the orderline?
+Or is it the delivery?
+And this is a challenging task.
+But it's not the only
+challenge that we have.
+Next to selection and mapping problems,
+there may be many data quality issues.
+So what kind of problems can there be?
+If we look at event data,
+there may be missing data.
+Things are not recorded.
+And one can think of things as things like
+cases, events, attributes of an event.
+The data may be incorrect.
+For example we see an event, and
+with the event it is recorded that it
+was executed by
+a particular resource but
+it may have been that it was actually
+executed by another resource.
+So this is incorrect data.
+Data may also be imprecise.
+It's not at a desired level of detail.
+Another problem is that there may
+be lots of irrelevant data, making it
+very difficult to see the relevant
+things that you would like to analyze.
+You need to spend lots of time on
+cleaning the data to get to the data that
+really matters.
+So this matrix is identifying some of
+the typical problems that we
+encounter if we look at event logs.
+Data quality problems related
+to the input of process mining.
+On the one dimension, we can see missing
+data, incorrect data, imprecise data, and
+irrelevant data, as just explained.
+In the other dimension we see
+the typical elements of a log.
+So we have cases.
+We have events.
+We have the different types of attributes.
+We have, for example,
+time stamps, resources.
+And if you look at the combination
+of these two dimensions,
+we can kind of characterize different
+data quality-related problems.
+As an example,
+let's focus on the the timestamp column.
+So, if we look at missing data
+in combination with timestamps,
+then this refers to timestamps
+of events are missing.
+Clearly this is a problem.
+Timestamps can also be incorrect.
+So the time that something was
+recorded is different from
+the time at which it actually happened.
+For example,
+in a hospital, a nurse is entering
+information in an information system
+at a different time from the time at which
+the activity was actually performed.
+Data may also be imprecise.
+Again if we look at the hospital,
+there may be events, for
+example, in a lab that are recorded
+with millisecond precision.
+There may be other events where we
+just know on which day it happened and
+not the particular time at that day.
+So this is a very difficult problem for,
+for
+process mining, because we,
+we'd like to order the different events.
+We can also look at the resource column.
+Missing data means that we do not know
+which resource executed the activity.
+Incorrect data means that, for
+example, it is recorded that one nurse
+executed the particular activity, but
+it was actually done by a different nurse.
+Or the granularity of logging is not
+suitable for the questions that we have.
+Or for example we do not see which nurse,
+we just see at which department in
+the hospital something was executed.
+So this illustrates the typical
+data quality problems that
+one may encounter in
+a practical situation.
+So in this lecture,
+we focused on challenges related
+to the input of process mining.
+The first challenge is to find and select
+the data, there may be thousands of tables
+so you need to
+understand the underlying data model in
+order to identify what the data
+is that you actually need.
+The second problem is that you need to
+flatten event data each time you want to
+generate a particular process model.
+So you need to choose a particular view,
+and given certain event data,
+you may choose to have different views.
+We may view it from the viewpoint
+of an order, from an order line or
+from a delivery.
+We may view it from the perspective
+of the concert as a whole.
+Or we may look at it from the viewpoint
+of a booking on a particular ticket.
+And, last but not least,
+we focused on data quality problems.
+In the next lecture we will
+look at guidelines for
+logging to address some of the issues
+that we see in existing systems.
+If you would like to read
+more on this in Chapter 4,
+we describe the nature of event data.
+Where we explain some of the problems
+that we have seen in this lecture.
+You can also look at the paper
+that is highlighted here at
+the bottom which talks specifically about
+the matrix with data quality problems.
+Thank you for watching and
+hope to see you soon.
+[MUSIC]
+

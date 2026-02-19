@@ -1,0 +1,1063 @@
+1
+00:00:00,000 --> 00:00:07,775
+[MUSIC]
+
+2
+00:00:07,775 --> 00:00:12,100
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+
+3
+00:00:12,100 --> 00:00:17,230
+Today we will provide an overview of
+available process mining software.
+
+4
+00:00:17,230 --> 00:00:20,820
+We will also relate process
+mining tools like ProM and
+
+5
+00:00:20,820 --> 00:00:22,850
+Disco, to other data sign tools.
+
+6
+00:00:24,860 --> 00:00:30,800
+Data scientists need to have data,
+tools, and preferably also questions.
+
+7
+00:00:30,800 --> 00:00:33,870
+In the previous lectures
+we focused very much on
+
+8
+00:00:33,870 --> 00:00:37,080
+the event data needed
+to do process mining.
+
+9
+00:00:37,080 --> 00:00:38,980
+Today we will focus on the tools.
+
+10
+00:00:40,350 --> 00:00:45,440
+And of course, we have been playing with
+tools like ProM and Disco, so we already
+
+11
+00:00:45,440 --> 00:00:51,320
+have a good understanding of process
+mining functionality by tools like these.
+
+12
+00:00:51,320 --> 00:00:55,030
+However, today we would like
+to expand this spectrum and
+
+13
+00:00:55,030 --> 00:00:56,430
+also look at other tools.
+
+14
+00:00:59,220 --> 00:01:02,550
+Here in this diagram you see Disco and
+ProM.
+
+15
+00:01:02,550 --> 00:01:06,880
+So both Disco and
+ProM are process mining specific tools.
+
+16
+00:01:06,880 --> 00:01:11,230
+They have been developed for
+the purpose of doing process mining.
+
+17
+00:01:11,230 --> 00:01:16,640
+Disco is simple, easy to use,
+very fast, very convenient.
+
+18
+00:01:16,640 --> 00:01:21,975
+ProM is more powerful,
+provides much more types of analysis, but
+
+19
+00:01:21,975 --> 00:01:24,040
+it also, much more difficult to use.
+
+20
+00:01:25,620 --> 00:01:30,860
+Both are not part of any bigger suite,
+like a complete BPM tool or
+
+21
+00:01:30,860 --> 00:01:31,620
+something like that.
+
+22
+00:01:33,680 --> 00:01:38,090
+Next to process mining software you have
+the classic called data mining software.
+
+23
+00:01:38,090 --> 00:01:41,390
+Like RapidMiner, R and Knime.
+
+24
+00:01:41,390 --> 00:01:44,840
+These do not provide process
+mining capabilities.
+
+25
+00:01:46,460 --> 00:01:49,290
+There are also other
+commercial tools other than
+
+26
+00:01:49,290 --> 00:01:54,283
+Disco like Perceptive Process Mining and
+Celonis Discovery.
+
+27
+00:01:54,283 --> 00:01:58,285
+And that is an interesting
+combination of RapidMiner and
+
+28
+00:01:58,285 --> 00:02:00,360
+ProM, which is called RapidProM.
+
+29
+00:02:00,360 --> 00:02:03,890
+We'll look at these systems
+later in a bit more detail.
+
+30
+00:02:03,890 --> 00:02:06,980
+So this is the spectrum of
+tools that one can use.
+
+31
+00:02:08,180 --> 00:02:11,090
+If one would like to select
+a process mining tool
+
+32
+00:02:11,090 --> 00:02:14,850
+then the refined reference
+model can help you.
+
+33
+00:02:14,850 --> 00:02:17,160
+The first question you
+should ask yourself.
+
+34
+00:02:17,160 --> 00:02:20,390
+Which of the ten process mining
+activities are important for
+
+35
+00:02:20,390 --> 00:02:22,890
+me, and which are supported.
+
+36
+00:02:22,890 --> 00:02:24,420
+So is discovery supported?
+
+37
+00:02:24,420 --> 00:02:26,780
+Is conformance checking supported?
+
+38
+00:02:26,780 --> 00:02:30,270
+And for example, do we need to be able
+to predict the remaining flow time?
+
+39
+00:02:32,320 --> 00:02:36,090
+Another question is, what
+are the perspectives that are supported?
+
+40
+00:02:37,440 --> 00:02:39,440
+Are resources supported?
+
+41
+00:02:39,440 --> 00:02:42,180
+Is the data perspective supported?
+
+42
+00:02:42,180 --> 00:02:44,080
+How are things related to time?
+
+43
+00:02:45,990 --> 00:02:49,170
+Another question is,
+what modeling notations are supported?
+
+44
+00:02:49,170 --> 00:02:54,620
+Petri nets, BPMN, or what other
+notations that you find relevant?
+
+45
+00:02:54,620 --> 00:02:55,190
+And last but
+
+46
+00:02:55,190 --> 00:03:00,750
+not least, what are the import and export
+formats that are supported for event logs,
+
+47
+00:03:00,750 --> 00:03:04,520
+models, alignments and
+all kinds of other artifacts?
+
+48
+00:03:04,520 --> 00:03:08,440
+So, this is a checklist when you want
+to select a process mining tool.
+
+49
+00:03:10,060 --> 00:03:14,780
+For example, if you look at ProM, and
+look at the the red area here.
+
+50
+00:03:14,780 --> 00:03:18,680
+It aims to support the entire
+process mining spectrum.
+
+51
+00:03:18,680 --> 00:03:24,295
+It supports many different types of
+notations ranging from Petri nets and
+
+52
+00:03:24,295 --> 00:03:28,620
+BPMN, to more exotic formats like
+the declarative language Declare.
+
+53
+00:03:30,080 --> 00:03:32,700
+ProM also supports
+conformance checking and
+
+54
+00:03:32,700 --> 00:03:36,360
+operational support,
+unlike many of the commercial tools.
+
+55
+00:03:37,650 --> 00:03:40,651
+There are a hundreds of
+plug-ins available, but
+
+56
+00:03:40,651 --> 00:03:44,220
+many of them are experimental and
+not always user friendly.
+
+57
+00:03:46,130 --> 00:03:50,090
+On the other end of the spectrum,
+one can find tools like Disco.
+
+58
+00:03:50,090 --> 00:03:53,570
+The tool that you've also
+been using in this course.
+
+59
+00:03:53,570 --> 00:03:57,990
+Here the focus is not on the entire
+spectrum, but on discovery and
+
+60
+00:03:57,990 --> 00:04:00,710
+performance analysis including animation.
+
+61
+00:04:02,190 --> 00:04:06,120
+Disco provides very powerful
+filtering capabilities and
+
+62
+00:04:06,120 --> 00:04:09,680
+you can use these to do
+comparative process mining.
+
+63
+00:04:09,680 --> 00:04:14,390
+You can also do very basic forms
+of conformance checking by
+
+64
+00:04:14,390 --> 00:04:17,760
+checking whether a certain
+behavioral pattern appears or not.
+
+65
+00:04:18,890 --> 00:04:21,350
+It uses a variant of fuzzy models.
+
+66
+00:04:21,350 --> 00:04:25,620
+So it doesn't have 
+an executable model underneath it.
+
+67
+00:04:26,810 --> 00:04:29,450
+And it does not support things
+like conformance checking and
+
+68
+00:04:29,450 --> 00:04:31,020
+operational support.
+
+69
+00:04:31,020 --> 00:04:35,590
+But it is very easy to use, and
+it has an excellent performance.
+
+70
+00:04:35,590 --> 00:04:39,270
+Much faster than many of
+the mature data mining tools.
+
+71
+00:04:40,760 --> 00:04:42,880
+So, these are two ends of the spectrum.
+
+72
+00:04:43,880 --> 00:04:46,910
+There are several other commercial tools.
+
+73
+00:04:46,910 --> 00:04:48,210
+Here you can see some of them.
+
+74
+00:04:49,440 --> 00:04:52,260
+In my teaching in Eindhoven,
+I'm using, for
+
+75
+00:04:52,260 --> 00:04:57,610
+example, also Perceptive Process Mining,
+and Celonis Discovery.
+
+76
+00:04:57,610 --> 00:04:59,280
+But there are many other tools available.
+
+77
+00:05:00,390 --> 00:05:02,960
+If one looks at these commercial tools,
+
+78
+00:05:02,960 --> 00:05:06,720
+they are similar to
+Disco in terms of scope.
+
+79
+00:05:06,720 --> 00:05:11,850
+Often they are not as user friendly,
+and often also a bit slower, but
+
+80
+00:05:11,850 --> 00:05:14,950
+in terms of scope they
+are very comparable.
+
+81
+00:05:14,950 --> 00:05:18,670
+They focus on control flow and
+performance analysis.
+
+82
+00:05:19,790 --> 00:05:24,760
+There is no support for conformance
+checking, operational support and
+
+83
+00:05:24,760 --> 00:05:29,130
+many more of the sophisticated
+features that you can find in ProM.
+
+84
+00:05:31,830 --> 00:05:35,280
+Let's take a look at three
+concrete examples of
+
+85
+00:05:35,280 --> 00:05:37,490
+tools other than this current ProM.
+
+86
+00:05:38,830 --> 00:05:42,380
+Let's first take a look at RapidProM.
+
+87
+00:05:42,380 --> 00:05:47,380
+So this is a combination of ProM and
+RapidMiner.
+
+88
+00:05:47,380 --> 00:05:52,750
+And so ProM is in a way embedded in
+RapidMiner, and one gets a graphical
+
+89
+00:05:52,750 --> 00:05:58,020
+environment where one has dozens of
+process mining related building blocks.
+
+90
+00:05:58,020 --> 00:06:00,590
+And one can build an analysis flow.
+
+91
+00:06:00,590 --> 00:06:05,010
+If you would like to learn more about
+this, you can visit the URL on this slide.
+
+92
+00:06:06,290 --> 00:06:09,660
+It's also available through
+the RapidMiner marketplace.
+
+93
+00:06:10,840 --> 00:06:13,940
+So what can you do in RapidProM?
+
+94
+00:06:13,940 --> 00:06:18,340
+You can build your own
+process mining workflow, and
+
+95
+00:06:18,340 --> 00:06:21,250
+then execute it on any data set.
+
+96
+00:06:21,250 --> 00:06:27,210
+So we can take as an example
+this very simple process mining workflow.
+
+97
+00:06:28,510 --> 00:06:31,380
+And let's take a look
+at the building blocks.
+
+98
+00:06:31,380 --> 00:06:34,160
+First we need to create the ProM context.
+
+99
+00:06:34,160 --> 00:06:36,650
+In other words, we need to start up ProM.
+
+100
+00:06:36,650 --> 00:06:40,140
+And relate all the other building
+blocks to this instance of ProM.
+
+101
+00:06:41,580 --> 00:06:46,060
+If we want to copy something we need
+to use this building block for that.
+
+102
+00:06:46,060 --> 00:06:47,420
+But it's just a technicality.
+
+103
+00:06:48,730 --> 00:06:54,120
+The real work starts with this building
+block, where we read the event log.
+
+104
+00:06:54,120 --> 00:07:00,860
+The output of this building block is
+an event log in the RapidProM environment.
+
+105
+00:07:00,860 --> 00:07:05,940
+And then this event log can
+be taken by a building block
+
+106
+00:07:05,940 --> 00:07:08,140
+that represents the alpha algorithm.
+
+107
+00:07:08,140 --> 00:07:11,880
+So it takes an event lock,
+and produces a Petri net.
+
+108
+00:07:11,880 --> 00:07:14,050
+Subsequently, we have a building block for
+
+109
+00:07:14,050 --> 00:07:16,910
+doing conformance checking
+based on alignments.
+
+110
+00:07:17,910 --> 00:07:22,930
+So now we can
+run this workflow on any event log.
+
+111
+00:07:22,930 --> 00:07:26,040
+And here you see example
+output in RapidProM.
+
+112
+00:07:26,040 --> 00:07:31,830
+That's why here you see the discovered
+process model by the alpha algorithm.
+
+113
+00:07:31,830 --> 00:07:35,210
+And here you can see
+the conformance check done by
+
+114
+00:07:35,210 --> 00:07:39,880
+the conformance checking building block,
+based on alignment.
+
+115
+00:07:42,730 --> 00:07:45,585
+This is an example of another
+process mining workflow.
+
+116
+00:07:47,390 --> 00:07:48,630
+What are the building blocks?
+
+117
+00:07:48,630 --> 00:07:50,730
+We first load an event log.
+
+118
+00:07:51,850 --> 00:07:55,100
+We then in parallel create a dotted chart.
+
+119
+00:07:56,270 --> 00:07:59,930
+We create a Petri net
+using the inductive miner.
+
+120
+00:07:59,930 --> 00:08:04,440
+And we create a social network based
+on the handover of work approach.
+
+121
+00:08:05,630 --> 00:08:09,440
+And if we run this workflow
+on a particular event log,
+
+122
+00:08:09,440 --> 00:08:16,070
+we get results like a dotted chart,
+a Petri net model, and a social network.
+
+123
+00:08:16,070 --> 00:08:20,370
+And if we would like to apply this
+workflow to another event log
+
+124
+00:08:20,370 --> 00:08:22,060
+it is very simple.
+
+125
+00:08:22,060 --> 00:08:22,560
+So.
+
+126
+00:08:23,820 --> 00:08:29,980
+Using RapidProM, we can repeat process
+mining analysis very quickly.
+
+127
+00:08:29,980 --> 00:08:31,340
+This is very useful for
+
+128
+00:08:31,340 --> 00:08:35,980
+scientific experiments where one would
+like to play with the parameter.
+
+129
+00:08:35,980 --> 00:08:40,489
+But also if one would like to
+reuse prepackaged analysis.
+
+130
+00:08:41,490 --> 00:08:48,220
+It can also be used to combine process
+mining with other forms of data mining.
+
+131
+00:08:48,220 --> 00:08:53,880
+It can also be combined with text mining,
+by combining building blocks of
+
+132
+00:08:53,880 --> 00:08:57,410
+ProM with the building blocks
+that are already on rapidminer.
+
+133
+00:08:59,360 --> 00:09:00,620
+So that was one example.
+
+134
+00:09:00,620 --> 00:09:04,590
+Another example of another tool
+is Celonis Discovery a commercial
+
+135
+00:09:05,690 --> 00:09:06,638
+process mining tool.
+
+136
+00:09:06,638 --> 00:09:09,110
+It is web-based.
+
+137
+00:09:09,110 --> 00:09:11,450
+It supports process discovery, but
+
+138
+00:09:11,450 --> 00:09:14,370
+unfortunately it doesn't
+support concurrency.
+
+139
+00:09:14,370 --> 00:09:18,559
+So, the models that are discovered are,
+in essence, transition systems.
+
+140
+00:09:20,390 --> 00:09:22,420
+It can show frequencies,
+
+141
+00:09:22,420 --> 00:09:28,090
+how frequently a case is flowing from
+one activity to another activity.
+
+142
+00:09:28,090 --> 00:09:32,180
+It can show time information,
+so where are the bottlenecks?
+
+143
+00:09:32,180 --> 00:09:34,828
+All the things that we have
+also seen in Disco before.
+
+144
+00:09:37,070 --> 00:09:39,090
+It also supports animation.
+
+145
+00:09:39,090 --> 00:09:43,510
+You can animate a log on top
+of a discovered model, and
+
+146
+00:09:43,510 --> 00:09:47,420
+it supports seamless abstraction.
+
+147
+00:09:47,420 --> 00:09:50,750
+And so there is again
+the slider like functionality.
+
+148
+00:09:50,750 --> 00:09:55,090
+Here we see all the details
+of a particular event log and
+
+149
+00:09:55,090 --> 00:10:00,260
+by moving the slider we can make
+the process model more simple,
+
+150
+00:10:00,260 --> 00:10:03,060
+until we get something that
+is easy to understand.
+
+151
+00:10:04,840 --> 00:10:08,550
+There are also all kinds of
+performance-related dashboards.
+
+152
+00:10:08,550 --> 00:10:12,675
+So in scope, it is very similar to the
+things which we have seen in this Disco.
+
+153
+00:10:14,430 --> 00:10:19,440
+Another example of a commercial process
+mining tool is Perceptive Process Mining.
+
+154
+00:10:19,440 --> 00:10:25,440
+It can be used in conjunction with
+the BPM product of perceptive.
+
+155
+00:10:25,440 --> 00:10:28,150
+So models that have been discovered can be
+
+156
+00:10:28,150 --> 00:10:33,020
+automatically uploaded in the business
+process management system of perceptive.
+
+157
+00:10:34,950 --> 00:10:37,000
+It is also web-based.
+
+158
+00:10:37,000 --> 00:10:39,250
+It supports process discovery.
+
+159
+00:10:39,250 --> 00:10:42,490
+And it supports two types of discovery.
+
+160
+00:10:42,490 --> 00:10:46,800
+One type is fast, but
+cannot discover concurrency.
+
+161
+00:10:46,800 --> 00:10:50,370
+So again,
+the output is a transition system.
+
+162
+00:10:50,370 --> 00:10:56,190
+There is also a more sophisticated mining
+algorithm, based on the genetic process
+
+163
+00:10:56,190 --> 00:11:00,940
+mining techniques discussed earlier,
+that is able to discover concurrency.
+
+164
+00:11:03,800 --> 00:11:06,540
+Again, we can filter the event log and
+
+165
+00:11:06,540 --> 00:11:10,410
+the model in various ways, for
+example based on frequency.
+
+166
+00:11:10,410 --> 00:11:13,030
+We can replay the event log.
+
+167
+00:11:13,030 --> 00:11:18,810
+And a nice feature in the perceptive
+software is that you can color the tokens
+
+168
+00:11:18,810 --> 00:11:23,500
+based on attributes of
+the corresponding event or case.
+
+169
+00:11:23,500 --> 00:11:28,020
+So here tokens are colored
+based on their flowtime.
+
+170
+00:11:28,020 --> 00:11:32,500
+So you can see whether certain very slow
+
+171
+00:11:32,500 --> 00:11:35,600
+cases take a particular
+path through the model.
+
+172
+00:11:37,390 --> 00:11:40,950
+You can also change the perspective and
+look at resources.
+
+173
+00:11:40,950 --> 00:11:47,910
+So here you see the social network of
+the three most frequent resources.
+
+174
+00:11:47,910 --> 00:11:52,910
+And you can see how tokens are flowing
+from one resource to the other resource.
+
+175
+00:11:52,910 --> 00:11:57,290
+Now tokens are colored based on
+the activity being executed.
+
+176
+00:11:58,620 --> 00:12:02,430
+And, again, there are all kinds
+of performance related charts and
+
+177
+00:12:02,430 --> 00:12:04,899
+you can find these in any
+of the commercial tools.
+
+178
+00:12:06,830 --> 00:12:11,150
+So after showing some commercial
+process mining products,
+
+179
+00:12:11,150 --> 00:12:13,960
+it's interesting to
+broaden the scope a bit.
+
+180
+00:12:16,040 --> 00:12:19,300
+For example, we can look at BPM systems.
+
+181
+00:12:19,300 --> 00:12:22,900
+What can be expected is that
+in the future, more and
+
+182
+00:12:22,900 --> 00:12:26,480
+more BPM systems will
+support process mining.
+
+183
+00:12:26,480 --> 00:12:31,350
+At this point in time,
+very few BPM systems actually support
+
+184
+00:12:31,350 --> 00:12:33,690
+things like process discovery and
+conformance checking.
+
+185
+00:12:35,540 --> 00:12:39,610
+One can also look at existing
+data mining techniques.
+
+186
+00:12:39,610 --> 00:12:42,200
+And software, and
+machine learning software.
+
+187
+00:12:43,230 --> 00:12:48,580
+They are very related but at the same
+time, if you look at existing software,
+
+188
+00:12:48,580 --> 00:12:52,770
+they typically do not support
+any form of process mining.
+
+189
+00:12:54,070 --> 00:12:56,830
+We can also look at predictive analytics,
+but
+
+190
+00:12:56,830 --> 00:13:01,150
+you can see that the software there
+is often not process oriented at all.
+
+191
+00:13:03,920 --> 00:13:06,800
+A question could be how about BI tools?
+
+192
+00:13:06,800 --> 00:13:08,010
+So what is BI?
+
+193
+00:13:08,010 --> 00:13:09,790
+What is Business Intelligence?
+
+194
+00:13:11,060 --> 00:13:15,100
+A possible definition given
+by somebody from Forester is,
+
+195
+00:13:15,100 --> 00:13:19,000
+BI is a set of methodologies,
+processes, architectures and
+
+196
+00:13:19,000 --> 00:13:25,910
+technologies that transform raw data
+into meaningful and useful information.
+
+197
+00:13:25,910 --> 00:13:29,750
+Used to enable more effective,
+strategic, tactical and
+
+198
+00:13:29,750 --> 00:13:32,810
+operational insights and decision making.
+
+199
+00:13:32,810 --> 00:13:34,580
+So this is a mouthful and
+
+200
+00:13:34,580 --> 00:13:39,900
+if you read it, I think everybody will
+agree that process mining is part of it.
+
+201
+00:13:40,930 --> 00:13:47,550
+However, if you look at the existing BI
+products that one can find on the market.
+
+202
+00:13:48,610 --> 00:13:52,490
+None of these products is actually
+supporting process mining.
+
+203
+00:13:53,551 --> 00:13:58,360
+so, process mining is still functionality
+that needs to be added to these tools.
+
+204
+00:13:59,360 --> 00:14:01,260
+What do these tools offer?
+
+205
+00:14:01,260 --> 00:14:08,700
+They offer typical functionality like ETL,
+extract, transform and load functionality,
+
+206
+00:14:08,700 --> 00:14:14,210
+querying, reporting, interactive
+dashboards like the one that you see here
+
+207
+00:14:14,210 --> 00:14:19,600
+and generating alerts if thing starts
+to occur differently than planned.
+
+208
+00:14:20,620 --> 00:14:27,890
+So, such functionality is typically not
+process oriented, and despite the name,
+
+209
+00:14:27,890 --> 00:14:36,547
+the type of analysis is typically quite
+simplistic, more spreadsheet-like.
+
+210
+00:14:36,547 --> 00:14:42,700
+So, in conclusion, there are several
+process mining tools available,
+
+211
+00:14:42,700 --> 00:14:46,570
+but it is still
+a relatively young discipline.
+
+212
+00:14:46,570 --> 00:14:52,240
+So, we expect that in the future
+many more process mining tools
+
+213
+00:14:52,240 --> 00:14:57,780
+will become available, and that they
+will become standard, embedded, in BI,
+
+214
+00:14:57,780 --> 00:14:59,790
+BPM, and data mining suites.
+
+215
+00:15:02,040 --> 00:15:04,150
+One should avoid a trap,
+
+216
+00:15:04,150 --> 00:15:08,890
+based on definitions that process
+mining is a part of data mining.
+
+217
+00:15:08,890 --> 00:15:10,830
+By definition it is true.
+
+218
+00:15:10,830 --> 00:15:16,610
+But data mining software typically does
+not provide things like process discovery,
+
+219
+00:15:16,610 --> 00:15:18,270
+conformance checking, and
+
+220
+00:15:18,270 --> 00:15:22,090
+the forms of operational support
+that we have been looking at.
+
+221
+00:15:22,090 --> 00:15:23,980
+The same holds for BI.
+
+222
+00:15:23,980 --> 00:15:30,011
+So one you avoid this trap and use
+the checklist that I've explained earlier.
+
+223
+00:15:32,120 --> 00:15:35,260
+If you would like to read more
+on tools please take a look at
+
+224
+00:15:35,260 --> 00:15:37,450
+chapter 10 of the process mining book.
+
+225
+00:15:38,840 --> 00:15:42,677
+Thank you for watching this lecture,
+see you next time.
+
+226
+00:15:42,677 --> 00:15:52,677
+[MUSIC]
+

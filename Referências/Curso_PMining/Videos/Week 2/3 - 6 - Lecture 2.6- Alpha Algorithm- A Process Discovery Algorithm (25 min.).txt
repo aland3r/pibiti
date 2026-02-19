@@ -1,0 +1,588 @@
+[MUSIC]
+Welcome to this lecture.
+Today we will learn the Alpha algorithm.
+This is the first concrete discovery
+technique presented in this
+course on process mining.
+Here you see a picture that we
+have shown several times before.
+It is showing play-in,
+play-out, and replay.
+So process discovery
+corresponds to play-in.
+If you take a look at this picture
+that by now should look very familiar.
+We are now focusing on the green
+arrow indicated discovery.
+So from an event log, we will
+automatically learn a process model.
+In our case, for
+the Alpha algorithm, a Petri net.
+So the Alpha algorithm was the first or
+one of the first algorithms being
+able to discover concurrency.
+And so from event logs we want to learn
+models that can have loops, that
+can have parallel parts, that can have
+choices, and the Alpha algorithm was
+the first algorithm being able to do that
+while guaranteeing certain properties.
+So what kind of input does
+the Alpha algorithm use?
+We have seen event logs like this, and
+when we apply the Alpha algorithm and
+we just focus on control flow.
+So we ignore the resources and
+other data elements.
+We ignore the actual timestamps
+at which the events take place.
+We only care about their ordering.
+Also, we don't use the case ID or
+properties of the case.
+We only look at the order of
+activities within a particular case.
+So we can convert such an event
+log to a multiset of traces.
+And each trace is a sequence of
+activity names, as you can see here.
+So this is kind of based
+on a real life log.
+We can also take a look at
+a more abstract example.
+Here we see a log L1 which
+contains six traces.
+You can think of them as six different cases.
+And they are modeled as
+a sequence of activity names.
+So, the sequence a, b, c,
+d was executed three times.
+There are three traces of that type.
+So an event log is a multiset of traces,
+because the same trace can appear multiple
+times, and a trace is a sequence of
+activity names where we abstract
+from all the other attributes.
+We will use these other
+attributes in later lectures.
+So what is the goal of
+the Alpha algorithm?
+If we feed it a log like L1 we want to
+automatically learn a process model
+as is shown here that allows for
+the behavior that we have seen in the log.
+So that's like a minimal
+desire that we have.
+Here you see another example
+an event log which is a bit bigger.
+If we feed this event log
+to the Alpha algorithm,
+it will automatically learn this process
+model, which indeed captures all
+the behaviors that we have seen,
+but also more behaviors.
+because there is a loop, so
+in principle this model allows for
+infinitely many traces, but it is
+based on a finite number of examples.
+In this course we will not
+care too much about notations,
+we have been talking about
+notations in earlier lectures.
+You can represent
+a behavior as a Petri net.
+You can represent it as a BPMN model.
+You can represent it as an EPC,
+as a UML activity diagram.
+We do not care.
+We just want to capture the behavior.
+So here you see two process models
+that express exactly the same in
+two different languages.
+Here you see another
+pair of process models.
+One in terms of Petri nets, the other
+in terms of BPMN, that express exactly
+the same behavior and can replay
+the behavior that we have seen in log L2.
+Process discovery is
+incredibly challenging.
+One has many competing requirements, and
+the four main quality criteria for a
+discovered model are shown in this slide.
+Just like you need several
+forces to keep a plane into the air.
+We need to work with several forces
+when we discover a process model.
+In this lecture,
+we will mostly focus on fitness, the
+ability to replay the observed behavior.
+But you'll learn in later lectures,
+we will see that it is not that simple.
+Okay, let's start.
+Let's take a look at the Alpha algorithm.
+The starting point for the Alpha
+algorithm are ordering relations.
+So, we do not care about frequencies.
+We do not care about other attributes.
+In this case, we are only interested in
+seeing that in the log, we could see that,
+that there was a sequence a, b,
+c, d and that we could see
+that a was followed by b.
+And b was followed by c and
+c was followed d.
+This relationship is
+called direct succession.
+There was at least one case where
+x was directly followed by y.
+So if we look at this event log
+we can find these relations.
+So, for example,
+if we take a look at the top one
+it says that there was at least one
+case where a was directly followed by b.
+That's highlighted in the diagram.
+Then there is a second relation.
+It's called causality and
+it is depicted by an arrow.
+This means that x is followed by y,
+but y is never followed by x.
+So we can again take a look at our very
+simple event log, and we will see that
+a is sometimes directly followed by b,
+but b is never followed by a.
+So we derive this a arrow b property,
+causality.
+If the direct succession
+relation holds in both directions,
+we say that things are in parallel.
+So we say x parallel y if x is
+sometimes followed by y and
+y is sometimes followed by x.
+So again if we look at the model we
+can see that, that holds for b and c.
+So b is sometimes followed by c and
+c is sometimes followed by b.
+The last relationship holds if x is
+never directly followed by y and
+y is never directly followed by x, we then
+say that there is a choice relationship.
+So for example,
+if we take a look at the log, and
+we derive the relationships we will
+see that b is never followed by e.
+And e is never followed by b, so we say
+that they are in a choice relationship.
+These relations are used to
+learn patterns in the process.
+So if we see a is sometimes followed by b,
+but
+b is never followed by a, this is the
+Petri net pattern that we expect to see.
+A sequence.
+If we see that a is sometimes followed
+by b, but never the other way around,
+a is sometimes followed by c, but
+c is never followed by a, and b and
+c never follow one another,
+we learn this XOR-split pattern.
+So apparently after doing a,
+there is a choice between b or c.
+Note that if we replay
+this Petri net we will
+get exactly these types of relationships.
+The corresponding part to the XOR-split
+is the XOR-join that you can see here.
+And if you look at the ordering relations
+I think it's fairly obvious.
+So, b has a causal relationship with d,
+c has a causal relationship with d,
+but b and c never follow one another.
+If we look at concurrency we
+see the following behavior.
+If we would look at an AND-split where
+a is followed by both b and c but
+they can be done in any order.
+Perhaps at the same time.
+Then we will find that a is
+sometimes followed by b.
+But never the other way around.
+A is sometimes followed by c,
+but c is never followed by a.
+And b is sometimes followed by c.
+And c is sometimes followed by b.
+So if you would replay the token
+game on top of this fragment,
+you would indeed see that
+these relationships hold.
+So this is an indication that
+a process has such a pattern.
+Again, we can look at
+the corresponding join pattern.
+So what we now see is that again, b and
+c can follow one another in any order,
+and we have observed at least
+once that b was followed by c.
+And at least once that
+c was followed by b.
+Typically in different traces.
+And we sometimes see that b is followed
+by d but not the other way around, and
+sometimes c is followed by d,
+not the other way around.
+So based on these patterns we can
+automatically construct a Petri net.
+And so here, we revisit the example and
+you can see that these
+patterns are there but actually in this
+example, it's already a bit more involved.
+And the Alpha algorithm can also
+handle many more situations.
+So let's take a look at these ordering
+relations in a bit more detail.
+When we take an event log we can
+talk about so-called footprints and
+that's the matrix that
+you see on this slide.
+Every cell in this matrix has
+one of these four relationships.
+So we either have a causality
+in one direction,
+a causality in the other direction, the
+two activities never follow one another,
+or they sometimes follow each
+other in one direction and
+other times in another direction.
+These are the only four
+possibilities that we have.
+So in this example,
+a is sometimes followed by c, but
+c is never followed by a.
+So if we take a look at the event log and
+the corresponding process model,
+we will see that both actually
+have exactly the same footprint.
+So if we would analyze the process
+model and look at all the traces and
+create this footprint based
+on all the possible traces,
+this would be the matrix that we see.
+So model and event log agree on
+the footprint, indicating that
+they have from a behavioral point of view,
+things in common.
+We can take a look at another log.
+A more involved example.
+And again, we see the same phenomena.
+The event log and the process model
+have exactly the same footprint.
+Suggesting that this model is indeed
+the model of the behavior that we have seen.
+So, to summarize this part,
+when we talk about footprints,
+we see certain patterns that
+are reflected both in the log and
+in the model, and these are the starting
+point for the Alpha algorithm.
+The Alpha algorithm is
+a very basic algorithm.
+It contains only eight lines but
+they look scary at first sight.
+So I will walk through these
+eight lines step by step.
+And it's surprising that with
+such a simple algorithm,
+you can actually discover such
+a wide range of different processes.
+Processes having concurrency, processes
+having loops, processes having choices.
+All of these things can be discovered
+by this very basic algorithm.
+But it looks very scary, I have to admit,
+so let's walk through it step by step.
+So we start with an event log,
+which is a multi-set of traces.
+And if we construct
+a Petri net using the Alpha algorithm,
+the first step that we take
+is that we scan the event log
+to see what are the activities or what
+are the transitions that are appearing.
+So we just look at the symbols
+that occur in the event log.
+So these will be the activities
+in the process model,
+each corresponding to a transition.
+That's why we use the symbol T here.
+Then we have the initial transitions, TI.
+These are the transitions that
+are the first in a trace.
+So we can look at all the traces and
+look at
+what are the different activities that
+happen in the first position of the trace.
+Similarly we can look at TO,
+the set of final activities.
+End activities that happen
+at the end of a trace.
+So we have all activities.
+Activities that happen at the beginning,
+and
+activities that happen at the very end.
+After we have done this,
+we have the key step to discover places.
+If you think about process
+discovery in terms of
+Petri nets it's all about
+discovering places.
+And we will discover places by
+identifying sets of transitions, A and
+B, where A are the input transitions for
+the place and B are the output
+transitions for the place.
+And we do that in a number of steps.
+So this is the fourth line of
+the description of the Alpha algorithm.
+As I said, it,
+it looks perhaps a bit scary.
+But if you look at the intuitive idea
+behind it, it's really simple.
+So we are trying to find two
+sets of activities, A and B.
+And these activities should
+have the following property.
+If I take two activities in the set A,
+they should never follow one another.
+If I take two activities in the set B,
+they should also never follow one another.
+Even if we take the same activity,
+it should never follow itself.
+And so that's one requirement.
+The second requirement.
+If we take any activity in the set A and
+we take any activity in the set B,
+there should always be a direct
+succession between these two activities.
+So there should be at least one position
+in the log where the element of
+A is followed by the element of B and
+that should hold for all combinations.
+So that's what it says
+in this fourth line.
+So if we take a look at the footprint
+matrix we can recognize this structure
+because we are looking for a set a and
+b where things never follow one another.
+And we are looking for these other
+connections where any element of a is
+directly followed by any element of b,
+but never the other way around.
+That is what is indicated
+here in the matrix.
+So that is what we are looking for
+but that is not sufficient.
+Line five of the algorithm says that
+we should only look at the sets A and
+B that are maximal.
+And it's very easy to see
+why that is the case.
+Suppose that we have this pair of
+set of activities A and set of activities
+B, having all these requirements.
+Then if we remove a node in A or B.
+Or we remove
+the corresponding arcs.
+What we see then is that
+still the properties hold.
+So any, in a way any subset
+of this AB relationship
+automatically also has the properties
+that we listed before.
+So here you can see two examples of A and
+B sets which are smaller and
+automatically satisfy all the requirements
+as long as A and B are not empty.
+So that means that we
+would potentially get many,
+many places and we don't want that.
+So we only retain the maximal
+elements of this set X.
+And that is what we do in step five,
+yielding a set Y, which will
+correspond to the internal places.
+And so, we delete all the elements
+from X that are not maximumal.
+In the sense what I've just discussed.
+Now the remainder of the algorithm
+is fairly simple.
+So PL is the set of places.
+So all the maximal pairs that we have just
+discovered in step five are places and
+we add an initial place I and
+a final place O.
+It's very easy to understand, yeah?
+So it's important to see that the really
+interesting part happens when we
+look at these sets A and B, and thereby
+derive the places that we want to see.
+Then we take a look at the arcs.
+And we already have the transitions,
+we already have the places.
+Here you see the arcs.
+So here, you can see all
+connections from the initial place,
+I, to all the initial transitions in TI.
+From all the transitions in the set TO.
+So the transitions corresponding to
+the activities that happen at the end.
+And all internal places, and internal
+places are represented by sets A and
+B and the connections
+are made accordingly.
+So this is making the connections, but
+the real logic was already
+in steps four and five.
+Where we identify the sets A and B.
+Finally, we return the Petri net with
+places P, transitions D, and arcs F.
+And we get the result that we're after.
+So let's replay these eight lines.
+For example that we have seen before.
+So this is the log.
+This is the footprint matrix.
+So we can see all the relationships.
+Then we execute the different steps
+of the algorithm where the key
+steps are steps four and steps five.
+So here you seek the relationship X.
+They contain elements
+which are not maximal,
+some of these elements
+are contained in other elements.
+So we remove them as is indicated here.
+Then we get a set Y, and
+these correspond to the internal places.
+So, for example, we can see that
+there will be a place having as
+input a and as output b and e.
+And that is what you can see in the,
+in the corresponding diagram.
+So if we feed an event log to
+a process mining tool like ProM,
+which is supporting the Alpha algorithm,
+we can load the log.
+The log that I just used.
+And indeed ProM returns
+the model that we just saw.
+So here you can see the Alpha algorithm
+in action on a very tiny log.
+Let's take a look at some other examples.
+So, let's take a look at log
+L3 that is shown here, and
+the first question would be.
+To apply the Alpha algorithm, what is
+the footprint matrix of this event log?
+Try to draw it.
+If you do so, you will see this.
+This is the footprint matrix
+that is resulting from it.
+So.
+For example if you look at the row a and
+column a we can see that a is
+never followed by itself.
+Which is a clear thing that
+one can see in the log.
+If you would look at row a and column b
+we see that a is sometimes followed
+by b but never the other way around.
+Look at the log and
+you can see that is indeed the case.
+And we can look at all the roles for
+example if we look at c and
+d we will see that c is
+sometimes followed by d and
+sometimes d is followed by c,
+suggesting the concurrency relationship.
+So first we built a footprint matrix and
+then we apply the alpha
+algorithm that we have seen before.
+So, given this footprint matrix,
+we can execute the eight steps.
+So, please try to do this yourself.
+What is the model that
+is resulting from this?
+If you apply all the different
+steps then this is
+the process model that you discover.
+And so you need to check it yourself
+that this is indeed the result that will
+be returned.
+So if we feed this log again to ProM,
+again we see exactly the model that
+was predicted by the Alpha algorithm.
+Because ProM implements exactly the eight
+line algorithm that we have seen before.
+Let's take a look at another event log.
+So now we see four different traces
+happening at different frequencies.
+So if we take this event log
+we will discover this process
+model using the Alpha algorithm.
+And take a look at the places and
+the names that they have and
+identify these sets a and
+b and you can see that this is
+actually the model that can
+be derived based on this log.
+And also if you look at this
+model we can reproduce all
+the traces that we see in the log and
+nothing more.
+And ProM indeed returns the same model.
+Here we see another example.
+I'm trying to show you as
+many examples as possible that you
+get a feeling for when this algorithm
+indeed produces the right result.
+So if we take this event log you
+can see the footprint matrix.
+We can apply the algorithm.
+So here you see all of
+the eight steps listed.
+Where the steps to distinguish the X and
+Y are the most crucial steps.
+Then we will get this Petri net.
+And again, we can see that this
+is indeed a petri net that is
+able to reproduce the observed behavior.
+But also a bit more because the,
+the patterns in the log
+suggest that there is a loop.
+So in summary, the Alpha algorithm
+provides a basic discovery approach.
+It has many limitations.
+I didn't talk about these yet, I will
+talk about them in the next lecture.
+But still the algorithm is very
+useful because it illustrates the key
+ingredients of process discovery.
+Discovering loops, discovering
+concurrency, discovering choices.
+It's all in there.
+So for understanding process discovery
+it's very important that you
+practice with different examples,
+apply the Alpha algorithm and
+you will gain a better understanding
+of the difficulties that one
+encounters if one would like to discover
+a process model just based on examples.
+So we now move to chapter five.
+And chapter five describes in
+lots of detail with lots of
+examples what the Alpha
+algorithm is actually doing.
+Thank you for watching and
+I hope to see you in the next lecture.
+[MUSIC]
+

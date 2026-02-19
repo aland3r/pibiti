@@ -1,0 +1,890 @@
+1
+00:00:00,000 --> 00:00:07,422
+[MUSIC]
+
+2
+00:00:07,422 --> 00:00:12,530
+Welcome to the last lecture, of the first
+week of this course on process mining.
+
+3
+00:00:12,530 --> 00:00:16,950
+In the previous lectures, we learned
+about various data mining techniques.
+
+4
+00:00:16,950 --> 00:00:21,489
+Today, we discuss ways of measuring
+the quality of data mining results.
+
+5
+00:00:23,790 --> 00:00:26,740
+We have seen techniques like
+decision tree learning,
+
+6
+00:00:26,740 --> 00:00:32,740
+association rule learning, clustering,
+sequence mining and many other techniques.
+
+7
+00:00:32,740 --> 00:00:34,250
+Later we will see techniques for
+
+8
+00:00:34,250 --> 00:00:40,630
+process discovery, conformance checking,
+for predicting remaining flow times.
+
+9
+00:00:40,630 --> 00:00:43,790
+All of these techniques, produce results
+
+10
+00:00:43,790 --> 00:00:49,310
+of the models, and question is,
+what is the quality of such models?
+
+11
+00:00:49,310 --> 00:00:53,180
+In the lecture today,
+we will look at evaluating the quality of
+
+12
+00:00:53,180 --> 00:00:58,770
+data mining results, but many of the 
+ideas will also be applicable to evaluating
+
+13
+00:00:58,770 --> 00:01:02,380
+or at least discussing
+the results of process mining.
+
+14
+00:01:04,970 --> 00:01:09,830
+The first topic, that we would like to
+discuss today is the confusion matrix,
+
+15
+00:01:09,830 --> 00:01:14,760
+that we have seen before and
+the measures based on it.
+
+16
+00:01:14,760 --> 00:01:20,030
+It is best to explain it simply
+using a set of examples.
+
+17
+00:01:20,030 --> 00:01:25,150
+So this is, a decision tree, to learn
+
+18
+00:01:25,150 --> 00:01:28,690
+which students fail, pass or
+
+19
+00:01:28,690 --> 00:01:31,840
+pass cum laude,
+based on the course grades that they have.
+
+20
+00:01:33,730 --> 00:01:36,940
+If we create the so-called
+confusion matrix,
+
+21
+00:01:36,940 --> 00:01:42,050
+we plot the actual class against,
+the predicted class.
+
+22
+00:01:42,050 --> 00:01:46,510
+So for example, if you look at this
+matrix, we can see that there were
+
+23
+00:01:46,510 --> 00:01:52,100
+21 students that passed
+as the actual class, but
+
+24
+00:01:52,100 --> 00:01:56,720
+the predicted class was that
+they would have failed.
+
+25
+00:01:56,720 --> 00:02:00,330
+And so this is an incorrect prediction.
+
+26
+00:02:01,880 --> 00:02:09,440
+The green values, indicate
+the positive results, the red values
+
+27
+00:02:09,440 --> 00:02:14,140
+indicate problems and the higher the red
+numbers are, the bigger the problem is.
+
+28
+00:02:15,920 --> 00:02:17,630
+We can take another example.
+
+29
+00:02:17,630 --> 00:02:20,020
+So, we were trying to predict,
+
+30
+00:02:20,020 --> 00:02:24,520
+what was causing the fact that
+certain customers got sick.
+
+31
+00:02:26,190 --> 00:02:28,160
+There were three classes of customers.
+
+32
+00:02:28,160 --> 00:02:31,940
+Customers that were not sick,
+that were very sick, and
+
+33
+00:02:31,940 --> 00:02:34,750
+a group of customers that was nauseous.
+
+34
+00:02:34,750 --> 00:02:40,070
+The decision tree that we learnt,
+had problems picking up,
+
+35
+00:02:40,070 --> 00:02:42,020
+patients that are nauseous.
+
+36
+00:02:42,020 --> 00:02:43,850
+And you can see that here,
+
+37
+00:02:43,850 --> 00:02:48,980
+if you take a look at the column
+indicating the people that are nauseous.
+
+38
+00:02:50,530 --> 00:02:56,070
+If you look at the lower row, you see
+
+39
+00:02:56,070 --> 00:03:02,250
+the people that were actually very sick,
+and they were all predicted correctly.
+
+40
+00:03:02,250 --> 00:03:07,780
+So all people that were, very sick,
+were predicted to be sick.
+
+41
+00:03:07,780 --> 00:03:13,910
+On the other end as I just mentioned,
+customers, that were nauseous,
+
+42
+00:03:13,910 --> 00:03:18,210
+and there were more than 300 of them,
+were never predicted to be nauseous.
+
+43
+00:03:19,735 --> 00:03:24,320
+So this way we can see that the confusion
+matrix gives an indication of
+
+44
+00:03:24,320 --> 00:03:26,120
+the quality of the decision tree.
+
+45
+00:03:28,320 --> 00:03:31,260
+If we take a look at
+a binary classification,
+
+46
+00:03:31,260 --> 00:03:35,520
+the terms that we can
+use are true positives.
+
+47
+00:03:35,520 --> 00:03:39,960
+These are the instances,
+that are actually positive, for example,
+
+48
+00:03:39,960 --> 00:03:43,300
+becoming sick, and
+are also predicted to be positive.
+
+49
+00:03:44,560 --> 00:03:45,910
+True negatives.
+
+50
+00:03:45,910 --> 00:03:48,540
+Negative instances,
+predicted to be negative.
+
+51
+00:03:49,820 --> 00:03:55,460
+So, these are, highlighted in green,
+because they are desirable values.
+
+52
+00:03:55,460 --> 00:03:57,450
+We would like them to
+be as high as possible.
+
+53
+00:03:58,880 --> 00:04:03,470
+On the other hand, we also have
+false positives and false negatives.
+
+54
+00:04:03,470 --> 00:04:09,860
+These correspond to instances,
+that are classified incorrectly.
+
+55
+00:04:09,860 --> 00:04:14,490
+So either negative instances,
+are predicted to be positive or
+
+56
+00:04:14,490 --> 00:04:16,970
+positive instances
+are predicted to be negative.
+
+57
+00:04:18,420 --> 00:04:22,670
+If we apply it to the example of
+the restaurant, then true positives,
+
+58
+00:04:22,670 --> 00:04:26,700
+would correspond to sick customers
+that were predicted to be sick.
+
+59
+00:04:28,180 --> 00:04:33,460
+If we, for example, look at false
+negatives, then this corresponds to,
+
+60
+00:04:33,460 --> 00:04:38,410
+sick customers that were
+predicted to be not sick.
+
+61
+00:04:38,410 --> 00:04:42,590
+So this is indicating the, types of
+problems that we would like to analyze.
+
+62
+00:04:42,590 --> 00:04:47,240
+We would like to capture
+these problems in a number.
+
+63
+00:04:47,240 --> 00:04:50,430
+So, the error rate
+
+64
+00:04:50,430 --> 00:04:53,570
+corresponds to the number
+of false positives and
+
+65
+00:04:53,570 --> 00:04:55,470
+the number of false negatives.
+
+66
+00:04:55,470 --> 00:05:00,270
+So all the problematic cases,
+divided by the total number of instances.
+
+67
+00:05:01,410 --> 00:05:03,370
+Accuracy is exactly the reverse.
+
+68
+00:05:03,370 --> 00:05:08,100
+We take the number of true positives and
+true negatives.
+
+69
+00:05:08,100 --> 00:05:10,310
+So all the correct predictions.
+
+70
+00:05:10,310 --> 00:05:13,660
+And we divide that
+by the total number of instances.
+
+71
+00:05:15,610 --> 00:05:21,310
+Precision and recall are two important
+metrics, that are often used.
+
+72
+00:05:21,310 --> 00:05:25,370
+So precision corresponds to
+the number of true positives,
+
+73
+00:05:25,370 --> 00:05:29,539
+divided by the number of true positives
+plus the number of false positives.
+
+74
+00:05:30,980 --> 00:05:34,740
+Recall, is a number of true
+positives divided by the number of
+
+75
+00:05:34,740 --> 00:05:38,200
+true positive plus the number
+of false negatives.
+
+76
+00:05:38,200 --> 00:05:43,270
+We would like precision and
+recall to be as close to one as possible.
+
+77
+00:05:44,980 --> 00:05:48,580
+The F1 score,
+is the harmonic mean of precision and
+
+78
+00:05:48,580 --> 00:05:52,100
+recall and we can compute it
+using the formula shown here.
+
+79
+00:05:54,100 --> 00:05:58,060
+So let's apply this to
+the following example.
+
+80
+00:05:58,060 --> 00:06:02,750
+So what you see here,
+is the initial state of a decision tree,
+
+81
+00:06:02,750 --> 00:06:07,280
+before splitting any of the nodes
+based on some attributes.
+
+82
+00:06:07,280 --> 00:06:11,370
+And a decision tree,
+that we discover after splitting
+
+83
+00:06:11,370 --> 00:06:15,200
+based on the attribute smoker and
+the attribute drinker.
+
+84
+00:06:16,300 --> 00:06:20,980
+We can see the,
+confusion matrices of both decision trees.
+
+85
+00:06:20,980 --> 00:06:24,590
+So the one consisting of just one,
+leaf node and
+
+86
+00:06:24,590 --> 00:06:26,940
+the one consisting of three leaf nodes.
+
+87
+00:06:26,940 --> 00:06:32,180
+And we would like to compare them based
+on precision recall and F1 score.
+
+88
+00:06:32,180 --> 00:06:33,939
+So please compute these values.
+
+89
+00:06:37,750 --> 00:06:41,750
+These values can be computed by just
+
+90
+00:06:41,750 --> 00:06:44,750
+applying the formulas
+that we have seen before.
+
+91
+00:06:44,750 --> 00:06:49,120
+So if we look at
+the classification where all
+
+92
+00:06:49,120 --> 00:06:54,500
+the persons are predicted to die young.
+
+93
+00:06:54,500 --> 00:07:01,000
+And nobody is predicted to die old,
+then precision is 0.63 because 63%
+
+94
+00:07:02,770 --> 00:07:07,580
+of the persons actually died young.
+
+95
+00:07:08,720 --> 00:07:14,610
+Recall is equal to one because we never
+predict somebody to die at an older age,
+
+96
+00:07:14,610 --> 00:07:17,480
+and F1 score,
+
+97
+00:07:17,480 --> 00:07:21,678
+the harmonic mean of
+these two values is 0.77.
+
+98
+00:07:21,678 --> 00:07:27,600
+If we look at a more refined decision
+tree after splitting on these two
+
+99
+00:07:27,600 --> 00:07:31,330
+labels we can see that precision improved.
+
+100
+00:07:32,790 --> 00:07:35,330
+Recall was reduced slightly.
+
+101
+00:07:36,590 --> 00:07:40,860
+And that is due to the two young people
+
+102
+00:07:42,050 --> 00:07:46,830
+that died young, and were predicited
+
+103
+00:07:46,830 --> 00:07:50,170
+to die at an older age.
+
+104
+00:07:50,170 --> 00:07:53,790
+That is the two in the confusion matrix.
+
+105
+00:07:53,790 --> 00:07:58,400
+Recall, is slightly worse than before,
+but precision is much better, and
+
+106
+00:07:58,400 --> 00:08:01,090
+also the F1-score is much better.
+
+107
+00:08:01,090 --> 00:08:05,430
+So, this is an objective means
+to compare the two decision trees.
+
+108
+00:08:07,800 --> 00:08:12,500
+So, that was the confusion matrix and
+metrics like precision and recall.
+
+109
+00:08:12,500 --> 00:08:15,620
+Let's now take a look at cross-validation.
+
+110
+00:08:15,620 --> 00:08:19,660
+Now, to explain why
+cross-validation is important.
+
+111
+00:08:19,660 --> 00:08:21,880
+It helps to look at
+the following sentence.
+
+112
+00:08:23,480 --> 00:08:26,380
+Take your ten best friends, and
+
+113
+00:08:26,380 --> 00:08:31,930
+suppose that you would create a decision
+tree that accurately predicts the length
+
+114
+00:08:31,930 --> 00:08:37,390
+of a friend, based on the person's
+birth date and eye color.
+
+115
+00:08:39,160 --> 00:08:42,790
+If you have a group of just ten
+friends it is quite easy to
+
+116
+00:08:42,790 --> 00:08:45,220
+construct such a decision tree.
+
+117
+00:08:45,220 --> 00:08:50,080
+And it will perform perfectly
+on your ten best friends.
+
+118
+00:08:50,080 --> 00:08:54,900
+But then if you would get
+another friend, it is very
+
+119
+00:08:54,900 --> 00:08:58,420
+likely that the decision tree
+will produce an incorrect value.
+
+120
+00:08:59,900 --> 00:09:03,310
+This is the problem of overfitting.
+
+121
+00:09:03,310 --> 00:09:09,500
+So we are overfitting the example set, and
+by that, we cannot generalize properly.
+
+122
+00:09:11,190 --> 00:09:15,270
+So a definition of overfitting is
+that the model is too specific for
+
+123
+00:09:15,270 --> 00:09:21,960
+the data set used, and will most likely
+perform very poorly on new instances.
+
+124
+00:09:21,960 --> 00:09:26,900
+And here you see a rule that could be the
+rule that would result from overfitting.
+
+125
+00:09:26,900 --> 00:09:31,800
+So people having a particular birth date
+and a particular eye color would have
+
+126
+00:09:31,800 --> 00:09:36,590
+a particular length with
+a very large precision.
+
+127
+00:09:38,040 --> 00:09:40,590
+Underfitting is the other problem.
+
+128
+00:09:40,590 --> 00:09:42,910
+You're not overfitting the data.
+
+129
+00:09:42,910 --> 00:09:45,370
+You're making conclusions that are so
+
+130
+00:09:45,370 --> 00:09:51,400
+general, that they don't say very much and
+that they don't actually use the data.
+
+131
+00:09:51,400 --> 00:09:56,170
+For example, a rule like, if gender
+is male, then length is larger than
+
+132
+00:09:56,170 --> 00:10:01,540
+one meter, is a rule that may often be
+true, but it is severely underfitting,
+
+133
+00:10:01,540 --> 00:10:05,660
+because we, we didn't actually learn
+from the data that we were analysing.
+
+134
+00:10:08,740 --> 00:10:12,750
+Because of these problems,
+over-fitting and under-fitting,
+
+135
+00:10:12,750 --> 00:10:18,350
+we typically split the data set
+into a training set and a test set.
+
+136
+00:10:19,420 --> 00:10:24,230
+Then we apply a learning algorithm
+that will create a model, for
+
+137
+00:10:24,230 --> 00:10:25,530
+example, a decision tree.
+
+138
+00:10:27,030 --> 00:10:29,560
+Then we take the test set and
+
+139
+00:10:29,560 --> 00:10:35,970
+we try the test set on the model that we
+have learned based on the training set.
+
+140
+00:10:35,970 --> 00:10:38,010
+And then we measure the performance.
+
+141
+00:10:38,010 --> 00:10:41,980
+So we are testing our
+model on unseen data.
+
+142
+00:10:41,980 --> 00:10:44,480
+And this is the main
+idea of cross validation.
+
+143
+00:10:46,060 --> 00:10:52,670
+If you do it like this
+you're using your data
+
+144
+00:10:52,670 --> 00:11:01,400
+not in an optimal way because you didn't,
+use all the data to learn
+
+145
+00:11:01,400 --> 00:11:03,160
+as much as possible.
+
+146
+00:11:03,160 --> 00:11:08,830
+That is why you can repeat the principal
+that is shown here by partitioning
+
+147
+00:11:08,830 --> 00:11:14,970
+your data in k parts and then use
+
+148
+00:11:14,970 --> 00:11:21,470
+k minus 1 parts to learn the model and
+use one of these k parts for
+
+149
+00:11:21,470 --> 00:11:25,110
+testing the quality of the model.
+
+150
+00:11:25,110 --> 00:11:30,830
+And you can repeat this experiment
+k times, so then you are really using
+
+151
+00:11:30,830 --> 00:11:36,170
+all data available to both learn
+the model and to test the result.
+
+152
+00:11:39,390 --> 00:11:42,120
+There are many possible complications.
+
+153
+00:11:42,120 --> 00:11:45,110
+So one of the complications
+that we may face if we
+
+154
+00:11:45,110 --> 00:11:50,400
+are evaluating the quality of a model
+that we have learned is concept drift.
+
+155
+00:11:50,400 --> 00:11:56,960
+Over time, the characteristics of
+the underlying process may have changed.
+
+156
+00:11:58,420 --> 00:12:02,700
+And, this may, make things very difficult.
+
+157
+00:12:03,910 --> 00:12:08,400
+Another complication with respect
+to evaluating data is that
+
+158
+00:12:08,400 --> 00:12:11,080
+often we do not have negative examples.
+
+159
+00:12:12,440 --> 00:12:15,360
+For example, if we look at our restaurant,
+
+160
+00:12:15,360 --> 00:12:20,100
+we only know about sick customers
+that complain afterwards.
+
+161
+00:12:20,100 --> 00:12:24,070
+We do not know anything about that
+customers that actually did not complain.
+
+162
+00:12:25,410 --> 00:12:30,360
+So often,
+we have an unbalanced set that we
+
+163
+00:12:30,360 --> 00:12:34,340
+are using to learn without
+any negative examples.
+
+164
+00:12:34,340 --> 00:12:40,480
+Also, in the context of process mining,
+this problem is considerable.
+
+165
+00:12:40,480 --> 00:12:45,050
+Because we only see the traces that
+have happened not the traces that
+
+166
+00:12:45,050 --> 00:12:46,510
+could not happen.
+
+167
+00:12:46,510 --> 00:12:48,490
+So we are facing similar problems.
+
+168
+00:12:50,510 --> 00:12:54,860
+The focus of this course is
+clearly on process mining, but
+
+169
+00:12:54,860 --> 00:12:59,700
+we had to learn these basic data
+mining techniques beforehand.
+
+170
+00:12:59,700 --> 00:13:04,330
+Because we can adopt
+some of the ideas
+
+171
+00:13:04,330 --> 00:13:05,780
+from data mining.
+
+172
+00:13:05,780 --> 00:13:10,230
+And sometimes in the context of process
+mining we are also locally using data
+
+173
+00:13:10,230 --> 00:13:11,740
+mining techniques.
+
+174
+00:13:11,740 --> 00:13:14,660
+For example,
+if we have learned the process model.
+
+175
+00:13:14,660 --> 00:13:17,310
+And in that process
+model there is a choice.
+
+176
+00:13:17,310 --> 00:13:23,500
+Then after learning the control flow,
+we may want to use decision tree learning,
+
+177
+00:13:23,500 --> 00:13:29,800
+to see what is influencing the decision
+in the process, but we can only do that
+
+178
+00:13:29,800 --> 00:13:35,450
+if we have beforehand discovered
+the process model itself.
+
+179
+00:13:35,450 --> 00:13:40,600
+So in this way process mining
+extends way beyond classical data
+
+180
+00:13:40,600 --> 00:13:44,600
+mining approaches that do not
+consider process models at all.
+
+181
+00:13:46,630 --> 00:13:51,390
+So process mining is as a bridge
+between classical data analysis and
+
+182
+00:13:51,390 --> 00:13:53,270
+classical process analysis.
+
+183
+00:13:54,440 --> 00:14:00,150
+After explaining the core
+results in data mining,
+
+184
+00:14:00,150 --> 00:14:04,210
+we now move to the more
+process-oriented part of this course.
+
+185
+00:14:04,210 --> 00:14:07,550
+So the next set of
+lectures will be devoted
+
+186
+00:14:07,550 --> 00:14:10,460
+to process models and
+learning these process models.
+
+187
+00:14:12,890 --> 00:14:17,260
+If you would like to read more on data
+mining take a look at chapter three.
+
+188
+00:14:18,750 --> 00:14:22,298
+Thank you for
+watching this lecture, see you next time.
+
+189
+00:14:22,298 --> 00:14:32,298
+[MUSIC]
+

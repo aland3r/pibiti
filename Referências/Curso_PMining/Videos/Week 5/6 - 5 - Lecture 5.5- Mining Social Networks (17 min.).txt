@@ -1,0 +1,366 @@
+[MUSIC]
+Welcome to this lecture.
+After enriching models with time and
+data related aspects we now focus
+on the resource perspective.
+We will learn to create resource
+activity and hand over work matrices.
+Moreover we will see that social
+networks can be created from event data.
+Events that we see in event logs,
+they often capture human behavior and that
+makes their analysis very interesting.
+Humans leave all kinds of
+trails in all kinds of systems.
+The first week,
+we spoke about the Internet of events.
+One can look at what people are doing
+socially, on Facebook or Twitter.
+One can look at work-related systems.
+And in the future, more and more devices
+will be connected to the Internet, and
+will collect data about human behavior.
+So in this lecture, we will focus on
+analyzing the social aspect of event logs.
+And we will look at things
+like social networks.
+So, what is the input for such analysis?
+We have event logs and these event
+logs may refer to the actual people,
+the actual actors, executing
+the activities, as you can see here.
+So events have a resource attribute, and
+using these resource attributes,
+we can do very simple forms of analysis.
+For example if you look at this so-called
+resource-activity matrix, we can see
+how many times a resource is
+executing particular activities.
+So if you look at this particular example
+extracted from the event log that we
+have seen before,
+we can see that activity a is
+executed on average exactly once.
+And we can see that by adding up
+the numbers in this particular column.
+What we can also see is that Pete,
+Mike, and
+Ellen are the only ones
+executing this activity.
+So in 30% of the cases,
+a is being executed by Pete.
+In 50% of the cases,
+a is being executed by Mike, and
+in the remaining 20% it
+is executed by Ellen.
+So we can read such information
+from the resource activity metrics.
+What we can also see is that Sara is
+the only person able to execute activities
+e and f based on the evidence that
+we have seen in the event log.
+On average, 2.3 times per case
+activity e is executed by Sara.
+So the resource-activity matrix
+provides basic insights into who
+is doing what in the event log.
+But the information is very basic.
+Let's take a look at this event log and
+also try to create
+a resource activity matrix.
+So again in this log we see that Pete
+starts by executing activity a for
+case 1 at time 10.
+If we look at the end of this
+event log we can see that Carol
+executes activity f for case 2.
+Here we can see all the information.
+So we can see the process model and
+we can see the event log.
+And now try to create a resource
+activity matrix yourself.
+This may take some time.
+So the answer is shown here.
+Based on the event log we can extract
+this resource activity matrix.
+So, what we can see is that Pete
+is the only one able to execute a.
+And for example, Carol is the only one
+able to execute f, and on average,
+this is done once per case.
+The matrix that we just shown
+is not really showing any
+relationships between people.
+For that we need to
+create a social network.
+So how does that work?
+Let's first start by looking
+at a real-life example.
+So this is the social network of
+the so-called Al-Qaeda network
+after the 9/11 disaster.
+So this social network was created
+by analyzing newspaper articles.
+Social network analysis, creating these
+types of graphs is already very old.
+Already in the 1930s Moreno
+created such networks.
+We can view them as a graph
+with thicker and thinner lines
+indicating the relationships, or
+we can look at them in matrix form.
+The nodes in such a diagram
+that correspond to people or
+groups of people or departments,
+the arcs they indicate relationships
+they have weights or
+inverted notion of distance.
+So what you can see in this social network
+is that the strongest relationships
+are indicated using thick lines.
+We can also compute metrics over
+such social networks to see
+which are the people that
+are most central in this network.
+We can also identify cliques of people,
+people that have many relationships among
+them as a group, but with fewer
+connections to the rest of the network.
+So this the notation that we will use.
+So the ovals correspond to
+organizational entities.
+These can be individual resources, people,
+roles, but also things like departments.
+The arcs correspond to relationships.
+The thickness of an arc indicates how
+strong this relationship is and
+we can also vary the size
+of the ovals to indicate
+how frequent the entity is
+executing particular activities.
+There are many ways to measure
+the importance of a node.
+For example,
+a person in such a social network.
+There is the notion of degree centrality.
+This simply counts,
+if you look at the node,
+how many arcs it has to other nodes,
+so it's a very localized notion.
+So, the things that are highlighted in red
+indicate the nodes that have
+the highest degree of centrality.
+If you look at the diagram in the middle,
+we can see closeness centrality.
+So now the nodes in red
+are most important.
+Not because they have many direct
+neighbors, but it is based on
+one divided by the sum of all shorter
+paths to this particular node.
+So the things that are most
+central are indicated in red.
+A related notion is
+betweenness centrality.
+Now we count the fraction of
+shortest paths between any two
+nodes going through the nodes that
+we are trying to analyze.
+So you can see depending on
+the notion that you choose
+different entities will become central
+in the network that we are considering.
+This is a topic in itself.
+There are many of such 
+definitions, and
+it's a bit outside
+the scope of this course.
+However, based on event logs we can
+create such networks and
+apply standard techniques to analyze them.
+So, based on an event log,
+how can we create such a social network?
+Well, this is done using
+the handover of work matrix.
+This is a matrix where we show,
+how frequently work is handed over
+from one person, to another person.
+So to be more precise,
+we count the number of times work is
+handed over from one resource to
+another resource on average per case.
+So based on the event log
+that we have seen earlier
+we construct this handover of work
+matrix where Pete is handing over
+work to himself on average
+0.135 times per case.
+If we look at Sara and Mike,
+their relationship, for
+example Sara is handing over work to
+Mike on the average 1.4 times per case.
+So the higher these numbers,
+the more frequently work is passed on
+from one person to another person.
+When we do this analysis,
+we should of course take into
+account the underlying process.
+So if things are concurrent,
+then we should not count handovers
+between concurrent activities, because
+they do not causally depend on each other.
+So while creating this matrix we take
+into account the control flow structure.
+So based on this matrix,
+we can create a graph where we
+leave out the arcs which have
+a weight that is too low.
+So for example, if we look at the matrix,
+we can see that there is
+a relationship between Ellen and Pete.
+But it is too weak to
+be shown in this graph,
+because we chose the threshold of 0.1.
+So this is the social network based
+on the handover of work matrix.
+In this picture,
+the thickness of the arc relates to
+the number in the handover of work matrix.
+All the ovals have the same size.
+We are not using the feature that
+we can make the size depending on
+the frequency with which people
+have executed activities for cases.
+This diagram is at the level
+of individual resources.
+We can also create diagrams that
+look at roles or departments.
+In fact, if we look at an information
+system of a typical organization,
+there are lots of information
+relating people to departments or
+to particular roles in the organization.
+In more advanced information
+systems even the event log
+itself has information about the role or
+the department that people have when
+they are executing a particular event.
+In our small example, we are now
+assuming that there are three roles,
+the role of Assistant, the role of
+Expert and the role of Manager.
+For example Sara is the only person
+that can play the role of Manager,
+while we have three assistants,
+Pete, Mike and, Ellen.
+So if we have grouping of
+resources in this way,
+we can also create social networks
+at the higher level of abstraction.
+So now you can see the social
+network relating assistance to
+managers to experts.
+And so, in this picture,
+again the arcs show how frequent, for
+example work is handed over
+from a manager to an assistant.
+But what we can also see is
+that the size of the oval is
+indicating how much work is done by
+people having a particular role.
+So this gives insights at the desired
+level of abstraction that we
+would like to use.
+ProM supports the construction of such
+social networks in many different ways.
+So, here we see some examples.
+So first of all there is a plug-in
+that creates a social network based on
+the handover of work.
+This is exactly what we have seen before.
+However, there are many other ways that we
+can build a social network
+based on event data.
+One example is that we can consider
+people to be close, to have a strong
+relationship, if they typically execute
+the same collection of activities.
+And so people doing the same types of
+things, are considered to be close.
+People doing very different
+things are considered to
+be very far apart from each other.
+We can do this at the level of activities.
+We can also do this at the level of cases.
+So people that often work together on
+the same cases are considered to be close.
+People never working together on the same
+case are considered to be more distant.
+So using these distance notions
+we can create social networks.
+And for example here you see a social
+network based on the handover of
+work metric, as we have seen before.
+So the coloring can be
+used to identify cliques.
+We can remove arcs that are infrequent.
+We can influence the size of the bubbles
+based on particular characteristics so
+it's a very flexible tool.
+If we look at problem we can also analyze
+resource behavior, social behavior,
+by creatively replacing activity
+names by resource names.
+And some of the plugins
+actually have a feature for
+this, to do this automatically.
+So for example,
+if you look at inductive minor,
+what you see here is the discovered
+control flow process.
+So now the nodes are activities,
+but you can change the view and
+create a model where the nodes correspond
+not to activities but to people.
+Now we see a different type of process and
+it is showing how work is flowing
+from one person to another person.
+So in a way you can think of this, as a
+kind of social network, but on top of it,
+because it's like a process,
+we can animate things over it.
+So in summary, what we have seen is that
+we can create a resource activity matrix,
+showing who is doing what,
+very basic information.
+We can create a handover of
+work matrix showing how work is
+being transferred from one
+person to another person.
+And this can be used to
+create a social network.
+But the handover of work matrix is
+just one of many possibilities that we
+can use to create such a social network.
+Event logs provide lots of information
+that can be used to create
+different views on the social
+behavior inside work processes.
+Once we have such a social network,
+it can be analyzed in many different ways.
+We can compute which
+are the most central people,
+what are cliques of people often
+working together, etcetera.
+So it is very important that
+one is aware that one can
+analyze the human behavior in these
+processes that we are analyzing,
+and this often provides clues
+on how to do things better.
+To read more about this,
+please take a look at chapter 8.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

@@ -1,0 +1,745 @@
+1
+00:00:00,071 --> 00:00:07,121
+[MUSIC]
+
+2
+00:00:07,121 --> 00:00:09,280
+Welcome to this lecture.
+
+3
+00:00:09,280 --> 00:00:12,940
+Thus far,
+our main focus was on process discovery.
+
+4
+00:00:12,940 --> 00:00:17,150
+In this lecture today, we will introduce
+another very important process mining
+
+5
+00:00:17,150 --> 00:00:19,389
+task, namely conformance checking.
+
+6
+00:00:21,710 --> 00:00:25,692
+This is a diagram that we have
+seen several times before, and
+
+7
+00:00:25,692 --> 00:00:29,689
+it is now highlighting where
+conformance checking fits in.
+
+8
+00:00:29,689 --> 00:00:33,709
+So we no longer want to discover
+a process model, but we would like
+
+9
+00:00:33,709 --> 00:00:38,165
+to compare a process
+model with the corresponding event log.
+
+10
+00:00:41,086 --> 00:00:43,234
+When doing conformance checking,
+
+11
+00:00:43,234 --> 00:00:46,812
+we need to take into consideration
+the four dimensions that
+
+12
+00:00:46,812 --> 00:00:51,550
+we've also discussed when we were
+looking at process discovery techniques.
+
+13
+00:00:53,100 --> 00:00:57,900
+However in many of the conformance
+checking techniques, replay fitness,
+
+14
+00:00:57,900 --> 00:01:01,270
+the ability to replay the event log
+
+15
+00:01:01,270 --> 00:01:03,790
+on the model is the thing
+which is most important.
+
+16
+00:01:03,790 --> 00:01:06,500
+And also, many of the techniques that we
+
+17
+00:01:06,500 --> 00:01:10,640
+will discuss in this lecture
+will focus on that dimension.
+
+18
+00:01:10,640 --> 00:01:12,910
+But it doesn't mean that the other
+dimensions are not important.
+
+19
+00:01:15,170 --> 00:01:20,320
+When we look at replay fitness,
+we have already seen the principle before.
+
+20
+00:01:20,320 --> 00:01:24,610
+So the basic idea is that we would
+like to replay traces that we
+
+21
+00:01:24,610 --> 00:01:27,840
+have seen in the log on top of a model.
+
+22
+00:01:27,840 --> 00:01:33,950
+So we have executed a and c and now
+the event log says that we should do e.
+
+23
+00:01:35,730 --> 00:01:37,440
+But if you look at the model and
+
+24
+00:01:37,440 --> 00:01:42,050
+you look at the state that we are in,
+e is not yet enabled.
+
+25
+00:01:42,050 --> 00:01:46,620
+So we need to force the process forward,
+
+26
+00:01:46,620 --> 00:01:50,500
+although we see that something
+does not fit completely.
+
+27
+00:01:51,520 --> 00:01:53,690
+And we go towards the end.
+
+28
+00:01:53,690 --> 00:01:58,879
+But while doing that, we are counting
+how many problems we see, and
+
+29
+00:01:58,879 --> 00:02:03,623
+we are also recording the types
+of problems that we have seen.
+
+30
+00:02:03,623 --> 00:02:07,976
+So this is what we are trying to
+do if we are checking for fitness.
+
+31
+00:02:10,139 --> 00:02:17,730
+If we do this we are comparing observed
+behavior with modeled behavior.
+
+32
+00:02:18,890 --> 00:02:23,280
+So, the kind of diagnostics that
+we can show are diagnostics at
+
+33
+00:02:23,280 --> 00:02:24,460
+the level of an event log.
+
+34
+00:02:24,460 --> 00:02:30,130
+For example, these are the traces
+that do not fit well into the model.
+
+35
+00:02:30,130 --> 00:02:33,520
+We can also provide
+diagnostics at the model level,
+
+36
+00:02:33,520 --> 00:02:37,829
+showing the parts of the model
+where reality often deviates.
+
+37
+00:02:39,130 --> 00:02:40,820
+Or we can look at global metrics.
+
+38
+00:02:41,820 --> 00:02:45,630
+For example,
+we will often look at a fitness metric,
+
+39
+00:02:45,630 --> 00:02:48,320
+having a value between zero and one,
+
+40
+00:02:48,320 --> 00:02:54,080
+where zero means that fitness is very
+poor and a fitness of one means that
+
+41
+00:02:54,080 --> 00:02:58,160
+everything that was seen in the log was
+indeed possible according to the model.
+
+42
+00:03:00,190 --> 00:03:03,030
+So what are use cases for
+conformance checking?
+
+43
+00:03:04,520 --> 00:03:08,630
+The first use case is related
+to auditing and compliance.
+
+44
+00:03:08,630 --> 00:03:11,790
+Things at the level of business processes.
+
+45
+00:03:11,790 --> 00:03:14,640
+We would like to understand,
+do people deviate?
+
+46
+00:03:14,640 --> 00:03:16,000
+Why do they deviate?
+
+47
+00:03:16,000 --> 00:03:19,080
+Are the things that are reported,
+reported correctly?
+
+48
+00:03:20,580 --> 00:03:24,520
+Another use case is that we want
+to use conformance checking to
+
+49
+00:03:24,520 --> 00:03:29,230
+evaluate the quality of process
+discovery algorithms and their results.
+
+50
+00:03:31,180 --> 00:03:34,900
+Last but not least, often we also want to
+
+51
+00:03:34,900 --> 00:03:40,440
+check conformance to some specification
+based on the actual behavior.
+
+52
+00:03:40,440 --> 00:03:43,610
+For example, if we have a piece
+of software and that software has
+
+53
+00:03:43,610 --> 00:03:48,540
+a specification describing how it should
+work, we can compare it with a real
+
+54
+00:03:48,540 --> 00:03:53,360
+event log and see where the software
+is deviating from the specification.
+
+55
+00:03:54,820 --> 00:03:59,260
+Also if we provide services,
+we can also check
+
+56
+00:03:59,260 --> 00:04:03,330
+whether the description of the service
+is consistent with the actual behavior.
+
+57
+00:04:03,330 --> 00:04:06,040
+So there are many different use cases.
+
+58
+00:04:08,330 --> 00:04:12,130
+For all of these cases we
+need to have a model that we
+
+59
+00:04:12,130 --> 00:04:14,970
+are checking the event logs to.
+
+60
+00:04:16,180 --> 00:04:20,030
+And these models, in our case it will
+typically be a Petri net.
+
+61
+00:04:20,030 --> 00:04:22,350
+But it can also be any set of rule or
+
+62
+00:04:22,350 --> 00:04:26,230
+any set of model that captures
+some kind of behavior.
+
+63
+00:04:28,200 --> 00:04:31,730
+If we look at auditing,
+the basic idea is to
+
+64
+00:04:31,730 --> 00:04:37,900
+check whether what was reported
+was reported correctly.
+
+65
+00:04:37,900 --> 00:04:42,190
+And this is done to check whether
+business processes are executed within
+
+66
+00:04:42,190 --> 00:04:47,080
+the boundaries set by managers,
+governments, and other stakeholders.
+
+67
+00:04:47,080 --> 00:04:52,210
+And these boundaries are expressed
+in terms of a process model or
+
+68
+00:04:52,210 --> 00:04:53,750
+a set of rules.
+
+69
+00:04:53,750 --> 00:04:56,271
+And one can think of rules
+as small process models.
+
+70
+00:04:58,581 --> 00:05:03,789
+In the last couple of years there has
+been lots of emphasis on compliance and
+
+71
+00:05:03,789 --> 00:05:05,700
+auditing related issues.
+
+72
+00:05:06,720 --> 00:05:09,400
+Many of you know the term Sarbanes-Oxley.
+
+73
+00:05:09,400 --> 00:05:13,690
+And that is referring legislation
+that has been created
+
+74
+00:05:13,690 --> 00:05:17,930
+to ensure that organizations are doing
+what they say they are doing.
+
+75
+00:05:20,200 --> 00:05:23,840
+A completely different use
+case is the evaluation of
+
+76
+00:05:23,840 --> 00:05:25,110
+process discovery algorithms.
+
+77
+00:05:26,440 --> 00:05:29,160
+Suppose that I have four algorithms.
+
+78
+00:05:29,160 --> 00:05:31,530
+I use these algorithms.
+
+79
+00:05:31,530 --> 00:05:33,080
+I get four process models.
+
+80
+00:05:33,080 --> 00:05:38,000
+And then I would like to know which is
+the best process discovery technique.
+
+81
+00:05:38,000 --> 00:05:42,820
+And we can compare them using conformance
+checking, typically looking at the four
+
+82
+00:05:42,820 --> 00:05:48,560
+dimensions fitness, simplicity,
+generalization and precision.
+
+83
+00:05:51,210 --> 00:05:53,180
+This is not an easy task.
+
+84
+00:05:53,180 --> 00:05:59,050
+If we try to compare the results of
+different process discovery algorithms.
+
+85
+00:05:59,050 --> 00:06:02,210
+Or when a process discovery
+algorithm has a lot of parameters.
+
+86
+00:06:02,210 --> 00:06:05,380
+We can also create many discovered models.
+
+87
+00:06:05,380 --> 00:06:08,230
+What are the best models
+that we can look at?
+
+88
+00:06:09,920 --> 00:06:15,720
+In this diagram every red dot corresponds
+to a discovered process model.
+
+89
+00:06:15,720 --> 00:06:20,660
+And the two dimensions indicate how
+well the fitness of that model is and
+
+90
+00:06:20,660 --> 00:06:22,770
+how well the precision of that model is.
+
+91
+00:06:25,070 --> 00:06:28,230
+Then the question is,
+what are good models to consider?
+
+92
+00:06:28,230 --> 00:06:31,920
+That is not the single best model,
+because what you can clearly see in
+
+93
+00:06:31,920 --> 00:06:36,319
+this diagram is that there is apparently
+a tradeoff between precision and fitness.
+
+94
+00:06:37,880 --> 00:06:43,080
+So if we pick a model on
+the so-called Pareto front,
+
+95
+00:06:43,080 --> 00:06:44,800
+then we are looking at a model for
+
+96
+00:06:45,990 --> 00:06:51,130
+which there are no other models
+that are better in all dimensions.
+
+97
+00:06:52,510 --> 00:06:58,640
+So, the model highlighted
+here is Pareto optimal.
+
+98
+00:06:58,640 --> 00:07:02,840
+And, because this model exists,
+the models indicated in grey
+
+99
+00:07:04,090 --> 00:07:07,510
+cannot be Pareto optimal if we
+just look at these two dimensions.
+
+100
+00:07:08,540 --> 00:07:11,640
+We can take a look at another
+model on the Pareto front and
+
+101
+00:07:11,640 --> 00:07:16,400
+again you can see that a couple
+of models are discarded.
+
+102
+00:07:16,400 --> 00:07:20,860
+Because they are dominated by the models,
+the models on the Pareto front.
+
+103
+00:07:22,570 --> 00:07:26,770
+You can do that for all the models on the
+Pareto front and then we get red dots.
+
+104
+00:07:26,770 --> 00:07:30,300
+And if we are just interested
+in these two dimensions,
+
+105
+00:07:30,300 --> 00:07:35,040
+these are all the models that we should
+inspect because they are interesting.
+
+106
+00:07:36,100 --> 00:07:39,670
+The other models are not
+interesting because there is
+
+107
+00:07:39,670 --> 00:07:43,720
+always a model that is better, or
+at least as good in all the dimensions.
+
+108
+00:07:44,970 --> 00:07:50,850
+So far, we considered two dimensions,
+fitness and precision, and
+
+109
+00:07:50,850 --> 00:07:57,515
+in this diagram you can see that model 5
+is being dominated by model two because
+
+110
+00:07:57,515 --> 00:08:01,630
+model 2 is better in terms of fitness and
+is better in terms of precision.
+
+111
+00:08:02,700 --> 00:08:05,630
+However, if we include a third dimension,
+
+112
+00:08:06,710 --> 00:08:12,025
+it may be that model 5
+is on the Pareto front.
+
+113
+00:08:12,025 --> 00:08:17,230
+So if we, for example, plots fitness
+against simplicity, one can see that
+
+114
+00:08:19,040 --> 00:08:23,410
+if you look at model 5 it is no
+longer dominated by model 2 or
+
+115
+00:08:23,410 --> 00:08:25,470
+any of the other models.
+
+116
+00:08:25,470 --> 00:08:30,700
+So there is no model that at the same
+time has a better fitness, precision and
+
+117
+00:08:30,700 --> 00:08:32,410
+simplicity, than model 5.
+
+118
+00:08:32,410 --> 00:08:34,600
+So it's not dominated.
+
+119
+00:08:34,600 --> 00:08:35,960
+So it is on the Pareto front.
+
+120
+00:08:37,200 --> 00:08:41,620
+And so we are interested in the models
+that are on the Pareto front.
+
+121
+00:08:41,620 --> 00:08:47,390
+And compare and discover models is not
+very easy, because one model can be better
+
+122
+00:08:47,390 --> 00:08:53,110
+in terms of fitness but worse in terms
+of simplicity or the other way around.
+
+123
+00:08:53,110 --> 00:08:56,180
+So there is no such
+thing as the best model.
+
+124
+00:08:56,180 --> 00:08:57,970
+And that is very
+
+125
+00:08:57,970 --> 00:09:01,210
+important to understand when you're
+looking at process discovery.
+
+126
+00:09:03,530 --> 00:09:08,520
+Let's get back to
+compliance-related questions.
+
+127
+00:09:08,520 --> 00:09:11,910
+So, we are comparing an event
+log with the process model.
+
+128
+00:09:13,690 --> 00:09:17,760
+If there are deviations,
+an obvious question to ask is,
+
+129
+00:09:17,760 --> 00:09:21,270
+is the model wrong or is the log wrong?
+
+130
+00:09:21,270 --> 00:09:22,270
+And both can be the case.
+
+131
+00:09:23,320 --> 00:09:26,940
+So deviations may be
+considered to be good or bad.
+
+132
+00:09:28,990 --> 00:09:33,870
+In this context,
+we often talk about breaking the glass.
+
+133
+00:09:33,870 --> 00:09:39,530
+In many processes, people deliberately
+deviate from the process and
+
+134
+00:09:39,530 --> 00:09:42,240
+in that way do something good.
+
+135
+00:09:42,240 --> 00:09:45,680
+Ans so for example,
+in hospitals doctors will deviate and
+
+136
+00:09:45,680 --> 00:09:48,920
+by these deviations they are
+saving the lives of patients.
+
+137
+00:09:50,480 --> 00:09:53,580
+We can also look for positive deviants.
+
+138
+00:09:53,580 --> 00:09:57,440
+Things that deviate but
+in a positive manner.
+
+139
+00:09:57,440 --> 00:10:00,030
+And so deviations are not always negative.
+
+140
+00:10:00,030 --> 00:10:03,990
+And it is not always the case that
+the process model is right and
+
+141
+00:10:03,990 --> 00:10:05,010
+the event log is wrong.
+
+142
+00:10:07,940 --> 00:10:12,930
+So far we have been discussing
+conformance checking mostly offline.
+
+143
+00:10:12,930 --> 00:10:16,220
+But, of course,
+you can also that at the runtime.
+
+144
+00:10:16,220 --> 00:10:22,058
+Online conformance checking means that
+the moment that the deviation occurs,
+
+145
+00:10:22,058 --> 00:10:24,769
+you immediately generate an alert.
+
+146
+00:10:27,495 --> 00:10:31,804
+In the next couple of lectures we
+will focus on conformance checking
+
+147
+00:10:31,804 --> 00:10:35,670
+techniques and thereby we often
+focus just on control flow.
+
+148
+00:10:36,830 --> 00:10:41,080
+We also typically do not look
+at the simplicity of the model.
+
+149
+00:10:43,870 --> 00:10:47,540
+We can of course do conformance
+checking for models with data or time.
+
+150
+00:10:47,540 --> 00:10:52,820
+For example, the model specifies that
+a case should be handled within 30 days.
+
+151
+00:10:52,820 --> 00:10:56,500
+But the first type of techniques
+that we will look at do not do that.
+
+152
+00:10:58,280 --> 00:11:03,573
+In the next lectures we will look at three
+types of approaches, causal footprints,
+
+153
+00:11:03,573 --> 00:11:08,370
+token-based replay and
+alignment-based conformance checking.
+
+154
+00:11:08,370 --> 00:11:11,700
+And in the next lecture,
+we will start with causal footprints.
+
+155
+00:11:13,040 --> 00:11:16,050
+If you would like to read more
+about conformance checking,
+
+156
+00:11:16,050 --> 00:11:18,210
+Chapter 7 is devoted to it.
+
+157
+00:11:20,300 --> 00:11:23,544
+Thank you for watching,
+and hope to see you soon.
+
+158
+00:11:23,544 --> 00:11:33,544
+[MUSIC]
+

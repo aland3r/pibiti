@@ -1,0 +1,689 @@
+1
+00:00:00,000 --> 00:00:07,469
+[MUSIC]
+
+2
+00:00:07,469 --> 00:00:08,931
+Glad to see you again.
+
+3
+00:00:08,931 --> 00:00:13,166
+In the last two lectures we showed
+that decision tree analysis can be
+
+4
+00:00:13,166 --> 00:00:15,940
+used to enrich discovered process models.
+
+5
+00:00:15,940 --> 00:00:17,870
+We now use the timestamps in the
+
+6
+00:00:17,870 --> 00:00:21,889
+event logs to analyze performance and
+suggest improvements.
+
+7
+00:00:23,810 --> 00:00:27,750
+If we have processes that
+have no problems in them,
+
+8
+00:00:27,750 --> 00:00:31,540
+where everything is running smooth,
+there are no bottlenecks,
+
+9
+00:00:31,540 --> 00:00:36,440
+then process mining may not
+have a very large added value.
+
+10
+00:00:37,500 --> 00:00:42,650
+However, if you have processes like this
+that have huge performance problems,
+
+11
+00:00:42,650 --> 00:00:46,730
+then process mining can be extremely
+valuable because there're many ways in
+
+12
+00:00:46,730 --> 00:00:50,780
+which analyzing the process
+may help to improve it.
+
+13
+00:00:52,790 --> 00:00:56,080
+In this lecture we will focus
+on bottleneck analysis,
+
+14
+00:00:56,080 --> 00:00:59,250
+using the timestamps
+that are present in logs.
+
+15
+00:00:59,250 --> 00:01:03,580
+We would like to find out where are the
+bottlenecks, and why are they there.
+
+16
+00:01:06,220 --> 00:01:09,570
+To do this, we are using event logs.
+
+17
+00:01:09,570 --> 00:01:12,350
+Where events have timestamps.
+
+18
+00:01:12,350 --> 00:01:15,580
+But often, also transactional information.
+
+19
+00:01:15,580 --> 00:01:16,989
+Like start and complete.
+
+20
+00:01:18,430 --> 00:01:25,250
+For example, for case one activity,
+a started at time 12 and ended at time 19.
+
+21
+00:01:25,250 --> 00:01:30,450
+And the same we can see for all the other
+events for this particular case.
+
+22
+00:01:31,790 --> 00:01:35,969
+So this is the input that we would
+like to use for performance analysis.
+
+23
+00:01:38,550 --> 00:01:42,980
+We can look at basic performance
+information, like, for
+
+24
+00:01:42,980 --> 00:01:45,480
+example, the duration of cases.
+
+25
+00:01:45,480 --> 00:01:50,410
+When we look at such data we can see
+when things start and when things end.
+
+26
+00:01:50,410 --> 00:01:53,350
+But you can do this with any BI tool.
+
+27
+00:01:53,350 --> 00:01:55,410
+What makes process mining different,
+
+28
+00:01:55,410 --> 00:02:00,518
+is that you can look inside the process,
+other than just looking at
+
+29
+00:02:00,518 --> 00:02:05,150
+spreadsheet-like information that
+you see in many of the BI tools.
+
+30
+00:02:06,230 --> 00:02:13,000
+So we would like to understand the more
+detailed timed behavior of a process.
+
+31
+00:02:14,540 --> 00:02:18,480
+So this slide shows a lot of
+
+32
+00:02:18,480 --> 00:02:23,520
+information related to
+the execution of just three cases.
+
+33
+00:02:23,520 --> 00:02:27,380
+So it is showing durations,
+waiting times, and
+
+34
+00:02:27,380 --> 00:02:30,030
+all kinds of other things
+that we can measure.
+
+35
+00:02:30,030 --> 00:02:34,690
+If we replay these three
+cases on this process model.
+
+36
+00:02:34,690 --> 00:02:36,580
+Let's zoom in to some of the parts.
+
+37
+00:02:37,850 --> 00:02:43,440
+For example we can see that
+case one started at time 12.
+
+38
+00:02:43,440 --> 00:02:48,390
+Then for case one,
+activity a was being executed, and
+
+39
+00:02:48,390 --> 00:02:53,560
+that started at time 12 and
+ended at time 19.
+
+40
+00:02:53,560 --> 00:02:59,600
+So we know that the duration of this
+particular instance of activity a for
+
+41
+00:02:59,600 --> 00:03:02,050
+case one was seven time units.
+
+42
+00:03:03,660 --> 00:03:07,330
+We can also look at the time in
+between a and b, the waiting time.
+
+43
+00:03:08,580 --> 00:03:12,490
+That is equivalent to six for
+this particular instance.
+
+44
+00:03:15,210 --> 00:03:17,180
+If we look at the bottom part,
+
+45
+00:03:17,180 --> 00:03:22,560
+then we can see that through f,
+one case was looping back.
+
+46
+00:03:22,560 --> 00:03:23,620
+Case number three.
+
+47
+00:03:23,620 --> 00:03:27,610
+So we can find two activity instances.
+
+48
+00:03:27,610 --> 00:03:30,760
+For activity d, for case three.
+
+49
+00:03:30,760 --> 00:03:35,317
+We can also see multiple
+waiting times related to
+
+50
+00:03:35,317 --> 00:03:38,874
+this extra iteration of this case three.
+
+51
+00:03:38,874 --> 00:03:44,180
+We can also look at the end, and there
+we can see the completion time of cases.
+
+52
+00:03:44,180 --> 00:03:49,810
+So this is the detailed information that
+we can get by replaying the event log,
+
+53
+00:03:49,810 --> 00:03:52,590
+after alignment,
+on top of the process model.
+
+54
+00:03:54,670 --> 00:03:56,130
+We can also take another view.
+
+55
+00:03:56,130 --> 00:04:01,410
+More like a Gantt chart
+overview of the event log.
+
+56
+00:04:01,410 --> 00:04:06,750
+So in this diagram, we see for
+every case what are the activities that
+
+57
+00:04:06,750 --> 00:04:10,260
+are being executed, and
+what are the waiting times.
+
+58
+00:04:12,420 --> 00:04:15,630
+The black bars correspond to
+
+59
+00:04:15,630 --> 00:04:21,770
+the actual processing of an activity
+instance, for a particular case.
+
+60
+00:04:21,770 --> 00:04:24,820
+The grey parts correspond
+to waiting times.
+
+61
+00:04:24,820 --> 00:04:29,050
+So an activity instance is enabled,
+but was not yet started.
+
+62
+00:04:30,720 --> 00:04:32,970
+If we look at case three, we can for
+
+63
+00:04:32,970 --> 00:04:37,960
+example see the interval of activity a for
+case three.
+
+64
+00:04:37,960 --> 00:04:46,090
+And we can see that after a completed,
+that the waiting time for c and d started.
+
+65
+00:04:47,820 --> 00:04:54,250
+And then after c and
+d the waiting for e started.
+
+66
+00:04:54,250 --> 00:05:01,060
+Note that the waiting for e only starts
+after d and c have both completed.
+
+67
+00:05:01,060 --> 00:05:05,770
+So this visualizes from a case
+perspective, what has happened.
+
+68
+00:05:07,550 --> 00:05:10,090
+We can also take a resource perspective.
+
+69
+00:05:10,090 --> 00:05:15,370
+It's exactly the same, but
+now along the y-axis, we see people.
+
+70
+00:05:15,370 --> 00:05:20,370
+So we can see what they are doing,
+and when cases were waiting for
+
+71
+00:05:20,370 --> 00:05:24,570
+them to start executing
+particular activity instances.
+
+72
+00:05:25,760 --> 00:05:30,020
+We can also mix these
+two views using colors.
+
+73
+00:05:30,020 --> 00:05:35,740
+So now the red color for example refers
+to activity instances of case one.
+
+74
+00:05:36,840 --> 00:05:41,520
+What you can see in this diagram,
+that because of the extra loop,
+
+75
+00:05:41,520 --> 00:05:44,940
+the iteration of case three,
+there are more activities for
+
+76
+00:05:44,940 --> 00:05:47,469
+case three than for
+the other two activities.
+
+77
+00:05:49,550 --> 00:05:55,540
+So, after providing such a Gantt chart,
+and the details replay of
+
+78
+00:05:55,540 --> 00:06:00,100
+the event log on top of the process model,
+we can collect all kinds of statistics.
+
+79
+00:06:00,100 --> 00:06:04,070
+So we can see the waiting
+times in between activities.
+
+80
+00:06:04,070 --> 00:06:08,580
+We can see the mean time, we can see
+variations, and things like that.
+
+81
+00:06:10,620 --> 00:06:13,690
+We can also look at the service times.
+
+82
+00:06:13,690 --> 00:06:19,540
+So, if we have start and complete events,
+we can measure how long activities take,
+
+83
+00:06:19,540 --> 00:06:24,579
+and we can again compute the average and
+standard deviation over these times.
+
+84
+00:06:26,840 --> 00:06:30,770
+We can also compute routing probabilities.
+
+85
+00:06:30,770 --> 00:06:35,900
+So for example, in this particular
+example, there was a 50:50
+
+86
+00:06:35,900 --> 00:06:41,360
+probability of choosing b over c.
+
+87
+00:06:41,360 --> 00:06:43,880
+And so both have an equal probability.
+
+88
+00:06:43,880 --> 00:06:45,480
+The choice after e.
+
+89
+00:06:45,480 --> 00:06:49,670
+You can see that a branch to
+g has a probability of 0.5.
+
+90
+00:06:49,670 --> 00:06:56,311
+The other two branches have
+a probability of 0.25.
+
+91
+00:06:56,311 --> 00:06:58,020
+So we can also learn this.
+
+92
+00:07:00,360 --> 00:07:04,250
+Let's take a look at another event
+log to see another example of
+
+93
+00:07:04,250 --> 00:07:08,100
+this detailed replay and
+corresponding performance.
+
+94
+00:07:08,100 --> 00:07:10,670
+Metrics that we can compute.
+
+95
+00:07:10,670 --> 00:07:13,870
+So if we take a look at this log,
+then Pete started by
+
+96
+00:07:13,870 --> 00:07:19,430
+executing activity a at time ten,
+and ended at time 12.
+
+97
+00:07:19,430 --> 00:07:23,160
+Then we can again take at a look
+at the whole event log as a ref,
+
+98
+00:07:23,160 --> 00:07:27,250
+again referring to just very few cases.
+
+99
+00:07:27,250 --> 00:07:33,782
+For example, this event log ends
+with Carol starting activity f for
+
+100
+00:07:33,782 --> 00:07:40,010
+case two at time 57 and
+ending this activity instance at time 60.
+
+101
+00:07:40,010 --> 00:07:46,219
+So again we can take this, we can take the
+event log, we can take the process model,
+
+102
+00:07:46,219 --> 00:07:52,989
+and we can again try to estimate service
+times waiting times routing probabilities.
+
+103
+00:07:55,160 --> 00:07:58,650
+If we do this,
+then we first do the detailed replay.
+
+104
+00:07:58,650 --> 00:08:02,170
+So these are the detailed
+statistics that we can gather.
+
+105
+00:08:03,950 --> 00:08:08,470
+Note in this example that there
+are two silent activities.
+
+106
+00:08:08,470 --> 00:08:12,830
+The end split before b and c,
+and the end join after b and c.
+
+107
+00:08:14,030 --> 00:08:18,420
+We cannot see them in the log, but
+through alignments we know when they
+
+108
+00:08:18,420 --> 00:08:23,150
+are being executed and
+how to align them properly with the model.
+
+109
+00:08:24,860 --> 00:08:27,960
+So again, we can collect
+statistics about waiting times.
+
+110
+00:08:29,420 --> 00:08:33,570
+We can look at the average, we can,
+you can look at the standard deviation.
+
+111
+00:08:33,570 --> 00:08:37,180
+We can look at service times as you
+can see here.
+
+112
+00:08:37,180 --> 00:08:41,680
+So we can collect all kinds of statistics
+including routing probabilities.
+
+113
+00:08:44,070 --> 00:08:48,230
+So these are the things that
+we can get from event logs.
+
+114
+00:08:48,230 --> 00:08:52,620
+When I tell this, I hope that you can
+see that you have actually seen and
+
+115
+00:08:52,620 --> 00:08:54,720
+used this before.
+
+116
+00:08:54,720 --> 00:08:57,430
+When you are using tools like Disco.
+
+117
+00:08:58,630 --> 00:09:02,320
+They are replaying the event
+log on top of the model,
+
+118
+00:09:02,320 --> 00:09:06,460
+to indicate what are the parts
+where the biggest bottlenecks are.
+
+119
+00:09:06,460 --> 00:09:09,860
+So for example here, fix arcs
+
+120
+00:09:09,860 --> 00:09:14,929
+colored in red correspond to the main
+bottlenecks in this particular process.
+
+121
+00:09:16,250 --> 00:09:19,180
+We've also seen this in
+the context of ProM.
+
+122
+00:09:19,180 --> 00:09:24,130
+And so we can let things highlight in red
+
+123
+00:09:24,130 --> 00:09:26,160
+the moment that there is
+a performance problem.
+
+124
+00:09:26,160 --> 00:09:29,640
+And so we have used these things before,
+but now we
+
+125
+00:09:29,640 --> 00:09:35,130
+can see how these timestamps are actually
+being used at a more detailed level.
+
+126
+00:09:35,130 --> 00:09:39,600
+Using process mining, we can
+automatically discover process models.
+
+127
+00:09:39,600 --> 00:09:41,190
+We have seen that.
+
+128
+00:09:41,190 --> 00:09:44,180
+When we discuss conformance
+checking we have shown
+
+129
+00:09:44,180 --> 00:09:50,080
+that you can relate an event log and
+a model through the notion of alignment.
+
+130
+00:09:50,080 --> 00:09:53,800
+So even if the real process
+deviates a bit from the model,
+
+131
+00:09:53,800 --> 00:09:57,470
+you can still relate real
+behavior to a process model.
+
+132
+00:09:58,540 --> 00:10:04,260
+Once you have these alignments,
+you can do a replay of the entire log.
+
+133
+00:10:04,260 --> 00:10:07,610
+And by doing that and
+inspecting the timestamps you can identify
+
+134
+00:10:07,610 --> 00:10:12,419
+bottlenecks and measure all kinds of
+other performance related things.
+
+135
+00:10:14,130 --> 00:10:17,800
+The result of all of
+this is a process model
+
+136
+00:10:17,800 --> 00:10:21,820
+extended with performance information.
+
+137
+00:10:21,820 --> 00:10:25,380
+And such a process model can
+be the starting point for
+
+138
+00:10:25,380 --> 00:10:29,030
+all kinds of process improvement and
+operational support.
+
+139
+00:10:29,030 --> 00:10:33,310
+In one of the future lectures for example,
+we will focus on predictions, and
+
+140
+00:10:33,310 --> 00:10:38,920
+these predictions are using exactly the
+types of statistics that I showed today,
+
+141
+00:10:38,920 --> 00:10:41,190
+that you can collect from event logs.
+
+142
+00:10:43,240 --> 00:10:47,620
+In chapter eight, we are relating
+timestamps to process models, and
+
+143
+00:10:47,620 --> 00:10:52,560
+you can read more about how to extend
+models with this extra perspective.
+
+144
+00:10:54,410 --> 00:10:56,590
+Thank you for watching this lecture.
+
+145
+00:10:56,590 --> 00:10:57,511
+See you next time.
+
+146
+00:10:57,511 --> 00:11:06,395
+[MUSIC]
+

@@ -1,0 +1,1172 @@
+1
+00:00:00,000 --> 00:00:07,104
+[MUSIC]
+
+2
+00:00:07,104 --> 00:00:08,690
+Welcome to this lecture.
+
+3
+00:00:08,690 --> 00:00:11,850
+This is the fifth and
+last lecture on conformance checking.
+
+4
+00:00:11,850 --> 00:00:14,650
+Today we present the most
+advanced approach,
+
+5
+00:00:14,650 --> 00:00:16,970
+relating event logs to process models.
+
+6
+00:00:18,280 --> 00:00:20,170
+Here you see again an overview,
+
+7
+00:00:20,170 --> 00:00:24,930
+of the three conformance checking
+approaches used in this course.
+
+8
+00:00:24,930 --> 00:00:28,390
+We started from footprints
+where we basically only
+
+9
+00:00:28,390 --> 00:00:32,920
+compared the syntactical structure,
+using the directly follows relation.
+
+10
+00:00:34,130 --> 00:00:39,570
+Then we looked at a more advanced
+approach, using token-based replay.
+
+11
+00:00:39,570 --> 00:00:43,820
+Today we will look at alignment-based
+conformance checking.
+
+12
+00:00:43,820 --> 00:00:48,880
+So what are the requirements for
+conformance checking,
+
+13
+00:00:48,880 --> 00:00:53,730
+overcoming the limitations of
+the approaches that we have seen before?
+
+14
+00:00:53,730 --> 00:00:58,340
+First of all, conformance checking
+should not impose any restrictions on
+
+15
+00:00:58,340 --> 00:01:00,590
+the process model notation.
+
+16
+00:01:00,590 --> 00:01:03,840
+For example, we should not be
+restricted to work-flow nets.
+
+17
+00:01:03,840 --> 00:01:06,950
+We should not be restricted to models,
+
+18
+00:01:06,950 --> 00:01:10,710
+where there cannot be two
+transitions having the same label.
+
+19
+00:01:10,710 --> 00:01:12,570
+Or where there are silent steps, for
+
+20
+00:01:12,570 --> 00:01:15,610
+example to model an OR
+split or an OR join.
+
+21
+00:01:17,550 --> 00:01:21,820
+Moreover, we really would like to
+see the closest matching path,
+
+22
+00:01:21,820 --> 00:01:23,780
+through the process model.
+
+23
+00:01:23,780 --> 00:01:26,160
+So if we see something in reality,
+
+24
+00:01:26,160 --> 00:01:30,180
+we want to relate it to a valid
+path through the process model.
+
+25
+00:01:31,460 --> 00:01:32,880
+Why is this necessary?
+
+26
+00:01:32,880 --> 00:01:35,550
+It is necessary for performance analysis,
+
+27
+00:01:35,550 --> 00:01:41,270
+where we replay reality on top of the
+model to see where the bottlenecks are but
+
+28
+00:01:41,270 --> 00:01:46,920
+also if we look at more
+sophisticated notions of conformance
+
+29
+00:01:46,920 --> 00:01:52,910
+involving precision, generalization or
+more advanced forms of diagnostics.
+
+30
+00:01:52,910 --> 00:01:57,210
+We first need to relate reality
+to a path through the model.
+
+31
+00:01:57,210 --> 00:02:00,980
+So it's a kind of enabler for
+all kinds of other types of analysis.
+
+32
+00:02:03,150 --> 00:02:05,220
+What is the notion of an alignment?
+
+33
+00:02:05,220 --> 00:02:10,950
+Here we can see a trace taken from
+the bigger log that we have used before.
+
+34
+00:02:10,950 --> 00:02:15,320
+We compare it to the model and
+in this case, there is a path through
+
+35
+00:02:15,320 --> 00:02:19,560
+the model that exactly matches,
+the trace that we have seen in the log.
+
+36
+00:02:20,810 --> 00:02:23,460
+So the top row is a trace through the log.
+
+37
+00:02:23,460 --> 00:02:27,880
+The bottom row is the trace
+through the process model, and
+
+38
+00:02:27,880 --> 00:02:29,600
+in this case they perfectly agree.
+
+39
+00:02:32,050 --> 00:02:36,570
+Here you see an example of another trace,
+that doesn't fit into the model.
+
+40
+00:02:36,570 --> 00:02:43,630
+If we look at the trace a, d, e,
+g, h, we can see two problems.
+
+41
+00:02:43,630 --> 00:02:49,590
+First of all, a b or c is missing, which
+should be executed concurrently to d.
+
+42
+00:02:50,800 --> 00:02:57,240
+Moreover, at the end it cannot be that
+both decisions are taken at the same time.
+
+43
+00:02:57,240 --> 00:03:00,350
+So we should have g or h, but not both.
+
+44
+00:03:01,610 --> 00:03:05,950
+The alignment is clearly
+illustrating these problems, so
+
+45
+00:03:05,950 --> 00:03:10,710
+in the alignment we can see that
+the model had to take a b move which was
+
+46
+00:03:10,710 --> 00:03:15,590
+not mimicked by reality, and
+at the end there was a g and an h.
+
+47
+00:03:15,590 --> 00:03:18,680
+And in the model one of
+these two had to be ignored.
+
+48
+00:03:20,580 --> 00:03:25,480
+So, what are the terms that we are using,
+when we are talking about alignments?
+
+49
+00:03:25,480 --> 00:03:31,460
+So, an alignment is a row consisting
+of two lines, where the top line
+
+50
+00:03:31,460 --> 00:03:39,290
+refers to the log, the bottom line
+refers to the path through the model.
+
+51
+00:03:39,290 --> 00:03:45,440
+We can have a move in log only,
+then we only see
+
+52
+00:03:45,440 --> 00:03:50,240
+the label of an activity in the top row,
+but not in the bottom row.
+
+53
+00:03:50,240 --> 00:03:52,730
+A move in model only is the reverse.
+
+54
+00:03:52,730 --> 00:03:56,100
+The model had to make a move which
+could not be mimicked by reality.
+
+55
+00:03:57,240 --> 00:04:01,380
+If we look at a move in both,
+also called a synchronous move,
+
+56
+00:04:01,380 --> 00:04:03,830
+then both make a move at the same time.
+
+57
+00:04:06,260 --> 00:04:09,870
+Note that all of these terms and
+these concepts and also
+
+58
+00:04:09,870 --> 00:04:14,150
+the corresponding analysis techniques, are
+independent of the process model notation.
+
+59
+00:04:14,150 --> 00:04:15,890
+So we can do this for Petri nets, for
+
+60
+00:04:15,890 --> 00:04:19,880
+BPMN models, for transition systems,
+it doesn't really matter.
+
+61
+00:04:22,520 --> 00:04:24,420
+Let us take a look at some examples.
+
+62
+00:04:25,530 --> 00:04:28,420
+So, the first notion that we
+would like to introduce is
+
+63
+00:04:28,420 --> 00:04:31,370
+the notion of an optimal alignment.
+
+64
+00:04:31,370 --> 00:04:37,240
+There are multiple ways of relating
+a reality, to a path through the model,
+
+65
+00:04:37,240 --> 00:04:41,060
+and in principal, there may be many
+paths possible through the model.
+
+66
+00:04:41,060 --> 00:04:44,150
+So which path are we going to choose?
+
+67
+00:04:44,150 --> 00:04:48,300
+We choose the path that is closest
+to what we have seen in reality.
+
+68
+00:04:48,300 --> 00:04:52,030
+So here,
+it is very obvious that the top alignment,
+
+69
+00:04:52,030 --> 00:04:53,840
+is the alignment that is optimal.
+
+70
+00:04:53,840 --> 00:04:57,500
+Because there's a perfect agreement,
+between model and log.
+
+71
+00:05:00,260 --> 00:05:05,200
+Here, we see a more tricky example, so,
+we look at a trace that doesn't fit,
+
+72
+00:05:05,200 --> 00:05:07,479
+it's an example that we have used before.
+
+73
+00:05:08,860 --> 00:05:14,470
+And now there are multiple
+explanations that can be used.
+
+74
+00:05:14,470 --> 00:05:18,220
+so, which one is the best explanation for
+what we have seen?
+
+75
+00:05:19,660 --> 00:05:24,170
+In the first alignment that you see here,
+it basically says that a and
+
+76
+00:05:24,170 --> 00:05:24,940
+b have been swapped.
+
+77
+00:05:26,420 --> 00:05:31,850
+The second alignment,
+takes us explanation that the e1, e2,
+
+78
+00:05:31,850 --> 00:05:38,070
+e3 that we saw reality, in the model
+correspond to d1, d2, and d3.
+
+79
+00:05:38,070 --> 00:05:40,570
+So which is the best alignment?
+
+80
+00:05:40,570 --> 00:05:44,510
+It is difficult to say,
+it depends on the cost function.
+
+81
+00:05:44,510 --> 00:05:49,130
+Are the deviations related to e1,
+e2 and e3.
+
+82
+00:05:49,130 --> 00:05:53,300
+More or less of here, than the deviation
+that we saw with respect to a and b.
+
+83
+00:05:54,940 --> 00:05:56,190
+To quantify this and
+
+84
+00:05:56,190 --> 00:06:02,070
+to make an objective decision we
+introduced the notion of a cost function.
+
+85
+00:06:02,070 --> 00:06:05,750
+So we associate costs to moves.
+
+86
+00:06:05,750 --> 00:06:08,780
+If we have a synchronous move,
+where log and
+
+87
+00:06:08,780 --> 00:06:12,375
+mobile agree on the action to be taken,
+we have cost 0.
+
+88
+00:06:13,550 --> 00:06:18,670
+For all the other situations,
+we need to introduce positive costs.
+
+89
+00:06:18,670 --> 00:06:20,150
+What we typically do is that,
+
+90
+00:06:20,150 --> 00:06:24,230
+if two activities disagree,
+that we say the costs are infinite,
+
+91
+00:06:24,230 --> 00:06:29,580
+in other ways we give it such high cost
+that we will never take such a solution.
+
+92
+00:06:29,580 --> 00:06:34,390
+And if we use a standard cost function
+we assign to a move on model and
+
+93
+00:06:34,390 --> 00:06:37,860
+a move on log the same cost, namely one.
+
+94
+00:06:37,860 --> 00:06:41,910
+So, in the remainder in all of
+the examples we will use this standard
+
+95
+00:06:41,910 --> 00:06:42,610
+cost function.
+
+96
+00:06:44,300 --> 00:06:48,240
+So if we apply it to the examples
+that we have seen before, then we
+
+97
+00:06:48,240 --> 00:06:52,520
+can look at the three alignments and we
+can see that the top alignment has cost 0,
+
+98
+00:06:52,520 --> 00:06:58,540
+the second alignment has cost 2, because
+we have a move a log and a move in model.
+
+99
+00:06:58,540 --> 00:07:02,860
+The bottom one has cost 10,
+because there are 10 no move symbols.
+
+100
+00:07:05,160 --> 00:07:10,470
+So the top one is optimal, because there
+is no other alignment that has lower cost.
+
+101
+00:07:12,500 --> 00:07:14,160
+We can take a look at this example,
+
+102
+00:07:15,420 --> 00:07:18,470
+here we see the two alignments
+that we have seen before.
+
+103
+00:07:18,470 --> 00:07:23,610
+Now, using the standard cost function,
+we can make a decision, and we can decide
+
+104
+00:07:23,610 --> 00:07:29,190
+that, the first one is
+an alignment that is optimal,
+
+105
+00:07:29,190 --> 00:07:33,920
+because we can not find other
+alignments that have lower costs.
+
+106
+00:07:33,920 --> 00:07:36,590
+And so all alignments have cost two or
+higher.
+
+107
+00:07:40,430 --> 00:07:45,910
+Let's take a look at this example, so, and
+it is intended to show that there
+
+108
+00:07:45,910 --> 00:07:52,690
+may be many different optimal alignments,
+given a trace in the log, and a model.
+
+109
+00:07:52,690 --> 00:07:54,950
+So the cost of this alignment is two.
+
+110
+00:07:56,780 --> 00:08:01,260
+The explanation that this alignment
+provides, is that the reality e and
+
+111
+00:08:01,260 --> 00:08:04,670
+f happened, but we should ignore them.
+
+112
+00:08:04,670 --> 00:08:09,840
+In other ways, we don't go through the
+loop, we only go through the process once,
+
+113
+00:08:09,840 --> 00:08:12,770
+and we ignore e and f, cost 2.
+
+114
+00:08:12,770 --> 00:08:16,490
+Another explanation also having cost 2,
+
+115
+00:08:16,490 --> 00:08:21,340
+is the explanation that we have to go
+through the iteration once, and, so, now,
+
+116
+00:08:21,340 --> 00:08:26,110
+we accept the fact that we
+need to execute f but, for
+
+117
+00:08:26,110 --> 00:08:34,880
+that we need to add two events that
+did not happen in reality to explain.
+
+118
+00:08:34,880 --> 00:08:38,506
+The scenario in terms of a path in
+the model from beginning to end.
+
+119
+00:08:38,506 --> 00:08:43,930
+And so d and
+b are missing in the event log, but
+
+120
+00:08:43,930 --> 00:08:45,400
+in this explanation they are added.
+
+121
+00:08:46,660 --> 00:08:51,830
+So there can be multiple alignments,
+corresponding to the same trace and
+
+122
+00:08:51,830 --> 00:08:52,480
+the same model.
+
+123
+00:08:54,830 --> 00:08:57,820
+Let's see whether you
+understood these concepts.
+
+124
+00:08:57,820 --> 00:09:01,800
+So, take a look at this trace.
+
+125
+00:09:01,800 --> 00:09:04,600
+The one that we have seen before,
+and the model.
+
+126
+00:09:04,600 --> 00:09:07,150
+How many optimal alignments are there?
+
+127
+00:09:09,140 --> 00:09:10,710
+The answer is nine.
+
+128
+00:09:10,710 --> 00:09:13,130
+There are nine optimal alignments, and
+
+129
+00:09:13,130 --> 00:09:16,230
+let's try to understand what
+these nine alignments are.
+
+130
+00:09:17,320 --> 00:09:21,070
+Here we see the two that
+we have shown before, and
+
+131
+00:09:21,070 --> 00:09:27,420
+the b move in model only
+is highlighted in red here,
+
+132
+00:09:27,420 --> 00:09:33,540
+because this b could be replaced by a c,
+and so we have these possible variants.
+
+133
+00:09:34,660 --> 00:09:38,380
+Now when we say that okay, there are three
+possible optimal alignments, but
+
+134
+00:09:38,380 --> 00:09:44,630
+there are more,
+because d is concurrent with b and c.
+
+135
+00:09:44,630 --> 00:09:48,640
+So, we can reorder these
+different variants.
+
+136
+00:09:48,640 --> 00:09:55,040
+So we can swap the move related to d
+with the move related to b, or to c.
+
+137
+00:09:56,480 --> 00:10:01,460
+So, if we look at the situation we can
+see that there are actually nine moves in
+
+138
+00:10:01,460 --> 00:10:05,060
+total, because we can look
+at all the combinations of
+
+139
+00:10:05,060 --> 00:10:06,330
+all the different variants.
+
+140
+00:10:09,490 --> 00:10:13,080
+So far we have considered only
+the standard cost function,
+
+141
+00:10:13,080 --> 00:10:18,660
+which assigns cost one to a move
+in log and a move in model, but
+
+142
+00:10:18,660 --> 00:10:23,690
+one can think of any cost structure also
+take into account other attributes and
+
+143
+00:10:23,690 --> 00:10:26,610
+other properties of events.
+
+144
+00:10:27,750 --> 00:10:33,110
+So, for example, if we would need
+to align these two, actions, so
+
+145
+00:10:33,110 --> 00:10:38,250
+one event in the log, and one execution
+of a transition in the model,
+
+146
+00:10:38,250 --> 00:10:42,080
+then we could take into account
+how similar thesee activities are,
+
+147
+00:10:43,210 --> 00:10:46,190
+if they are very similar,
+then we can have a lower cost.
+
+148
+00:10:47,650 --> 00:10:52,160
+We can also assign penalties
+to activities that
+
+149
+00:10:52,160 --> 00:10:55,000
+are being executed by the wrong person.
+
+150
+00:10:55,000 --> 00:11:00,520
+So, suppose that John is not
+authorized to execute this activity,
+
+151
+00:11:00,520 --> 00:11:02,560
+then we can associate a penalty to it.
+
+152
+00:11:04,780 --> 00:11:09,730
+In most process models, you also often
+have deadlines, things should happen, for
+
+153
+00:11:09,730 --> 00:11:12,490
+example within a period of three weeks.
+
+154
+00:11:12,490 --> 00:11:15,110
+If then in reality it takes four weeks,
+
+155
+00:11:15,110 --> 00:11:18,570
+you can assign a penalty to the fact
+that things are being too late.
+
+156
+00:11:20,630 --> 00:11:25,040
+One can also take into account data,
+so certain paths through the
+
+157
+00:11:25,040 --> 00:11:29,580
+process model are only allowed for
+particular types of customers or
+
+158
+00:11:29,580 --> 00:11:31,520
+particular types of orders.
+
+159
+00:11:31,520 --> 00:11:36,010
+For example larger orders or smaller
+orders should take different paths.
+
+160
+00:11:36,010 --> 00:11:40,570
+This also can be taken into account,
+when creating a cost function and
+
+161
+00:11:40,570 --> 00:11:41,730
+a corresponding alignment.
+
+162
+00:11:43,130 --> 00:11:47,840
+One can take a look at the risks, one
+can take a look at context information.
+
+163
+00:11:47,840 --> 00:11:51,370
+So anything can be added
+to this cost function, and
+
+164
+00:11:51,370 --> 00:11:55,070
+still we can provide
+an optimal alignment and
+
+165
+00:11:55,070 --> 00:11:58,810
+diagnose the differences taking into
+account these other perspectives.
+
+166
+00:12:01,410 --> 00:12:09,690
+So far we only provided diagnostics,
+move in model only, move in log only.
+
+167
+00:12:09,690 --> 00:12:14,800
+As indications of that reality and
+the model disagree.
+
+168
+00:12:14,800 --> 00:12:18,990
+But if we want to quantify fitness,
+using a number between zero and
+
+169
+00:12:18,990 --> 00:12:22,920
+one, we need to think of
+a worst case scenario.
+
+170
+00:12:22,920 --> 00:12:26,120
+What kind of costs does
+the worst case scenario have?
+
+171
+00:12:27,610 --> 00:12:31,500
+Well if you think about it, the worst
+case scenario is a scenario where we
+
+172
+00:12:31,500 --> 00:12:35,490
+just have move in models,
+and move in logs.
+
+173
+00:12:36,880 --> 00:12:38,960
+So what does it mean?
+
+174
+00:12:38,960 --> 00:12:44,080
+Take a look at this example again,
+and let us
+
+175
+00:12:44,080 --> 00:12:48,900
+compute fitness using
+the worst case scenario.
+
+176
+00:12:48,900 --> 00:12:53,630
+In this case, the worst case scenario is
+that for all the events in the trace,
+
+177
+00:12:54,970 --> 00:12:57,970
+we just do a move in log only.
+
+178
+00:12:59,750 --> 00:13:03,320
+Next, we take the shortest
+path through the model, and
+
+179
+00:13:03,320 --> 00:13:07,160
+do just move in model only actions.
+
+180
+00:13:07,160 --> 00:13:10,830
+And if we do that,
+then we get this number.
+
+181
+00:13:10,830 --> 00:13:15,380
+So, the optimal alignment had a cost
+of two, we have seen that before.
+
+182
+00:13:15,380 --> 00:13:19,670
+The trace has length seven,
+the shortest path has length five.
+
+183
+00:13:19,670 --> 00:13:22,120
+So if we fill out the formula,
+
+184
+00:13:22,120 --> 00:13:26,424
+we will see that the fitness of
+this particular trace is 0.83.
+
+185
+00:13:27,840 --> 00:13:30,480
+So this is the way that
+we can compute fitness.
+
+186
+00:13:31,510 --> 00:13:35,300
+Now try to compute
+fitness using this trace.
+
+187
+00:13:37,890 --> 00:13:42,699
+And again we should think about a worst
+case scenario to be able to compute this.
+
+188
+00:13:46,250 --> 00:13:48,030
+The answer is as follows.
+
+189
+00:13:48,030 --> 00:13:54,430
+So, we need to align the trace
+that we have seen with the model.
+
+190
+00:13:54,430 --> 00:13:58,340
+Look at the optimal alignment,
+and the worst case alignment.
+
+191
+00:13:59,380 --> 00:14:03,866
+The optimal alignment,
+we have seen that before, has a cost of 2.
+
+192
+00:14:05,060 --> 00:14:08,780
+If we look at the worst case alignment,
+what does it look like?
+
+193
+00:14:10,660 --> 00:14:13,890
+Well, this is an example
+of a worst case alignment.
+
+194
+00:14:13,890 --> 00:14:18,570
+So, and it consists of two parts,
+if we look at the first part
+
+195
+00:14:18,570 --> 00:14:23,310
+we see that everything that was in the
+log, corresponds to a move in log only.
+
+196
+00:14:24,400 --> 00:14:28,180
+And then we take the shortest
+path through the model, and
+
+197
+00:14:28,180 --> 00:14:31,710
+we just do move on model there.
+
+198
+00:14:31,710 --> 00:14:37,120
+And if we do that, we can see that
+the optimal alignment has a cost of two.
+
+199
+00:14:38,370 --> 00:14:42,510
+And the worst case scenario,
+has cost six plus six.
+
+200
+00:14:42,510 --> 00:14:46,360
+And now we can use these numbers
+to fill out in the formula, and
+
+201
+00:14:46,360 --> 00:14:48,761
+we find the fitness of 0.833.
+
+202
+00:14:48,761 --> 00:14:52,400
+Just by accident, it is the same
+value as what we have seen before.
+
+203
+00:14:55,140 --> 00:14:59,400
+So what are the advantages
+of aligning log and model.
+
+204
+00:14:59,400 --> 00:15:05,020
+We can directly relate observed behavior,
+to the model itself,
+
+205
+00:15:05,020 --> 00:15:06,130
+which is very important.
+
+206
+00:15:07,170 --> 00:15:12,900
+It is very flexible, I showed to you
+that one can use any cost function,
+
+207
+00:15:12,900 --> 00:15:16,970
+assigning penalties to
+not making deadlines,
+
+208
+00:15:16,970 --> 00:15:19,970
+events being executed by the wrong person,
+etcetera.
+
+209
+00:15:22,120 --> 00:15:24,380
+We get very detailed diagnostics.
+
+210
+00:15:24,380 --> 00:15:27,800
+We can compare events at
+a very refined level.
+
+211
+00:15:28,970 --> 00:15:34,520
+And after aligning the log and the model,
+we get a path through the model,
+
+212
+00:15:34,520 --> 00:15:38,000
+and we can do all kinds of
+other types of analysis.
+
+213
+00:15:38,000 --> 00:15:42,390
+And so that
+makes alignments extremely important.
+
+214
+00:15:42,390 --> 00:15:46,410
+To illustrate this,
+let us take a look at this diagram.
+
+215
+00:15:46,410 --> 00:15:53,890
+So this is a path through the model,
+and so this is the modeled behavior.
+
+216
+00:15:53,890 --> 00:15:59,990
+If then in reality we see a deviating
+trace, we can use alignment
+
+217
+00:15:59,990 --> 00:16:04,830
+to diagnose where these deviations are,
+and why they happened.
+
+218
+00:16:05,960 --> 00:16:09,900
+But this is not the only thing,
+why alignments are important.
+
+219
+00:16:09,900 --> 00:16:14,220
+We can also use alignments to
+squeeze behavior that we see in
+
+220
+00:16:14,220 --> 00:16:19,000
+reality into the model,
+even if it does not fit perfectly.
+
+221
+00:16:19,000 --> 00:16:24,530
+This is crucial for performance analysis,
+and all kinds of other types of
+
+222
+00:16:24,530 --> 00:16:29,090
+analysis that require us to use the model
+and the event data at the same time.
+
+223
+00:16:31,770 --> 00:16:35,360
+One element of conformance checking
+that we did not discuss so far,
+
+224
+00:16:35,360 --> 00:16:38,120
+is the ability to drill down.
+
+225
+00:16:38,120 --> 00:16:43,115
+So we can always separate
+traces into fitting traces and
+
+226
+00:16:43,115 --> 00:16:47,070
+non-fitting traces, and
+then we can analyze them separately.
+
+227
+00:16:47,070 --> 00:16:52,230
+So we can do this to try to understand,
+what the differences are,
+
+228
+00:16:52,230 --> 00:16:56,600
+between the deviating cases and
+the non-deviating cases.
+
+229
+00:16:56,600 --> 00:17:00,820
+Note that if we separate
+a log like this in two parts,
+
+230
+00:17:00,820 --> 00:17:06,440
+we can analyze the two parts as
+if they are a new event log.
+
+231
+00:17:06,440 --> 00:17:09,170
+So we can apply all of the techniques
+that we have seen before.
+
+232
+00:17:12,790 --> 00:17:16,780
+We can also move beyond fitness and
+control flow.
+
+233
+00:17:16,780 --> 00:17:23,040
+So, our lion's share of attention that
+we have given so far, was focused on
+
+234
+00:17:23,040 --> 00:17:27,940
+fitness but also precision, generalization
+and simplicity are important.
+
+235
+00:17:27,940 --> 00:17:31,690
+And there are precise
+definitions possible also for
+
+236
+00:17:31,690 --> 00:17:34,819
+these dimensions but
+they are outside the scope of this course.
+
+237
+00:17:36,240 --> 00:17:40,340
+Also, if we look at
+things like alignments,
+
+238
+00:17:40,340 --> 00:17:43,220
+we have mostly focus on control flow.
+
+239
+00:17:43,220 --> 00:17:46,880
+But we can also take into
+account the other perspectives,
+
+240
+00:17:46,880 --> 00:17:49,170
+as has been illustrated before.
+
+241
+00:17:49,170 --> 00:17:52,430
+A nice example of are the so
+called data-aware alignments,
+
+242
+00:17:52,430 --> 00:17:55,780
+that take into account control flow and
+data at the same time.
+
+243
+00:17:58,160 --> 00:18:02,460
+To read more on conformance checking
+you can look in chapter seven.
+
+244
+00:18:02,460 --> 00:18:05,406
+Also see the article highlighted here,
+
+245
+00:18:05,406 --> 00:18:11,308
+that this providing much more information
+related to the notion of alignments.
+
+246
+00:18:11,308 --> 00:18:13,788
+Thank you for watching,
+and hope to see you soon.
+
+247
+00:18:13,788 --> 00:18:23,788
+[MUSIC]
+

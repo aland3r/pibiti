@@ -1,0 +1,526 @@
+1
+00:00:00,000 --> 00:00:06,914
+[MUSIC]
+
+2
+00:00:06,914 --> 00:00:11,580
+Today we focus on the analysis of
+so-called spaghetti processes.
+
+3
+00:00:11,580 --> 00:00:14,450
+We cannot apply all
+the techniques discussed in
+
+4
+00:00:14,450 --> 00:00:17,510
+this course to such processes.
+
+5
+00:00:17,510 --> 00:00:23,330
+However spaghetti processes often allow
+for major improvements in terms of speed,
+
+6
+00:00:23,330 --> 00:00:27,890
+cost and compliance, thus making
+process mining extremely valuable.
+
+7
+00:00:29,910 --> 00:00:33,960
+The last lecture we explained
+that there is a spectrum.
+
+8
+00:00:33,960 --> 00:00:37,980
+Ranging from spaghetti
+processes to lasagna processes.
+
+9
+00:00:39,150 --> 00:00:41,910
+Spaghetti processes
+are highly unstructured,
+
+10
+00:00:41,910 --> 00:00:44,420
+irregular, flexible, variable.
+
+11
+00:00:44,420 --> 00:00:47,740
+Whereas lasagna processes
+are the opposite.
+
+12
+00:00:47,740 --> 00:00:52,030
+They are structured, regular,
+and very repetitive.
+
+13
+00:00:53,140 --> 00:00:58,490
+So, in this spectrum, today, we will
+look on the side of spaghetti processes.
+
+14
+00:01:00,310 --> 00:01:02,790
+Why are they called spaghetti processes?
+
+15
+00:01:02,790 --> 00:01:05,340
+I think this picture says it all.
+
+16
+00:01:05,340 --> 00:01:10,640
+And so, many connections and it is very
+unclear what the actual structure is.
+
+17
+00:01:12,640 --> 00:01:15,940
+Here you can see another
+example of a spaghetti process.
+
+18
+00:01:15,940 --> 00:01:20,730
+It is taken from a Dutch hospital,
+an event log with information about
+
+19
+00:01:20,730 --> 00:01:26,120
+almost 3,000 patients generating
+more than 100,000 events.
+
+20
+00:01:26,120 --> 00:01:29,700
+There are 619 different activities.
+
+21
+00:01:29,700 --> 00:01:33,620
+So it's clear that if you try
+to plot them all in one diagram,
+
+22
+00:01:33,620 --> 00:01:36,550
+you will get something
+that is very confusing.
+
+23
+00:01:36,550 --> 00:01:41,140
+There were also 266 different
+resources involved.
+
+24
+00:01:42,170 --> 00:01:46,880
+So it's clear that these processes
+are more complicated than the lasagna
+
+25
+00:01:46,880 --> 00:01:49,230
+process that we saw in
+the previous lecture.
+
+26
+00:01:51,000 --> 00:01:52,970
+Here is another example.
+
+27
+00:01:52,970 --> 00:01:55,980
+This is the testing of wafer scanners.
+
+28
+00:01:55,980 --> 00:01:57,920
+This is the test process.
+
+29
+00:01:57,920 --> 00:02:00,640
+And if we zoom in to
+parts of this process.
+
+30
+00:02:00,640 --> 00:02:03,280
+You can see that it is
+indeed very spaghetti like.
+
+31
+00:02:05,660 --> 00:02:12,470
+If we look at spaghetti processes,
+we unfortunately cannot execute the later
+
+32
+00:02:12,470 --> 00:02:19,250
+stages of the L* lifecycle model because
+there is not a stable control flow model.
+
+33
+00:02:19,250 --> 00:02:24,360
+Where each of the states of
+the model is visited frequently.
+
+34
+00:02:24,360 --> 00:02:29,870
+So we can forget about operational
+support and prediction, recommendation and
+
+35
+00:02:29,870 --> 00:02:31,310
+these type of things.
+
+36
+00:02:31,310 --> 00:02:38,400
+There is simply not enough data to justify
+a reliable prediction or recommendation.
+
+37
+00:02:40,530 --> 00:02:45,660
+So the earlier stages may
+also be more challenging, but
+
+38
+00:02:45,660 --> 00:02:50,380
+on the other hand the improvement
+potential in such processes maybe much
+
+39
+00:02:50,380 --> 00:02:55,310
+higher than in lasagna processes
+because of their complexity,
+
+40
+00:02:55,310 --> 00:02:58,340
+their uncertainty and
+the variability of things.
+
+41
+00:02:58,340 --> 00:03:00,660
+There is often room for improvement.
+
+42
+00:03:02,980 --> 00:03:05,010
+One should not be afraid of spaghetti.
+
+43
+00:03:05,010 --> 00:03:08,980
+First of all,
+one can improve the process as explained.
+
+44
+00:03:10,070 --> 00:03:13,270
+On the other hand,
+if you look at the spaghetti diagrams,
+
+45
+00:03:13,270 --> 00:03:18,094
+you can always make them simpler if they
+are too intimidating for the end-user.
+
+46
+00:03:19,700 --> 00:03:23,610
+For example,
+you can focus on a subset of activities.
+
+47
+00:03:23,610 --> 00:03:29,290
+Just look at the most frequent activities
+or look at a selected part of the process.
+
+48
+00:03:29,290 --> 00:03:30,890
+For example, just the backoffice.
+
+49
+00:03:32,920 --> 00:03:36,090
+One can also focus on a subset of cases.
+
+50
+00:03:36,090 --> 00:03:41,219
+So for example, if a process in
+a hospital is very confusing, you can
+
+51
+00:03:41,219 --> 00:03:46,980
+focus on a particular group of patients
+that has some homogeneous behavior.
+
+52
+00:03:48,800 --> 00:03:53,110
+There are often natural subclasses,
+like for example, gold customers.
+
+53
+00:03:54,220 --> 00:03:56,030
+The students that have passed.
+
+54
+00:03:57,060 --> 00:04:00,700
+One can think of all kinds
+of homogeneous sets of
+
+55
+00:04:00,700 --> 00:04:05,080
+cases that are easier to analyze
+than all the cases together.
+
+56
+00:04:06,560 --> 00:04:10,450
+Last but not least one can
+focus on a subset of paths.
+
+57
+00:04:10,450 --> 00:04:14,280
+Here we typically focus on
+the most frequent paths.
+
+58
+00:04:14,280 --> 00:04:16,820
+What are the highways in the process?
+
+59
+00:04:16,820 --> 00:04:20,460
+And in this way we can make
+spaghetti models much simpler.
+
+60
+00:04:22,420 --> 00:04:24,870
+Let's take an example in disco.
+
+61
+00:04:24,870 --> 00:04:29,820
+So this is if we look at all the paths and
+all the activities.
+
+62
+00:04:29,820 --> 00:04:32,180
+The model is very confusing.
+
+63
+00:04:32,180 --> 00:04:36,890
+However we can focus on
+the most frequent activities.
+
+64
+00:04:36,890 --> 00:04:38,490
+And then this is the model that we get.
+
+65
+00:04:39,930 --> 00:04:43,560
+We can also focus on all activities.
+
+66
+00:04:43,560 --> 00:04:46,919
+But at the same time just look
+at the most frequent paths.
+
+67
+00:04:48,750 --> 00:04:50,100
+Or we can do both.
+
+68
+00:04:50,100 --> 00:04:53,430
+We can focus just on the most
+frequent activities and
+
+69
+00:04:53,430 --> 00:04:56,380
+the most frequent paths, and
+then we get a simple model.
+
+70
+00:04:57,400 --> 00:05:01,320
+So we can always make spaghetti
+models simpler by looking at
+
+71
+00:05:01,320 --> 00:05:02,880
+the most frequent behavior.
+
+72
+00:05:05,430 --> 00:05:10,020
+So we have been discussing about lasagna
+processes and spaghetti processes.
+
+73
+00:05:10,020 --> 00:05:11,740
+So where do they appear?
+
+74
+00:05:11,740 --> 00:05:17,280
+Here you see the functional areas
+within a typical organization.
+
+75
+00:05:17,280 --> 00:05:21,020
+For example one can look at procurement,
+getting the products.
+
+76
+00:05:21,020 --> 00:05:22,850
+For example needed for production.
+
+77
+00:05:24,120 --> 00:05:30,150
+One can look at product development,
+financial things, resource management,
+
+78
+00:05:30,150 --> 00:05:30,920
+like HRM.
+
+79
+00:05:30,920 --> 00:05:34,300
+One can look at sales and CRM,
+
+80
+00:05:34,300 --> 00:05:37,990
+so the things that happen before
+you sell something to the customer.
+
+81
+00:05:39,140 --> 00:05:40,230
+And you can look at service.
+
+82
+00:05:40,230 --> 00:05:45,280
+And, so, activities that happen
+after the products has been sold and
+
+83
+00:05:45,280 --> 00:05:46,800
+delivered to the customer.
+
+84
+00:05:48,020 --> 00:05:50,600
+So if we look at these functional areas,
+
+85
+00:05:50,600 --> 00:05:54,640
+then there are natural areas
+where we find lasagna processes.
+
+86
+00:05:55,770 --> 00:06:00,740
+The things highlighted in blue
+are typical areas where we can find
+
+87
+00:06:02,140 --> 00:06:05,410
+a substantial number of lasagna processes.
+
+88
+00:06:07,280 --> 00:06:11,420
+We can also look at where can
+we find spaghetti processes and
+
+89
+00:06:11,420 --> 00:06:14,520
+then we find the areas
+highlighted here in purple.
+
+90
+00:06:15,790 --> 00:06:17,510
+So there are areas like, for
+
+91
+00:06:17,510 --> 00:06:23,029
+example, service where we can find
+both spaghetti and lasagna processes.
+
+92
+00:06:25,420 --> 00:06:30,850
+So to conclude we have been
+talking about lasagna processes.
+
+93
+00:06:30,850 --> 00:06:34,990
+Structure processes of
+a repetitive nature.
+
+94
+00:06:34,990 --> 00:06:39,170
+There we can easily detect and
+remove bottlenecks.
+
+95
+00:06:39,170 --> 00:06:46,140
+We can analyze root causes for deviations,
+we can compare different processes,
+
+96
+00:06:46,140 --> 00:06:49,720
+for example, processes in two
+different departments, or for
+
+97
+00:06:49,720 --> 00:06:53,030
+two different types of customer groups.
+
+98
+00:06:53,030 --> 00:06:58,100
+And we can even do operational support
+like prediction, recommendation, and
+
+99
+00:06:58,100 --> 00:06:59,570
+checking things online.
+
+100
+00:07:01,040 --> 00:07:05,600
+For spaghetti processes,
+many of these things are impossible.
+
+101
+00:07:05,600 --> 00:07:10,120
+However, process discovery is
+incredibly valuable for spaghetti
+
+102
+00:07:10,120 --> 00:07:15,200
+processes because they show a mirror,
+they show what is actually happening and
+
+103
+00:07:15,200 --> 00:07:20,690
+they are revealing that things are not as
+simple as they may seem at first glance.
+
+104
+00:07:22,190 --> 00:07:26,640
+It can be used to highlight important
+problems in spaghetti processes and
+
+105
+00:07:26,640 --> 00:07:30,280
+there is often room for
+a lot of improvement.
+
+106
+00:07:30,280 --> 00:07:33,118
+And we can go from
+management by PowerPoint to
+
+107
+00:07:33,118 --> 00:07:36,710
+evidence-based process improvement.
+
+108
+00:07:36,710 --> 00:07:37,910
+So this is very valuable.
+
+109
+00:07:39,890 --> 00:07:43,540
+If you would like to read more
+about the spaghetti processes.
+
+110
+00:07:43,540 --> 00:07:47,050
+Please take a look at chapter 12.
+
+111
+00:07:47,050 --> 00:07:49,165
+Thank you for watching this lecture.
+
+112
+00:07:49,165 --> 00:07:49,669
+See you next time.
+
+113
+00:07:49,669 --> 00:07:59,669
+[MUSIC]
+

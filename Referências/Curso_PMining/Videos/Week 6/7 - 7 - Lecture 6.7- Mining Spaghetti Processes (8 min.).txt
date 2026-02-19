@@ -1,0 +1,188 @@
+[MUSIC]
+Today we focus on the analysis of
+so-called spaghetti processes.
+We cannot apply all
+the techniques discussed in
+this course to such processes.
+However spaghetti processes often allow
+for major improvements in terms of speed,
+cost and compliance, thus making
+process mining extremely valuable.
+The last lecture we explained
+that there is a spectrum.
+Ranging from spaghetti
+processes to lasagna processes.
+Spaghetti processes
+are highly unstructured,
+irregular, flexible, variable.
+Whereas lasagna processes
+are the opposite.
+They are structured, regular,
+and very repetitive.
+So, in this spectrum, today, we will
+look on the side of spaghetti processes.
+Why are they called spaghetti processes?
+I think this picture says it all.
+And so, many connections and it is very
+unclear what the actual structure is.
+Here you can see another
+example of a spaghetti process.
+It is taken from a Dutch hospital,
+an event log with information about
+almost 3,000 patients generating
+more than 100,000 events.
+There are 619 different activities.
+So it's clear that if you try
+to plot them all in one diagram,
+you will get something
+that is very confusing.
+There were also 266 different
+resources involved.
+So it's clear that these processes
+are more complicated than the lasagna
+process that we saw in
+the previous lecture.
+Here is another example.
+This is the testing of wafer scanners.
+This is the test process.
+And if we zoom in to
+parts of this process.
+You can see that it is
+indeed very spaghetti like.
+If we look at spaghetti processes,
+we unfortunately cannot execute the later
+stages of the L* lifecycle model because
+there is not a stable control flow model.
+Where each of the states of
+the model is visited frequently.
+So we can forget about operational
+support and prediction, recommendation and
+these type of things.
+There is simply not enough data to justify
+a reliable prediction or recommendation.
+So the earlier stages may
+also be more challenging, but
+on the other hand the improvement
+potential in such processes maybe much
+higher than in lasagna processes
+because of their complexity,
+their uncertainty and
+the variability of things.
+There is often room for improvement.
+One should not be afraid of spaghetti.
+First of all,
+one can improve the process as explained.
+On the other hand,
+if you look at the spaghetti diagrams,
+you can always make them simpler if they
+are too intimidating for the end-user.
+For example,
+you can focus on a subset of activities.
+Just look at the most frequent activities
+or look at a selected part of the process.
+For example, just the backoffice.
+One can also focus on a subset of cases.
+So for example, if a process in
+a hospital is very confusing, you can
+focus on a particular group of patients
+that has some homogeneous behavior.
+There are often natural subclasses,
+like for example, gold customers.
+The students that have passed.
+One can think of all kinds
+of homogeneous sets of
+cases that are easier to analyze
+than all the cases together.
+Last but not least one can
+focus on a subset of paths.
+Here we typically focus on
+the most frequent paths.
+What are the highways in the process?
+And in this way we can make
+spaghetti models much simpler.
+Let's take an example in disco.
+So this is if we look at all the paths and
+all the activities.
+The model is very confusing.
+However we can focus on
+the most frequent activities.
+And then this is the model that we get.
+We can also focus on all activities.
+But at the same time just look
+at the most frequent paths.
+Or we can do both.
+We can focus just on the most
+frequent activities and
+the most frequent paths, and
+then we get a simple model.
+So we can always make spaghetti
+models simpler by looking at
+the most frequent behavior.
+So we have been discussing about lasagna
+processes and spaghetti processes.
+So where do they appear?
+Here you see the functional areas
+within a typical organization.
+For example one can look at procurement,
+getting the products.
+For example needed for production.
+One can look at product development,
+financial things, resource management,
+like HRM.
+One can look at sales and CRM,
+so the things that happen before
+you sell something to the customer.
+And you can look at service.
+And, so, activities that happen
+after the products has been sold and
+delivered to the customer.
+So if we look at these functional areas,
+then there are natural areas
+where we find lasagna processes.
+The things highlighted in blue
+are typical areas where we can find
+a substantial number of lasagna processes.
+We can also look at where can
+we find spaghetti processes and
+then we find the areas
+highlighted here in purple.
+So there are areas like, for
+example, service where we can find
+both spaghetti and lasagna processes.
+So to conclude we have been
+talking about lasagna processes.
+Structure processes of
+a repetitive nature.
+There we can easily detect and
+remove bottlenecks.
+We can analyze root causes for deviations,
+we can compare different processes,
+for example, processes in two
+different departments, or for
+two different types of customer groups.
+And we can even do operational support
+like prediction, recommendation, and
+checking things online.
+For spaghetti processes,
+many of these things are impossible.
+However, process discovery is
+incredibly valuable for spaghetti
+processes because they show a mirror,
+they show what is actually happening and
+they are revealing that things are not as
+simple as they may seem at first glance.
+It can be used to highlight important
+problems in spaghetti processes and
+there is often room for
+a lot of improvement.
+And we can go from
+management by PowerPoint to
+evidence-based process improvement.
+So this is very valuable.
+If you would like to read more
+about the spaghetti processes.
+Please take a look at chapter 12.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

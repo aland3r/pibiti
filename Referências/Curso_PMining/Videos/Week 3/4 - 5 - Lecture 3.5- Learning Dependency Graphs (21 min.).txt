@@ -1,0 +1,489 @@
+[MUSIC]
+Welcome to this lecture.
+Today we will focus on learning dependency
+graphs using frequencies as input.
+So this is a picture that I briefly
+showed in the last lecture.
+So we are now looking at a mining
+approach that is using multiple phases.
+And the first phase is
+learning the dependency graph.
+The approach that we sketch is
+inspired by the heuristic miner, but
+many mining techniques use
+these two types of phases.
+Also many of the commercial mining tools,
+they use algorithms that actually just
+show dependency graph and nothing more.
+So, let's look at the problem
+of learning a dependency graph.
+So as a running example
+I will use the C-net.
+We have seen the C-net notation
+in the last lecture, so
+we have activities, we have dependencies
+between different activities.
+And every activity can have input and
+output bindings that can be used
+to model ANDs and ORs and XORs and
+all kinds of routing constructs.
+So, if we take this C-net model and
+we would generate a simulation from it and
+we would add some outliers.
+Then this would be,
+a possible log that we could get.
+Note that deliberately there are two
+traces in this event log a,b,e and
+a,c,e which do not correspond to
+valid binding sequences of the C-net.
+But for all the other traces they
+correspond to valid binding sequences.
+So for example the trace that starts
+with an e starts with an a and
+ends with an e,
+is one of these possible traces.
+So, if we would take this event log and
+apply the Alpha algorithm to it,
+the Alpha algorithm would
+have all kind of problems.
+And here you see the model,
+that it returns.
+First of all, activity d is unconnected
+to all the other activities.
+Moreover, b and c always need to be
+executed according to the model.
+Whereas if we look at the event log,
+that is clearly not the case,
+because we can just do a,e.
+Which is definitely not possible
+according to this model.
+So if we are using something like
+the heuristic miner or
+these are types of techniques.
+They will not have these problems.
+One of the important ingredients is that
+we take into account frequencies and
+only consider the causalities
+which are important.
+So here we see a formula
+that counts the number of
+times that a was followed
+by b somewhere in the log.
+So we sum over all traces.
+And then within a trace we see how
+many times a is followed by b.
+So if we do that, we can count
+the so-called direct succession.
+So here you see an event log.
+And for example, if you would look at
+a and c, you can see that a is followed
+directly by c 11 times in this event log.
+So it's similar to what we were
+using in the Alpha algorithm.
+But there we were just looking at
+whether something was followed by
+something else at some
+position in the log.
+But now we look at how
+frequent this is happening.
+And we are using more information now.
+So, one of the ingredients for learning
+the dependency graph is direct succession.
+How many times did one activity
+follow another activity?
+But we will also look at
+a more sophisticated measure,
+the so-called dependency measure,
+which aims to discover causality.
+If we have a model that
+has concurrency in it,
+accidentally things will
+follow one another.
+But we should not confuse
+them with causalities.
+So if you look at the formula that
+you see here at the bottom, if a and
+b are different.
+We count how many times
+is a followed by b,
+minus the number of times
+that b is followed by a.
+And we divide that by the sum
+of these two numbers plus 1.
+And in this way we always get
+a number between 0 and 1.
+If the number is close to 1,
+there is a very strong causality.
+If the number is negative or
+the number is close to 0, there is
+a weak causality in that direction.
+What this formula also shows you is that
+we have a special case where a equals b.
+Because, if we apply the formula that I
+just mentioned to the situation where
+a equals b, it would always yield 0.
+And that's why you have a special formula.
+It simply counts how many
+times is a followed by itself,
+divided by this number plus 1.
+And again,
+we get a number between 0 and 1.
+The higher the number,
+the more likely it is that there
+is a dependency, a causality.
+So what we see on this
+slide is an example of
+an arc in such a dependency graph,
+annotated with two numbers.
+The first number indicated in red,
+45, indicates
+how many times a was directly
+followed by b somewhere in the log.
+The other value,
+indicated in blue, is the dependency
+measure that we have just defined.
+Right, so it's, it's computed using
+the formula that we have seen earlier.
+So let's take a look at these two numbers
+in a set of specific situations.
+So and in each situation we
+will need to consider a threshold.
+And both of these values, so
+the value in red and the value in blue,
+have to be above a certain threshold for
+the arc to be included.
+So we remove all arcs that do
+not meet this requirement.
+So, as I said, we look at a set of
+patterns and see how this plays out.
+So consider that we have a process
+model where a is followed by b and
+we see this 10 times.
+So this picture is a bit misleading
+because I am showing you a Petri net
+to describe a set of traces.
+So here we have 10 traces.
+Where somewhere in the trace,
+a is directly followed by b.
+So, if we count the number of times that
+a is followed by b, we get a number 10.
+So, if we now apply the formula
+of the dependency measure,
+we get 10 minus 0 divided
+by 10 plus 0 plus 1 is 11.
+So the dependency measure between a and
+b is 10 divided by 11.
+If we look at the other direction, b is
+never followed by a, so this number is 0.
+And if we compute a dependency
+measure between b and
+a, so in the reverse direction.
+We get a negative number,
+namely minus 10 divided by 11.
+So in this case because for
+the connection between a and
+b we meet both thresholds we say that
+we want to include this causality.
+So then we get this situation.
+So the arc indicated in red is an arc that
+meets the requirements of the thresholds.
+So in this slide it shows that
+we are now using a threshold of,
+that a should be directly
+followed by b at least once.
+That is satisfied,
+because we have seen it ten times, and
+the dependency measure
+should be at least half.
+And in this case it's 0.9.
+So this arc is definitely present.
+Let's take a look at an XOR-split.
+So, what we see now is 
+we see much more numbers.
+So, the traces that we look at there
+are a traces, where a is followed by b.
+And there are two traces
+where a is followed by c.
+And then we can apply the formula
+that has been described before,
+and these are all the numbers that we get.
+For example, a is followed by b eight times.
+And if we look at the dependency
+measure between a and
+b we take 8 minus 0 divided
+by 8 plus 0 plus 1 is 9.
+So we get the dependency between a and
+b is 8 divided by 9.
+So, again, we can look at what are the
+connections that meet the threshold.
+And then we find that there is indeed
+a connection between a and b and
+between a and c.
+Just as we expected.
+So, in the dependency graph,
+we add these two red arcs and
+the numbers are the numbers
+that we have computed before.
+And so a is followed by b, eight times,
+and a is followed by c two times.
+And the dependency measures
+are indicated in blue here.
+And they all meet the threshold.
+The XOR-join is very similar.
+So, what you now see is,
+again, a computation.
+We look at the traces, a traces,
+where a is followed by c,
+two traces where b is followed by c,
+and these are the numbers that we get.
+And again we find that there are only
+two connections that meet the threshold.
+The connection between a and c and
+the connection between b and c.
+And again we add these arcs, the red arcs,
+because they meet the two thresholds
+that have been described before.
+Let's take a look at concurrency.
+We take the AND-split pattern,
+now we look at traces where
+a is followed by b and c, but sometimes
+c is first and sometimes b is first.
+And assume an evenly distributed log, so
+we see as many traces a, b,
+c as we see traces a, c, b.
+And then these
+are the numbers that we get.
+Again we can simply apply the, the,
+the two formulas that we have seen before.
+And what we see is that indeed there
+is a connection between a and b.
+There is a connection between a and c.
+What is very important to see here
+is that if we look at the log,
+b is five times followed by c.
+And c is five times followed by b.
+Because they are concurrent.
+They can happen in any order.
+So b and c follow one another, but
+we don't want to create
+a connection between them.
+So that's why we need
+the dependency measure.
+The dependency measure here.
+For example, if you look at
+the connection between b and
+c, we can see that the dependency
+measure is 0 divided by 11.
+Because we have 5 minus 5
+divided by 5 plus 5 plus 1.
+So we just fill out the formula and
+we get 0 divided by 11.
+So we know that there is no relationship,
+no dependency between b and c.
+because it doesn't meet the threshold.
+So in this graph it's very
+important to see that there is
+no connection between b and c.
+Because these connections do
+not meet the threshold b and
+c follow one another but
+they are concurrent.
+That's why we do not want
+to see this connection.
+The AND-join pattern is exactly the same
+as you've seen numbers very similar to
+what we have seen before.
+We can fill out a formula and
+get the numbers that you see here.
+Again it's crucial that you
+see that there should not
+be a connection between a and b although
+they follow each other five times.
+And that is because if
+we fill out the formula for
+the dependence measure, in this case
+we get 0 rather than some high number.
+So we we approve
+the connection between a and
+c, and b and c, but
+not between a and b, or b and a.
+And this is, again, an illustration why we
+need to have this dependency measure.
+And these are the connections that we get
+in the corresponding dependency graph.
+So far we only consider the situation
+where the two activities that we
+were comparing were different activities.
+Now for the loop pattern, we look at
+a situation where one activity
+should be connected to itself because
+it is involved in some kind of loop.
+So take a look at this Petri net
+where we see a self loop involving b.
+And, if we look at the corresponding traces
+it's possible corresponding traces we can
+see ac.
+We can see abc.
+But we can also see abbc.
+So, in this small event log
+that we will consider.
+We assume for
+example that abbc happens three times.
+And so one activity follows itself.
+If we apply the normal formula to this,
+we would get a dependency measure of 0.
+So we would never have
+a connection of b with itself.
+But as you can see from this example,
+sometimes this is needed if
+we are involved in a loop.
+So, let's compute the measures for
+this small event log.
+The numbers that you see here in red,
+they are exactly computed in
+the way we have seen before.
+The values that you see here in blue.
+They correspond to
+measures that are computed using
+this special formula for loops.
+So if we look at a, the dependency measure
+of a with itself, it is 0 divided by 1.
+And so, there is no connection
+between a and itself.
+If we look, however at b, b follows
+itself three times in the event log.
+And the dependency measure of b
+with itself is 3 divided by 0.
+And the reason is that if we apply the
+formula we get 3 divided by 3 plus 1 is 4.
+So this is how we can capture
+the fact that there is a loop.
+So we approve the connections including
+the self loop involving b and
+this is why we need to have this special
+formula, because otherwise we would
+lose this connection between b and
+it would not be connected to the rest.
+So if we apply all the formulas,
+this is the dependency graph that we see.
+And especially
+the connection between b and
+itself is important that you
+understand how this was computed.
+It meets the thresholds,
+so we add the self-loop.
+Let's take a look at the example
+that we have seen before.
+So, here we have the log including
+two outliers and we can compute
+how many times one activity is followed
+by another, as you can see here.
+So, the question is now
+to see whether you
+understand this dependency
+measure given this event log.
+What is the dependency measure for
+the connection between a and b?
+And what is the connection and
+the value of the dependency measure of
+the connection between d and itself?
+So, take a moment to think about this.
+This is the answer, it is showing all
+the dependency measures computed for
+all activity pairs.
+And it is just computed by applying the
+formula that we have described before.
+So if we zoom in to the two activities.
+The two dependency measures
+that I've asked for.
+The connection between a and
+b and, and d and itself.
+Then we can simply look
+up the values in how many
+times one activity was
+followed by the other.
+And we can apply the formula.
+And we get this value.
+If we look at how many times d was
+followed by itself, we can look that up.
+And we apply the second formula.
+And then we get the number
+that you can see here.
+So this shows how you can
+compute the dependency measures.
+So, we have these thresholds.
+There is a threshold for the number
+of times that an activity should be
+followed by another activity and
+the strength of the dependency.
+If both meet the thresholds,
+arcs are included.
+So, if we use the thresholds where
+we set the threshold rather low,
+then all of the connections that you
+see here in the graph will be included.
+If we increase the threshold a bit so
+we have more stricter requirements
+with respect to the dependency measure
+and the frequency.
+Then we can see that two
+arcs are disappearing.
+So compared to the previous slide,
+we, for
+example, now see that the self
+loop involving d has disappeared.
+And there is no longer a connection
+between the first activity and
+the last activity.
+And so by playing with these thresholds
+we can make the dependency graph simpler.
+So what is the algorithm?
+So first we set thresholds then
+we count direct successions.
+Then we compute the dependency measures
+using the two formulas discussed and
+then we draw the dependency
+graph including only the arcs
+that meet both thresholds and
+then we get the dependency graph.
+Please practice this yourself on small
+example logs to see whether you
+really understand how it works.
+As I mentioned before many
+algorithms use something very
+similar to dependency graphs.
+If you look at Disco,
+you can think of the models that you see
+as dependency graphs rather
+than something more explicit,
+having more explicit semantics like
+a Petri net or a BPMN model.
+So if you look at Disco,
+you can play with the threshold.
+So if you set the threshold very low,
+as indicated high here,
+you will see that all
+the arcs are included.
+If you then move the slider down you
+will see that more and more connections
+do not meet the thresholds and disappear.
+So the model gets simpler and simpler.
+So this is using exactly the same type
+of ideas, although the underlying
+algorithms are different than the things
+that we have seen in this lecture.
+So the next step that we will
+look at in the next lecture
+is once we have this dependency graph,
+how can we
+compute the split and
+join behavior of all of these nodes.
+So we aim at creating so called C-nets.
+If you want to read more
+about this in chapter six you
+can read everything about
+learning these dependency graphs.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

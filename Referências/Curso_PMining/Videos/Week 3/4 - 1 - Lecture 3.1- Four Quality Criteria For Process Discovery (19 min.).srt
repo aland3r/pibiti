@@ -1,0 +1,1235 @@
+1
+00:00:00,000 --> 00:00:07,441
+[MUSIC]
+
+2
+00:00:07,441 --> 00:00:09,130
+Welcome to this lecture.
+
+3
+00:00:09,130 --> 00:00:11,990
+In week two,
+we focused on process models and
+
+4
+00:00:11,990 --> 00:00:15,100
+one concrete process discovery algorithm.
+
+5
+00:00:15,100 --> 00:00:19,910
+In week three, we will discuss more
+advanced process discovery techniques.
+
+6
+00:00:19,910 --> 00:00:22,240
+However before doing so,
+
+7
+00:00:22,240 --> 00:00:26,800
+we first discuss the four key quality
+dimensions for process mining.
+
+8
+00:00:26,800 --> 00:00:32,080
+We will see that there are trade-offs
+between fitness, simplicity, precision and
+
+9
+00:00:32,080 --> 00:00:36,790
+generalization, thus making process
+discovery a very challenging task.
+
+10
+00:00:38,535 --> 00:00:43,700
+Measuring the quality of discovered
+process models is very important.
+
+11
+00:00:43,700 --> 00:00:48,020
+What we will see in this lecture is
+that there are different forces, so
+
+12
+00:00:48,020 --> 00:00:52,070
+we can view model quality
+from different angles.
+
+13
+00:00:52,070 --> 00:00:56,580
+But let us start by looking
+at what is the problem?
+
+14
+00:00:56,580 --> 00:01:02,180
+So we have a process that
+leaves trails in event logs.
+
+15
+00:01:03,220 --> 00:01:06,310
+Using these event logs,
+we can discover process models or
+
+16
+00:01:06,310 --> 00:01:08,670
+we can do conformance checking.
+
+17
+00:01:08,670 --> 00:01:13,540
+However, what this picture shows is that
+we would like to say something about
+
+18
+00:01:13,540 --> 00:01:18,420
+the relationship between the process
+model and the real process.
+
+19
+00:01:18,420 --> 00:01:21,890
+But we cannot do because
+the real process is unknown.
+
+20
+00:01:21,890 --> 00:01:24,490
+You can only say something
+with respect to event data.
+
+21
+00:01:25,820 --> 00:01:29,840
+So, the foundational question
+that we would like to answer,
+
+22
+00:01:29,840 --> 00:01:33,890
+is the process model a correct
+reflection of the real process and
+
+23
+00:01:33,890 --> 00:01:38,660
+we can only do so by looking at
+the event data that we happen to see.
+
+24
+00:01:41,180 --> 00:01:45,770
+So for people that have a background in
+data mining, you can think of this as
+
+25
+00:01:45,770 --> 00:01:51,790
+a classification problem, but we will
+see that it is not as easy as this.
+
+26
+00:01:51,790 --> 00:01:56,970
+If you think about classification, you
+try to construct a confusion matrix and
+
+27
+00:01:56,970 --> 00:02:02,770
+in a confusion matrix, you indicate first,
+what the true positives are.
+
+28
+00:02:02,770 --> 00:02:07,870
+So in the context of process discovery,
+these are the traces that are possible in
+
+29
+00:02:07,870 --> 00:02:11,450
+the model, and
+also possible in the real process.
+
+30
+00:02:13,440 --> 00:02:16,280
+We also can define the true negatives.
+
+31
+00:02:16,280 --> 00:02:19,750
+These are the traces that are not
+possible in the model and
+
+32
+00:02:19,750 --> 00:02:23,750
+also not possible in the real process
+that we are trying to analyze.
+
+33
+00:02:25,390 --> 00:02:26,940
+These are good things.
+
+34
+00:02:26,940 --> 00:02:30,140
+Bad things are false positives.
+
+35
+00:02:30,140 --> 00:02:34,971
+Traces possible in the model but
+not possible in the real process, and
+
+36
+00:02:34,971 --> 00:02:40,355
+the reverse, false negatives, traces
+that are not possible in the model but
+
+37
+00:02:40,355 --> 00:02:44,040
+that are possible in the real process.
+
+38
+00:02:44,040 --> 00:02:51,790
+So we would like to see lots of TPs and
+TNs, and just a few FPs and FNs.
+
+39
+00:02:53,380 --> 00:02:54,810
+And in the confusion matrix,
+
+40
+00:02:54,810 --> 00:02:59,390
+we can kind of analyze the distribution
+over these four categories.
+
+41
+00:02:59,390 --> 00:03:03,970
+So we can also view the confusion
+matrix in a different way, as a so
+
+42
+00:03:03,970 --> 00:03:06,020
+called Venn diagram.
+
+43
+00:03:06,020 --> 00:03:11,960
+What you see here, this square represents
+all possible behavior in any process.
+
+44
+00:03:13,640 --> 00:03:18,670
+In the space of all possible behaviors
+we can highlight, here in red,
+
+45
+00:03:18,670 --> 00:03:21,140
+the real behavior of the process.
+
+46
+00:03:21,140 --> 00:03:25,080
+So the behaviors that are possible
+according to the real process,
+
+47
+00:03:25,080 --> 00:03:25,940
+that we do not know.
+
+48
+00:03:27,920 --> 00:03:31,450
+The green part indicates
+the model behavior.
+
+49
+00:03:31,450 --> 00:03:36,650
+So what is possible according to the model
+that we have made by hand, or that we
+
+50
+00:03:36,650 --> 00:03:43,120
+have discovered, the bigger the overlap
+between these ovals, the better it is.
+
+51
+00:03:43,120 --> 00:03:48,300
+So true positives are in the overlap
+between real behavior and
+
+52
+00:03:48,300 --> 00:03:50,100
+modeled behavior.
+
+53
+00:03:50,100 --> 00:03:54,010
+False negatives, we would like
+to avoid that, because this is
+
+54
+00:03:54,010 --> 00:03:59,400
+behavior that can happen in reality, but
+is not possible according to the model.
+
+55
+00:03:59,400 --> 00:04:03,330
+We also would like to avoid
+having many false positives,
+
+56
+00:04:03,330 --> 00:04:07,190
+things possible according to the model,
+but not possible in reality.
+
+57
+00:04:08,800 --> 00:04:14,360
+So if you think about this in the context
+of data mining or information retrieval,
+
+58
+00:04:14,360 --> 00:04:19,520
+once you have these notions,
+you can talk about things like recall.
+
+59
+00:04:19,520 --> 00:04:25,630
+So recall is TP divided by TP plus FN.
+
+60
+00:04:25,630 --> 00:04:30,950
+In other words, if there are no
+false negatives, recall will be one.
+
+61
+00:04:30,950 --> 00:04:31,710
+It will be perfect.
+
+62
+00:04:32,960 --> 00:04:35,220
+We can also look at precision.
+
+63
+00:04:35,220 --> 00:04:40,440
+TP divided by TP plus FP, so
+
+64
+00:04:40,440 --> 00:04:47,900
+if there are no false positives, the
+precision is one, and that is excellent.
+
+65
+00:04:47,900 --> 00:04:52,730
+So if these two numbers are high, it means
+that the model has a very good quality,
+
+66
+00:04:52,730 --> 00:04:56,580
+and that is why people often
+use recall and precision and
+
+67
+00:04:56,580 --> 00:05:00,260
+you can also look at the F1 score,
+which is based on these two numbers.
+
+68
+00:05:02,020 --> 00:05:05,420
+So let's try to apply that in
+the context of process mining and
+
+69
+00:05:05,420 --> 00:05:09,830
+if you try to do that, then you very
+quickly see that this is not possible.
+
+70
+00:05:10,840 --> 00:05:12,940
+Why is it not possible?
+
+71
+00:05:12,940 --> 00:05:16,800
+You know what the behaviors are that
+are allowed by the model that you
+
+72
+00:05:16,800 --> 00:05:18,500
+have discovered, but
+
+73
+00:05:18,500 --> 00:05:24,940
+you do not know what the real behavior
+is that the real process allows for.
+
+74
+00:05:24,940 --> 00:05:29,070
+You only see a small set of examples and
+based on that,
+
+75
+00:05:29,070 --> 00:05:31,620
+you would like to make conclusions.
+
+76
+00:05:31,620 --> 00:05:35,200
+So if you look at the formulas,
+you can simply not apply them.
+
+77
+00:05:36,550 --> 00:05:40,570
+If you look at the event log which
+is also indicated in this diagram,
+
+78
+00:05:40,570 --> 00:05:47,440
+you can define a kind of metric and
+that's what we call here replay fitness.
+
+79
+00:05:47,440 --> 00:05:50,010
+Later on,
+we talk about conformance checking.
+
+80
+00:05:50,010 --> 00:05:53,290
+We will discuss this topic
+in much more detail, but
+
+81
+00:05:53,290 --> 00:05:59,530
+the basic idea is that you look at
+TP prime divided by TP prime plus
+
+82
+00:05:59,530 --> 00:06:05,780
+FN prime where these things are based on
+the behavior that we saw in the event log.
+
+83
+00:06:05,780 --> 00:06:10,900
+What you can see is if all the behavior
+in the event log is possible according to
+
+84
+00:06:10,900 --> 00:06:15,370
+the model,
+then you have a replay fitness of one.
+
+85
+00:06:15,370 --> 00:06:17,180
+If nothing is possible,
+
+86
+00:06:18,410 --> 00:06:22,780
+then you can see that this metric will
+indeed indicate that there is a problem.
+
+87
+00:06:25,350 --> 00:06:29,920
+So it is difficult to apply classical
+techniques like as precision or
+
+88
+00:06:29,920 --> 00:06:34,190
+recall into this setting, but
+there are many more challenges.
+
+89
+00:06:35,320 --> 00:06:38,240
+Related to the problem that
+I discused before is that we
+
+90
+00:06:38,240 --> 00:06:40,230
+have no negative examples.
+
+91
+00:06:40,230 --> 00:06:43,820
+The event log will never
+tell what was not possible.
+
+92
+00:06:43,820 --> 00:06:45,940
+We can only see the things
+that have happened.
+
+93
+00:06:45,940 --> 00:06:53,700
+The log contains typically, a very
+tiny fraction of the possible traces.
+
+94
+00:06:53,700 --> 00:06:59,190
+So we should avoid to overfit the data
+set that we are analyzing.
+
+95
+00:07:01,030 --> 00:07:07,100
+We would like to distinguish
+not between cases that fit and
+
+96
+00:07:07,100 --> 00:07:10,730
+cases that do not fit,
+instead, we would also like to
+
+97
+00:07:10,730 --> 00:07:15,405
+reason about the fact that one case
+is fitting better than another case.
+
+98
+00:07:15,405 --> 00:07:18,630
+And so, we should distinguish
+between these different situations.
+
+99
+00:07:20,480 --> 00:07:24,330
+If a model has a loop,
+like a Petri net with the self loop,
+
+100
+00:07:24,330 --> 00:07:27,560
+then it will have infinitely
+many possible traces.
+
+101
+00:07:27,560 --> 00:07:33,200
+So you cannot simply count traces because
+all the formulas that I showed before,
+
+102
+00:07:33,200 --> 00:07:34,480
+do not make any sense.
+
+103
+00:07:35,700 --> 00:07:39,070
+Related to this topic is what
+I call Murphy's laws for
+
+104
+00:07:39,070 --> 00:07:45,020
+process mining, that says that anything
+is possible if you wait long enough.
+
+105
+00:07:45,020 --> 00:07:49,430
+So it is not an interesting question
+whether something is possible.
+
+106
+00:07:49,430 --> 00:07:51,290
+If you wait long enough, it will happen.
+
+107
+00:07:52,310 --> 00:07:55,670
+What is much more important is to
+think about the likelihood and
+
+108
+00:07:55,670 --> 00:08:03,950
+the model should only indicate things
+that have a certain level of likelihood.
+
+109
+00:08:03,950 --> 00:08:08,550
+So this leads to the situation that
+we have to deal with four forces.
+
+110
+00:08:09,780 --> 00:08:11,190
+If you look at a plane,
+
+111
+00:08:11,190 --> 00:08:15,740
+there are these four forces that you
+see here that keep a plane in the air.
+
+112
+00:08:17,630 --> 00:08:21,430
+If we look at process mining,
+there are similarly four types of forces.
+
+113
+00:08:21,430 --> 00:08:24,650
+Fitness, we've already
+discussed that a bit before.
+
+114
+00:08:25,760 --> 00:08:27,280
+But, it's not only fitness.
+
+115
+00:08:27,280 --> 00:08:31,350
+It's not only important whether the
+observed behavior is possible according to
+
+116
+00:08:31,350 --> 00:08:32,270
+the model.
+
+117
+00:08:32,270 --> 00:08:35,650
+The model should also be as simple
+as possible, Occam's razor.
+
+118
+00:08:37,250 --> 00:08:39,630
+The model should be precise.
+
+119
+00:08:39,630 --> 00:08:41,350
+It should not allow for
+
+120
+00:08:41,350 --> 00:08:46,820
+all kinds of behavior unrelated to
+the event data that we have seen.
+
+121
+00:08:46,820 --> 00:08:49,900
+And at the same time,
+it should not be overfitting.
+
+122
+00:08:49,900 --> 00:08:52,080
+So it should be general enough.
+
+123
+00:08:52,080 --> 00:08:54,140
+So, process mining needs to
+
+124
+00:08:55,280 --> 00:08:58,550
+find a balance between these
+four forces that you see here.
+
+125
+00:08:59,710 --> 00:09:03,920
+Well it's best to explain
+this using a small log.
+
+126
+00:09:03,920 --> 00:09:08,730
+What you see here are traces and
+the corresponding frequency.
+
+127
+00:09:08,730 --> 00:09:13,230
+So the first trace acdeh
+happened 455 times.
+
+128
+00:09:13,230 --> 00:09:17,740
+The second one, 191, etcetera.
+
+129
+00:09:17,740 --> 00:09:26,060
+So we can see that in total,
+we have observed 21 different traces.
+
+130
+00:09:26,060 --> 00:09:27,400
+And together if we
+
+131
+00:09:27,400 --> 00:09:31,130
+count also the fact that a certain
+trace can happen multiple times,
+
+132
+00:09:31,130 --> 00:09:38,220
+there were almost 1400 traces, but
+there were only 21 different ones.
+
+133
+00:09:38,220 --> 00:09:42,160
+So, what is now a good model for
+such a log?
+
+134
+00:09:42,160 --> 00:09:45,590
+Here I show you a model that looks okay.
+
+135
+00:09:45,590 --> 00:09:51,090
+Given this data set it seems to be
+very related to the process model.
+
+136
+00:09:52,270 --> 00:09:56,530
+We can now look again at the dimensions
+that I mentioned before.
+
+137
+00:09:56,530 --> 00:10:00,350
+So every trace in the log
+fits into this model.
+
+138
+00:10:00,350 --> 00:10:03,559
+I can replay it from beginning
+to end without any problems.
+
+139
+00:10:05,410 --> 00:10:07,500
+The model is also simple.
+
+140
+00:10:08,650 --> 00:10:11,500
+There are not too many nodes and,
+and connections.
+
+141
+00:10:12,760 --> 00:10:15,800
+We can also look at
+the notion of precision.
+
+142
+00:10:15,800 --> 00:10:20,360
+And if we look at precision, we will
+see that this model seems to be okay.
+
+143
+00:10:22,310 --> 00:10:24,410
+Last but not least,
+we can look at generalization.
+
+144
+00:10:24,410 --> 00:10:26,000
+Is it general enough?
+
+145
+00:10:26,000 --> 00:10:28,575
+And it is not overfitting
+on the 21 cases.
+
+146
+00:10:29,890 --> 00:10:32,870
+Well, it is a bit difficult to argue that
+
+147
+00:10:32,870 --> 00:10:37,820
+this model is good by not having
+defined any metrics, but we can look at
+
+148
+00:10:37,820 --> 00:10:42,019
+some extreme cases of models that have
+a problem in one of these four areas.
+
+149
+00:10:43,150 --> 00:10:47,680
+For example, this event log and
+this model if we compare it,
+
+150
+00:10:47,680 --> 00:10:53,600
+we will see that the model is non-fitting,
+only the most frequent trace fits.
+
+151
+00:10:53,600 --> 00:10:57,690
+All the other traces do
+not fit into this model.
+
+152
+00:10:57,690 --> 00:10:59,880
+So it doesn't fit very well.
+
+153
+00:11:01,090 --> 00:11:05,920
+And so fitness is bad,
+simplicity is good, precision is good.
+
+154
+00:11:05,920 --> 00:11:09,200
+It does not allow for
+all kinds of behavior that we did not see.
+
+155
+00:11:09,200 --> 00:11:10,840
+Generalization is poor.
+
+156
+00:11:10,840 --> 00:11:17,810
+It is very likely that the next
+observation will not fit into this model.
+
+157
+00:11:19,890 --> 00:11:23,120
+Let's take a look at
+another extreme example.
+
+158
+00:11:23,120 --> 00:11:25,620
+This is what we call a flower model.
+
+159
+00:11:27,420 --> 00:11:30,530
+Apart from the initial activity and
+
+160
+00:11:30,530 --> 00:11:36,420
+the final two activities, anything can
+happen in between any number of times.
+
+161
+00:11:36,420 --> 00:11:39,230
+So, this allows for many behaviors.
+
+162
+00:11:39,230 --> 00:11:43,870
+Also many behaviors that are completely
+unrelated to what we have seen in the log.
+
+163
+00:11:44,950 --> 00:11:49,500
+And so for example,
+we can have to trace a, b, b, b, g.
+
+164
+00:11:49,500 --> 00:11:54,610
+And if you look at the log, you will
+agree with me that that is very unlikely.
+
+165
+00:11:54,610 --> 00:11:59,720
+So despite this problem,
+the model has perfect fitness.
+
+166
+00:11:59,720 --> 00:12:03,140
+All of the traces can be
+replayed from beginning to end.
+
+167
+00:12:03,140 --> 00:12:09,200
+It is also very simple,
+but it lacks precision.
+
+168
+00:12:09,200 --> 00:12:12,090
+It is under-fitting the data set.
+
+169
+00:12:12,090 --> 00:12:16,190
+it allows for much more behavior
+unrelated to what we have see before.
+
+170
+00:12:16,190 --> 00:12:18,300
+On the other hand, generalization is good.
+
+171
+00:12:19,628 --> 00:12:24,960
+So under-fitting models have a problem
+with respect to precision in
+
+172
+00:12:24,960 --> 00:12:30,380
+a way the model allows for too much,
+much more behavior than what we have seen.
+
+173
+00:12:32,270 --> 00:12:35,160
+This is an example of
+an over-fitting model.
+
+174
+00:12:35,160 --> 00:12:38,390
+It has the the opposite problem.
+
+175
+00:12:38,390 --> 00:12:43,840
+What I did here is I just listed the 21
+different traces that we have seen, and
+
+176
+00:12:43,840 --> 00:12:45,980
+we have to choose one of these 21 paths.
+
+177
+00:12:45,980 --> 00:12:51,950
+So if we take a look at this model,
+we will see that the fitness is good.
+
+178
+00:12:51,950 --> 00:12:55,990
+All the observed behavior
+fits into this model,
+
+179
+00:12:55,990 --> 00:12:59,530
+but it is far from simple,
+it is very complicated.
+
+180
+00:13:01,080 --> 00:13:02,260
+It has a good precision.
+
+181
+00:13:02,260 --> 00:13:06,870
+It's not allowing for behavior completely
+different from what we have seen, but
+
+182
+00:13:06,870 --> 00:13:11,810
+the key point here is that
+generalization is poor.
+
+183
+00:13:11,810 --> 00:13:15,170
+The model just allows for
+
+184
+00:13:15,170 --> 00:13:19,420
+the example behavior that we have seen and
+nothing more.
+
+185
+00:13:19,420 --> 00:13:22,450
+So we call this an over-fitting model and
+
+186
+00:13:22,450 --> 00:13:28,190
+a the definition of an over-fitting model
+is that there is a high likelihood that
+
+187
+00:13:28,190 --> 00:13:34,210
+the next trace that we will observe
+will actually not fit into the model.
+
+188
+00:13:34,210 --> 00:13:36,300
+So the model has a poor predictive power.
+
+189
+00:13:38,230 --> 00:13:44,490
+So let's see what this means
+using some small examples and
+
+190
+00:13:44,490 --> 00:13:47,340
+I would like to ask you some
+questions about these examples.
+
+191
+00:13:47,340 --> 00:13:52,490
+Consider this event log, where a,
+c, e happen 77 times, b, c,
+
+192
+00:13:52,490 --> 00:13:58,560
+d 92 times and we have this model and
+now, we compare these two.
+
+193
+00:13:58,560 --> 00:14:03,210
+Is the fitness of this model good or
+bad with respect to this log?
+
+194
+00:14:09,250 --> 00:14:13,110
+The answer is that the fitness is bad.
+
+195
+00:14:13,110 --> 00:14:14,460
+Why is it bad?
+
+196
+00:14:14,460 --> 00:14:17,180
+None of the traces that we have seen in
+
+197
+00:14:17,180 --> 00:14:21,120
+the log is actually possible
+according to this model.
+
+198
+00:14:21,120 --> 00:14:25,990
+So it's the model allows for
+a, c, d, but not a, c, e.
+
+199
+00:14:25,990 --> 00:14:29,920
+The model allows for b, c,
+e, but not for b, c, d.
+
+200
+00:14:31,034 --> 00:14:33,860
+So it's clear that the fitness
+is bad in this example.
+
+201
+00:14:34,870 --> 00:14:36,740
+Let's take a look at another example.
+
+202
+00:14:37,860 --> 00:14:42,780
+Again, you can see an event log,
+you can see a process model.
+
+203
+00:14:42,780 --> 00:14:44,952
+Is the precision good or bad?
+
+204
+00:14:49,223 --> 00:14:52,340
+The answer is, the precision is good.
+
+205
+00:14:53,440 --> 00:14:55,090
+Why is it good?
+
+206
+00:14:55,090 --> 00:14:59,080
+It is good because the model
+does not allow for
+
+207
+00:14:59,080 --> 00:15:02,910
+free behavior very different from
+what we have seen in the log.
+
+208
+00:15:02,910 --> 00:15:04,450
+So it's not underfitting.
+
+209
+00:15:06,040 --> 00:15:07,490
+Let's take a look at another model.
+
+210
+00:15:09,950 --> 00:15:11,300
+Look at the model now.
+
+211
+00:15:11,300 --> 00:15:13,080
+Is the precision good or bad?
+
+212
+00:15:17,570 --> 00:15:21,100
+The answer is that the precision is bad.
+
+213
+00:15:21,100 --> 00:15:22,480
+Why is it bad?
+
+214
+00:15:22,480 --> 00:15:23,250
+It allows for
+
+215
+00:15:23,250 --> 00:15:28,290
+all kinds of traces, very different
+from the behavior that we have seen.
+
+216
+00:15:28,290 --> 00:15:32,875
+If you take a look at the event log,
+it is very unlikely that we could do
+
+217
+00:15:32,875 --> 00:15:38,272
+ten c's in a row, whereas if we look at
+this model, that is perfectly possible.
+
+218
+00:15:40,408 --> 00:15:42,660
+Another example.
+
+219
+00:15:42,660 --> 00:15:47,010
+Note that the traces now
+are very infrequent.
+
+220
+00:15:47,010 --> 00:15:53,721
+So the question is, is this model general
+enough, if we compare it to the event log?
+
+221
+00:15:57,291 --> 00:15:59,020
+The answer is no.
+
+222
+00:15:59,020 --> 00:16:01,030
+Generalization is bad.
+
+223
+00:16:01,030 --> 00:16:04,660
+We have seen only five example traces.
+
+224
+00:16:04,660 --> 00:16:09,810
+So it is very likely that if we would
+take a look at the sixth trace that
+
+225
+00:16:09,810 --> 00:16:13,790
+it would have a behavior different
+from what we have seen before.
+
+226
+00:16:13,790 --> 00:16:18,980
+Generalization is a very difficult notion
+because it reasons about behavior.
+
+227
+00:16:18,980 --> 00:16:20,120
+That we did not see yet.
+
+228
+00:16:21,330 --> 00:16:24,390
+Think about the discussion that we
+had at the beginning of this lecture.
+
+229
+00:16:26,720 --> 00:16:31,660
+Another example, we see these traces.
+
+230
+00:16:31,660 --> 00:16:33,610
+Is generalization good or bad?
+
+231
+00:16:37,590 --> 00:16:40,080
+The answer is generalization is good.
+
+232
+00:16:40,080 --> 00:16:45,850
+The model is not overfitting and we see
+all of these things happened frequently.
+
+233
+00:16:47,180 --> 00:16:51,090
+So there's no reason to believe
+that the next observation will be
+
+234
+00:16:51,090 --> 00:16:54,270
+very different from what is
+currently allowed by the model.
+
+235
+00:16:56,850 --> 00:16:59,240
+Let's take a look at
+the notion of simplicity.
+
+236
+00:16:59,240 --> 00:17:01,660
+We have again an event log and a model.
+
+237
+00:17:01,660 --> 00:17:03,724
+Is the model simple enough?
+
+238
+00:17:07,561 --> 00:17:08,790
+The answer is no.
+
+239
+00:17:08,790 --> 00:17:12,950
+Simplicity is bad because the model
+is overly complicated and
+
+240
+00:17:12,950 --> 00:17:15,830
+specific for this particular log.
+
+241
+00:17:15,830 --> 00:17:21,340
+So we have seen that b can be repeated
+up to four times in our example log,
+
+242
+00:17:21,340 --> 00:17:24,769
+but it could easily happen that
+it is repeated five or six times.
+
+243
+00:17:28,530 --> 00:17:33,490
+Simplicity, is it good or bad if you
+look at this model and this event log?
+
+244
+00:17:37,840 --> 00:17:39,550
+In this case, simplicity is good.
+
+245
+00:17:39,550 --> 00:17:44,467
+The model is very simple and
+is not overfitting or
+
+246
+00:17:44,467 --> 00:17:49,850
+overly complicated compared
+to what we have seen before.
+
+247
+00:17:49,850 --> 00:17:53,360
+So this is using the principle
+of Occam's razor.
+
+248
+00:17:53,360 --> 00:17:56,400
+If there is a simple explanation, then we
+
+249
+00:17:56,400 --> 00:18:01,610
+choose the simple explanation rather
+than a complicated large involved model.
+
+250
+00:18:03,930 --> 00:18:08,300
+So in this lecture, I've shown you
+that there are these four forces, and
+
+251
+00:18:08,300 --> 00:18:13,760
+I hope that you can see that it is
+not easy to define them precisely.
+
+252
+00:18:13,760 --> 00:18:20,250
+In later courses, we will provide metrics
+to quantify these different dimensions and
+
+253
+00:18:20,250 --> 00:18:24,749
+we will mostly focus on fitness, but
+all four of them are very important.
+
+254
+00:18:27,320 --> 00:18:33,730
+The modeling language that we are using
+is an element which is very important and
+
+255
+00:18:33,730 --> 00:18:37,260
+in later lectures,
+we will start looking at the so
+
+256
+00:18:37,260 --> 00:18:41,190
+called representational
+bias of process mining.
+
+257
+00:18:41,190 --> 00:18:44,740
+So, whether the model allows for
+concurrency, OR-joins,
+
+258
+00:18:44,740 --> 00:18:49,410
+cancellation, priorities,
+duplicate activities is very important and
+
+259
+00:18:49,410 --> 00:18:54,800
+it is related to the four forces
+that we have seen in this lecture.
+
+260
+00:18:56,090 --> 00:18:59,640
+If you would like to read more
+about these four forces and
+
+261
+00:18:59,640 --> 00:19:02,890
+see more examples,
+please take a look at these two chapters.
+
+262
+00:19:05,390 --> 00:19:08,549
+Thank you for watching this lecture,
+see you next time.
+
+263
+00:19:08,549 --> 00:19:18,549
+[MUSIC]
+

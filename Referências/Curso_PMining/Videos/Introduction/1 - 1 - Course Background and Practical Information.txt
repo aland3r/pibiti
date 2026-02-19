@@ -1,0 +1,278 @@
+[MUSIC]
+Welcome to this course, process mining,
+data science in action.
+The goal of this short movie is to provide
+you with some background information on
+the instructors, the organizations,
+organizing this course, and
+some practical information.
+TU/e is the university
+organizing this MOOC.
+TU/e is one of the leading technical
+universities in Europe and
+it has a rich history in engineering.
+For example, in computer science Dyskra a
+famous touring award winner, worked here.
+He was, for example, the person that
+invented the shortest path algorithm.
+But there are not only
+scientists in this region.
+In the broader Eindhoven region,
+which is called Brainport,
+there are many high tech companies
+like Phillips, ASML and many others.
+So it's a vibrant region with many
+organizations producing and using data.
+That is the reason why this university
+started the Data Science Center in 2013.
+The Data Science Center
+is a virtual organization
+consisting of 25 research groups
+covering all aspect of data science.
+So in the yellow box you see
+the disciplines that are involved
+to produce data and
+to handle large volumes of events.
+In the red box you see all
+kinds of disciplines related to
+analysing event data.
+And of course, process mining,
+the topic of this course,
+is a very important ingredient in this.
+In the green box, you can see
+the context part of data signs.
+So in the end, we would like data
+signs to be used in practice.
+So we need to think about ethical
+aspects and the business value of data.
+Let's tell a bit about myself.
+So my name is Will van der Aalst.
+You can see here a picture of my favorite
+hobby, walking and climbing in the Alps.
+I'm 48 years old.
+I, I'm married.
+I have four children.
+And if I'm not walking
+in the mountains and
+spending time with my family,
+I'm having these roles.
+So, I'm a professor at
+the Technical University of Einthoven.
+I also have part-time appointments
+off at the other side of the world.
+For example I am a joint professor at QUT,
+that"s Queenswood University
+of Technology in Brisbane, and
+I am the Scientific Director of a lab in
+Moscow at the High School of Economics.
+I am also the scientific director of
+the data science center at Intel.
+So in the last 25 years,
+I've been working on these topics.
+So I started working more in the area of
+modeling and using models toward analysis.
+And in recent years, I've moved more
+to data driven types of analysis,
+like process mining,
+an essential ingredient for data sites.
+Now I would like to hand
+over to Joos Buijs,
+who will tell you much more about the
+practical things, related to this course.
+>> Thank you very much Will, so
+my name is Indie Joos Buijs,
+I did my master's here in Angova, and
+I recently defended my PHD thesis on
+process mining also here in Angova.
+And currently I'm a postdoctoral
+researcher in a group of So
+a little bit about my hobbies
+outside of work and so
+I like to watch Pixar movies and
+everything involved.
+I like to visit theme parks and
+one of my reasons,
+most recent hobbies is playing with
+my eight month old daughter and
+together with my wife and my daughter
+explore the world a little bit.
+But this is not about me.
+Let's talk about the course.
+So in the next couple of slides I'll
+explain a little bit more about
+the details of the course.
+You can also find this in the study
+guide and in the grading policy.
+This video is just a brief introduction,
+more details are in these documents.
+And if there are any, if there's any
+inconsistency the documents prevail.
+But this is just to get you into the into
+the course and what you can expect.
+So there are six weeks of video lectures.
+Per weeks we have roughly eight
+videos of eight to 15 minutes each.
+the, several topics that we discuss.
+So there's a brief introduction and
+general data mining things.
+Then we go into the models and
+pros of discovery.
+Then in week three you get little
+bit of better understanding of
+the different types of
+process models there are.
+This is followed in week four
+by more discovery techniques and
+also conformance checking techniques.
+In week five we look at how you can enrich
+the process models, and in week six
+we discuss operational support and we
+also conclude this lecture, this course.
+So learning objectives.
+After this course I hope you see how
+process mining fits in the big scheme.
+Of all the techniques like simulation,
+machine learning machine learning and
+data mining.
+but, and also we hope that you see what
+different aspects process mining entails.
+So you can do process discovery,
+conformance checking, and
+in the end,
+hopefully you can also actually do
+a process mining project from beginning to
+end, including data gathering and such.
+In this course you can
+get two certificates.
+So the normal certificate you
+get when you have 35 out of
+50 points you can get with the week and
+the final quiz.
+So every week there will be a week quiz
+where you can get five points four, and
+there's a final quiz worth 20 points, and
+if you get enough points on these quizzes,
+you get the normal certificate.
+If you would like to obtain
+the certificate with distinction then do,
+do these week of final quizzes.
+But also do a Tool Quiz where you
+experiment with the tools that we use.
+And also you have to do a Peer Assignment
+which, which I will explain later.
+And, if you want to get
+the Certificate with Distinction,
+you have to earn at least
+80 out of 100 points.
+So, in more detail that's several quizzes.
+So every week there's a week quiz
+covering the topics of that week.
+Here you can earn five points per quiz.
+And a quiz contains of ten
+multiple choice questions.
+There's no timing, and you get two
+attempts and the highest score counts.
+At the end of this course
+you have a final quiz.
+This allows you to earn 20 points.
+it, you get 20 multiple choice questions
+and there's one timed attempt.
+Then if you want to go to, for
+the certificate with distinction you
+have a tool quiz worth 10 points,
+which is an untimed quiz of 20 questions.
+Then next to this is a peer assignment.
+You can earn 40 points.
+It will start end of week three
+early week four, and the goal is to
+write a process mining report using one
+of the data sets that we will provide.
+We will also proved a report template
+in Boleta and Word document.
+And you can use this to analyze
+the data and write your findings.
+Then you have to submit it.
+And then you have to also evaluate
+three other reports using criteria that
+we provide.
+And in a similar way,
+your report is evaluated by three
+peers based on the same criteria.
+For the peer assignment,
+you can use these two tools.
+So on the one hand we
+have the ProM framework.
+This is an academic tool, with many
+plug-ins and model types supported.
+It started here at this University, but
+many researchers and practitioners from
+around the globe have contributed to it.
+And you can obtain it at
+the processmining.org web site.
+On the other end, you have Disco,
+which is a commercial tool.
+It's simple, fast and easy and
+it mainly supports fuzzy models.
+And in another video I'll
+explain more about Disco, but
+you can install it from fluxicon.com.
+Next to this we have also a forum,
+please use this to ask for
+any help and
+report issues that you have with tools.
+So use this to discuss any things or
+insights that you've gained
+also with fellow students.
+Even also use this to arrange meetups so
+arrange a local meetup
+where you'll meet with other students
+to discuss things in person.
+We will monitor this forum, so
+we hope that you among yourself start
+a discussion and answer the questions.
+But three of our PhDs in this group and
+myself will monitor this.
+So Eduardo, Shengnan, and
+Maikel will answer any questions
+that are remain, that remain open.
+And I will also have a look on the forum.
+So please use the forum to
+kind of meet each other.
+The scores is mainly based on
+the process mining book, so in,
+at the end of each video, we'll, we'll
+point out which chapter we were covered.
+Some chapters will be provided to you for
+free.
+But you can buy the whole
+book either physical or
+digital, using a discount
+kindly offered by Springer.
+Only for
+students participating in this MOOC.
+Well that's it from the more
+organizational side
+I really encourage you
+to watch all the videos,
+learn all the tools that we have so
+can analyze your own data.
+But please be aware this is
+only the tip of the iceberg.
+For each technique that is discussed, we
+did a lot of reasearch, and there's a lot
+of mu, more detail available in scientific
+papers that you can, find online.
+So if you find something that you want to
+learn more about outside of this book,
+then please, look online, and there's much
+more knowledge that we can share with you.
+So, to conclude to this
+introductionary lecture have a lot of
+fun in the coming six weeks.
+Watch the videos, make the quizzes.
+Do the assignment.
+And I hope to meet you
+a little bit on the forum.
+Have fun.
+[MUSIC]
+

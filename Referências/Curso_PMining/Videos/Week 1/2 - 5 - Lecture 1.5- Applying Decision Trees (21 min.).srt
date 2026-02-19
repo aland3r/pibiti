@@ -1,0 +1,1245 @@
+1
+00:00:00,172 --> 00:00:07,151
+[MUSIC]
+
+2
+00:00:07,151 --> 00:00:08,490
+Welcome to this lecture.
+
+3
+00:00:08,490 --> 00:00:11,140
+Today we will continue
+with decision trees.
+
+4
+00:00:11,140 --> 00:00:13,860
+The last lecture presented
+the main concepts.
+
+5
+00:00:13,860 --> 00:00:16,320
+Today, we show more examples and
+
+6
+00:00:16,320 --> 00:00:19,650
+focus on the application of
+such classification techniques.
+
+7
+00:00:20,810 --> 00:00:25,900
+Here you can see the running example
+that we have used in the last lecture.
+
+8
+00:00:25,900 --> 00:00:28,140
+Using the notion of entropy,
+
+9
+00:00:28,140 --> 00:00:34,990
+we were splitting notes into smaller
+notes until they were more homogenous.
+
+10
+00:00:34,990 --> 00:00:39,020
+In such a way that we could understand
+the data in a better way, and
+
+11
+00:00:39,020 --> 00:00:40,230
+we could make predictions.
+
+12
+00:00:41,920 --> 00:00:46,570
+Today we will look at much more
+examples to get a better understanding,
+
+13
+00:00:46,570 --> 00:00:49,220
+what the decision tree is,
+and how it can be used.
+
+14
+00:00:51,350 --> 00:00:55,680
+So let's take a look at this small
+example, where we have a group of
+
+15
+00:00:55,680 --> 00:01:01,000
+160 students 100 of these 160
+students passed, 60 failed.
+
+16
+00:01:01,000 --> 00:01:05,860
+Suppose that we know
+the gender of these students.
+
+17
+00:01:05,860 --> 00:01:08,290
+We know whether they are smoking or no.
+
+18
+00:01:08,290 --> 00:01:11,080
+We know whether they
+are attending lectures.
+
+19
+00:01:11,080 --> 00:01:14,940
+Can we then predict whether
+students are going to pass or
+
+20
+00:01:14,940 --> 00:01:17,249
+fail based on these attributes?
+
+21
+00:01:20,300 --> 00:01:25,920
+We can do this by building
+a decision tree and whenever we
+
+22
+00:01:25,920 --> 00:01:31,450
+want to split a node, in this case a root
+node we want to know what the entropy is.
+
+23
+00:01:31,450 --> 00:01:35,260
+So if we would like to split
+on the attribute smoker.
+
+24
+00:01:35,260 --> 00:01:38,960
+We are interested to see what
+the information gain is.
+
+25
+00:01:38,960 --> 00:01:44,340
+On this slide you can see the numbers
+indicating for the people that smoke and
+
+26
+00:01:44,340 --> 00:01:45,430
+do not smoke.
+
+27
+00:01:45,430 --> 00:01:49,060
+How many people passed and
+how many people did not pass.
+
+28
+00:01:51,200 --> 00:01:55,970
+So please compute the information
+gain of this split.
+
+29
+00:01:58,740 --> 00:02:01,220
+The answer can be computed as follows.
+
+30
+00:02:01,220 --> 00:02:05,500
+First we take a look at the root node,
+we apply the standard formula for
+
+31
+00:02:05,500 --> 00:02:10,540
+entropy, and
+we find that the entropy is 0.95.
+
+32
+00:02:10,540 --> 00:02:14,760
+Then we split based on
+the attribute smoker.
+
+33
+00:02:14,760 --> 00:02:20,180
+We get two smaller groups and for
+each group we compute the entropy.
+
+34
+00:02:20,180 --> 00:02:24,390
+So for one group it is 0.95.
+
+35
+00:02:24,390 --> 00:02:29,174
+For the other group it is also 0.95.
+
+36
+00:02:29,174 --> 00:02:33,590
+So the entropy values in both of the leaf
+
+37
+00:02:33,590 --> 00:02:37,389
+nodes did not go down,
+compared to the root node.
+
+38
+00:02:38,940 --> 00:02:43,810
+To compute the overall entropy,
+we need to take the weighted average, and
+
+39
+00:02:43,810 --> 00:02:47,960
+if we do that, we get the entropy for
+the root node.
+
+40
+00:02:49,660 --> 00:02:52,435
+And of course it is also 0.95.
+
+41
+00:02:52,435 --> 00:02:58,180
+And if we compute the weighted
+average of the entropy of the two
+
+42
+00:02:58,180 --> 00:03:01,390
+new leaf nodes we find
+exactly the same value.
+
+43
+00:03:02,620 --> 00:03:07,270
+So there is no information gain, and
+actually there was no need to do all of
+
+44
+00:03:07,270 --> 00:03:12,770
+these computations because we
+could see that the fraction within
+
+45
+00:03:12,770 --> 00:03:17,020
+the two child nodes was exactly
+the same as it was before, so
+
+46
+00:03:17,020 --> 00:03:18,910
+we did not gain any information.
+
+47
+00:03:20,700 --> 00:03:24,090
+Let us therefore take a look
+at another attribute.
+
+48
+00:03:24,090 --> 00:03:29,480
+We can split the set of all students
+into the students that are male and
+
+49
+00:03:29,480 --> 00:03:31,600
+the students that are female.
+
+50
+00:03:31,600 --> 00:03:36,740
+And we now can see that the fractions are
+different from females compared to males.
+
+51
+00:03:37,830 --> 00:03:40,370
+So the question is,
+what is the information gain?
+
+52
+00:03:42,380 --> 00:03:48,105
+To compute the answer we need to compare
+the original entropy of the root
+
+53
+00:03:48,105 --> 00:03:54,740
+node with the weighted average
+of the entropy of the two new leaf nodes.
+
+54
+00:03:54,740 --> 00:03:58,549
+This is the entropy of one leaf node.
+
+55
+00:03:59,800 --> 00:04:03,440
+This is the entropy of
+the other leaf node.
+
+56
+00:04:03,440 --> 00:04:08,760
+We can take the weighted average
+of these two values, and
+
+57
+00:04:08,760 --> 00:04:14,460
+if we do so we can see that there
+is actually a change in entropy.
+
+58
+00:04:14,460 --> 00:04:18,270
+Unlike based on the label
+smoker we can see that there
+
+59
+00:04:18,270 --> 00:04:23,330
+is a considerable information gain of 0.2.
+
+60
+00:04:23,330 --> 00:04:29,620
+And so, we are seeing here,
+if we inspect the decision tree,
+
+61
+00:04:29,620 --> 00:04:33,070
+that females typically have
+a better study result.
+
+62
+00:04:33,070 --> 00:04:37,970
+So by splitting on this label for
+the group of females,
+
+63
+00:04:37,970 --> 00:04:43,210
+we know we can better predict
+what their study results will be.
+
+64
+00:04:45,940 --> 00:04:50,550
+As a last label we look at
+the attribute attended all lectures.
+
+65
+00:04:50,550 --> 00:04:56,050
+So people that attended all lectures
+we make a prediction for those and
+
+66
+00:04:56,050 --> 00:05:01,560
+we also make a prediction for the people
+that did not attend all lectures.
+
+67
+00:05:01,560 --> 00:05:04,110
+So the question is what is
+the information gain?
+
+68
+00:05:05,220 --> 00:05:07,990
+Again, we can do the same computations.
+
+69
+00:05:07,990 --> 00:05:12,960
+So, we can compare the original
+entropy of the root node
+
+70
+00:05:12,960 --> 00:05:17,540
+with the weighted average of
+the entropies of the two child nodes.
+
+71
+00:05:18,570 --> 00:05:22,280
+So, for one child node it is 0.81.
+
+72
+00:05:22,280 --> 00:05:27,961
+For the other child node it's 0.
+
+73
+00:05:27,961 --> 00:05:33,180
+So people that attended all
+lectures always passed so
+
+74
+00:05:33,180 --> 00:05:36,095
+that's why the entropy within
+this group is equal to 0.
+
+75
+00:05:37,790 --> 00:05:42,910
+Again we need to compare the weighted
+averages of the original situation and
+
+76
+00:05:42,910 --> 00:05:48,590
+the situation after splitting and
+if we do that we get these values.
+
+77
+00:05:48,590 --> 00:05:52,550
+And we can see that there is
+a considerable information gain
+
+78
+00:05:52,550 --> 00:05:57,800
+by splitting based on this
+particular attribute.
+
+79
+00:05:57,800 --> 00:06:01,590
+So the information gain is 0.54.
+
+80
+00:06:01,590 --> 00:06:06,870
+If we now compare the three
+attributes based on
+
+81
+00:06:06,870 --> 00:06:11,660
+which we could split,
+it is clear that splitting based on
+
+82
+00:06:11,660 --> 00:06:17,270
+whether all lectures were attended
+provides the best information.
+
+83
+00:06:17,270 --> 00:06:23,170
+So if we build a decision tree,
+it is reasonable to start
+
+84
+00:06:23,170 --> 00:06:27,660
+with this particular attribute, and then
+see whether we need to split other nodes.
+
+85
+00:06:29,460 --> 00:06:35,870
+So if we take a look at the decision tree
+after one split, attended all lectures,
+
+86
+00:06:37,200 --> 00:06:43,690
+then we find one group which we
+classify as pass where no further
+
+87
+00:06:43,690 --> 00:06:48,430
+information gain is possible because all
+the instances are classified correctly.
+
+88
+00:06:49,850 --> 00:06:51,640
+If you take a look,
+at the other group,
+
+89
+00:06:51,640 --> 00:06:55,130
+the people that did not attend all
+lectures, we can still look at
+
+90
+00:06:55,130 --> 00:06:59,775
+the other attributes to see whether
+we can achieve more information gain.
+
+91
+00:07:03,760 --> 00:07:08,040
+All of this can be seen best
+by simply applying a tool.
+
+92
+00:07:08,040 --> 00:07:11,860
+So in this course we will often use
+examples taken from RapidMiner.
+
+93
+00:07:12,980 --> 00:07:15,990
+The installation of RapidMiner
+is optional, but
+
+94
+00:07:15,990 --> 00:07:21,405
+if you would like to play with these
+ideas using software in the lecture
+
+95
+00:07:21,405 --> 00:07:25,630
+guide you can see how to install it,
+where to get it, and how to use it.
+
+96
+00:07:26,650 --> 00:07:32,240
+RapidMiner is an integrated extendable
+environment for machine learning and
+
+97
+00:07:32,240 --> 00:07:37,480
+all kinds of other types of
+analysis that are focusing on data.
+
+98
+00:07:39,520 --> 00:07:42,920
+RapidMiner also has
+a so-called marketplace.
+
+99
+00:07:42,920 --> 00:07:46,480
+And there you can also download to so
+called ProM extension.
+
+100
+00:07:46,480 --> 00:07:51,250
+So in RapidMiner, you can also
+do process mining using many of
+
+101
+00:07:51,250 --> 00:07:53,640
+the techniques that you
+will see in later lectures.
+
+102
+00:07:55,580 --> 00:07:58,025
+There are two versions,
+there are commercial and
+
+103
+00:07:58,025 --> 00:08:02,037
+open-source version and
+we are using here the open-source version.
+
+104
+00:08:03,990 --> 00:08:06,630
+So, let's take a look at an example.
+
+105
+00:08:06,630 --> 00:08:12,300
+So we take a data set, you can see
+it's a simple CSV file where we have
+
+106
+00:08:12,300 --> 00:08:17,626
+a column gender, a column age,
+a column smoker, a column car brand,
+
+107
+00:08:17,626 --> 00:08:23,110
+and a column claim and
+the latter deserves some explanation.
+
+108
+00:08:23,110 --> 00:08:28,550
+This is a variable indicating whether
+somebody has claimed insurance,
+
+109
+00:08:28,550 --> 00:08:30,780
+car insurance, in the last year.
+
+110
+00:08:31,920 --> 00:08:35,470
+So for example the first row
+in this table says there is a,
+
+111
+00:08:35,470 --> 00:08:41,650
+a female customer that has insurance,
+age 47, is a smoker,
+
+112
+00:08:41,650 --> 00:08:47,040
+drives a Volvo, and she did not claim
+any insurance in the last year.
+
+113
+00:08:48,430 --> 00:08:50,670
+So if we take such a data set,
+
+114
+00:08:50,670 --> 00:08:55,220
+we are interested in seeing which
+people are claiming insurance.
+
+115
+00:08:55,220 --> 00:08:56,180
+Can we predict that?
+
+116
+00:08:57,630 --> 00:09:00,320
+So the,
+we took a data set of 999 customers of
+
+117
+00:09:00,320 --> 00:09:05,690
+an insurance company to
+learn these types of things.
+
+118
+00:09:07,670 --> 00:09:12,110
+So we would like to know which
+customers claim insurance
+
+119
+00:09:12,110 --> 00:09:14,030
+by simply using this CSV file.
+
+120
+00:09:15,560 --> 00:09:21,140
+So, the response variable
+is the column claim.
+
+121
+00:09:21,140 --> 00:09:24,570
+All the other columns correspond
+to predicted variables.
+
+122
+00:09:24,570 --> 00:09:28,830
+And we would like to explain
+the response variable in terms of
+
+123
+00:09:28,830 --> 00:09:29,810
+these predicted valuables.
+
+124
+00:09:31,600 --> 00:09:34,410
+So we can feed this to RapidMiner.
+
+125
+00:09:34,410 --> 00:09:40,500
+So we can simply take this CSV file,
+download it in RapidMiner,
+
+126
+00:09:40,500 --> 00:09:45,900
+then we need to indicate what our
+role is of all the different columns.
+
+127
+00:09:45,900 --> 00:09:51,970
+And after doing that we have loaded
+it in the repository of RapidMiner.
+
+128
+00:09:51,970 --> 00:09:56,010
+And now we can apply all kinds
+of analysis techniques to it.
+
+129
+00:09:56,010 --> 00:10:01,170
+For example,
+a workflow to build a decision tree.
+
+130
+00:10:02,170 --> 00:10:06,880
+So here we see a sketch of this workflow,
+in RapidMiner.
+
+131
+00:10:06,880 --> 00:10:10,800
+So we first load the data,
+then we create a decision tree.
+
+132
+00:10:12,170 --> 00:10:16,530
+Then we apply the decision
+tree to the data set.
+
+133
+00:10:17,640 --> 00:10:20,200
+And then we look at
+the resulting performance.
+
+134
+00:10:22,320 --> 00:10:27,140
+So if we take this data set and
+we apply the workflow just indicated,
+
+135
+00:10:27,140 --> 00:10:29,230
+this is the decision tree that we get.
+
+136
+00:10:30,800 --> 00:10:34,910
+So you can read this decision
+tree just as you did before.
+
+137
+00:10:34,910 --> 00:10:41,260
+So for example, female drivers don't claim
+insurance according to this decision tree.
+
+138
+00:10:43,138 --> 00:10:48,640
+Male Alfa Romeo drivers typically
+claim insurance in the last year
+
+139
+00:10:48,640 --> 00:10:50,950
+as you can see in this decision tree.
+
+140
+00:10:52,760 --> 00:10:56,810
+Male Volvo drivers younger
+than 25 claim insurance.
+
+141
+00:10:56,810 --> 00:11:01,240
+It's another fact that we can
+read from this decision tree.
+
+142
+00:11:01,240 --> 00:11:03,490
+So the decision tree predicts for
+
+143
+00:11:03,490 --> 00:11:07,230
+certain groups of customers
+whether they will claim or not.
+
+144
+00:11:09,240 --> 00:11:12,380
+So what is the quality
+of this decision tree?
+
+145
+00:11:12,380 --> 00:11:14,830
+We were measuring the performance.
+
+146
+00:11:14,830 --> 00:11:21,140
+And if we, after learning the decision
+tree, apply it to the same dataset.
+
+147
+00:11:21,140 --> 00:11:28,630
+We can see that of the 513 females,
+498 actually did not claim.
+
+148
+00:11:28,630 --> 00:11:33,080
+So less than 3% was wrong.
+
+149
+00:11:33,080 --> 00:11:37,478
+If you look at Alfa Romeo drivers,
+there were 90 male
+
+150
+00:11:37,478 --> 00:11:44,230
+Alfa Romeo drivers,
+four did not claim, 86 claimed.
+
+151
+00:11:44,230 --> 00:11:47,170
+The label says they will claim.
+
+152
+00:11:47,170 --> 00:11:48,711
+So less than 5% is wrong.
+
+153
+00:11:50,130 --> 00:11:53,490
+If we look at the group
+of male BMW drivers,
+
+154
+00:11:53,490 --> 00:11:56,900
+we can see that more than 20% is wrong.
+
+155
+00:11:56,900 --> 00:11:59,680
+So we can measure the quality of this
+
+156
+00:11:59,680 --> 00:12:04,560
+classification using the set that we
+have used to learn this decision tree.
+
+157
+00:12:07,330 --> 00:12:12,920
+In this table you can
+see again the data set.
+
+158
+00:12:12,920 --> 00:12:18,640
+But now there is an additional label
+telling what the predicted class is.
+
+159
+00:12:18,640 --> 00:12:22,730
+So, this is the real class and
+this the predicted class.
+
+160
+00:12:24,070 --> 00:12:30,087
+So, if we take a look at the smaller
+fragment of this table one can look at it
+
+161
+00:12:30,087 --> 00:12:36,050
+and try to see, are there any instances
+that are classified incorrectly here.
+
+162
+00:12:38,510 --> 00:12:39,490
+If you do so
+
+163
+00:12:39,490 --> 00:12:46,400
+you will see that row 11 shows an instance
+that was classified incorrectly.
+
+164
+00:12:46,400 --> 00:12:51,740
+A male 43 year old
+non-smoking Subaru driver was
+
+165
+00:12:51,740 --> 00:12:54,650
+predicted to claim but in reality did not.
+
+166
+00:12:56,200 --> 00:13:00,180
+If you look at row 12 you
+will find a similar problem.
+
+167
+00:13:00,180 --> 00:13:05,250
+As our BMW driver that was predicted
+not to claim but actually did claim.
+
+168
+00:13:06,790 --> 00:13:11,930
+So these are examples of where we
+can see that the decision tree
+
+169
+00:13:11,930 --> 00:13:16,470
+is only making a prediction
+that will hold for
+
+170
+00:13:16,470 --> 00:13:20,700
+probably the majority of instances, but
+will not hold for all the instances.
+
+171
+00:13:22,090 --> 00:13:26,859
+You can show this using
+a so-called confusion matrix.
+
+172
+00:13:26,859 --> 00:13:31,480
+So there were 761 customers that were
+
+173
+00:13:31,480 --> 00:13:36,220
+predicted not to claim and
+actually did not claim.
+
+174
+00:13:37,320 --> 00:13:43,850
+There were 24 customers that did not
+claim, but that were predicted to claim.
+
+175
+00:13:43,850 --> 00:13:49,510
+And so the numbers in the green cells,
+they correspond to things that are good.
+
+176
+00:13:50,952 --> 00:13:53,008
+The numbers in the red cell,
+
+177
+00:13:53,008 --> 00:13:58,078
+they indicate two misclassifications
+using the decision tree.
+
+178
+00:14:00,479 --> 00:14:02,790
+Let's take a look at a larger data set.
+
+179
+00:14:02,790 --> 00:14:09,740
+Consider an Italian restaurant, where we
+have 5,000 parties that have a dinner.
+
+180
+00:14:11,610 --> 00:14:15,550
+The menu includes all of these
+dishes that you see here.
+
+181
+00:14:17,590 --> 00:14:23,610
+But unfortunately of these 5,000 parties,
+470 parties had
+
+182
+00:14:23,610 --> 00:14:29,760
+members that got very sick,
+313 parties got nauseous,
+
+183
+00:14:29,760 --> 00:14:34,470
+and the remaining parties did
+not experience any problems.
+
+184
+00:14:34,470 --> 00:14:38,240
+The question is now using
+decision trees can we predict
+
+185
+00:14:40,100 --> 00:14:44,180
+which people will become
+sick after eating what.
+
+186
+00:14:44,180 --> 00:14:47,350
+Or if we look at things in hindsight.
+
+187
+00:14:47,350 --> 00:14:51,550
+We would like to understand what
+are people that got sick or
+
+188
+00:14:51,550 --> 00:14:53,970
+nauseous,
+what they had in common.
+
+189
+00:14:53,970 --> 00:14:57,130
+What was the dish that caused
+all of these problems?
+
+190
+00:14:59,630 --> 00:15:02,350
+Again we can formulate a problem
+in terms of a CSV file.
+
+191
+00:15:02,350 --> 00:15:10,780
+So here you see a data set where all the
+columns correspond to dishes and drinks.
+
+192
+00:15:10,780 --> 00:15:17,630
+The numbers indicate how many times that
+particular dish or drink was ordered.
+
+193
+00:15:17,630 --> 00:15:19,980
+And all the row corresponds to a party.
+
+194
+00:15:19,980 --> 00:15:25,220
+And in total we have 5,000 parties.
+
+195
+00:15:25,220 --> 00:15:30,740
+This is the workflow that we have
+to learn the decision tree problem.
+
+196
+00:15:30,740 --> 00:15:38,050
+Note that all of the parties were
+labeled in one of these three groups.
+
+197
+00:15:38,050 --> 00:15:41,190
+Very sick, not sick, or nauseous.
+
+198
+00:15:42,190 --> 00:15:44,860
+And then we apply this
+workflow on this data.
+
+199
+00:15:44,860 --> 00:15:49,510
+So first, we load the data,
+then we create a decision tree.
+
+200
+00:15:49,510 --> 00:15:52,410
+Then we apply the decision
+tree to the data set and
+
+201
+00:15:52,410 --> 00:15:55,940
+we measure conformance,
+exactly as we did before.
+
+202
+00:15:58,060 --> 00:16:01,417
+We set the minimal
+information gain to 0.1.
+
+203
+00:16:01,417 --> 00:16:05,050
+And so we are using this
+parameter to see when
+
+204
+00:16:05,050 --> 00:16:08,580
+we need to stop
+extending the decision tree.
+
+205
+00:16:10,040 --> 00:16:15,320
+If we do this the RapidMiner
+returns this decision tree.
+
+206
+00:16:15,320 --> 00:16:19,920
+It's showing that people,
+that ate this particular pizza
+
+207
+00:16:22,370 --> 00:16:26,960
+and were drinking beer that
+they typically got very sick.
+
+208
+00:16:26,960 --> 00:16:31,440
+The other parties, according to this
+decision tree, did not become sick.
+
+209
+00:16:32,850 --> 00:16:37,800
+And so people that did not eat
+any pizza marinara were okay,
+
+210
+00:16:37,800 --> 00:16:42,370
+that just ate one pizza,
+they're also still okay.
+
+211
+00:16:42,370 --> 00:16:48,160
+Also the people that were eating
+this particular pizza and
+
+212
+00:16:48,160 --> 00:16:50,820
+not drinking beer,
+they also did not get sick.
+
+213
+00:16:53,340 --> 00:16:58,240
+So this node corresponds to parties
+that ate less than two pizzas marinara,
+
+214
+00:16:58,240 --> 00:17:00,030
+and they did not get sick.
+
+215
+00:17:01,210 --> 00:17:04,920
+This node corresponds to parties
+that ate multiple pizzas marinara,
+
+216
+00:17:04,920 --> 00:17:07,620
+and that drank beer, and got very sick.
+
+217
+00:17:10,180 --> 00:17:14,650
+These are the people that did not
+drink beer and also did not get sick.
+
+218
+00:17:14,650 --> 00:17:16,620
+Just like the people that
+did not eat the pizza.
+
+219
+00:17:17,920 --> 00:17:20,720
+So, the decision tree
+clearly indicates that
+
+220
+00:17:20,720 --> 00:17:25,649
+the combination of pizzas marinara and
+beer caused the sickness.
+
+221
+00:17:28,120 --> 00:17:31,920
+What is remarkable if you look at
+this decision tree is that there were
+
+222
+00:17:31,920 --> 00:17:36,310
+several parties that were
+classified as nauseous.
+
+223
+00:17:36,310 --> 00:17:41,400
+But it is not, there's no class in this
+decision tree that is labeled as such.
+
+224
+00:17:43,890 --> 00:17:47,410
+We can see this if we look
+at the confusion matrix.
+
+225
+00:17:47,410 --> 00:17:52,940
+So in the confusion matrix we
+can see that 307 of the 313
+
+226
+00:17:52,940 --> 00:17:57,940
+parties that were nauseous
+were classified as non sick.
+
+227
+00:17:57,940 --> 00:18:01,330
+The other 6 were classified as very sick.
+
+228
+00:18:01,330 --> 00:18:05,920
+So the decision tree is unable
+to identify this group.
+
+229
+00:18:05,920 --> 00:18:10,260
+Apparently there is not enough
+that they have in common to make
+
+230
+00:18:10,260 --> 00:18:13,260
+a proper prediction for
+this particular class.
+
+231
+00:18:15,230 --> 00:18:21,550
+We can change the information gain and
+continue to split the tree further.
+
+232
+00:18:21,550 --> 00:18:27,490
+So if we set the information gain to
+0.5, this is the decision tree that we get.
+
+233
+00:18:27,490 --> 00:18:32,390
+And you can see that it is
+becoming very complicated and
+
+234
+00:18:32,390 --> 00:18:34,260
+also seems to over fit.
+
+235
+00:18:35,530 --> 00:18:41,880
+For example, if we look at the node
+nauseous, that is labeled as nauseous now.
+
+236
+00:18:41,880 --> 00:18:45,742
+You can see that this refers
+to a very particular group of
+
+237
+00:18:45,742 --> 00:18:49,547
+customers that ate a very
+specific combination of things.
+
+238
+00:18:52,155 --> 00:18:57,813
+We get an improvement, but we get the
+improvement only at the cost of severely
+
+239
+00:18:57,813 --> 00:19:03,570
+over fitting the data, a topic that will
+be addressed also in later lectures.
+
+240
+00:19:05,750 --> 00:19:09,850
+So, we can either classify
+everybody as not sick.
+
+241
+00:19:11,100 --> 00:19:16,360
+We can have a very detailed decision
+tree if we set the information gain to
+
+242
+00:19:16,360 --> 00:19:17,910
+even lower values.
+
+243
+00:19:17,910 --> 00:19:20,690
+We get trees that are bigger and bigger.
+
+244
+00:19:20,690 --> 00:19:24,810
+But these bigger trees,
+they are clearly overfitting.
+
+245
+00:19:24,810 --> 00:19:25,960
+And if we just predict for
+
+246
+00:19:25,960 --> 00:19:30,780
+everybody that they will not get sick
+we have a tree that is underfitting.
+
+247
+00:19:30,780 --> 00:19:35,160
+So the idea of these parameters is to
+balance between these two extremes.
+
+248
+00:19:36,690 --> 00:19:39,750
+It seems that the tree that
+we showed at the beginning
+
+249
+00:19:39,750 --> 00:19:43,280
+provides a reasonable balance between
+underfitting and overfitting.
+
+250
+00:19:45,050 --> 00:19:47,860
+It can be used to understand
+what is happening and
+
+251
+00:19:47,860 --> 00:19:51,160
+it can be used to make predictions or
+recommendations.
+
+252
+00:19:51,160 --> 00:19:54,380
+And this is exactly how we would
+like to use these decision trees.
+
+253
+00:19:57,070 --> 00:20:01,570
+So the last two lectures were
+devoted to decision tree learning.
+
+254
+00:20:01,570 --> 00:20:06,880
+We will look at two additional data
+mining techniques, but much shorter.
+
+255
+00:20:06,880 --> 00:20:10,450
+That will be association rule learning and
+clustering.
+
+256
+00:20:10,450 --> 00:20:13,270
+And these will be addressed in
+the next couple of lectures.
+
+257
+00:20:14,530 --> 00:20:16,569
+As indicated before,
+
+258
+00:20:16,569 --> 00:20:22,913
+chapter three is devoted to these
+different data mining techniques.
+
+259
+00:20:22,913 --> 00:20:25,898
+Thank you for watching and
+hope to see you soon.
+
+260
+00:20:25,898 --> 00:20:34,335
+[MUSIC]
+

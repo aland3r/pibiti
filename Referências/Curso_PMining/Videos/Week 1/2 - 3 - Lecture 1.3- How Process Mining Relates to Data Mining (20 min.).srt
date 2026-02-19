@@ -1,0 +1,1321 @@
+1
+00:00:00,000 --> 00:00:07,508
+[MUSIC]
+
+2
+00:00:07,508 --> 00:00:08,768
+Glad to see you again for
+
+3
+00:00:08,768 --> 00:00:13,560
+this third lecture of the course on
+Process Mining, Data Science in Action.
+
+4
+00:00:13,560 --> 00:00:17,659
+Today, we will see how process
+mining relates to data mining.
+
+5
+00:00:20,150 --> 00:00:23,450
+Process mining,
+as I explained in the last lecture,
+
+6
+00:00:23,450 --> 00:00:27,170
+is the missing link between
+model based analysis,
+
+7
+00:00:27,170 --> 00:00:32,690
+process model based analysis, and
+data oriented analysis like data mining.
+
+8
+00:00:32,690 --> 00:00:36,390
+With the goal to answer
+performance oriented questions and
+
+9
+00:00:36,390 --> 00:00:38,890
+compliance oriented questions.
+
+10
+00:00:38,890 --> 00:00:42,965
+So one can think of process
+mining as super glue.
+
+11
+00:00:42,965 --> 00:00:45,390
+It's the glue between data and processes.
+
+12
+00:00:45,390 --> 00:00:50,195
+It's the glue between business people and
+IT people.
+
+13
+00:00:50,195 --> 00:00:52,600
+It's the glue between
+business intelligence and
+
+14
+00:00:52,600 --> 00:00:54,655
+business process management.
+
+15
+00:00:54,655 --> 00:00:57,410
+It's the glue between performance and
+compliance.
+
+16
+00:00:57,410 --> 00:01:00,850
+And you can do this at runtime,
+and at design time.
+
+17
+00:01:00,850 --> 00:01:05,910
+So it's connecting many different things,
+and that makes it so incredibly valuable.
+
+18
+00:01:07,510 --> 00:01:12,780
+This diagram gives a kind of
+overview showing that process
+
+19
+00:01:12,780 --> 00:01:17,690
+mining is this world, this discipline
+connecting business process
+
+20
+00:01:17,690 --> 00:01:23,020
+management to classical data
+analytics like data mining.
+
+21
+00:01:23,020 --> 00:01:29,580
+And, as we have seen in the last lecture,
+process mining consists of different
+
+22
+00:01:29,580 --> 00:01:34,000
+types of mining, and here you can see
+process discovery and conformance checking.
+
+23
+00:01:34,000 --> 00:01:36,760
+Later we will also look
+at predictive analytics.
+
+24
+00:01:36,760 --> 00:01:40,040
+How you can use process mining to
+predict things about the future.
+
+25
+00:01:41,590 --> 00:01:45,440
+If you see this diagram,
+you may ask yourself the question,
+
+26
+00:01:45,440 --> 00:01:48,020
+how about BI, business intelligence?
+
+27
+00:01:49,770 --> 00:01:55,210
+Well if you look at the classical
+BI tools, they tend to show
+
+28
+00:01:55,210 --> 00:02:00,610
+only spreadsheets, meters, graphs,
+
+29
+00:02:00,610 --> 00:02:07,240
+they try to capture reality in a set
+of numbers, and that is not sufficient.
+
+30
+00:02:07,240 --> 00:02:12,230
+This is illustrated by
+Anscombe's Quartet that's the four
+
+31
+00:02:12,230 --> 00:02:13,980
+diagrams that you see here.
+
+32
+00:02:13,980 --> 00:02:17,890
+And let me explain what we are seeing.
+
+33
+00:02:17,890 --> 00:02:22,870
+We are seeing four different data sets,
+each consisting of 11 elements.
+
+34
+00:02:26,220 --> 00:02:27,880
+They look very different, but
+
+35
+00:02:27,880 --> 00:02:33,880
+if you look at their statistical
+properties, they are almost the same.
+
+36
+00:02:33,880 --> 00:02:39,299
+So if we look at the mean x
+coordinate of these 11 elements in
+
+37
+00:02:39,299 --> 00:02:44,732
+each of the four cases the mean is nine,
+the variance is 11.
+
+38
+00:02:44,732 --> 00:02:46,542
+If we look at the y coordinate,
+
+39
+00:02:46,542 --> 00:02:52,020
+we also can see that all of these
+four diagrams are exactly the same.
+
+40
+00:02:52,020 --> 00:02:55,320
+Even when we apply linear regression,
+
+41
+00:02:55,320 --> 00:03:01,220
+all of these four data sets,
+yield exactly the same result.
+
+42
+00:03:01,220 --> 00:03:06,240
+So, this is illustrating,
+if a BI tool is just showing numbers,
+
+43
+00:03:06,240 --> 00:03:07,450
+that is often not sufficient.
+
+44
+00:03:07,450 --> 00:03:11,550
+You have to look behind the numbers,
+because things can be very different.
+
+45
+00:03:13,990 --> 00:03:19,690
+One can think of process mining
+as finding desire lines.
+
+46
+00:03:19,690 --> 00:03:26,650
+Here you can see a photo that I took at
+a campus of Tsinghua University in Beijing,
+
+47
+00:03:26,650 --> 00:03:31,800
+and here you see one of my colleagues
+there walking over a desire line.
+
+48
+00:03:31,800 --> 00:03:38,060
+So this is a trail in a grassy area
+that is showing what people really do.
+
+49
+00:03:38,060 --> 00:03:42,310
+So, the trail can be seen
+as the event data, and
+
+50
+00:03:42,310 --> 00:03:46,560
+the sign saying that you should not
+walk there, that you should use the
+
+51
+00:03:46,560 --> 00:03:50,190
+official route can be
+seen as the process model.
+
+52
+00:03:50,190 --> 00:03:55,060
+So this is an illustration of
+what process mining tries to do.
+
+53
+00:03:55,060 --> 00:03:58,860
+You try to uncover the desire lines,
+what do people really do.
+
+54
+00:04:00,940 --> 00:04:04,140
+And, you can find very surprising things.
+
+55
+00:04:04,140 --> 00:04:06,830
+So for
+example if you look at this desire line,
+
+56
+00:04:06,830 --> 00:04:12,890
+it is clearly showing that people
+do not follow the process model.
+
+57
+00:04:12,890 --> 00:04:19,830
+The, the gates that you see here is aimed
+of keeping cyclists out of this park.
+
+58
+00:04:19,830 --> 00:04:25,370
+But what you can see is that
+the desire line is showing that people
+
+59
+00:04:25,370 --> 00:04:31,020
+do not follow the things
+that they should do here.
+
+60
+00:04:31,020 --> 00:04:35,180
+So the gate does not work
+as it is supposed to work.
+
+61
+00:04:35,180 --> 00:04:36,650
+So using process mining and
+
+62
+00:04:36,650 --> 00:04:40,759
+conformance checking, you can use and
+show these types of things.
+
+63
+00:04:42,280 --> 00:04:47,840
+Now it's time for a demo that we can
+see process discovery in action.
+
+64
+00:04:47,840 --> 00:04:52,130
+Let's take a look at an example
+of process mining in action.
+
+65
+00:04:52,130 --> 00:04:57,110
+What I see here is that I load an event
+log into the process mining tool ProM, and
+
+66
+00:04:57,110 --> 00:05:01,460
+I apply one of the standard
+process mining algorithms in ProM.
+
+67
+00:05:01,460 --> 00:05:04,330
+I'm applying the so-called fuzzy miner.
+
+68
+00:05:04,330 --> 00:05:09,700
+And based on raw event data,
+I automatically learn a process model,
+
+69
+00:05:09,700 --> 00:05:13,140
+as you can see here, and
+it goes incredibly fast.
+
+70
+00:05:13,140 --> 00:05:15,270
+We can zoom in to the model.
+
+71
+00:05:15,270 --> 00:05:17,650
+We can look at the different activities.
+
+72
+00:05:17,650 --> 00:05:21,780
+And the arcs connecting
+the activities are showing how
+
+73
+00:05:21,780 --> 00:05:24,520
+cases are flowing through
+this process model.
+
+74
+00:05:25,980 --> 00:05:30,840
+We can zoom in and zoom out just
+like when you use Google Maps.
+
+75
+00:05:30,840 --> 00:05:35,780
+So now I look at the same process model
+at the higher level of abstraction.
+
+76
+00:05:35,780 --> 00:05:40,510
+We see fewer activities because we
+only show the frequent activities at
+
+77
+00:05:40,510 --> 00:05:41,210
+the highest level.
+
+78
+00:05:42,860 --> 00:05:46,290
+We can also replay
+reality on such a model.
+
+79
+00:05:46,290 --> 00:05:49,800
+So I'm now loading both
+the model that I discovered and
+
+80
+00:05:49,800 --> 00:05:55,890
+the event log, and I'm applying
+a so-called replay algorithm on it.
+
+81
+00:05:55,890 --> 00:05:59,510
+So what you now see is not a simulation.
+
+82
+00:05:59,510 --> 00:06:05,080
+What you're seeing is that we are
+replaying reality on top of this model.
+
+83
+00:06:05,080 --> 00:06:10,160
+So all the white dots,
+refer to real cases.
+
+84
+00:06:10,160 --> 00:06:10,900
+What we can see,
+
+85
+00:06:10,900 --> 00:06:16,260
+you can see the numbers next to the cases,
+we can follow individual cases.
+
+86
+00:06:16,260 --> 00:06:18,600
+We can see all the events.
+
+87
+00:06:18,600 --> 00:06:21,580
+We can see congestion in the process.
+
+88
+00:06:21,580 --> 00:06:25,290
+We can see frequent paths and
+infrequent paths.
+
+89
+00:06:25,290 --> 00:06:30,150
+And I think this is a very nice
+illustration that without any modeling,
+
+90
+00:06:30,150 --> 00:06:35,550
+you can see what is happening in reality,
+through process mining.
+
+91
+00:06:35,550 --> 00:06:39,110
+So let's take a look at another metaphor
+
+92
+00:06:39,110 --> 00:06:44,400
+showing what process
+discovery is all about.
+
+93
+00:06:44,400 --> 00:06:49,150
+You can compare process discovery to
+learning a language based on examples.
+
+94
+00:06:49,150 --> 00:06:54,460
+So here you say see a mother, and the
+mother is saying sentences to the child.
+
+95
+00:06:54,460 --> 00:06:59,990
+So the mother is saying a b c, and
+the child is trying to learn the language.
+
+96
+00:06:59,990 --> 00:07:04,290
+So if the mother would always
+say just the words a b and c.
+
+97
+00:07:04,290 --> 00:07:10,200
+The child would think okay, this language
+is a b c and that's all that exists.
+
+98
+00:07:10,200 --> 00:07:14,994
+Then if the mother would say an a b d,
+the child will think oh,
+
+99
+00:07:14,994 --> 00:07:19,710
+at the end there is apparently
+a choice between c and d.
+
+100
+00:07:20,790 --> 00:07:23,100
+So, this child is very smart,
+
+101
+00:07:23,100 --> 00:07:26,370
+thinking already in terms
+already of regular expressions.
+
+102
+00:07:26,370 --> 00:07:29,930
+So, this is the model of
+the language that the child infers.
+
+103
+00:07:31,060 --> 00:07:35,130
+Then mother says another sentence, a d.
+
+104
+00:07:35,130 --> 00:07:39,170
+So, now the child has to think
+what could this language be about?
+
+105
+00:07:39,170 --> 00:07:45,610
+So it's apparently a and d, or
+it is a b and then followed by c or d.
+
+106
+00:07:47,280 --> 00:07:49,750
+Now the mother says, a b b c.
+
+107
+00:07:49,750 --> 00:07:52,930
+Another example,
+trace that we can observe.
+
+108
+00:07:54,010 --> 00:07:57,621
+And now the child makes
+a jump in learning, and
+
+109
+00:07:57,621 --> 00:08:04,018
+infers that apparently the number of b's
+is variable, it can be zero or more etc.
+
+110
+00:08:04,018 --> 00:08:07,343
+And so the mother says more words and
+if it fits into the language,
+
+111
+00:08:07,343 --> 00:08:10,310
+then the child has a good
+understanding of that language.
+
+112
+00:08:11,400 --> 00:08:16,120
+So, in this example we can see a sentence
+and compare that to a trace in
+
+113
+00:08:16,120 --> 00:08:20,250
+an event log, and we can think of
+the language as a process model.
+
+114
+00:08:20,250 --> 00:08:25,410
+So, this is the relationship between
+understanding a language based on
+
+115
+00:08:25,410 --> 00:08:29,659
+examples from learning a process model
+just by looking at the examples.
+
+116
+00:08:31,520 --> 00:08:34,450
+What we saw in the last
+lecture is that next to
+
+117
+00:08:34,450 --> 00:08:37,810
+process discovery we also
+have conformance checking.
+
+118
+00:08:37,810 --> 00:08:44,880
+In that case, you want to see how does
+reality deviate from the modeled process.
+
+119
+00:08:44,880 --> 00:08:47,130
+You can compare that to spell checking.
+
+120
+00:08:47,130 --> 00:08:52,030
+So the spell checker has a model of the
+language, and you type a piece of text and
+
+121
+00:08:52,030 --> 00:08:54,410
+then it is checked,
+whether that piece of text
+
+122
+00:08:55,660 --> 00:09:01,560
+fits the language,
+as it has been formalized.
+
+123
+00:09:01,560 --> 00:09:05,410
+This can be compared to the typical
+diagnostics that you get when
+
+124
+00:09:05,410 --> 00:09:09,410
+you do conformance checking in
+the area of process mining.
+
+125
+00:09:09,410 --> 00:09:12,310
+So you see the activities
+that have happened, but
+
+126
+00:09:12,310 --> 00:09:14,920
+that should not happen,
+or the other way around.
+
+127
+00:09:14,920 --> 00:09:20,020
+Or you will see activities that were
+executed too late, or too early, or
+
+128
+00:09:20,020 --> 00:09:21,850
+by the wrong person.
+
+129
+00:09:21,850 --> 00:09:25,020
+This can all be compared
+by spell checking.
+
+130
+00:09:27,680 --> 00:09:33,340
+So in the remainder of this week,
+we will focus on the topic of Data Mining.
+
+131
+00:09:33,340 --> 00:09:38,630
+As I have explained, also in the previous
+lecture, process mining is very different
+
+132
+00:09:38,630 --> 00:09:42,440
+from the classical data mining techniques,
+but there are many relationships.
+
+133
+00:09:42,440 --> 00:09:47,610
+So in this course, you will also get a
+basic understanding of what process mining
+
+134
+00:09:47,610 --> 00:09:52,690
+is all about and
+of course also data mining.
+
+135
+00:09:52,690 --> 00:09:57,130
+So, the growth of the digital universe
+
+136
+00:09:57,130 --> 00:10:01,190
+is driving the fact that many people
+are using data mining techniques.
+
+137
+00:10:02,790 --> 00:10:07,520
+Initially the term data mining
+had a very negative connotation.
+
+138
+00:10:07,520 --> 00:10:10,770
+People talked about it as data snooping,
+fishing, etc.
+
+139
+00:10:12,090 --> 00:10:15,930
+Statisticians did not consider
+it the proper way to do, but
+
+140
+00:10:15,930 --> 00:10:20,470
+this is now a very mature discipline
+driven by these huge amounts of data.
+
+141
+00:10:22,550 --> 00:10:26,761
+But data mining is data-centric and
+not process-centric.
+
+142
+00:10:26,761 --> 00:10:30,902
+So let us take a look at
+some typical data sets, and
+
+143
+00:10:30,902 --> 00:10:34,650
+then try to think what data mining can do.
+
+144
+00:10:34,650 --> 00:10:39,650
+So, what you see here, is a data
+set of more than 800 persons that
+
+145
+00:10:39,650 --> 00:10:46,090
+have died at a particular age while
+having a particular weight and
+
+146
+00:10:46,090 --> 00:10:49,340
+it was recorded whether they
+were drinking or smoking.
+
+147
+00:10:49,340 --> 00:10:56,280
+So for example, the first row corresponds
+to a person that died at the age of 44
+
+148
+00:10:56,280 --> 00:11:01,510
+while being a drinker and a smoker and
+having a weight of 120 kilos.
+
+149
+00:11:01,510 --> 00:11:05,270
+So this is an example of a data set.
+
+150
+00:11:05,270 --> 00:11:10,910
+And the types of questions that you can
+ask about such a data set are things like,
+
+151
+00:11:10,910 --> 00:11:13,450
+do people that smoke also drink.
+
+152
+00:11:15,290 --> 00:11:16,850
+When do people get old.
+
+153
+00:11:16,850 --> 00:11:19,190
+What kind of properties
+do they have in common?
+
+154
+00:11:19,190 --> 00:11:21,350
+The people typically that, that get old.
+
+155
+00:11:21,350 --> 00:11:24,630
+So what is the impact
+of a certain lifestyle,
+
+156
+00:11:24,630 --> 00:11:28,310
+on the life
+expectancy of a person?
+
+157
+00:11:29,360 --> 00:11:33,580
+So this is one data set and
+typical data mining questions.
+
+158
+00:11:33,580 --> 00:11:35,700
+This is another data set.
+
+159
+00:11:35,700 --> 00:11:40,070
+And every row now corresponds
+to a student at the university.
+
+160
+00:11:41,690 --> 00:11:47,680
+And what we see here are different
+columns referring to different courses.
+
+161
+00:11:47,680 --> 00:11:52,390
+We can see the marks that people got for
+each of these courses.
+
+162
+00:11:52,390 --> 00:11:56,290
+We can see the duration of
+their studies in months, and
+
+163
+00:11:56,290 --> 00:12:01,120
+we can see whether they passed,
+failed, or graduated cum laude.
+
+164
+00:12:02,230 --> 00:12:07,330
+So again, if we have such a data set
+we can ask all kinds of questions.
+
+165
+00:12:07,330 --> 00:12:12,580
+So, are there certain courses that
+are typically taken together, or
+
+166
+00:12:12,580 --> 00:12:15,819
+do marks of different
+courses highly correlate?
+
+167
+00:12:17,040 --> 00:12:18,810
+If people fail,
+
+168
+00:12:18,810 --> 00:12:23,360
+what are the typical courses that
+are leading to such a failure.
+
+169
+00:12:24,680 --> 00:12:27,270
+When and why do people drop out?
+
+170
+00:12:27,270 --> 00:12:31,391
+It's a different type of analysis that
+you can do based on such a data set.
+
+171
+00:12:32,790 --> 00:12:34,800
+But we can look at all
+kinds of other data sets.
+
+172
+00:12:34,800 --> 00:12:40,240
+So here you can see the
+different orders in a cafe.
+
+173
+00:12:40,240 --> 00:12:45,775
+So every row refers to an order,
+so if you look at the first row,
+
+174
+00:12:45,775 --> 00:12:51,005
+you see a person that has ordered
+a cappuccino and a muffin.
+
+175
+00:12:51,005 --> 00:12:53,466
+So every row corresponds to an order, and
+
+176
+00:12:53,466 --> 00:12:56,220
+again you can try to learn
+all kinds of things.
+
+177
+00:12:57,270 --> 00:13:00,907
+So, you can try to find out
+which are the products which
+
+178
+00:13:00,907 --> 00:13:03,370
+are typically purchased together.
+
+179
+00:13:03,370 --> 00:13:08,060
+You could try to find out
+are there characteristic groups of
+
+180
+00:13:08,060 --> 00:13:11,990
+customers that typically
+consume similar things.
+
+181
+00:13:11,990 --> 00:13:16,750
+And all of this can be used
+to try to promote sales.
+
+182
+00:13:16,750 --> 00:13:23,160
+So these three data sets give all kinds
+of examples for data mining problems.
+
+183
+00:13:24,860 --> 00:13:29,730
+So if you look at the raw data that
+we get in each of these examples.
+
+184
+00:13:29,730 --> 00:13:34,670
+Is we, if I get a table, every row in
+the table corresponds to an instance.
+
+185
+00:13:35,800 --> 00:13:39,240
+And every column in the table
+refers to a variable,
+
+186
+00:13:40,790 --> 00:13:43,830
+often called attribute or
+feature or data element.
+
+187
+00:13:45,500 --> 00:13:50,790
+If we look at these variables, these
+columns, then we can find two main groups.
+
+188
+00:13:50,790 --> 00:13:55,160
+Numerical variables that
+refer to a number, like for
+
+189
+00:13:55,160 --> 00:13:57,660
+example an age or a weight.
+
+190
+00:13:57,660 --> 00:14:03,250
+And categorical variables that don't
+have a value that is a number,
+
+191
+00:14:03,250 --> 00:14:06,270
+but these are values
+taken from a smaller set.
+
+192
+00:14:07,390 --> 00:14:12,560
+So for example, cum laude passed or
+failed or true and
+
+193
+00:14:12,560 --> 00:14:16,120
+false are examples of
+categorical variables.
+
+194
+00:14:16,120 --> 00:14:19,940
+If they have an order,
+they're called ordinal.
+
+195
+00:14:19,940 --> 00:14:21,510
+If not, they are called nominal.
+
+196
+00:14:23,040 --> 00:14:28,000
+So these are the variables, the columns
+that we see in a data mining problem.
+
+197
+00:14:28,000 --> 00:14:31,800
+So, to check whether you
+understood what I just explained,
+
+198
+00:14:31,800 --> 00:14:33,390
+take a look at this data set.
+
+199
+00:14:34,550 --> 00:14:40,970
+And my question is, what columns refer
+to ordinal categorical variables,
+
+200
+00:14:40,970 --> 00:14:46,090
+which to nominal categorical variables,
+and which ones are numerical variables?
+
+201
+00:14:48,160 --> 00:14:50,210
+So please think about this for a minute.
+
+202
+00:14:51,450 --> 00:14:56,900
+So the answer to question is that,
+there are two categorical variables.
+
+203
+00:14:56,900 --> 00:15:00,830
+Referring to the first two columns
+where the people are a drinker or
+
+204
+00:15:00,830 --> 00:15:05,230
+a smoker, these are not numbers and
+they are nominal because true and
+
+205
+00:15:05,230 --> 00:15:07,400
+false do not have some natural order.
+
+206
+00:15:08,870 --> 00:15:11,290
+There are two numerical variables,
+the weight and
+
+207
+00:15:11,290 --> 00:15:13,279
+the age because they refer to a number.
+
+208
+00:15:16,200 --> 00:15:20,210
+There are two types of
+data mining techniques,
+
+209
+00:15:20,210 --> 00:15:24,810
+generally referred to as supervised
+learning and unsupervised learning.
+
+210
+00:15:25,810 --> 00:15:30,980
+In the context of supervised learning,
+we have labeled data.
+
+211
+00:15:30,980 --> 00:15:34,670
+Labeled data means that
+there is a response variable
+
+212
+00:15:34,670 --> 00:15:36,350
+that labels the instance.
+
+213
+00:15:37,950 --> 00:15:43,160
+And the goal of supervised learning is
+to learn from the other variables that
+
+214
+00:15:43,160 --> 00:15:47,210
+are called predictor variables,
+what our response variable is going to be.
+
+215
+00:15:48,330 --> 00:15:51,400
+So instead of response variable,
+
+216
+00:15:51,400 --> 00:15:54,530
+we also talk about dependent variables.
+
+217
+00:15:54,530 --> 00:15:58,940
+And instead of predictor variables we
+also talked about independent variables.
+
+218
+00:15:58,940 --> 00:16:02,173
+And the goal is to explain
+the dependent variable in terms of
+
+219
+00:16:02,173 --> 00:16:03,798
+the independent variables.
+
+220
+00:16:05,633 --> 00:16:08,846
+So, classification techniques,
+
+221
+00:16:08,846 --> 00:16:14,910
+like learning decision trees,
+aim to answer such questions.
+
+222
+00:16:14,910 --> 00:16:20,880
+So what is the class depending on
+the set of variables that we know.
+
+223
+00:16:20,880 --> 00:16:26,740
+If the response variable is numerical,
+we typically use regression techniques.
+
+224
+00:16:26,740 --> 00:16:30,800
+And then the goal is to find
+the function that explains
+
+225
+00:16:30,800 --> 00:16:33,850
+the response variable in terms
+of these other variables.
+
+226
+00:16:35,530 --> 00:16:38,926
+So, let's take a look at this data set.
+
+227
+00:16:38,926 --> 00:16:44,580
+So, from every instance,
+it refers to a person, and we know
+
+228
+00:16:44,580 --> 00:16:48,870
+whether the person was drinking or not,
+smoking or not, and we know their weight.
+
+229
+00:16:51,200 --> 00:16:54,870
+We would like to learn
+the influence of drinking and
+
+230
+00:16:54,870 --> 00:16:57,130
+smoking on somebody's body weight.
+
+231
+00:16:58,370 --> 00:17:00,130
+If you have that question, and
+
+232
+00:17:00,130 --> 00:17:04,900
+you think of supervised learning, what
+are the response and predictor variables?
+
+233
+00:17:07,560 --> 00:17:11,980
+I think the answer to this
+question is relatively easy.
+
+234
+00:17:11,980 --> 00:17:15,940
+In this particular example
+the response variable is the weight.
+
+235
+00:17:15,940 --> 00:17:20,190
+And we would like to explain the response
+variable in the predictor variables,
+
+236
+00:17:20,190 --> 00:17:21,860
+whether people are drinking or smoking.
+
+237
+00:17:24,600 --> 00:17:29,190
+Next to supervised learning we also
+have unsupervised learning, and
+
+238
+00:17:29,190 --> 00:17:31,900
+now the data is unlabeled.
+
+239
+00:17:31,900 --> 00:17:34,240
+In other words,
+we don't have response variables.
+
+240
+00:17:35,790 --> 00:17:39,740
+And the typical techniques that you
+will then look at are clustering and
+
+241
+00:17:39,740 --> 00:17:41,480
+pattern discovery.
+
+242
+00:17:41,480 --> 00:17:46,010
+So you want to find homogeneous
+groups of for example patients or
+
+243
+00:17:46,010 --> 00:17:51,260
+customers, without aiming to look
+at a particular response variable.
+
+244
+00:17:53,660 --> 00:17:56,730
+And these are just some examples of
+
+245
+00:17:56,730 --> 00:18:00,710
+the many data mining
+questions that you can ask.
+
+246
+00:18:00,710 --> 00:18:06,060
+And in the next lectures we will zoom in
+to some of these questions and I will
+
+247
+00:18:06,060 --> 00:18:12,550
+teach you hands on knowledge to
+solve these types of problems.
+
+248
+00:18:12,550 --> 00:18:17,650
+There are many data mining tools
+available, you can see some of them here.
+
+249
+00:18:17,650 --> 00:18:19,060
+In my next lectures,
+
+250
+00:18:19,060 --> 00:18:25,000
+I will use RapidMiner to illustrate
+these classical data mining techniques.
+
+251
+00:18:25,000 --> 00:18:29,110
+You don't have to install RapidMiner for
+this course, but if you want,
+
+252
+00:18:29,110 --> 00:18:31,830
+you can do and you can repeat
+experiments that I will show.
+
+253
+00:18:33,930 --> 00:18:39,460
+There are many differences between
+process mining and data mining.
+
+254
+00:18:39,460 --> 00:18:41,260
+Let me repeat some of the things.
+
+255
+00:18:42,330 --> 00:18:45,750
+In what way are they common and
+in what way are they different?
+
+256
+00:18:45,750 --> 00:18:52,100
+They both start from data, but data mining
+techniques are not process-centric.
+
+257
+00:18:52,100 --> 00:18:56,730
+They look at isolated decisions of
+the type that I've just shown to you.
+
+258
+00:18:58,438 --> 00:19:01,780
+Topics such as process discovery,
+conformance checking,
+
+259
+00:19:01,780 --> 00:19:05,895
+bottleneck analysis and all the other
+things that I showed in the previous
+
+260
+00:19:05,895 --> 00:19:11,125
+lecture, cannot be done using
+traditional data mining techniques.
+
+261
+00:19:11,125 --> 00:19:12,985
+So you need to have process mining for
+that.
+
+262
+00:19:12,985 --> 00:19:18,040
+End-to-end process models are crucial.
+
+263
+00:19:18,040 --> 00:19:22,400
+And when you want to discover end-to-end
+process models, concurrency is important.
+
+264
+00:19:22,400 --> 00:19:24,410
+So when we
+will talk about process models,
+
+265
+00:19:24,410 --> 00:19:27,970
+we will deal with the topic of
+concurrency, because it's very important.
+
+266
+00:19:29,380 --> 00:19:36,610
+Process mining assumes a different type of
+data than the data that we have just seen.
+
+267
+00:19:36,610 --> 00:19:39,860
+We assume that we can see events.
+
+268
+00:19:39,860 --> 00:19:43,410
+These events they have timestamps and
+they refer to cases.
+
+269
+00:19:43,410 --> 00:19:47,850
+And that is a crucial difference with
+the data the three data sets that I
+
+270
+00:19:47,850 --> 00:19:48,800
+showed you before.
+
+271
+00:19:49,860 --> 00:19:54,230
+But, process mining and
+data mining can be combined to answer very
+
+272
+00:19:54,230 --> 00:19:57,460
+advanced questions,
+so that's very important.
+
+273
+00:19:59,640 --> 00:20:03,830
+If you would like to learn
+more about data mining and
+
+274
+00:20:03,830 --> 00:20:09,880
+in the next lectures we will discuss
+some of the techniques in more detail,
+
+275
+00:20:09,880 --> 00:20:12,630
+please read chapter three
+of the Process Mining book.
+
+276
+00:20:14,020 --> 00:20:17,051
+Thank you for watching,
+and hope to see you soon.
+
+277
+00:20:17,051 --> 00:20:25,726
+[MUSIC]
+

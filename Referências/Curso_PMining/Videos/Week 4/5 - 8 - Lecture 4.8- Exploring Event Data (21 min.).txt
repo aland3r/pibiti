@@ -1,0 +1,495 @@
+[MUSIC]
+Glad to see you again.
+Process models are very important for
+understanding and improving processes.
+However sometimes it is
+better to first explore the event data.
+Today we will show that dotted charts can
+provide valuable insights in the early
+stages of a process mining project.
+Lion's share of attention so far has gone
+to the output side, creating models.
+Today we will look at the input side.
+We will look at event logs, and
+we will see that there are different
+ways of exploring them.
+And in particular, we will look at the
+dotted chart to create a helicopter view
+of the event data that we
+are trying to analyze.
+This is the simplistic view of event
+data that we have used so far.
+So one can think of it as a table where
+every row corresponds to an event.
+Each event should have a case ID,
+an activity name and a time stamp.
+And sometimes we have resource
+information for other data.
+However the real picture
+is a bit more involved.
+To illustrate this we are using this so
+called object model
+which is relating process models to
+event data and is showing the structure
+of events and their relations
+to activities and processes.
+So let's first take a look at
+the part that we know very well.
+So if we look at an event, an event
+always belongs to a case, precisely one.
+A case can be composed of more events,
+and a case belongs to a process.
+And a process may of course
+have multiple cases.
+If we look at an event,
+events have attributes.
+They refer to an activity, but we also
+have other attributes like timestamps,
+resources, costs,
+transactional information, etcetera.
+So timestamps are very important for
+the ordering of events, and for
+doing performance analysis.
+Resources refer to people, organizations,
+machines, that are needed to
+execute a particular activity.
+They are also very important for
+analysis so
+you should try to exploit this
+in whatever way possible.
+So far we didn't give a lot of attention
+to transactional information but
+many event logs contain
+information referring to
+the start time of an activity,
+the end time of an activity.
+Whether it was suspended,
+resumed, etcetera.
+So, let us focus on this
+transactional information.
+We assume that there is a particular
+transactional model that
+activities follow.
+And here you see the most detailed
+transactional model that is being
+considered in the context
+of process mining.
+So we see many different activities
+relating to when things have started,
+when things have completed, whether things
+have been aborted, etcetera, etcetera.
+So the simplest scenario is where we
+just have one event per activity,
+this is so called completion event.
+And, if we, we look at many logs,
+they don't really have
+this transactional information and we
+interpret it as being a complete action.
+There are also cases when we have
+a start event and a complete event.
+This is very important if we would like
+to measure the duration of an activity.
+So one activity has two events,
+a start event and a complete event.
+But much more involved
+scenarios are possible, and
+here you can see some examples.
+So it may be that an activity was started,
+but
+then was suspended for some time,
+then resumed, possibly also aborted.
+So, what we see here
+are so-called activity instances.
+And we can think of them as paths
+through the life cycle model that is
+shown at the bottom of this slide.
+There can be multiple instances of
+the same activity within the same case.
+For example, if we would have a loop,
+then this would be a typical
+pattern that we could see.
+We see for activity a, a start and
+a complete, then another start and
+a complete, etcetera.
+But there may also be situations
+where it is less clear.
+So here we see, an activity,
+a, that has two instances because we see
+two starts and we see two completes.
+But we can assume that this
+is what has happened or
+we can assume that this
+is what has happened.
+So it's unclear which start
+corresponds to which complete.
+So we have these two possibilities.
+So how to resolve this possible confusion?
+Well one way is that events,
+when they are being recorded,
+they already have explicit references
+to so called activity instances.
+So that we know which start,
+corresponds to which complete.
+It's also possible that we
+don't have this information.
+And then, when we are replaying the log,
+we can simply create it or compute it.
+Note that this is just one of several
+possible confusions that may arise.
+For example,
+it may also be that we have two starts and
+just one complete, and so
+one complete is missing.
+How do we create these activity instances?
+One can use all kinds of heuristics
+to resolve these types of issues.
+So let's assume that we have
+these activity instances.
+If we have these activity instances, there
+is a clear relationship between an event
+and an activity instance, and activity
+instance corresponds to an activity.
+So events are related to
+activities in this way.
+So this is often the key part
+of control flow discovery,
+that we can relate events to
+activities in a process model.
+So far we looked at attributes
+at the event level.
+But as shown on this slide it may also
+be the case that the case as a whole,
+has attributes.
+For example, the type of a customer,
+the birth date of a patient,
+the flow time of a case.
+These are not properties
+of an individual event but
+of the case as a whole, and
+we can exploit them using process mining.
+Note that sometimes we will need to
+compute these attributes of cases or
+events.
+So for example, the flow time of
+a case can be computed based on
+the first event of a case and
+the last event of a case.
+In general, there may be many attributes
+that we would like to compute.
+These are called derived attributes,
+and they may use information not only
+of the given case that we are analyzing,
+but of the whole context of that case.
+So for example, when an event was being
+executed, how busy was it in the process?
+How many resources were available?
+How many cases were pending?
+We can look at the workload
+of individual resources and
+add that as an attribute of the event so
+that we can use this at a later stage.
+So it's very important to relate
+context information to events and
+cases if you would like to do
+a more refined type of analysis.
+This picture illustrates
+why this is crucial.
+For example, if we are interested in
+understanding why there are delays in
+a process and we would look at one case,
+for example one customer in isolation,
+we would not be able to see and
+understand the whole picture.
+So we need to related individual events
+and cases to the overall context.
+Okay, let us now take
+a look at a dotted chart.
+This is a technique to explore event
+data before we start building model.
+And it often reveals very intriguing and
+interesting information.
+So what is the basic
+idea of a dotted chart?
+We already briefly have seen examples
+before, so it is an helicopter view,
+showing all the events.
+Every dot corresponds to an event and
+we have two axes.
+On the x-axis we plot time, on the
+y-axis we can plot properties of events.
+For example, the case they belong to,
+the resource that was executing the event,
+or the task that was being executed.
+We can also color these dots.
+It can, for example, be based on the the
+person that was executing that event.
+It's best to show this using examples,
+and in ProM,
+there are two plugins
+that create dotted chart.
+It's a dotted chart plugin,
+and it's a so-called viewer.
+It's the XDotted chart.
+But the concepts that they
+use are very similar.
+However, sometimes you need to
+use one rather than the other.
+For example, if you're running
+into performance problems.
+In the remainder of this lecture
+I will focus on the dotted chart.
+But in the XDotted chart you will
+see very similar functionality.
+To illustrate a dotted chart,
+let us take a look at an event log.
+What it represents is not that important,
+but
+we have 500 cases and
+more than 7500 events.
+How can we explore them
+using the dotted chart?
+Well, to get an understanding
+of the process behind,
+the dotted charts that we will
+see in the remainder, here you
+see a process model that was automatically
+discovered using the inductive miner.
+So if the process starts
+with one activity,
+then there are three activities
+that are concurrent.
+But they are all optional.
+They can all be bypassed.
+Then there is a sequence of activities and
+there is a loop.
+Sometimes things need to be repeated.
+And at the end there is a decision,
+accept or reject.
+This is a model created
+by the inductive miner.
+It's a process tree.
+We can also visualize it as a BPMN model.
+Or we can visualize it as a Petri net.
+But the goal of this lecture is
+not to look at the process models.
+I only show you these models so
+that you have an understanding of
+the data that we are trying to explore.
+Typically you do it in
+the other way around.
+So here is a dotted chart of
+the data set that I just described.
+So what we are plotting here,
+on the one axis we have the time,
+in this case the actual time.
+On the other axis, on the y-axis,
+every line corresponds to a case.
+And the color of the dot is
+the activity that is being executed.
+So if we now zoom in into one line
+we are looking at one case, and
+for this one case we can see
+a sequence of event that have happened.
+And the color is indicating which event it
+was, which activity it was that occurred.
+We can also take another view.
+Now, we again use absolute time
+of the x-axis, but on the y-axis,
+we are plotting the activities that we
+could earlier see in the process model.
+So, we can see at what points in time
+particular activities were being executed.
+And you can see that there
+are certain patterns emerging here.
+So, we have activities versus actual time,
+the color of the dot is the activity.
+This is exactly the same diagram but
+it is illustrating that we can
+change the coloring of the dot.
+Now the coloring of the dot refers to the
+resource that is executing a particular
+activity and you can see a clear
+correlation between certain colors and
+certain rows,
+indicating that particular types of
+resources execute particular
+sets of activities.
+This is the same plot but
+now on the y-axis we plot the resources.
+The color of the dot is the activity.
+So this picture can be seen as
+orthogonal to the previous one.
+And now we can see at what points in
+time our particular resource is busy.
+We can change the color of the dots.
+So what you see here is that we started
+with the coloring based on activities and
+now the coloring is based on the resources
+executing all the different events.
+So far we looked at absolute time.
+Here you see a picture where we
+are using relative time on the x-axis.
+So all the cases start at time 0.
+And they all start with the same activity,
+as is clearly visible
+here by the red line.
+But you can also see that certain
+cases take a very short time.
+The one at the top, versus other
+cases take a much longer time.
+These are the ones that you
+can find at the bottom.
+So this gives often an insight
+in the duration of the cases.
+We can also plot this in a different way.
+For example, looking at the activities
+that are being executed.
+So again, it's the same idea.
+But now, rather than cases on
+the y-axis, we plot activities.
+Again, time is relative,
+everything starts at time zero.
+This is logical time, so now we do not
+care about the actual time differences,
+but we look at what is the first event
+in a case, what is the second event in
+the case, what is the third event in
+the case, and plot them in this way.
+So, again,
+on the y-axis we have cases, but
+on the x-axis we have the logical time.
+And again,
+we can choose the coloring of the dot.
+I've showed you
+now many dotted charts, so what can we
+actually see if we look at this data set?
+If you, look at
+what you can observe,
+is that it is not a straight line.
+It's not a straight diagonal line.
+So the speed at which cases
+is arriving is varying,
+as is clearly indicated
+here by the yellow line.
+We also see these strange gaps.
+The first one may not be that clear but
+the second and third gap are very obvious.
+So let's try to analyze
+these in a bit more detail.
+So if you look at the first gap and
+we zoom in, which you can do with a dotted
+chart then what we see is that
+there is a period where various
+activities are still being executed,
+but no decisions are being made.
+There's a two month period
+without any decisions.
+This is creating that cases
+take longer as you can see in
+the previous slide.
+We can zoom into this problem in more
+detail by looking at the resources.
+And what this diagram shows
+is that the resource taking
+the decisions was inactive for
+this period of two months.
+Let us now take a look at the second gap.
+Is it the same or
+does it have a different reason?
+If we take a look at the second gap
+then we see that there is a period,
+six weeks,
+where there is no activity at all.
+And at the end of the period we
+suddenly see a burst of red dots and
+these correspond to the first
+activity executed in this process.
+So apparently nothing could happen for
+awhile.
+No new cases were accepted.
+And then suddenly many
+new cases were created.
+So let's try to understand it.
+What we see here is that
+the first resource and
+the fifth resource are the only resources,
+executed this initial activity.
+And they were absent for a particular
+period thereby also causing that
+other people in the process could also not
+work because no new cases were accepted.
+If we look at the third gap,
+we can see very similar problems
+compared to the first one.
+So, still, new cases are arriving but
+no decisions are made for
+an extended, period.
+Let us take a look at another event
+log taken from a Dutch housing agency.
+So we use the following
+settings to plot the chart.
+So again we have actual time and
+we are looking at every
+row corresponds to a case.
+And the color of the dot is based
+on the activity that is being executed.
+So, take a look at this dotted
+chart of a real housing agency
+and try to see what kind of
+strange patterns you see.
+Well the first thing that you can note
+is that the arrival rate is increasing.
+Because the line is curved
+it means that more and
+more cases at a higher speed
+are arriving into this process.
+Second you can see that there
+are these vertical lines.
+If you look carefully you can see
+that things are being batched.
+So for many cases the same activity is
+happening within a very
+small period of time.
+We can zoom into the latter issue.
+So you can
+clearly see these patterns.
+So, for example,
+if we take a look at the top pattern,
+then there was this short period of just
+a few days where these activities
+were being executed for these cases.
+And in many of these cases
+had been waiting for
+a long time for
+these activities to happen.
+So, these activities correspond
+to billing and archiving.
+So, apparently here, a resource was not
+available for a longer period of time.
+And then in a very short period of time,
+did all the work that had
+been accumulating over weeks.
+So in this lecture, we focused on
+the input side of process mining.
+We've seen that a dotted chart can
+provide many interesting insights
+that we need to look at before
+we start creating models.
+What we could also see is
+that in event data there is
+much more information than just
+information about activities.
+We have timing information.
+We have information about resources,
+and we should try to explore these.
+So this is what will happen in
+the next couple of lectures.
+You can take a look at these two chapters
+to read more about dotted charts and
+analysis of processes using these
+other perspectives like resources,
+time and data.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

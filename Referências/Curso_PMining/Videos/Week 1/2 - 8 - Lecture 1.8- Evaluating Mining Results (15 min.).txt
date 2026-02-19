@@ -1,0 +1,324 @@
+[MUSIC]
+Welcome to the last lecture, of the first
+week of this course on process mining.
+In the previous lectures, we learned
+about various data mining techniques.
+Today, we discuss ways of measuring
+the quality of data mining results.
+We have seen techniques like
+decision tree learning,
+association rule learning, clustering,
+sequence mining and many other techniques.
+Later we will see techniques for
+process discovery, conformance checking,
+for predicting remaining flow times.
+All of these techniques, produce results
+of the models, and question is,
+what is the quality of such models?
+In the lecture today,
+we will look at evaluating the quality of
+data mining results, but many of the 
+ideas will also be applicable to evaluating
+or at least discussing
+the results of process mining.
+The first topic, that we would like to
+discuss today is the confusion matrix,
+that we have seen before and
+the measures based on it.
+It is best to explain it simply
+using a set of examples.
+So this is, a decision tree, to learn
+which students fail, pass or
+pass cum laude,
+based on the course grades that they have.
+If we create the so-called
+confusion matrix,
+we plot the actual class against,
+the predicted class.
+So for example, if you look at this
+matrix, we can see that there were
+21 students that passed
+as the actual class, but
+the predicted class was that
+they would have failed.
+And so this is an incorrect prediction.
+The green values, indicate
+the positive results, the red values
+indicate problems and the higher the red
+numbers are, the bigger the problem is.
+We can take another example.
+So, we were trying to predict,
+what was causing the fact that
+certain customers got sick.
+There were three classes of customers.
+Customers that were not sick,
+that were very sick, and
+a group of customers that was nauseous.
+The decision tree that we learnt,
+had problems picking up,
+patients that are nauseous.
+And you can see that here,
+if you take a look at the column
+indicating the people that are nauseous.
+If you look at the lower row, you see
+the people that were actually very sick,
+and they were all predicted correctly.
+So all people that were, very sick,
+were predicted to be sick.
+On the other end as I just mentioned,
+customers, that were nauseous,
+and there were more than 300 of them,
+were never predicted to be nauseous.
+So this way we can see that the confusion
+matrix gives an indication of
+the quality of the decision tree.
+If we take a look at
+a binary classification,
+the terms that we can
+use are true positives.
+These are the instances,
+that are actually positive, for example,
+becoming sick, and
+are also predicted to be positive.
+True negatives.
+Negative instances,
+predicted to be negative.
+So, these are, highlighted in green,
+because they are desirable values.
+We would like them to
+be as high as possible.
+On the other hand, we also have
+false positives and false negatives.
+These correspond to instances,
+that are classified incorrectly.
+So either negative instances,
+are predicted to be positive or
+positive instances
+are predicted to be negative.
+If we apply it to the example of
+the restaurant, then true positives,
+would correspond to sick customers
+that were predicted to be sick.
+If we, for example, look at false
+negatives, then this corresponds to,
+sick customers that were
+predicted to be not sick.
+So this is indicating the, types of
+problems that we would like to analyze.
+We would like to capture
+these problems in a number.
+So, the error rate
+corresponds to the number
+of false positives and
+the number of false negatives.
+So all the problematic cases,
+divided by the total number of instances.
+Accuracy is exactly the reverse.
+We take the number of true positives and
+true negatives.
+So all the correct predictions.
+And we divide that
+by the total number of instances.
+Precision and recall are two important
+metrics, that are often used.
+So precision corresponds to
+the number of true positives,
+divided by the number of true positives
+plus the number of false positives.
+Recall, is a number of true
+positives divided by the number of
+true positive plus the number
+of false negatives.
+We would like precision and
+recall to be as close to one as possible.
+The F1 score,
+is the harmonic mean of precision and
+recall and we can compute it
+using the formula shown here.
+So let's apply this to
+the following example.
+So what you see here,
+is the initial state of a decision tree,
+before splitting any of the nodes
+based on some attributes.
+And a decision tree,
+that we discover after splitting
+based on the attribute smoker and
+the attribute drinker.
+We can see the,
+confusion matrices of both decision trees.
+So the one consisting of just one,
+leaf node and
+the one consisting of three leaf nodes.
+And we would like to compare them based
+on precision recall and F1 score.
+So please compute these values.
+These values can be computed by just
+applying the formulas
+that we have seen before.
+So if we look at
+the classification where all
+the persons are predicted to die young.
+And nobody is predicted to die old,
+then precision is 0.63 because 63%
+of the persons actually died young.
+Recall is equal to one because we never
+predict somebody to die at an older age,
+and F1 score,
+the harmonic mean of
+these two values is 0.77.
+If we look at a more refined decision
+tree after splitting on these two
+labels we can see that precision improved.
+Recall was reduced slightly.
+And that is due to the two young people
+that died young, and were predicited
+to die at an older age.
+That is the two in the confusion matrix.
+Recall, is slightly worse than before,
+but precision is much better, and
+also the F1-score is much better.
+So, this is an objective means
+to compare the two decision trees.
+So, that was the confusion matrix and
+metrics like precision and recall.
+Let's now take a look at cross-validation.
+Now, to explain why
+cross-validation is important.
+It helps to look at
+the following sentence.
+Take your ten best friends, and
+suppose that you would create a decision
+tree that accurately predicts the length
+of a friend, based on the person's
+birth date and eye color.
+If you have a group of just ten
+friends it is quite easy to
+construct such a decision tree.
+And it will perform perfectly
+on your ten best friends.
+But then if you would get
+another friend, it is very
+likely that the decision tree
+will produce an incorrect value.
+This is the problem of overfitting.
+So we are overfitting the example set, and
+by that, we cannot generalize properly.
+So a definition of overfitting is
+that the model is too specific for
+the data set used, and will most likely
+perform very poorly on new instances.
+And here you see a rule that could be the
+rule that would result from overfitting.
+So people having a particular birth date
+and a particular eye color would have
+a particular length with
+a very large precision.
+Underfitting is the other problem.
+You're not overfitting the data.
+You're making conclusions that are so
+general, that they don't say very much and
+that they don't actually use the data.
+For example, a rule like, if gender
+is male, then length is larger than
+one meter, is a rule that may often be
+true, but it is severely underfitting,
+because we, we didn't actually learn
+from the data that we were analysing.
+Because of these problems,
+over-fitting and under-fitting,
+we typically split the data set
+into a training set and a test set.
+Then we apply a learning algorithm
+that will create a model, for
+example, a decision tree.
+Then we take the test set and
+we try the test set on the model that we
+have learned based on the training set.
+And then we measure the performance.
+So we are testing our
+model on unseen data.
+And this is the main
+idea of cross validation.
+If you do it like this
+you're using your data
+not in an optimal way because you didn't,
+use all the data to learn
+as much as possible.
+That is why you can repeat the principal
+that is shown here by partitioning
+your data in k parts and then use
+k minus 1 parts to learn the model and
+use one of these k parts for
+testing the quality of the model.
+And you can repeat this experiment
+k times, so then you are really using
+all data available to both learn
+the model and to test the result.
+There are many possible complications.
+So one of the complications
+that we may face if we
+are evaluating the quality of a model
+that we have learned is concept drift.
+Over time, the characteristics of
+the underlying process may have changed.
+And, this may, make things very difficult.
+Another complication with respect
+to evaluating data is that
+often we do not have negative examples.
+For example, if we look at our restaurant,
+we only know about sick customers
+that complain afterwards.
+We do not know anything about that
+customers that actually did not complain.
+So often,
+we have an unbalanced set that we
+are using to learn without
+any negative examples.
+Also, in the context of process mining,
+this problem is considerable.
+Because we only see the traces that
+have happened not the traces that
+could not happen.
+So we are facing similar problems.
+The focus of this course is
+clearly on process mining, but
+we had to learn these basic data
+mining techniques beforehand.
+Because we can adopt
+some of the ideas
+from data mining.
+And sometimes in the context of process
+mining we are also locally using data
+mining techniques.
+For example,
+if we have learned the process model.
+And in that process
+model there is a choice.
+Then after learning the control flow,
+we may want to use decision tree learning,
+to see what is influencing the decision
+in the process, but we can only do that
+if we have beforehand discovered
+the process model itself.
+So in this way process mining
+extends way beyond classical data
+mining approaches that do not
+consider process models at all.
+So process mining is as a bridge
+between classical data analysis and
+classical process analysis.
+After explaining the core
+results in data mining,
+we now move to the more
+process-oriented part of this course.
+So the next set of
+lectures will be devoted
+to process models and
+learning these process models.
+If you would like to read more on data
+mining take a look at chapter three.
+Thank you for
+watching this lecture, see you next time.
+[MUSIC]
+

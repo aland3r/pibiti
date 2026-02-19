@@ -1,0 +1,332 @@
+[MUSIC]
+Welcome to this lecture.
+Today we discuss another
+approach to check conformance.
+It is based on replaying the event log to
+diagnose differences, between modeled and
+observed behavior.
+This figures show a desire line, this
+desire line is clearly indicating that
+the behavior of people, is very different
+from the expected or modeled behavior.
+One can think of the gate in
+this diagram as the model,
+one can think of the desire
+line as the event log, and
+what is shown is that there is
+clearly deviating behavior.
+Through conformance checking we would
+like to diagnose such differences, and
+we would also like to
+associate a number to it.
+How good is the conformance?
+In the last lecture,
+we looked at conformance
+checking using causal footprints.
+And this approach has
+all kinds of problems.
+For example, it does not take
+into account the frequency of traces and
+it does not actually look at the behavior.
+Today, we will look at a much more refined
+method based on token-based replay.
+So let's take a look at an example,
+we see a trace a b e g,
+and this trace does not
+fit into this model.
+If we would just consider fitness
+at the level of complete traces,
+one would say, this trace has a fitness
+of zero, because it doesn't fit.
+Such answers are not
+very useful because we
+would like to look at fitness and
+conformance at the level of events.
+Because if would have long traces,
+then we may have logs,
+where none of the traces is actually fitting.
+We would get the conformance of 0, but
+this would be a very misleading number.
+So, we need to look at somehow
+the fraction of events that
+is fitting and the fraction of
+events that is not fitting.
+This is done through counting so
+called missing and remaining tokens, and
+to illustrate this let's replay
+this trace on this model.
+So we first execute a,
+after executing a we execute b,
+we still do not see any problem.
+But while doing this we are producing and
+consuming tokens.
+Then, the event log says that we need
+to execute e, but, e is not enabled.
+So we count a missing token, you see that
+there is a problem, we record it, and
+we continue.
+Then we execute e, after executing e,
+we need to execute g,
+and we don't encounter any
+additional problems, except for
+the fact that when we reach the end of the
+trace, there is still a token left behind.
+So this example, we have one remaining
+token and one missing token.
+The total of a six produced tokens,
+there are six consumed tokens,
+there is one missing token and
+one remaining token.
+So, we can put these into
+a formula that looks like this,
+that computes fitness as
+a number between zero and one.
+The 0 means, the fitness is as bad as
+is possible, a fitness of 1 means perfect
+fitness, the trace could be replayed
+without encountering any problems.
+So in this case p and c are equal to 6,
+m and r are equal to 1.
+So if we fill that in in this formula,
+we get a conformance of
+0.83 for this particular trace.
+So what is this approach based on?
+It is based on simply counting the number
+of produced, consumed, missing and
+remaining tokens.
+Missing tokens are tokens that
+are consumed while they are not there.
+So we need to add a token, the counter
+r refers to the tokens that
+are left behind at the end.
+That were not consumed.
+So, while replaying a trace.
+At any point in time,
+the place contains
+p plus m minus c tokens and
+this number should be positive,
+because there cannot be a negative
+number of tokens in a place.
+And at the end,
+we would like this place to be empty.
+So this leads to a couple of
+invariants that are shown here.
+If you do the replay,
+p plus m will always be bigger or
+equal to c, because we cannot have
+a negative number of tokens in a place.
+C will also be at least m because we
+are never going to add missing tokens
+if they are not needed for consumption.
+And at the end, r is the number
+of tokens remaining on the place,
+so r is equal to p plus m minus c.
+All these numbers, they hold at
+the level of an individual place.
+But they also hold at the level
+of all places in the process model.
+There is a special step needed at
+the beginning and at the end, so
+in the beginning the environment needs to
+produce a token, for the source place.
+And at the end, that the environment needs
+to consume a token from the sink place.
+Note, that in the latter case if there is
+no token remaining on the final place,
+at the end of the trace,
+you still need to consume it.
+So this will add an extra
+missing token, if it is not there.
+This way we really check
+whether the trace,
+has terminated in the desired final state.
+Let us take a look at some examples, so
+here you see a trace that
+is perfectly fitting.
+So if we replay it, we expect that
+the counters m and r, will remain 0.
+But still,
+we need to understand the principle so,
+to start easy we look at
+something that fits perfectly.
+Initially, the environment puts
+a token into this source place.
+That means that we need to increment the p
+counter by 1, as has happened here.
+Now, the event log says that a is
+the first activity to be executed.
+So in the Petri net,
+we are forced to fire a,
+if we execute a we are consuming one
+token, and we are producing two tokens.
+So we update the corresponding counters,
+now we have three produced
+tokens in total.
+In the next step we need to execute c and
+again we consume and
+produce a token, and update a counter,
+we need to execute d.
+Again, we add a consumed and
+a produced token.
+Then the event log says we need to
+execute an e, this is indeed possible.
+And now we are consuming two tokens,
+and producing one token.
+So now the c counter, has been set to 5.
+Then we do activity h, and reach
+the state with the token on place ends.
+Now the environment,
+takes this token and consumes it.
+So we update the c counter,
+so what we see at the end is
+that p equals 7, c equals 7,
+m and r equals 0.
+So, if we fill that out in the formula
+that we've seen before, b is 7,
+c is 7, m is 0, r is 0,
+then we get this result which equals 1.
+So, this is perfect
+fitness as we expected.
+Let's now take a look at
+a more interesting trace,
+namely a trace that doesn't fit.
+And you can easily see that it doesn't
+fit, because the trace says that
+after a we should execute d, which based
+on the model is clearly not possible.
+Let's again compute fitness using
+the formula that we just have seen.
+It again starts by the fact
+that environment puts
+a token on the source place,
+so p is equal to 1.
+Then, in the event log we see that
+we need to do an a, we execute it,
+we consume and produce a token,
+getting these counters.
+Now the event log says
+that we need to do d,
+and what you can clearly see is that d
+is not possible according to the model,
+because before, b or
+c should have happened.
+So, now we record the fact that there is
+a missing token, and so we add a token,
+but we increment the m counter by one,
+yielding this state,
+so m is now equal to 1,
+p is equal to 3, c is equal to 2.
+Now we execute c, we consume and
+produce one token, update the counters,
+we need to execute e.
+Consume 1, produce 1,
+finally, we need to do h.
+We, again, consume and produce 1 token.
+As before, at the end of the trace
+the environment needs to consume a token,
+whether it's there or not.
+In this case the token is there,
+so there's no problem.
+So it is being consumed,
+and now we see that p and
+c have the same value, namely equal to 6.
+What we now see is that at the end
+there is still a token remaining in p2.
+So, we update the r counter, and these
+are the final values that we get.
+As we see, values for p and
+c and m and r, are both equal to 1.
+And we can also overlay the model with
+diagnostic information showing where
+the problems are.
+We can put these numbers into the formula
+that we have seen before, and
+if we do that, we get this result.
+And so the fitness is 0.83.
+This is fitness at the level
+of an individual trace.
+We can lift this notion,
+to an entire event log.
+And this is the formula that,
+that describes that, it looks very
+impressive but actually it's quite simple.
+We are just summing up all the missing and
+consumed and the remaining and produced
+tokens over all the individual traces.
+The same trace can appear multiple times,
+we have a multi set,
+therefore we take the sum over this multiset
+and multiply it by the number of missing,
+consumed, remaining and produced tokens.
+So, here you see the individual
+ingredients, and actually it is just
+exactly the same as we have seen before,
+but lifted to the level of an entire log.
+So let's take a look at this example.
+So we see again the event log
+that we also used before.
+We see four models, and
+we can again compute replay fitness,
+using the approach that I just described.
+If you do so,
+then these are the values that you get.
+So, the first model that was
+discovered using the alpha algorithm of
+has a fitness of one,
+that is what we expected.
+But also note that the last model, the so
+called flower model, has a fitness of one.
+It is too general, but
+from a fitness point of view it is okay,
+because it allows for
+all the behavior that has been seen.
+To capture the fact that this model is
+not a good representation of the log,
+one needs to look at the notion
+of precision to capture this.
+By doing this replay we can also
+provide very sophisticated and
+detailed diagnostics, so if you look at
+the diagnostics that I've shown here,
+by comparing the log
+with the second model.
+We see that we have a fitness of 0.95,
+but we can also see in terms of
+the diagnostics how many times
+an activity or a transition in Petri net
+terms was being executed, how many times
+a token was flowing over a particular arc.
+The diagnostics clearly show,
+that there is a problem with respect
+to the ordering of b and c and b.
+And so, c and b should be concurrent to d,
+but now they are in sequence.
+So all the traces,
+where d happens before b or
+c, they don't fit well into this model,
+as is shown by the diagnostics.
+If we take a look at this model, and
+again compare it with the original log,
+we can see even more problems.
+And again,
+by looking at a number of missing and
+remaining tokens
+in each of the places,
+we can get a good understanding
+of where the differences are.
+So, through replay,
+we can capture diagnostic information,
+where are the differences,
+and how severe are they, and we can
+also compute a global fitness metric.
+If you would like to read more
+about token-based replay for
+conformance checking,
+please read more in chapter seven.
+In the next lecture,
+we will consider a more sophisticated
+technique, based on alignments.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

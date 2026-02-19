@@ -1,0 +1,252 @@
+[MUSIC]
+Glad to see you again.
+In the last two lectures we showed
+that decision tree analysis can be
+used to enrich discovered process models.
+We now use the timestamps in the
+event logs to analyze performance and
+suggest improvements.
+If we have processes that
+have no problems in them,
+where everything is running smooth,
+there are no bottlenecks,
+then process mining may not
+have a very large added value.
+However, if you have processes like this
+that have huge performance problems,
+then process mining can be extremely
+valuable because there're many ways in
+which analyzing the process
+may help to improve it.
+In this lecture we will focus
+on bottleneck analysis,
+using the timestamps
+that are present in logs.
+We would like to find out where are the
+bottlenecks, and why are they there.
+To do this, we are using event logs.
+Where events have timestamps.
+But often, also transactional information.
+Like start and complete.
+For example, for case one activity,
+a started at time 12 and ended at time 19.
+And the same we can see for all the other
+events for this particular case.
+So this is the input that we would
+like to use for performance analysis.
+We can look at basic performance
+information, like, for
+example, the duration of cases.
+When we look at such data we can see
+when things start and when things end.
+But you can do this with any BI tool.
+What makes process mining different,
+is that you can look inside the process,
+other than just looking at
+spreadsheet-like information that
+you see in many of the BI tools.
+So we would like to understand the more
+detailed timed behavior of a process.
+So this slide shows a lot of
+information related to
+the execution of just three cases.
+So it is showing durations,
+waiting times, and
+all kinds of other things
+that we can measure.
+If we replay these three
+cases on this process model.
+Let's zoom in to some of the parts.
+For example we can see that
+case one started at time 12.
+Then for case one,
+activity a was being executed, and
+that started at time 12 and
+ended at time 19.
+So we know that the duration of this
+particular instance of activity a for
+case one was seven time units.
+We can also look at the time in
+between a and b, the waiting time.
+That is equivalent to six for
+this particular instance.
+If we look at the bottom part,
+then we can see that through f,
+one case was looping back.
+Case number three.
+So we can find two activity instances.
+For activity d, for case three.
+We can also see multiple
+waiting times related to
+this extra iteration of this case three.
+We can also look at the end, and there
+we can see the completion time of cases.
+So this is the detailed information that
+we can get by replaying the event log,
+after alignment,
+on top of the process model.
+We can also take another view.
+More like a Gantt chart
+overview of the event log.
+So in this diagram, we see for
+every case what are the activities that
+are being executed, and
+what are the waiting times.
+The black bars correspond to
+the actual processing of an activity
+instance, for a particular case.
+The grey parts correspond
+to waiting times.
+So an activity instance is enabled,
+but was not yet started.
+If we look at case three, we can for
+example see the interval of activity a for
+case three.
+And we can see that after a completed,
+that the waiting time for c and d started.
+And then after c and
+d the waiting for e started.
+Note that the waiting for e only starts
+after d and c have both completed.
+So this visualizes from a case
+perspective, what has happened.
+We can also take a resource perspective.
+It's exactly the same, but
+now along the y-axis, we see people.
+So we can see what they are doing,
+and when cases were waiting for
+them to start executing
+particular activity instances.
+We can also mix these
+two views using colors.
+So now the red color for example refers
+to activity instances of case one.
+What you can see in this diagram,
+that because of the extra loop,
+the iteration of case three,
+there are more activities for
+case three than for
+the other two activities.
+So, after providing such a Gantt chart,
+and the details replay of
+the event log on top of the process model,
+we can collect all kinds of statistics.
+So we can see the waiting
+times in between activities.
+We can see the mean time, we can see
+variations, and things like that.
+We can also look at the service times.
+So, if we have start and complete events,
+we can measure how long activities take,
+and we can again compute the average and
+standard deviation over these times.
+We can also compute routing probabilities.
+So for example, in this particular
+example, there was a 50:50
+probability of choosing b over c.
+And so both have an equal probability.
+The choice after e.
+You can see that a branch to
+g has a probability of 0.5.
+The other two branches have
+a probability of 0.25.
+So we can also learn this.
+Let's take a look at another event
+log to see another example of
+this detailed replay and
+corresponding performance.
+Metrics that we can compute.
+So if we take a look at this log,
+then Pete started by
+executing activity a at time ten,
+and ended at time 12.
+Then we can again take at a look
+at the whole event log as a ref,
+again referring to just very few cases.
+For example, this event log ends
+with Carol starting activity f for
+case two at time 57 and
+ending this activity instance at time 60.
+So again we can take this, we can take the
+event log, we can take the process model,
+and we can again try to estimate service
+times waiting times routing probabilities.
+If we do this,
+then we first do the detailed replay.
+So these are the detailed
+statistics that we can gather.
+Note in this example that there
+are two silent activities.
+The end split before b and c,
+and the end join after b and c.
+We cannot see them in the log, but
+through alignments we know when they
+are being executed and
+how to align them properly with the model.
+So again, we can collect
+statistics about waiting times.
+We can look at the average, we can,
+you can look at the standard deviation.
+We can look at service times as you
+can see here.
+So we can collect all kinds of statistics
+including routing probabilities.
+So these are the things that
+we can get from event logs.
+When I tell this, I hope that you can
+see that you have actually seen and
+used this before.
+When you are using tools like Disco.
+They are replaying the event
+log on top of the model,
+to indicate what are the parts
+where the biggest bottlenecks are.
+So for example here, fix arcs
+colored in red correspond to the main
+bottlenecks in this particular process.
+We've also seen this in
+the context of ProM.
+And so we can let things highlight in red
+the moment that there is
+a performance problem.
+And so we have used these things before,
+but now we
+can see how these timestamps are actually
+being used at a more detailed level.
+Using process mining, we can
+automatically discover process models.
+We have seen that.
+When we discuss conformance
+checking we have shown
+that you can relate an event log and
+a model through the notion of alignment.
+So even if the real process
+deviates a bit from the model,
+you can still relate real
+behavior to a process model.
+Once you have these alignments,
+you can do a replay of the entire log.
+And by doing that and
+inspecting the timestamps you can identify
+bottlenecks and measure all kinds of
+other performance related things.
+The result of all of
+this is a process model
+extended with performance information.
+And such a process model can
+be the starting point for
+all kinds of process improvement and
+operational support.
+In one of the future lectures for example,
+we will focus on predictions, and
+these predictions are using exactly the
+types of statistics that I showed today,
+that you can collect from event logs.
+In chapter eight, we are relating
+timestamps to process models, and
+you can read more about how to extend
+models with this extra perspective.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

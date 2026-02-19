@@ -1,0 +1,1472 @@
+1
+00:00:00,150 --> 00:00:07,319
+[MUSIC]
+
+2
+00:00:07,319 --> 00:00:10,042
+Welcome to the second
+lecture of the course on
+
+3
+00:00:10,042 --> 00:00:12,920
+process mining data science in action.
+
+4
+00:00:12,920 --> 00:00:16,990
+Today I provide an overview of
+process mining by discussing three
+
+5
+00:00:16,990 --> 00:00:18,430
+types of mining.
+
+6
+00:00:18,430 --> 00:00:22,190
+Process discovery,
+performance checking, and enhancement.
+
+7
+00:00:24,290 --> 00:00:29,020
+In my last lecture, I showed you that
+we have large amounts of data, but
+
+8
+00:00:29,020 --> 00:00:34,390
+that it is not just about collecting data,
+it's about analyzing processes.
+
+9
+00:00:34,390 --> 00:00:36,100
+That is one of the key things.
+
+10
+00:00:37,110 --> 00:00:39,730
+If you think about what process mining is,
+
+11
+00:00:39,730 --> 00:00:43,710
+then the next diagram provides
+a nice illustration of that.
+
+12
+00:00:44,870 --> 00:00:52,310
+So process mining is bridging the gap
+between classical process model analysis.
+
+13
+00:00:52,310 --> 00:00:56,025
+And data oriented analysis like
+data mining and machine learning.
+
+14
+00:00:56,025 --> 00:00:58,870
+Process mining
+is bridging this gap,
+
+15
+00:00:58,870 --> 00:01:00,920
+because it's focusing on processes.
+
+16
+00:01:00,920 --> 00:01:03,420
+But at the same time, using the real data.
+
+17
+00:01:04,710 --> 00:01:09,210
+In classical data mining,
+people typically do not look at processes.
+
+18
+00:01:09,210 --> 00:01:12,050
+Especially not end to end processes.
+
+19
+00:01:12,050 --> 00:01:15,980
+In areas where people are concerned
+with process model analysis,
+
+20
+00:01:15,980 --> 00:01:18,180
+they typically ignore the data.
+
+21
+00:01:18,180 --> 00:01:20,440
+Why are you doing process mining?
+
+22
+00:01:20,440 --> 00:01:25,288
+We are doing process mining to answer
+performance related questions and
+
+23
+00:01:25,288 --> 00:01:27,380
+compliance related questions.
+
+24
+00:01:27,380 --> 00:01:29,890
+So why are there certain bottlenecks,
+
+25
+00:01:29,890 --> 00:01:33,190
+how can they be removed,
+why do people deviate.
+
+26
+00:01:34,210 --> 00:01:38,500
+So the starting point for
+process mining is event data.
+
+27
+00:01:38,500 --> 00:01:44,350
+What you see here is a table, and every
+row in this table corresponds to an event.
+
+28
+00:01:46,180 --> 00:01:51,640
+An event has different properties, so
+there are generic types of properties.
+
+29
+00:01:53,060 --> 00:01:55,640
+The first property is a case id.
+
+30
+00:01:55,640 --> 00:02:01,090
+In this case every record refers
+to a student making an exam.
+
+31
+00:02:01,090 --> 00:02:03,840
+So the case id refers to the student.
+
+32
+00:02:03,840 --> 00:02:07,900
+The activity name refers to the exam.
+
+33
+00:02:07,900 --> 00:02:11,230
+And the timestamp in this
+case is the date of the exam.
+
+34
+00:02:11,230 --> 00:02:13,660
+There can be additional data like, for
+
+35
+00:02:13,660 --> 00:02:18,150
+example, the mark, or
+the grade that somebody got.
+
+36
+00:02:18,150 --> 00:02:19,250
+Let's take another example.
+
+37
+00:02:19,250 --> 00:02:23,120
+We are now looking at
+the handling of orders.
+
+38
+00:02:23,120 --> 00:02:25,790
+Again every line, corresponds to an event.
+
+39
+00:02:27,430 --> 00:02:31,760
+If here we look at the first column,
+we see the order number.
+
+40
+00:02:31,760 --> 00:02:32,760
+That is the case id.
+
+41
+00:02:33,910 --> 00:02:38,590
+The second column refers to
+the activity that is being executed.
+
+42
+00:02:38,590 --> 00:02:41,030
+The third column,
+again refers to the timestamp.
+
+43
+00:02:42,490 --> 00:02:45,250
+Then there is a column
+referring to the resource.
+
+44
+00:02:45,250 --> 00:02:49,360
+The person executing
+the corresponding activity.
+
+45
+00:02:49,360 --> 00:02:53,240
+And we can have all kinds of other columns
+with other data like the products and
+
+46
+00:02:53,240 --> 00:02:54,760
+quantity and things like that.
+
+47
+00:02:56,530 --> 00:02:59,150
+Let's take a look at the third example.
+
+48
+00:02:59,150 --> 00:03:02,940
+Now we are in a hospital
+we are treating patients.
+
+49
+00:03:02,940 --> 00:03:04,600
+And we look at an event log and
+
+50
+00:03:04,600 --> 00:03:09,700
+every row refers to a step in
+the treatment of a particular patient.
+
+51
+00:03:10,700 --> 00:03:16,120
+So what you see is that, again, we see
+a case id, activity name, and timestamp.
+
+52
+00:03:16,120 --> 00:03:21,240
+So the first column refers to the patient,
+this case represented by a number.
+
+53
+00:03:21,240 --> 00:03:25,160
+The second column to the activity name,
+the third column to the timestamp.
+
+54
+00:03:26,440 --> 00:03:30,010
+Again we see the resource,
+in this case the doctor or
+
+55
+00:03:30,010 --> 00:03:35,290
+the nurse executing a particular activity,
+and we can have all kinds of other data.
+
+56
+00:03:35,290 --> 00:03:37,270
+Like for example the age of the patient.
+
+57
+00:03:38,440 --> 00:03:42,870
+And all kinds of other properties of
+the patient or the corresponding step.
+
+58
+00:03:42,870 --> 00:03:45,400
+So these are examples
+of the kind of
+
+59
+00:03:45,400 --> 00:03:48,120
+event data that we would like to use for
+analysis.
+
+60
+00:03:49,730 --> 00:03:55,270
+And we are focusing on the relationship
+between process models and event data.
+
+61
+00:03:55,270 --> 00:04:00,060
+And I will talk about three types
+of relationships between models and
+
+62
+00:04:00,060 --> 00:04:00,816
+event data.
+
+63
+00:04:00,816 --> 00:04:05,190
+Play-out, Play-in, and Replay.
+
+64
+00:04:05,190 --> 00:04:08,260
+Let's first take a look at Play-out.
+
+65
+00:04:08,260 --> 00:04:12,480
+Here the basic idea is that you start
+from a model, and from that model,
+
+66
+00:04:12,480 --> 00:04:13,960
+you generate behavior.
+
+67
+00:04:15,290 --> 00:04:18,990
+And let me try to illustrate
+this using a small example.
+
+68
+00:04:20,030 --> 00:04:23,780
+What you see here is
+a so-called BPMN model.
+
+69
+00:04:23,780 --> 00:04:25,320
+And don't be scared off by it.
+
+70
+00:04:25,320 --> 00:04:28,830
+In later weeks we will discuss
+these types of things in detail but
+
+71
+00:04:28,830 --> 00:04:32,210
+this model is describing
+a particular work flow.
+
+72
+00:04:32,210 --> 00:04:37,270
+How things are executed, and
+in what order they are being executed.
+
+73
+00:04:37,270 --> 00:04:41,830
+So, if we take one execution
+of this process model,
+
+74
+00:04:41,830 --> 00:04:46,368
+which is about handling travel requests,
+
+75
+00:04:46,368 --> 00:04:52,300
+then it always starts with an activity a,
+where we register the travel request.
+
+76
+00:04:52,300 --> 00:04:56,620
+It is done at a particular point in time,
+and it is done by a particular person.
+
+77
+00:04:58,220 --> 00:05:03,480
+Then we start concurrently two paths.
+
+78
+00:05:03,480 --> 00:05:07,470
+In one path we execute activity d,
+check budget.
+
+79
+00:05:07,470 --> 00:05:12,870
+And in another path we have a choice
+between two different activities, b and c.
+
+80
+00:05:14,020 --> 00:05:19,250
+So let's assume that we do activity b,
+get support from local manager.
+
+81
+00:05:19,250 --> 00:05:22,990
+And this is done at the particular
+time and by a particular person.
+
+82
+00:05:25,000 --> 00:05:29,090
+Then, we have to do activity
+d if we follow this model.
+
+83
+00:05:29,090 --> 00:05:30,720
+Check budget by finance.
+
+84
+00:05:30,720 --> 00:05:34,750
+Again, done at a particular point
+in time by a particular person.
+
+85
+00:05:34,750 --> 00:05:38,550
+And then,
+we can make a decision doing activity e.
+
+86
+00:05:39,790 --> 00:05:41,790
+Here we see an XOR-split.
+
+87
+00:05:41,790 --> 00:05:45,800
+So we need to make one of three
+decisions accept, reject or there is
+
+88
+00:05:45,800 --> 00:05:49,630
+insufficient information and
+we need to redo part of the process again.
+
+89
+00:05:50,700 --> 00:05:57,520
+If we decide to accept, we execute
+activity g and the process ends.
+
+90
+00:05:57,520 --> 00:06:00,380
+So this is one possible scenario.
+
+91
+00:06:00,380 --> 00:06:05,830
+Let us now look at another possible
+scenario following the same process.
+
+92
+00:06:05,830 --> 00:06:13,170
+So we first do an a we then,
+again start two paths in parallel.
+
+93
+00:06:13,170 --> 00:06:18,190
+But now we do first d and
+then we do c instead of b.
+
+94
+00:06:19,720 --> 00:06:22,300
+We then have to make a decision again.
+
+95
+00:06:22,300 --> 00:06:25,000
+But now there is not enough information.
+
+96
+00:06:25,000 --> 00:06:26,960
+We need to go back.
+
+97
+00:06:26,960 --> 00:06:31,980
+And if we go backwards, we
+again need to execute d and b or c.
+
+98
+00:06:32,990 --> 00:06:35,110
+So we go back.
+
+99
+00:06:35,110 --> 00:06:37,180
+We execute b again.
+
+100
+00:06:37,180 --> 00:06:39,130
+We execute d.
+
+101
+00:06:39,130 --> 00:06:41,440
+Then we execute e.
+
+102
+00:06:41,440 --> 00:06:43,270
+And finally we make a decision.
+
+103
+00:06:43,270 --> 00:06:48,250
+And in this case the decision
+is to reject the request.
+
+104
+00:06:48,250 --> 00:06:51,640
+So this shows you two possible paths.
+
+105
+00:06:51,640 --> 00:06:53,370
+But there are many more.
+
+106
+00:06:53,370 --> 00:06:57,850
+Now if we look at this process model
+then these are possible ways of
+
+107
+00:06:57,850 --> 00:06:59,050
+playing out this model.
+
+108
+00:07:00,630 --> 00:07:05,390
+These are not the only ones because there
+is a loop that are infinitely many.
+
+109
+00:07:05,390 --> 00:07:08,450
+So this is playing out a model.
+
+110
+00:07:08,450 --> 00:07:13,710
+And if you are using simulation or if you
+are building an information system that
+
+111
+00:07:13,710 --> 00:07:17,580
+is driven by such models,
+play-out is the thing that you are doing.
+
+112
+00:07:19,130 --> 00:07:21,220
+Let's now look at the reverse.
+
+113
+00:07:21,220 --> 00:07:23,630
+We are just reversing the arrow.
+
+114
+00:07:23,630 --> 00:07:29,130
+We now go from even data to
+the corresponding process model.
+
+115
+00:07:29,130 --> 00:07:33,240
+And in later weeks we will look at
+different algorithms to do this.
+
+116
+00:07:33,240 --> 00:07:37,410
+The basic idea is you look at
+the number of example behaviors.
+
+117
+00:07:37,410 --> 00:07:40,490
+And you automatically
+infer a model from it.
+
+118
+00:07:41,580 --> 00:07:45,420
+So here, if you look at the process,
+if you look at the traces that you
+
+119
+00:07:45,420 --> 00:07:50,030
+see on top of this diagram, you can
+see that it always starts with an a.
+
+120
+00:07:50,030 --> 00:07:53,900
+So we infer a model that
+always starts with an a.
+
+121
+00:07:54,930 --> 00:07:58,760
+All the traces end with a g or and h, so
+
+122
+00:07:58,760 --> 00:08:03,130
+in the process model at the end there is a
+choice between accept and reject, g and h.
+
+123
+00:08:05,090 --> 00:08:09,350
+This is a more complicated set of traces
+and if we get this more complicated set of
+
+124
+00:08:09,350 --> 00:08:12,780
+traces, we get this
+more complicated model.
+
+125
+00:08:12,780 --> 00:08:17,330
+So we are automatically
+learning a model from examples.
+
+126
+00:08:18,750 --> 00:08:24,540
+And what is very important to understand
+here is that no modeling is needed.
+
+127
+00:08:24,540 --> 00:08:28,400
+We are not making any models by hand.
+
+128
+00:08:28,400 --> 00:08:32,490
+We automatically infer
+process models from
+
+129
+00:08:32,490 --> 00:08:33,530
+raw event data.
+
+130
+00:08:35,970 --> 00:08:37,810
+So let me ask you a question.
+
+131
+00:08:39,070 --> 00:08:43,330
+And of course you did not learn yet
+process discovery techniques.
+
+132
+00:08:43,330 --> 00:08:46,120
+And later you will look
+at algorithms to do so.
+
+133
+00:08:46,120 --> 00:08:48,810
+But take a look at these example traces.
+
+134
+00:08:48,810 --> 00:08:53,220
+And I ask you, can you create
+a process model that allows for
+
+135
+00:08:53,220 --> 00:08:54,480
+the traces that you see here.
+
+136
+00:08:57,470 --> 00:08:59,250
+Think a bit about this for sometime.
+
+137
+00:09:00,310 --> 00:09:05,190
+And I'm quite sure that you probably
+end up with a model like this.
+
+138
+00:09:05,190 --> 00:09:07,540
+So what is shown in this model.
+
+139
+00:09:07,540 --> 00:09:11,230
+That all the traces started with a.
+
+140
+00:09:11,230 --> 00:09:13,110
+And ends with an e or an f.
+
+141
+00:09:14,320 --> 00:09:19,740
+And in between we again have a choice
+between B and C and we always do D.
+
+142
+00:09:20,850 --> 00:09:25,580
+And this can be done in any order that is
+why we have an AND-split in this diagram.
+
+143
+00:09:28,270 --> 00:09:33,770
+So that was a toy example, we can
+easily apply this to real world data.
+
+144
+00:09:33,770 --> 00:09:35,630
+So here you see an example.
+
+145
+00:09:35,630 --> 00:09:39,800
+That we will revisit several times
+in the future.
+
+146
+00:09:39,800 --> 00:09:44,070
+Here we look at raw event data
+from a Dutch housing agency.
+
+147
+00:09:44,070 --> 00:09:49,630
+And every row refers to an event
+within this housing agency.
+
+148
+00:09:49,630 --> 00:09:55,740
+The first column refers to the number of
+an apartment, the ID of an apartment.
+
+149
+00:09:55,740 --> 00:09:57,900
+The second column to the activity.
+
+150
+00:09:57,900 --> 00:09:59,860
+The third column to the time stamp.
+
+151
+00:09:59,860 --> 00:10:02,360
+Again, very similar to the things
+that we have seen before.
+
+152
+00:10:03,790 --> 00:10:11,600
+If we take this raw event data, we infer
+a process model that is describing
+
+153
+00:10:11,600 --> 00:10:17,150
+what happens when somebody that is
+renting an apartment, cancels his rent.
+
+154
+00:10:17,150 --> 00:10:20,510
+Until the moment that apartment
+is rented out to somebody else.
+
+155
+00:10:21,970 --> 00:10:23,580
+This is the full process model.
+
+156
+00:10:23,580 --> 00:10:26,730
+If we zoom into a particular part,
+then you can see
+
+157
+00:10:26,730 --> 00:10:33,360
+a small fragment which is executed by,
+let's say, approximately thirty, cases.
+
+158
+00:10:33,360 --> 00:10:39,100
+This case houses or apartments that
+followed this sequential path.
+
+159
+00:10:39,100 --> 00:10:43,680
+Without modeling you are able to
+see what is the process that is
+
+160
+00:10:43,680 --> 00:10:44,730
+really being executed.
+
+161
+00:10:46,660 --> 00:10:49,370
+Let's take a look at a more
+complicated example.
+
+162
+00:10:49,370 --> 00:10:53,670
+We have been applying
+this in probably 20 to
+
+163
+00:10:53,670 --> 00:10:59,050
+30 different hospitals where we can
+take event data about patients.
+
+164
+00:10:59,050 --> 00:11:03,480
+So this is a homogeneous group of
+patients within a Dutch hospital.
+
+165
+00:11:05,470 --> 00:11:09,700
+We can look at the audit trail of
+a single patient of that patient,
+
+166
+00:11:09,700 --> 00:11:13,170
+we see all kinds of properties, and
+we see the events that have been executed.
+
+167
+00:11:15,300 --> 00:11:19,730
+If we take 600 of such cases.
+
+168
+00:11:19,730 --> 00:11:21,670
+And we automatically infer a model.
+
+169
+00:11:21,670 --> 00:11:24,630
+We see this scary diagram
+that you can see on one side.
+
+170
+00:11:25,710 --> 00:11:28,350
+It is showing that a treatment process of
+
+171
+00:11:28,350 --> 00:11:31,320
+this particular group of patients
+is incredibly complicated.
+
+172
+00:11:32,380 --> 00:11:36,810
+Don't be scared off by this
+spaghetti like diagram.
+
+173
+00:11:36,810 --> 00:11:41,280
+Later we will see all kinds of techniques
+to simplify such diagrams, so that you
+
+174
+00:11:41,280 --> 00:11:46,590
+only have to look at the highways, or
+the parts that you're interested in.
+
+175
+00:11:46,590 --> 00:11:52,140
+On the right-hand side of the screen,
+you see also a graph-based model,
+
+176
+00:11:52,140 --> 00:11:55,990
+but it is now not showing activities,
+but it is showing departments.
+
+177
+00:11:55,990 --> 00:12:00,480
+So rather than seeing the sequence from
+one activity to the next activity we now
+
+178
+00:12:00,480 --> 00:12:05,040
+see how work is flowing from one
+department to another department.
+
+179
+00:12:05,040 --> 00:12:08,480
+So these are some practical
+examples showing you
+
+180
+00:12:08,480 --> 00:12:11,480
+how process mining can
+be applied in practice.
+
+181
+00:12:13,140 --> 00:12:14,850
+But it doesn't stop here.
+
+182
+00:12:14,850 --> 00:12:17,640
+It is not enough to just learn the model,
+
+183
+00:12:17,640 --> 00:12:23,240
+the key element is that you can
+replay a reality on top of models.
+
+184
+00:12:23,240 --> 00:12:25,770
+Whether you have made
+these models by hand, or
+
+185
+00:12:25,770 --> 00:12:30,780
+whether you have automatically learned
+them using process discovery is irrelevant.
+
+186
+00:12:30,780 --> 00:12:36,560
+What is important is that you try to
+replay reality on top of the model.
+
+187
+00:12:37,770 --> 00:12:43,220
+So, at the top of the slide, you can
+see a trace that happened in reality.
+
+188
+00:12:43,220 --> 00:12:47,460
+Again, this is an abstract example,
+later I will show you a real example.
+
+189
+00:12:47,460 --> 00:12:50,670
+In reality, we saw the sequence a c d e g.
+
+190
+00:12:52,660 --> 00:12:55,630
+Let's try to replay this on this model.
+
+191
+00:12:55,630 --> 00:13:01,860
+And if we do this, we see a path through
+the process model that is indeed possible.
+
+192
+00:13:01,860 --> 00:13:05,520
+So we replay reality on top of the model,
+
+193
+00:13:05,520 --> 00:13:08,830
+and while doing that we don't
+encounter any problems.
+
+194
+00:13:10,590 --> 00:13:15,520
+So, nothing surprising yet
+Let's now take a look at another case.
+
+195
+00:13:15,520 --> 00:13:19,430
+Where we see the sequence a c e g.
+
+196
+00:13:19,430 --> 00:13:22,240
+So this could be the path of a patient.
+
+197
+00:13:22,240 --> 00:13:25,710
+This could be the life
+cycle of an apartment.
+
+198
+00:13:25,710 --> 00:13:28,510
+It could be somebody applying for
+a mortgage.
+
+199
+00:13:28,510 --> 00:13:29,520
+It can be anything.
+
+200
+00:13:29,520 --> 00:13:31,940
+So we look a the sequence of events.
+
+201
+00:13:31,940 --> 00:13:34,790
+In this case in reality first a happens.
+
+202
+00:13:34,790 --> 00:13:37,330
+That is possible according to the model.
+
+203
+00:13:37,330 --> 00:13:42,710
+Then c happens, this is also
+still possible in the model but
+
+204
+00:13:42,710 --> 00:13:46,540
+then in the reality e happened, and
+
+205
+00:13:46,540 --> 00:13:50,910
+according to the process model you can
+only make a decision if also activity d
+
+206
+00:13:50,910 --> 00:13:56,530
+is being executed it is impossible
+to execute d at this point in time.
+
+207
+00:13:56,530 --> 00:14:03,310
+So while replaying, we continue, but we
+record the fact that there is a problem.
+
+208
+00:14:03,310 --> 00:14:06,400
+So here activity d,
+check budget, is missing.
+
+209
+00:14:07,510 --> 00:14:11,060
+And then we continue and
+in the remainder of the trace,
+
+210
+00:14:11,060 --> 00:14:13,580
+we don't see any surprising things.
+
+211
+00:14:13,580 --> 00:14:16,830
+So we can see where the deviations are.
+
+212
+00:14:18,570 --> 00:14:19,820
+Here I show you another example.
+
+213
+00:14:21,110 --> 00:14:24,270
+If we look at this example
+first a then we do a c then
+
+214
+00:14:26,170 --> 00:14:29,360
+we see that in
+reality h has happened.
+
+215
+00:14:29,360 --> 00:14:32,830
+So there was a rejection while
+the process was still in the middle.
+
+216
+00:14:33,930 --> 00:14:37,340
+Again by doing replay we
+can record a problem.
+
+217
+00:14:38,560 --> 00:14:42,940
+Provide diagnostics and
+continue our replay.
+
+218
+00:14:42,940 --> 00:14:48,940
+This case, we make a decision and
+finally we do the acceptance.
+
+219
+00:14:48,940 --> 00:14:53,870
+So again, we have found a deviation
+between the reality and the model.
+
+220
+00:14:55,060 --> 00:14:59,120
+So, to check whether you have
+understood these types of things.
+
+221
+00:14:59,120 --> 00:15:02,900
+Take a look at this model and
+the corresponding tree traces.
+
+222
+00:15:04,280 --> 00:15:08,290
+Are these traces possible in this model or
+not?
+
+223
+00:15:08,290 --> 00:15:12,860
+And if they are not possible, where
+does reality deviate from this model?
+
+224
+00:15:14,930 --> 00:15:16,540
+Let's take a look at the answer.
+
+225
+00:15:16,540 --> 00:15:18,740
+If we take a look at the first trace.
+
+226
+00:15:20,010 --> 00:15:23,840
+a, b, d, c, e h.
+
+227
+00:15:23,840 --> 00:15:26,230
+Then we can see that this is impossible.
+
+228
+00:15:26,230 --> 00:15:31,770
+If we tried to replay it, we will see
+that it is impossible to do both b and c.
+
+229
+00:15:31,770 --> 00:15:39,470
+When we take a look at the second trace,
+we find kind of a reversed problem.
+
+230
+00:15:39,470 --> 00:15:43,860
+Now we don't have an activity too
+much we have an activity too little.
+
+231
+00:15:43,860 --> 00:15:46,150
+Activity d is missing.
+
+232
+00:15:46,150 --> 00:15:47,020
+So it doesn't fit.
+
+233
+00:15:48,860 --> 00:15:51,750
+If you try to replay the last
+trace you will see that you
+
+234
+00:15:51,750 --> 00:15:56,140
+don't encounter any problems so
+indeed it is replayable.
+
+235
+00:15:57,500 --> 00:16:00,380
+So these examples show you
+how you can apply yourself.
+
+236
+00:16:01,470 --> 00:16:04,320
+Conformance checking
+techniques by doing replay.
+
+237
+00:16:06,060 --> 00:16:09,990
+Again, let us take a look
+at a practical example.
+
+238
+00:16:09,990 --> 00:16:13,090
+This is a fragment of
+a larger process model,
+
+239
+00:16:13,090 --> 00:16:18,870
+describing the handling of
+complaints in a Dutch municipality.
+
+240
+00:16:18,870 --> 00:16:22,700
+These are people that are complaining
+about the valuation of their house.
+
+241
+00:16:22,700 --> 00:16:25,360
+And because of that, they think
+that they need to pay too much tax.
+
+242
+00:16:27,300 --> 00:16:29,300
+We take a look at this process and
+
+243
+00:16:29,300 --> 00:16:35,370
+we replay a reality on top of this model,
+we will find interesting deviations.
+
+244
+00:16:35,370 --> 00:16:39,410
+Although the overall process
+has a very good fitness,
+
+245
+00:16:39,410 --> 00:16:42,170
+the relationship between reality and
+the model.
+
+246
+00:16:42,170 --> 00:16:44,130
+They are very close to one another.
+
+247
+00:16:44,130 --> 00:16:47,640
+We still find all kind of
+interesting deviations.
+
+248
+00:16:47,640 --> 00:16:53,910
+So for example here the house
+was reevaluated 23 times.
+
+249
+00:16:53,910 --> 00:16:56,460
+While it was not supposed to happen.
+
+250
+00:16:56,460 --> 00:16:58,570
+So something happened in reality.
+
+251
+00:16:58,570 --> 00:17:01,330
+Which was not possible
+according to the model.
+
+252
+00:17:01,330 --> 00:17:05,710
+And by replaying reality on top of the
+model, we can see these types of problems.
+
+253
+00:17:07,410 --> 00:17:09,790
+Replay is not just about conformance.
+
+254
+00:17:09,790 --> 00:17:12,050
+It's also about performance analysis.
+
+255
+00:17:13,150 --> 00:17:19,040
+We can easily replay an event logged that
+has timestamps on top of such a model.
+
+256
+00:17:19,040 --> 00:17:22,330
+And each time we execute an activity.
+
+257
+00:17:22,330 --> 00:17:26,700
+We record the corresponding time
+as you can see here on this slide.
+
+258
+00:17:27,700 --> 00:17:32,460
+So we just execute reality
+on top of the model.
+
+259
+00:17:32,460 --> 00:17:34,450
+We record all the times.
+
+260
+00:17:34,450 --> 00:17:38,940
+And at the end we know exactly
+how much time was spent in
+
+261
+00:17:38,940 --> 00:17:41,250
+all the different parts of the process.
+
+262
+00:17:41,250 --> 00:17:46,870
+And the black circles here indicate
+delays between individual activities.
+
+263
+00:17:47,880 --> 00:17:52,690
+So we can do this for
+a single execution, for a single trace.
+
+264
+00:17:52,690 --> 00:17:55,220
+But you can also do that for many traces.
+
+265
+00:17:55,220 --> 00:17:55,850
+If you do that for
+
+266
+00:17:55,850 --> 00:18:01,580
+many traces, you will see how often
+an activity is being executed.
+
+267
+00:18:01,580 --> 00:18:05,470
+You will see how often a particular
+path is being followed.
+
+268
+00:18:06,580 --> 00:18:09,780
+But you also see how long
+activities have taken and
+
+269
+00:18:09,780 --> 00:18:14,320
+you will see what the delays
+are in between these activities.
+
+270
+00:18:14,320 --> 00:18:15,590
+What are waiting times.
+
+271
+00:18:15,590 --> 00:18:17,740
+What are synchronization times.
+
+272
+00:18:17,740 --> 00:18:20,690
+You can record them for
+hundreds of thousands or
+
+273
+00:18:20,690 --> 00:18:23,290
+perhaps even millions of cases.
+
+274
+00:18:23,290 --> 00:18:26,320
+And derive probability
+distribution from them.
+
+275
+00:18:27,900 --> 00:18:30,810
+So again let us take a look
+at a practical example.
+
+276
+00:18:30,810 --> 00:18:35,350
+Here we look again at a process
+where people complain about
+
+277
+00:18:35,350 --> 00:18:37,390
+the valuation of their house.
+
+278
+00:18:37,390 --> 00:18:41,020
+We have derived automatically
+a process model.
+
+279
+00:18:41,020 --> 00:18:42,870
+And these terms expressed as a petri net.
+
+280
+00:18:44,370 --> 00:18:49,000
+And now we can by replaying we
+can see where the delays take place.
+
+281
+00:18:49,000 --> 00:18:53,890
+So if you look at this slide you can
+see that certain places are
+
+282
+00:18:53,890 --> 00:18:55,260
+indicated in purple.
+
+283
+00:18:55,260 --> 00:18:58,880
+And these are the places
+where we see a large delay.
+
+284
+00:19:00,130 --> 00:19:04,879
+So this is an indication where
+possible performance problems are.
+
+285
+00:19:06,290 --> 00:19:07,940
+It can go one step further.
+
+286
+00:19:07,940 --> 00:19:11,270
+You can point at two arbitrary
+points in the process.
+
+287
+00:19:12,360 --> 00:19:18,550
+You can see how many cases, in this case
+how many objections are flowing from
+
+288
+00:19:18,550 --> 00:19:24,960
+this first red activity to the second red
+activity, and we can see how long it took.
+
+289
+00:19:24,960 --> 00:19:28,160
+And you can see here
+the corresponding statistics.
+
+290
+00:19:28,160 --> 00:19:34,270
+So by replaying you can see
+exactly where delays take place.
+
+291
+00:19:34,270 --> 00:19:36,980
+You can start investigating
+what is causing them.
+
+292
+00:19:38,670 --> 00:19:43,280
+So to provide an overview of
+the things that I've been talking about
+
+293
+00:19:43,280 --> 00:19:45,890
+we have a real world where
+things are happening.
+
+294
+00:19:46,900 --> 00:19:50,050
+We have a software system, that is,
+
+295
+00:19:50,050 --> 00:19:54,420
+somehow, recording events of
+the things that take place.
+
+296
+00:19:54,420 --> 00:19:57,320
+People objecting to
+the valuation of their house.
+
+297
+00:19:57,320 --> 00:19:59,820
+Patients being treated in a hospital.
+
+298
+00:19:59,820 --> 00:20:02,090
+Then we have these event data.
+
+299
+00:20:02,090 --> 00:20:06,660
+And we can do discovery,
+automatically learning process models.
+
+300
+00:20:06,660 --> 00:20:08,760
+We can do conformance checking.
+
+301
+00:20:08,760 --> 00:20:12,120
+Comparing the event log
+to the process model and
+
+302
+00:20:12,120 --> 00:20:16,920
+we can enrich, it's called enhancement here,
+we can enrich the process
+
+303
+00:20:16,920 --> 00:20:21,620
+model with information about
+deviations and performance.
+
+304
+00:20:21,620 --> 00:20:23,650
+For example the bottle necks
+that I just showed you.
+
+305
+00:20:26,420 --> 00:20:29,525
+How does that relate to
+the things that I've been talking about?
+
+306
+00:20:29,525 --> 00:20:32,460
+Play-out is about the classical use of
+
+307
+00:20:32,460 --> 00:20:35,405
+process models not
+involving any event data.
+
+308
+00:20:35,405 --> 00:20:40,540
+Play-in corresponds to discovery.
+
+309
+00:20:40,540 --> 00:20:45,580
+You automatically learn a process model
+without any modeling from raw event data.
+
+310
+00:20:45,580 --> 00:20:50,250
+And you have replay where you compare
+a process model to an event log
+
+311
+00:20:51,330 --> 00:20:56,420
+to check conformance, to investigate
+performance problems, etcetera.
+
+312
+00:20:58,440 --> 00:21:03,370
+So, I hope this gave you a good overview
+of the three different types of,
+
+313
+00:21:03,370 --> 00:21:04,240
+process mining.
+
+314
+00:21:05,300 --> 00:21:09,050
+If you want to find more high-level
+information about these three types,
+
+315
+00:21:09,050 --> 00:21:10,490
+please read chapter one.
+
+316
+00:21:12,260 --> 00:21:15,695
+Thank you very much for
+watching and hope to see you soon.
+
+317
+00:21:15,695 --> 00:21:25,695
+[MUSIC]
+

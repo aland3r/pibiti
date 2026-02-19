@@ -1,0 +1,1122 @@
+1
+00:00:00,149 --> 00:00:07,100
+[MUSIC]
+
+2
+00:00:07,100 --> 00:00:08,710
+Glad to see you again.
+
+3
+00:00:08,710 --> 00:00:13,850
+After introducing decision trees as a tool
+for classification, we now focus on
+
+4
+00:00:13,850 --> 00:00:17,950
+an unsupervised data mining technique,
+uncovering patterns in data.
+
+5
+00:00:18,990 --> 00:00:23,400
+In this lecture we will learn about
+frequent item sets and association rules.
+
+6
+00:00:23,400 --> 00:00:27,610
+These will help us to find expected and
+unexpected patterns.
+
+7
+00:00:29,060 --> 00:00:33,330
+Here you, again see an overview of the
+different data mining techniques that we
+
+8
+00:00:33,330 --> 00:00:38,640
+are considering in relation to the topic
+of process mining that we will be
+
+9
+00:00:38,640 --> 00:00:39,970
+exploring later.
+
+10
+00:00:41,080 --> 00:00:44,360
+After talking about decision
+trees in two lectures, we now
+
+11
+00:00:44,360 --> 00:00:49,920
+move to association rules, and this is
+an unsupervised learning technique.
+
+12
+00:00:49,920 --> 00:00:52,560
+In other words, we do not have label data.
+
+13
+00:00:52,560 --> 00:00:53,890
+There's no response variable.
+
+14
+00:00:56,590 --> 00:00:59,920
+To explain the topic,
+it is best to start with an example.
+
+15
+00:00:59,920 --> 00:01:04,670
+One of the earlier applications of
+association rule mining revealed
+
+16
+00:01:04,670 --> 00:01:10,210
+that people buying beer
+often also bought diapers.
+
+17
+00:01:10,210 --> 00:01:16,750
+So it's a rule, taking one set of items,
+implying another set of items.
+
+18
+00:01:16,750 --> 00:01:19,970
+So this is one example
+of an association rule.
+
+19
+00:01:19,970 --> 00:01:27,280
+Another association rule could be cheese
+and ham and bread implies butter.
+
+20
+00:01:27,280 --> 00:01:28,320
+So, in other words,
+
+21
+00:01:28,320 --> 00:01:33,300
+customers that buy these three products,
+typically also buy butter.
+
+22
+00:01:35,010 --> 00:01:42,120
+Or, people that buy oregano,
+often also buy spaghetti and tomato sauce.
+
+23
+00:01:42,120 --> 00:01:46,160
+So, one set of items implies
+another set of items.
+
+24
+00:01:46,160 --> 00:01:50,810
+So, all these rules have
+the form of x implies y,
+
+25
+00:01:50,810 --> 00:01:53,940
+where both x and y are item sets.
+
+26
+00:01:53,940 --> 00:01:54,650
+Sets of items.
+
+27
+00:01:58,060 --> 00:02:01,410
+Before we talk about how
+you can compute them,
+
+28
+00:02:01,410 --> 00:02:04,470
+let's first define some quality measures.
+
+29
+00:02:04,470 --> 00:02:07,220
+And we start by explaining
+the notion of support.
+
+30
+00:02:09,600 --> 00:02:16,060
+The idea of support is to
+take the number of items,
+
+31
+00:02:16,060 --> 00:02:24,150
+that covers both x and y and divided by
+the total number of instances we have.
+
+32
+00:02:24,150 --> 00:02:28,550
+So we look at the number of
+instances that has both x and y,
+
+33
+00:02:28,550 --> 00:02:32,289
+and we divide that by
+the total number of instances.
+
+34
+00:02:34,410 --> 00:02:38,760
+It's also always best to explain
+these concepts by looking at an example.
+
+35
+00:02:38,760 --> 00:02:42,100
+So here we see a table
+that we have seen before.
+
+36
+00:02:42,100 --> 00:02:46,580
+People ordering cappuccinos americanos,
+and muffins.
+
+37
+00:02:47,900 --> 00:02:53,860
+And we can take such an example set and
+automatically learn association rules.
+
+38
+00:02:53,860 --> 00:02:58,610
+We could for example find the rule
+that people that buy tea and
+
+39
+00:02:58,610 --> 00:03:02,220
+latte, typically also buy muffins.
+
+40
+00:03:04,210 --> 00:03:08,090
+Note that the frequency in
+the table doesn't matter.
+
+41
+00:03:08,090 --> 00:03:10,830
+We just look, is an item present or not?
+
+42
+00:03:12,290 --> 00:03:15,320
+So we do not look at quantities,
+just at presence.
+
+43
+00:03:18,210 --> 00:03:21,730
+So what is support, now, for
+this particular example?
+
+44
+00:03:21,730 --> 00:03:27,970
+If we compute a support of the rule,
+tea and latte implies muffin,
+
+45
+00:03:27,970 --> 00:03:33,980
+we compute the number of instances
+of customers, that bought tea,
+
+46
+00:03:33,980 --> 00:03:39,070
+latte and muffins and divide that
+by the total number of customers.
+
+47
+00:03:40,260 --> 00:03:44,600
+And if we have a higher value that is
+better than the lower value because there
+
+48
+00:03:44,600 --> 00:03:45,410
+is more support.
+
+49
+00:03:48,100 --> 00:03:51,240
+The second quality metric is confidence.
+
+50
+00:03:51,240 --> 00:03:54,440
+So if we look at the confidence of a rule,
+
+51
+00:03:54,440 --> 00:04:00,380
+we count the number of instances
+which covers both x and y,
+
+52
+00:04:00,380 --> 00:04:05,640
+and we divide that by the number
+of instances covering just x.
+
+53
+00:04:05,640 --> 00:04:10,690
+So in terms of our example, if we would
+like to know the confidence of the rule
+
+54
+00:04:10,690 --> 00:04:17,810
+tea and latte implies muffin we count
+the number of customers that ordered tea,
+
+55
+00:04:17,810 --> 00:04:22,510
+latte and muffins and
+we divide that by the number of
+
+56
+00:04:22,510 --> 00:04:27,529
+customers that just ordered tea and
+latte and not necessarily muffins.
+
+57
+00:04:28,820 --> 00:04:34,170
+We get another between zero and one, and
+it's clear that the higher the number,
+
+58
+00:04:35,180 --> 00:04:40,350
+the more confident we can be about
+the accuracy of such a rule.
+
+59
+00:04:42,210 --> 00:04:45,440
+The third quality metric
+is the most difficult one.
+
+60
+00:04:45,440 --> 00:04:47,170
+It's called lift.
+
+61
+00:04:47,170 --> 00:04:53,940
+So we look at a fraction of
+customers that cover both x and
+
+62
+00:04:53,940 --> 00:05:00,230
+y, and we divide that by the fraction
+of customers that covers x and
+
+63
+00:05:00,230 --> 00:05:04,490
+the fraction of customers that covers y.
+
+64
+00:05:04,490 --> 00:05:06,610
+So, in terms of our example, and
+
+65
+00:05:06,610 --> 00:05:09,770
+we can write this in the two
+ways that are indicated here.
+
+66
+00:05:09,770 --> 00:05:14,710
+In terms of our examples
+this corresponds to
+
+67
+00:05:14,710 --> 00:05:19,760
+taking the number of customers that
+order tea, latte, and muffins and
+
+68
+00:05:19,760 --> 00:05:25,480
+multiply that by the total number of
+customers and diving this by the number of
+
+69
+00:05:25,480 --> 00:05:30,949
+customers that order tea and latte and the
+number of customers that order muffins.
+
+70
+00:05:32,210 --> 00:05:37,990
+If we then look at this fraction and
+we get a value
+
+71
+00:05:37,990 --> 00:05:43,870
+that is bigger than 1 then x and
+y are positively correlated.
+
+72
+00:05:43,870 --> 00:05:45,420
+They frequently happen together.
+
+73
+00:05:45,420 --> 00:05:50,670
+If they are independent,
+so they happen independent of each other,
+
+74
+00:05:51,720 --> 00:05:55,590
+then lift will be close to one.
+
+75
+00:05:55,590 --> 00:06:01,120
+If it's lower than one, we get such a
+number if they are negatively correlated.
+
+76
+00:06:03,020 --> 00:06:05,890
+So how can these three measures be used.
+
+77
+00:06:05,890 --> 00:06:09,380
+They can be used to filter rules a priori.
+
+78
+00:06:09,380 --> 00:06:12,510
+And so to avoid from
+a computational point of view
+
+79
+00:06:12,510 --> 00:06:16,250
+that we need to look at too many
+rules at the same time.
+
+80
+00:06:16,250 --> 00:06:20,130
+But they can also be used
+if we have a large number of
+
+81
+00:06:20,130 --> 00:06:24,380
+rules to sort them based on
+the criteria that we find important.
+
+82
+00:06:26,740 --> 00:06:29,480
+These things are very important
+because typically there is
+
+83
+00:06:29,480 --> 00:06:32,150
+an explosion of association rules.
+
+84
+00:06:32,150 --> 00:06:35,790
+So it's very important to be able
+to prune the set of rules and
+
+85
+00:06:35,790 --> 00:06:37,740
+to look at the most interesting ones.
+
+86
+00:06:40,290 --> 00:06:44,940
+Typically one is most interested in the
+rules that have a support that is as high
+
+87
+00:06:44,940 --> 00:06:47,960
+as possible, a confidence close to one.
+
+88
+00:06:47,960 --> 00:06:52,310
+And a lift higher than one,
+indicating a positive correlation.
+
+89
+00:06:52,310 --> 00:06:58,740
+For example, if we have a rule with
+the confidence of, let's say, 0.1, it
+
+90
+00:06:58,740 --> 00:07:02,510
+is typically not a very interesting rule,
+because the confidence is really low.
+
+91
+00:07:05,210 --> 00:07:07,870
+Let's make this clear using an example.
+
+92
+00:07:07,870 --> 00:07:10,620
+So, we take an artificial
+set of customers,
+
+93
+00:07:10,620 --> 00:07:14,570
+100 customers that buy diapers and beer.
+
+94
+00:07:14,570 --> 00:07:17,750
+There is just one type of diapers, Pampers.
+
+95
+00:07:17,750 --> 00:07:21,030
+And there are two types of
+beer Hoegaarden and Dommelsch.
+
+96
+00:07:22,170 --> 00:07:25,520
+And here you can see what
+these 100 customers bought.
+
+97
+00:07:27,230 --> 00:07:32,920
+We can use such a data set to compute
+the notions that we have seen before.
+
+98
+00:07:34,570 --> 00:07:40,020
+So let's take a look at four
+hypothetical association rules.
+
+99
+00:07:40,020 --> 00:07:45,350
+For example, the rule, people that
+buy Pampers also buy Dommelsch, or
+
+100
+00:07:45,350 --> 00:07:49,440
+people that buy Pampers
+also buy Hoegaarden, etc.
+
+101
+00:07:50,770 --> 00:07:54,330
+So let's start with a question
+looking at the first rule.
+
+102
+00:07:54,330 --> 00:07:56,410
+So if we look at the rule,
+
+103
+00:07:56,410 --> 00:08:01,550
+people that bought Pampers typically
+also bought Dommelsch beer.
+
+104
+00:08:03,090 --> 00:08:05,530
+What is the support, the confidence and
+the lift?
+
+105
+00:08:06,580 --> 00:08:09,360
+Please take some time to
+compute these values.
+
+106
+00:08:13,140 --> 00:08:16,290
+Here you can see a computation
+of these values.
+
+107
+00:08:16,290 --> 00:08:24,180
+So the support is 0.51 because
+there are 51 customers that bought
+
+108
+00:08:24,180 --> 00:08:29,990
+both Pampers and Dommelsch, and we divide
+that by the total number of customers.
+
+109
+00:08:29,990 --> 00:08:35,165
+The confidence, is equal to the number
+of customers that bought Pampers and
+
+110
+00:08:35,165 --> 00:08:39,420
+Dommelsch, divided by the number
+of customers that bought Pampers,
+
+111
+00:08:39,420 --> 00:08:41,260
+which is equal to 91.
+
+112
+00:08:41,260 --> 00:08:45,871
+So the confidence is 0.56.
+
+113
+00:08:45,871 --> 00:08:51,910
+If we apply the formula for lift, we find
+that there is a positive correlation.
+
+114
+00:08:51,910 --> 00:08:56,870
+Because we get a value higher than 1, 1.1.
+
+115
+00:08:56,870 --> 00:09:00,070
+Let's now take a look at the other rules.
+
+116
+00:09:00,070 --> 00:09:01,510
+For example, the last rule.
+
+117
+00:09:02,570 --> 00:09:06,610
+People that buy Pampers and
+Dommelschs typically also buy Hoegaarden.
+
+118
+00:09:07,660 --> 00:09:12,470
+What is the quality of these rules in
+terms of support, confidence and lift?
+
+119
+00:09:15,180 --> 00:09:19,500
+Well we can do the same computation
+as what we have done before.
+
+120
+00:09:19,500 --> 00:09:21,450
+It is put in the table here.
+
+121
+00:09:21,450 --> 00:09:27,330
+The first row corresponds to the to the
+first rule that we have explored before.
+
+122
+00:09:28,870 --> 00:09:33,800
+If we look at this table then we see
+that some values are positive and
+
+123
+00:09:33,800 --> 00:09:37,390
+other values are not so positive.
+
+124
+00:09:37,390 --> 00:09:43,560
+For example, the ones that are highlighted
+now in red, correspond to low values.
+
+125
+00:09:43,560 --> 00:09:49,330
+So, the rule Pampers,
+implies Hoegaarden, is a bad rule,
+
+126
+00:09:49,330 --> 00:09:53,610
+in terms of support and confidence,
+and also in terms of lift.
+
+127
+00:09:54,630 --> 00:10:01,350
+And so only 1% of the customers
+is supporting this rule.
+
+128
+00:10:01,350 --> 00:10:04,430
+The confidence is also very low.
+
+129
+00:10:04,430 --> 00:10:08,120
+So only in 1% of the cases
+the rule actually holds.
+
+130
+00:10:08,120 --> 00:10:12,860
+And there are many people that buy
+Pampers, but that do not buy Hoegaarden.
+
+131
+00:10:13,910 --> 00:10:18,099
+The negative, the lift is lower than one,
+indicating a negative correlation.
+
+132
+00:10:20,240 --> 00:10:24,050
+So let's load this data
+set into RapidMiner so
+
+133
+00:10:24,050 --> 00:10:28,880
+we can load it into the tool
+in terms of a CSV file.
+
+134
+00:10:28,880 --> 00:10:32,260
+Load it in the repository and
+then do the experiment.
+
+135
+00:10:32,260 --> 00:10:35,210
+So here you see a description of the data.
+
+136
+00:10:35,210 --> 00:10:38,020
+Indeed we are looking at
+100 customers and
+
+137
+00:10:38,020 --> 00:10:43,160
+we are looking at three different items
+that people can or did not buy.
+
+138
+00:10:45,300 --> 00:10:47,910
+This is the analysis workflow.
+
+139
+00:10:47,910 --> 00:10:53,700
+So, we start by loading the data,
+then we do a data transformation.
+
+140
+00:10:53,700 --> 00:10:58,070
+So we convert the numbers to true,
+false values.
+
+141
+00:10:59,360 --> 00:11:01,739
+Then we compute frequent item sets.
+
+142
+00:11:02,950 --> 00:11:08,320
+And finally, based on these frequent
+item sets we compute association rules
+
+143
+00:11:09,960 --> 00:11:11,960
+that describe the rules
+that we are interested in.
+
+144
+00:11:13,680 --> 00:11:16,150
+There are two important parameters here.
+
+145
+00:11:16,150 --> 00:11:19,330
+One parameter is the minimal support.
+
+146
+00:11:19,330 --> 00:11:20,880
+So if you look at an item set.
+
+147
+00:11:22,280 --> 00:11:26,370
+What is the minimal number that
+this item set should appear in?
+
+148
+00:11:27,560 --> 00:11:31,550
+Confidence is related to the confidence
+metric that we have explained before.
+
+149
+00:11:34,430 --> 00:11:38,930
+If we use these parameters that
+were set in the previous slide,
+
+150
+00:11:38,930 --> 00:11:41,440
+then we only find one rule.
+
+151
+00:11:41,440 --> 00:11:44,400
+People that buy Dommelsch
+also buy Pampers.
+
+152
+00:11:46,770 --> 00:11:50,050
+If we look at the support of
+this rule as we have computed by
+
+153
+00:11:50,050 --> 00:11:55,150
+hand before the support is 0.51
+which is bigger than the threshold.
+
+154
+00:11:55,150 --> 00:11:57,150
+If you look at the confidence of the rule,
+
+155
+00:11:57,150 --> 00:12:00,150
+it's 1 which is also bigger than
+the threshold that we have set.
+
+156
+00:12:02,940 --> 00:12:08,390
+How to compute this, first of all
+one could use a brute force approach
+
+157
+00:12:10,690 --> 00:12:13,210
+using these two parameters
+that you see here.
+
+158
+00:12:13,210 --> 00:12:17,210
+There is minimum support level and
+
+159
+00:12:17,210 --> 00:12:19,700
+there is a minimum confidence level.
+
+160
+00:12:19,700 --> 00:12:23,210
+And we could first compute
+all the rules and
+
+161
+00:12:23,210 --> 00:12:26,880
+then prune the rules based
+on these two parameters.
+
+162
+00:12:26,880 --> 00:12:32,580
+So a brute force approach could work like
+this, generate all frequent item sets,
+
+163
+00:12:32,580 --> 00:12:41,250
+that have a support that is bigger than
+this minsup, constant that we have chosen.
+
+164
+00:12:41,250 --> 00:12:43,880
+We also look at item sets
+containing two elements,
+
+165
+00:12:43,880 --> 00:12:47,030
+because we are interested
+in association rules.
+
+166
+00:12:47,030 --> 00:12:52,950
+And then we partition these frequent
+item sets into smaller, dejoined sets,
+
+167
+00:12:52,950 --> 00:12:55,430
+and compute the confidence of these.
+
+168
+00:12:55,430 --> 00:13:01,170
+And everything that meets the threshold
+is then returned as a rule
+
+169
+00:13:01,170 --> 00:13:02,540
+that has been discovered.
+
+170
+00:13:04,560 --> 00:13:06,760
+If you apply this approach,
+there are two problems.
+
+171
+00:13:06,760 --> 00:13:08,800
+There is a computational problem,
+
+172
+00:13:08,800 --> 00:13:13,680
+that there may be an exponential number
+of item sets that one needs
+
+173
+00:13:13,680 --> 00:13:17,130
+to consider leading to all
+kinds of performance problems.
+
+174
+00:13:18,530 --> 00:13:22,700
+Another, perhaps more serious problem,
+is an interpretation problem.
+
+175
+00:13:22,700 --> 00:13:24,460
+If we find many rules and
+
+176
+00:13:24,460 --> 00:13:29,570
+we return many rules to the user,
+then the user will be completely confused.
+
+177
+00:13:30,740 --> 00:13:33,630
+So, how to address this problem?
+
+178
+00:13:33,630 --> 00:13:38,730
+Well, there are several techniques to
+address computation and interpretation
+
+179
+00:13:38,730 --> 00:13:43,480
+problems, and many of them are based on
+the observation that you can see here.
+
+180
+00:13:45,200 --> 00:13:48,380
+If we have an item set X that is frequent,
+
+181
+00:13:48,380 --> 00:13:53,060
+then all subsets of that
+item set are also frequent.
+
+182
+00:13:54,960 --> 00:14:00,140
+If we have an item set that is
+not frequent, then all supersets
+
+183
+00:14:00,140 --> 00:14:03,890
+are also infrequent, and
+we not need to consider them.
+
+184
+00:14:04,990 --> 00:14:10,150
+So this can help us to
+prune the search space and
+
+185
+00:14:10,150 --> 00:14:13,410
+to return the rules that
+are most interesting.
+
+186
+00:14:13,410 --> 00:14:16,790
+So it can be exploited to
+improve efficiency and
+
+187
+00:14:16,790 --> 00:14:18,599
+only return the strongest rules.
+
+188
+00:14:21,530 --> 00:14:26,770
+Let's go back to the Italian restaurant
+that we have described before.
+
+189
+00:14:26,770 --> 00:14:31,150
+Again, we take the data
+set of 5,000 parties.
+
+190
+00:14:31,150 --> 00:14:33,520
+They can eat these dishes.
+
+191
+00:14:34,870 --> 00:14:37,490
+And the question is, what are products?
+
+192
+00:14:38,520 --> 00:14:41,820
+So, dishes and
+drinks that are often being combined.
+
+193
+00:14:43,100 --> 00:14:49,050
+Well, if we load the file again in the
+repository just as we have done before we
+
+194
+00:14:49,050 --> 00:14:55,170
+can now discard the class and,
+so, we are using unlabeled data.
+
+195
+00:14:56,970 --> 00:14:59,200
+It's an unsupervised
+method that we are using,
+
+196
+00:14:59,200 --> 00:15:03,568
+we are just finding patterns
+based on unlabeled data.
+
+197
+00:15:03,568 --> 00:15:12,310
+If we apply this technique of
+finding association rules
+
+198
+00:15:12,310 --> 00:15:17,300
+on this data set, then, first of all,
+we need to compute the frequent item sets.
+
+199
+00:15:17,300 --> 00:15:24,200
+We find 153 item sets having
+a support of at least 0.1.
+
+200
+00:15:24,200 --> 00:15:28,720
+This yields more than 700 association
+
+201
+00:15:28,720 --> 00:15:33,074
+rules if we take a minimal
+confidence of 0.5.
+
+202
+00:15:34,310 --> 00:15:38,640
+So this explosion of rules can
+be very confusing to the user.
+
+203
+00:15:40,870 --> 00:15:43,480
+That is why we can increase the threshold.
+
+204
+00:15:43,480 --> 00:15:50,560
+So we set the threshold of minimal support
+to 0.3, we set the confidence to 0.9,
+
+205
+00:15:50,560 --> 00:15:55,210
+and if we then again apply
+the same analysis work flow,
+
+206
+00:15:55,210 --> 00:15:57,870
+we only get 61 association rules.
+
+207
+00:15:59,620 --> 00:16:03,020
+We can for
+example look at the top three of them.
+
+208
+00:16:03,020 --> 00:16:08,080
+So the first rule says that
+people that ordered espresso,
+
+209
+00:16:08,080 --> 00:16:14,380
+pizza Siciliana, pizza Romana
+also ordered vino bianco.
+
+210
+00:16:14,380 --> 00:16:18,370
+We can see the support,
+confidence, and lift levels here.
+
+211
+00:16:18,370 --> 00:16:23,230
+So it's a positive correlation,
+the confidence is more than 0.9,
+
+212
+00:16:23,230 --> 00:16:28,660
+and the support is,
+32% of all the customers.
+
+213
+00:16:29,880 --> 00:16:31,850
+This is another rule.
+
+214
+00:16:31,850 --> 00:16:35,650
+People that ordered vino rosso,
+vino bianco, and
+
+215
+00:16:35,650 --> 00:16:40,430
+pizza romano, also ordered espresso and
+pizza siciliana.
+
+216
+00:16:41,530 --> 00:16:44,950
+Again we have a confidence of 0.9.
+
+217
+00:16:44,950 --> 00:16:49,250
+Finally, we have the third
+rule in this list.
+
+218
+00:16:49,250 --> 00:16:55,500
+People that ordered both types of
+wine also ordered pizza siciliana,
+
+219
+00:16:55,500 --> 00:16:59,550
+and the confidence is again above 0.9.
+
+220
+00:16:59,550 --> 00:17:03,760
+And again there's a positive correlation
+and a support that seems reasonable.
+
+221
+00:17:04,990 --> 00:17:10,220
+So this way we can discover
+these rules from unlabeled data.
+
+222
+00:17:12,450 --> 00:17:15,960
+Association rules are particular
+types of patterns.
+
+223
+00:17:15,960 --> 00:17:19,060
+There are other patterns
+that one can consider.
+
+224
+00:17:19,060 --> 00:17:22,289
+For example one can apply
+sequence mining techniques.
+
+225
+00:17:23,770 --> 00:17:26,820
+That are essentially the same
+as association rules but
+
+226
+00:17:26,820 --> 00:17:32,320
+now also look at the ordering
+of the different events.
+
+227
+00:17:32,320 --> 00:17:34,960
+We can also look at episode mining.
+
+228
+00:17:34,960 --> 00:17:37,400
+It's again similar to
+association rules but
+
+229
+00:17:37,400 --> 00:17:41,279
+now taking into account
+a partial order of items.
+
+230
+00:17:43,440 --> 00:17:48,320
+However all of these techniques,
+do not consider end-to-end process models.
+
+231
+00:17:48,320 --> 00:17:52,580
+For that we need to really use
+process mining techniques.
+
+232
+00:17:52,580 --> 00:17:57,170
+But often we can use data mining
+techniques in conjunction with process
+
+233
+00:17:57,170 --> 00:18:03,220
+mining to exploit all the existing
+techniques like decision trees and
+
+234
+00:18:03,220 --> 00:18:07,040
+association rules in
+a process oriented manner.
+
+235
+00:18:09,220 --> 00:18:15,040
+Again, in chapter three, you can read more
+about these basic data mining techniques.
+
+236
+00:18:16,160 --> 00:18:18,835
+Thank you for watching this lecture,
+see you next time.
+
+237
+00:18:18,835 --> 00:18:28,835
+[MUSIC]
+

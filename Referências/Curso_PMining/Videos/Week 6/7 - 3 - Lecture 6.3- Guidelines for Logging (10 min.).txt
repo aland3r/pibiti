@@ -1,0 +1,234 @@
+[MUSIC]
+In the last lecture we learned
+that it may be very challenging to
+extract event logs from
+today's data sources.
+This lecture presents 12 guidelines
+to improve the logging of events.
+So today, just like the last lecture,
+we focus again on the input
+side of process mining.
+But now we do not identify
+the problems that we may encounter.
+But we provide guidelines to
+get a better kind of logging.
+We have seen that there may be
+many data quality problems and
+these are caused by an incorrect
+recording of events.
+The data is missing,
+it may be at a wrong level of detail, or
+it may be simply incorrect.
+So the guidelines of logging
+focus on these issues.
+To explain the guidelines,
+we are using the following terms.
+So events are things that happen and
+they are described by references and
+attributes.
+So an event reference
+points to some object.
+A person, a case, a ticket, a room.
+It is referring to an entity
+that exists in the real world.
+An attribute is a name value pair.
+So for example, an activity has a name.
+An event may refer to
+the age of a patient or
+an attribute may refer to
+a particular point in time.
+So these are the terms that we
+use to explain the 12 guidelines.
+So lets start.
+So the first guideline for
+logging looks at
+the semantics of events and
+the reference and
+attribute names, they should have
+the same meaning for all people involved.
+It cannot be that a particular
+attribute means something different for
+different stakeholders involved in the
+recording and analysis of the event data.
+The second guideline refers to that
+there should be a structured and
+managed collection of reference and
+attribute names.
+It cannot be the case that somebody that
+is programming an information system
+in an ad hoc manner inserts
+statements in the code.
+To start recording things without
+really having a discussion and
+an explicit decision before.
+So any new event,
+any new reference or attribute name
+should only be added if there is
+consensus about that it is relevant.
+And that it has a particular meaning.
+The third guideline refers to the fact
+that references should be stable.
+They should not be context dependent.
+It cannot be the case that if we
+change the language setting of
+a machine that things will change.
+Or that over time things change.
+So a stability of
+references is important.
+Attribute names should also
+be as precise as possible.
+As an example that we have used before
+when we were talking about data
+quality problems is that the many event
+logs we do not know the exact timestamp.
+We only know the date.
+If we have that and we have the difficulty
+of ordering events that take place on
+the same date because we do not
+know their order in a reliable way.
+So if data is imprecise,
+in some cases it's unavoidable,
+it should be indicated explicitly.
+A related guideline is guideline five,
+that refers to uncertainty.
+If events, reference, or
+attributes are uncertain to some degree,
+it should be stated explicitly.
+So if we are not sure about the time.
+If you are not sure about which
+resource executed something and
+we make an educated guess.
+It should be indicated so
+in the event log.
+So that we can use this
+information during analysis.
+The sixth guideline refers to the fact
+that events data should be ordered,
+and there are two ways of doing that.
+There can be timestamps and
+these timestamps are used for ordering.
+Or the order is stored explicitly
+in terms of a list of,
+or if it's a partial order
+in terms of a graph.
+If we, for example, have timestamps
+that just refer to the day,
+then we may have difficulties
+reconstructing the order.
+But there are dedicated analysis
+techniques to still try to
+capture the order,
+even though we have such problems.
+Guideline seven refers to
+transactional information.
+If possible, we should not just
+record the completion of an activity,
+we should try to get the start and
+the completion.
+If things are aborted, suspended, or
+resumed, all this transaction information,
+if we can record it we should,
+because it will help us, for
+example, to compute what
+the duration of the activity is, but
+also what the utilization is
+of a particular resource.
+The eighth guideline refers to
+the fact that guarding
+the quality of event data
+is a continuous process there should
+be regular checks of the logging.
+Should not be done just at
+the beginning but while the process and
+the system is evolving.
+We should repeatedly check whether
+the logging is up to date.
+The ninth guideline
+refers to comparability.
+The logging itself should
+not change over time and
+should not depend
+on the particular context.
+For example, suppose that in
+a process at some point in time we
+stop recording a particular activity.
+We may make the conclusion that,
+that activity was first executed and
+later in time, it is no longer executed.
+But at conclusion would be wrong because
+it's just a change in recording.
+The same as if you would for
+example, you would like to compare
+the performance of two departments
+if one department is logging in
+a different way than the other department.
+You would conclude that there are certain
+differences that do not really exist.
+So comparability is key.
+When we were discussing process mining in
+the context of data warehouses and OLAP
+we made the point that we should
+avoid aggregating event data which is
+often done in these types of systems.
+Aggregation should
+be done during analysis and
+not before because it cannot be undone.
+So
+event data should be as raw as possible.
+Guideline 11.
+We should not remove
+events that have happened.
+For example,
+if we would analyze student data and
+we would remove all the students that
+dropped out of a particular program,
+we will get very misleading
+analysis results.
+For example if you would
+look at concerts,
+we should not delete a concert
+if the concert is cancelled.
+We should not delete an employee if
+the employee is fired because we
+are removing information and
+that is endangering provenance.
+The last guideline is about privacy.
+And here there is a very delicate balance
+between on the one hand ensuring privacy.
+And on the other hand still being
+able to do meaningful analysis.
+So often there is no
+interest whatsoever to
+record that cases refer
+to a particular person.
+However, we would like to correlate events
+that are referring to the same person.
+So hashing is a way to make
+data anonymous while still
+being able to make conclusions and
+relating different events.
+If we make information too abstract we
+may remove these correlations and it will
+be difficult to do any type of analysis.
+So these were the 12 guidelines for
+logging and they show you that
+the points that you should look at
+when you are designing a system.
+What are the things
+that you should record?
+And this is very important for
+further analysis.
+Because garbage in, garbage out.
+If we start by recording
+events in the wrong way, or
+in an inconsistent way,
+it will be very difficult to get
+meaningful analysis results from that.
+To read more about the guidelines for
+logging,
+you can take a look at the article
+shown here at the bottom of the slide.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

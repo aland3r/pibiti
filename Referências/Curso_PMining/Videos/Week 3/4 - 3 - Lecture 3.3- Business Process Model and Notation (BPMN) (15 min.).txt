@@ -1,0 +1,348 @@
+[MUSIC]
+Today we focus on BPMN, a notation
+used to model business processes.
+The BPMN notation is widely
+used to document processes and
+is similar to UML activity diagrams,
+event-driven process chains,
+YAWL models, and many other notations.
+These all have in common
+that there can be AND-,
+XOR-,
+and OR-splits and joins.
+Given their widespread use,
+we often need map discovered process
+models to notations similar to BPMN.
+This explains the focus of this lecture.
+In the last lecture, we looked at
+different process modeling notations and
+the impact that they have
+on the discovery process.
+So for an example, we discussed
+a notion of representational bias as
+something being very important
+of process discovery.
+There are many different
+notations that one can use.
+So Petri nets,
+transition systems, etcetera.
+Today we will focus on BPMN, not so
+much as a representational bias, but
+more as a notation that people in practice
+often use to visualize process models.
+So Business Process Model and
+Notation, as is the official term,
+is also known as
+the Business Process Modelling Notation.
+In this lecture, we will simply
+refer to it as the BPMN notation.
+BPMN emerged in 2004.
+And it is at this point and
+time an OMG standard.
+And here you can see some
+references if you would like to
+see some more information.
+It is highly relevant, because it
+is supported by many vendors and
+used by many people in industry.
+That's why we often want to convert
+our results to this notation.
+On the other hand, there is nothing new.
+It is very similar to UML
+activity diagrams and
+event-driven process chains as we
+will see later in this lecture.
+Typically, only a small subset is being
+considered, and we will do the same here.
+So what are the notational
+elements of a BPMN diagram?
+We have tasks or activities,
+we have splits and
+joints, we have AND-splits,
+XOR-splits, AND-joins, and XOR-joins.
+Just like we have seen before.
+There are also other constructs such
+as the OR-split and the OR-join.
+And we will look at these
+constructs in more detail.
+A BPMN diagram starts with the start
+event, it ends with an end event,
+and there can be other types of events.
+For example, events triggered by a clock
+or events triggered by a message.
+There also more advanced
+constructs like the deferred choice.
+So, here you see a pattern where after
+x there is a choice between y and z.
+And, there is a race between a clock and
+a message.
+If the message is received before
+a particular point in time we do z,
+otherwise we will do y.
+So, let us take a look at an example.
+So here you see a BPMN model with
+a corresponding notational element.
+So, first of all we have the start and
+the end event.
+Very clear in this diagram.
+Then we have the XOR-splits.
+We also have XOR-joins,
+this case three of them.
+We have an AND-split and
+an AND-join as are indicated here.
+And this is how we can model
+this particular process.
+We have seen this example model before,
+but it's important to realize that
+just like Petri nets, BPMN models
+have also a token-based semantics.
+So, we can replay this process model for
+a particular scenario.
+So, we first execute activity a,
+then we do the AND-splits.
+We go to the XOR-split.
+And after that we do d, then we do c.
+We first have an OR-join.
+Then we have an AND-join,
+we synchronize the two signals.
+And we can do e.
+After doing e, we decide that we
+have to go through another loop.
+So we execute activity f.
+Bring the model back to state
+before activities in the middle.
+We do a b, we do a d,
+we do an e again, and
+now we choose the path h
+leading to the final state.
+So this is one run of the model, and
+of course this model allows for
+infinitely many behaviors.
+Now we take this model and
+we have changed the AND-split,
+XOR-split, XOR-join, AND-join groups of
+gateways by so-called OR-splits and
+OR-join gateway.
+Indicated with the yellow here.
+So, still the original
+behavior is possible, but
+we can, of the three activities in the
+middle, we can take any subset of them.
+And so we can execute all three of them.
+We can execute two of these three
+activities or just one of them.
+So most difficult is
+the notion of an OR-join.
+When can we move on from an OR-join?
+The informal semantics is that you
+wait until all the work has been done.
+In other words there is no need for
+any further synchronizations.
+So to make this more clear it helps
+to look at concrete examples.
+Even though they are a bit abstract.
+So here we have a
+process model where we first do an a,
+then we start three parallel paths
+one involving b, one involving c,
+the other one involving
+a choice between d and e.
+Then we do an OR-join and
+finally we do an f.
+So you should now be
+able to understand what
+the traces are that
+are allowed by this model.
+So please think about how many traces
+are possible in this BPMN diagram.
+The answer is 12.
+There are 12 possible traces.
+First of all,
+we have to take a choice between d or e,
+and then we execute the three activities.
+That can be done in any or other, so
+we have 3 times 2 times 1 multiplied by 2,
+the choice between d and e.
+So, in total
+there are twelve possible traces,
+and here you can see them.
+So the OR-join has a semantics where
+we wait until everything has finished.
+What should happen before.
+But it is unknown what the exact
+number of synchronizations is.
+Here the synchronization is
+always three out of four.
+But that does not need to be the case.
+Let's take a look at another model, and
+now I ask you the question of soundness.
+We have defined soundness
+very precisely for
+workflow nets, but
+of course you can also define them for
+other notations like the BPMN notation
+that have a well defined start and end.
+Is this model sound?
+The answer is no.
+There are many potential deadlocks.
+Here you see the deadlock where,
+after doing a, there is an OR-split.
+So we can do b, and c, and d.
+But we can also just do b, or
+just do b and d as is indicated here.
+So if we choose to do b and d but
+not c, in that case we cannot
+synchronize three flows.
+Where as the gateway
+before f requires that on
+all four of the incoming signals,
+there will be a token.
+So this is yeah, this construct
+does not make a lot of sense here
+because typically you would like to
+combine an END-split with an END-join or
+an OR-split with an OR-join.
+And here that is not the case.
+So there are many deadlocks here.
+We can take a look at this BPMN
+model which has a more complicated
+combination of of gateways,
+is this model sound or not?
+The answer is, no.
+If you look at all
+the behavior of this model,
+there are several potential deadlocks.
+If you look carefully at the diagram,
+you will see that c and
+e should happen together or
+d and f should happen together.
+If that is not the case, then you
+will run into a deadlock trying to
+synchronize flows which
+cannot be synchronized.
+So this is one possible deadlock
+where you do the c and f and
+then you cannot synchronize,
+or you do d and e.
+And then you also run into a deadlock.
+There are also behaviors
+that are possible.
+So here you can see some traces that
+indeed lead from beginning to end.
+For example,
+we can do first a followed by c.
+And then at the bottom,
+we need to do b followed by e.
+Then we can synchronize both flows and
+do g at the end.
+And so there are also several good traces,
+but this model also has deadlocks.
+As I said at the beginning,
+the BPMN notation is very comparable to
+UML activity diagrams, or
+to more classical notations like the so
+called event-driven process chains,
+simply referred to as EPCs.
+What you see here in this
+diagram is an EPC which has
+exactly the same behaviour as the BPMN
+model that we showed at the beginning.
+So what are the notational
+elements of an EPC diagram?
+We have functions that corresponds
+to activities in a BPMN diagram or
+activities in the way that
+we have spoken about before.
+You have connectors, they correspond
+to gateways in the BPMN notation.
+And again we have XOR, AND, and
+OR, also the inclusive of OR
+to model the same types of behavior as
+what we have seen in the BPMN notation.
+The OR-join deserves
+some special attention.
+And to illustrate this a bit that
+this is a difficult concept and
+that you should be very careful about it,
+I'm going to show you a paradox.
+What you see here is that there
+is one EPC diagram having two OR-joins.
+And remember that an understanding of an
+OR-join is that everything that has been
+done before, has been done.
+In other words, no tokens may arrive.
+So if you look at this initial situation,
+where there are two tokens in front of
+these two OR-joins, the question
+is can additional tokens arrive
+through these two other inputs
+that these two OR-joins have?
+Well, suppose that you say that
+is not the case, then one
+OR-join should block and because of
+symmetry the other should also block.
+So both should block, but
+if they both block that means that
+you will never receive the second signal,
+so the OR-join should not have waited.
+So you create a contradiction.
+If you block,
+you should not have blocked.
+So okay, so blocking is not an option.
+So now we can say, okay.
+If one is not blocked, then by symmetry
+the other one should also not be blocked.
+So they both can go.
+But if they both go, then there will be
+signals on the OR-joins
+of the other input.
+So this is again a wrong
+choice because we
+should have waited because there
+was still a token arriving.
+So due to symmetry, you can see,
+clearly see that there is a paradox
+in which all the choices are wrong.
+So this is illustrated that you
+should be very careful when
+interpreting these OR-joins.
+And it also shows
+the complexity of some of
+these process modeling notations
+like the BPMN notation.
+What I stressed already
+before is visualization of
+the discovered models is different
+from the representational bias.
+So often, we convert to a BPMN
+model to make a model that
+people would like to see and it is
+unrelated to the representations that I
+used internally by the process
+discovering techniques.
+There are a few miners that
+work directly on BPMN models.
+Most of the miners will discover Petri
+nets, causal nets, process trees,
+heuristic nets, and all kinds of
+other notations that are suitable for
+process discovery and only towards
+the end they are converted to BPMN.
+Sometimes the conversion is a bit lossy,
+that you generalize the model a bit, or
+make a bit more specific.
+Here you see a screenshot
+of the inductive miner,
+that provides a visualizer that shows
+the process tree as a BPMN model,
+so that people can more easily
+understand what it represents.
+This concludes this lecture.
+I hope that you now understand
+more of the BPMN notation that was
+already introduced in
+chapter two of the book.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

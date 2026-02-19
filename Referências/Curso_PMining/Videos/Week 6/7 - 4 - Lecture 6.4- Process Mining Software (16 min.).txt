@@ -1,0 +1,386 @@
+[MUSIC]
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+Today we will provide an overview of
+available process mining software.
+We will also relate process
+mining tools like ProM and
+Disco, to other data sign tools.
+Data scientists need to have data,
+tools, and preferably also questions.
+In the previous lectures
+we focused very much on
+the event data needed
+to do process mining.
+Today we will focus on the tools.
+And of course, we have been playing with
+tools like ProM and Disco, so we already
+have a good understanding of process
+mining functionality by tools like these.
+However, today we would like
+to expand this spectrum and
+also look at other tools.
+Here in this diagram you see Disco and
+ProM.
+So both Disco and
+ProM are process mining specific tools.
+They have been developed for
+the purpose of doing process mining.
+Disco is simple, easy to use,
+very fast, very convenient.
+ProM is more powerful,
+provides much more types of analysis, but
+it also, much more difficult to use.
+Both are not part of any bigger suite,
+like a complete BPM tool or
+something like that.
+Next to process mining software you have
+the classic called data mining software.
+Like RapidMiner, R and Knime.
+These do not provide process
+mining capabilities.
+There are also other
+commercial tools other than
+Disco like Perceptive Process Mining and
+Celonis Discovery.
+And that is an interesting
+combination of RapidMiner and
+ProM, which is called RapidProM.
+We'll look at these systems
+later in a bit more detail.
+So this is the spectrum of
+tools that one can use.
+If one would like to select
+a process mining tool
+then the refined reference
+model can help you.
+The first question you
+should ask yourself.
+Which of the ten process mining
+activities are important for
+me, and which are supported.
+So is discovery supported?
+Is conformance checking supported?
+And for example, do we need to be able
+to predict the remaining flow time?
+Another question is, what
+are the perspectives that are supported?
+Are resources supported?
+Is the data perspective supported?
+How are things related to time?
+Another question is,
+what modeling notations are supported?
+Petri nets, BPMN, or what other
+notations that you find relevant?
+And last but
+not least, what are the import and export
+formats that are supported for event logs,
+models, alignments and
+all kinds of other artifacts?
+So, this is a checklist when you want
+to select a process mining tool.
+For example, if you look at ProM, and
+look at the the red area here.
+It aims to support the entire
+process mining spectrum.
+It supports many different types of
+notations ranging from Petri nets and
+BPMN, to more exotic formats like
+the declarative language Declare.
+ProM also supports
+conformance checking and
+operational support,
+unlike many of the commercial tools.
+There are a hundreds of
+plug-ins available, but
+many of them are experimental and
+not always user friendly.
+On the other end of the spectrum,
+one can find tools like Disco.
+The tool that you've also
+been using in this course.
+Here the focus is not on the entire
+spectrum, but on discovery and
+performance analysis including animation.
+Disco provides very powerful
+filtering capabilities and
+you can use these to do
+comparative process mining.
+You can also do very basic forms
+of conformance checking by
+checking whether a certain
+behavioral pattern appears or not.
+It uses a variant of fuzzy models.
+So it doesn't have 
+an executable model underneath it.
+And it does not support things
+like conformance checking and
+operational support.
+But it is very easy to use, and
+it has an excellent performance.
+Much faster than many of
+the mature data mining tools.
+So, these are two ends of the spectrum.
+There are several other commercial tools.
+Here you can see some of them.
+In my teaching in Eindhoven,
+I'm using, for
+example, also Perceptive Process Mining,
+and Celonis Discovery.
+But there are many other tools available.
+If one looks at these commercial tools,
+they are similar to
+Disco in terms of scope.
+Often they are not as user friendly,
+and often also a bit slower, but
+in terms of scope they
+are very comparable.
+They focus on control flow and
+performance analysis.
+There is no support for conformance
+checking, operational support and
+many more of the sophisticated
+features that you can find in ProM.
+Let's take a look at three
+concrete examples of
+tools other than this current ProM.
+Let's first take a look at RapidProM.
+So this is a combination of ProM and
+RapidMiner.
+And so ProM is in a way embedded in
+RapidMiner, and one gets a graphical
+environment where one has dozens of
+process mining related building blocks.
+And one can build an analysis flow.
+If you would like to learn more about
+this, you can visit the URL on this slide.
+It's also available through
+the RapidMiner marketplace.
+So what can you do in RapidProM?
+You can build your own
+process mining workflow, and
+then execute it on any data set.
+So we can take as an example
+this very simple process mining workflow.
+And let's take a look
+at the building blocks.
+First we need to create the ProM context.
+In other words, we need to start up ProM.
+And relate all the other building
+blocks to this instance of ProM.
+If we want to copy something we need
+to use this building block for that.
+But it's just a technicality.
+The real work starts with this building
+block, where we read the event log.
+The output of this building block is
+an event log in the RapidProM environment.
+And then this event log can
+be taken by a building block
+that represents the alpha algorithm.
+So it takes an event lock,
+and produces a Petri net.
+Subsequently, we have a building block for
+doing conformance checking
+based on alignments.
+So now we can
+run this workflow on any event log.
+And here you see example
+output in RapidProM.
+That's why here you see the discovered
+process model by the alpha algorithm.
+And here you can see
+the conformance check done by
+the conformance checking building block,
+based on alignment.
+This is an example of another
+process mining workflow.
+What are the building blocks?
+We first load an event log.
+We then in parallel create a dotted chart.
+We create a Petri net
+using the inductive miner.
+And we create a social network based
+on the handover of work approach.
+And if we run this workflow
+on a particular event log,
+we get results like a dotted chart,
+a Petri net model, and a social network.
+And if we would like to apply this
+workflow to another event log
+it is very simple.
+So.
+Using RapidProM, we can repeat process
+mining analysis very quickly.
+This is very useful for
+scientific experiments where one would
+like to play with the parameter.
+But also if one would like to
+reuse prepackaged analysis.
+It can also be used to combine process
+mining with other forms of data mining.
+It can also be combined with text mining,
+by combining building blocks of
+ProM with the building blocks
+that are already on rapidminer.
+So that was one example.
+Another example of another tool
+is Celonis Discovery a commercial
+process mining tool.
+It is web-based.
+It supports process discovery, but
+unfortunately it doesn't
+support concurrency.
+So, the models that are discovered are,
+in essence, transition systems.
+It can show frequencies,
+how frequently a case is flowing from
+one activity to another activity.
+It can show time information,
+so where are the bottlenecks?
+All the things that we have
+also seen in Disco before.
+It also supports animation.
+You can animate a log on top
+of a discovered model, and
+it supports seamless abstraction.
+And so there is again
+the slider like functionality.
+Here we see all the details
+of a particular event log and
+by moving the slider we can make
+the process model more simple,
+until we get something that
+is easy to understand.
+There are also all kinds of
+performance-related dashboards.
+So in scope, it is very similar to the
+things which we have seen in this Disco.
+Another example of a commercial process
+mining tool is Perceptive Process Mining.
+It can be used in conjunction with
+the BPM product of perceptive.
+So models that have been discovered can be
+automatically uploaded in the business
+process management system of perceptive.
+It is also web-based.
+It supports process discovery.
+And it supports two types of discovery.
+One type is fast, but
+cannot discover concurrency.
+So again,
+the output is a transition system.
+There is also a more sophisticated mining
+algorithm, based on the genetic process
+mining techniques discussed earlier,
+that is able to discover concurrency.
+Again, we can filter the event log and
+the model in various ways, for
+example based on frequency.
+We can replay the event log.
+And a nice feature in the perceptive
+software is that you can color the tokens
+based on attributes of
+the corresponding event or case.
+So here tokens are colored
+based on their flowtime.
+So you can see whether certain very slow
+cases take a particular
+path through the model.
+You can also change the perspective and
+look at resources.
+So here you see the social network of
+the three most frequent resources.
+And you can see how tokens are flowing
+from one resource to the other resource.
+Now tokens are colored based on
+the activity being executed.
+And, again, there are all kinds
+of performance related charts and
+you can find these in any
+of the commercial tools.
+So after showing some commercial
+process mining products,
+it's interesting to
+broaden the scope a bit.
+For example, we can look at BPM systems.
+What can be expected is that
+in the future, more and
+more BPM systems will
+support process mining.
+At this point in time,
+very few BPM systems actually support
+things like process discovery and
+conformance checking.
+One can also look at existing
+data mining techniques.
+And software, and
+machine learning software.
+They are very related but at the same
+time, if you look at existing software,
+they typically do not support
+any form of process mining.
+We can also look at predictive analytics,
+but
+you can see that the software there
+is often not process oriented at all.
+A question could be how about BI tools?
+So what is BI?
+What is Business Intelligence?
+A possible definition given
+by somebody from Forester is,
+BI is a set of methodologies,
+processes, architectures and
+technologies that transform raw data
+into meaningful and useful information.
+Used to enable more effective,
+strategic, tactical and
+operational insights and decision making.
+So this is a mouthful and
+if you read it, I think everybody will
+agree that process mining is part of it.
+However, if you look at the existing BI
+products that one can find on the market.
+None of these products is actually
+supporting process mining.
+so, process mining is still functionality
+that needs to be added to these tools.
+What do these tools offer?
+They offer typical functionality like ETL,
+extract, transform and load functionality,
+querying, reporting, interactive
+dashboards like the one that you see here
+and generating alerts if thing starts
+to occur differently than planned.
+So, such functionality is typically not
+process oriented, and despite the name,
+the type of analysis is typically quite
+simplistic, more spreadsheet-like.
+So, in conclusion, there are several
+process mining tools available,
+but it is still
+a relatively young discipline.
+So, we expect that in the future
+many more process mining tools
+will become available, and that they
+will become standard, embedded, in BI,
+BPM, and data mining suites.
+One should avoid a trap,
+based on definitions that process
+mining is a part of data mining.
+By definition it is true.
+But data mining software typically does
+not provide things like process discovery,
+conformance checking, and
+the forms of operational support
+that we have been looking at.
+The same holds for BI.
+So one you avoid this trap and use
+the checklist that I've explained earlier.
+If you would like to read more
+on tools please take a look at
+chapter 10 of the process mining book.
+Thank you for watching this lecture,
+see you next time.
+[MUSIC]
+

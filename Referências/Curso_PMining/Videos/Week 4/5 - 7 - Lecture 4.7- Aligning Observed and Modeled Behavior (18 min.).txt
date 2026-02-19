@@ -1,0 +1,432 @@
+[MUSIC]
+Welcome to this lecture.
+This is the fifth and
+last lecture on conformance checking.
+Today we present the most
+advanced approach,
+relating event logs to process models.
+Here you see again an overview,
+of the three conformance checking
+approaches used in this course.
+We started from footprints
+where we basically only
+compared the syntactical structure,
+using the directly follows relation.
+Then we looked at a more advanced
+approach, using token-based replay.
+Today we will look at alignment-based
+conformance checking.
+So what are the requirements for
+conformance checking,
+overcoming the limitations of
+the approaches that we have seen before?
+First of all, conformance checking
+should not impose any restrictions on
+the process model notation.
+For example, we should not be
+restricted to work-flow nets.
+We should not be restricted to models,
+where there cannot be two
+transitions having the same label.
+Or where there are silent steps, for
+example to model an OR
+split or an OR join.
+Moreover, we really would like to
+see the closest matching path,
+through the process model.
+So if we see something in reality,
+we want to relate it to a valid
+path through the process model.
+Why is this necessary?
+It is necessary for performance analysis,
+where we replay reality on top of the
+model to see where the bottlenecks are but
+also if we look at more
+sophisticated notions of conformance
+involving precision, generalization or
+more advanced forms of diagnostics.
+We first need to relate reality
+to a path through the model.
+So it's a kind of enabler for
+all kinds of other types of analysis.
+What is the notion of an alignment?
+Here we can see a trace taken from
+the bigger log that we have used before.
+We compare it to the model and
+in this case, there is a path through
+the model that exactly matches,
+the trace that we have seen in the log.
+So the top row is a trace through the log.
+The bottom row is the trace
+through the process model, and
+in this case they perfectly agree.
+Here you see an example of another trace,
+that doesn't fit into the model.
+If we look at the trace a, d, e,
+g, h, we can see two problems.
+First of all, a b or c is missing, which
+should be executed concurrently to d.
+Moreover, at the end it cannot be that
+both decisions are taken at the same time.
+So we should have g or h, but not both.
+The alignment is clearly
+illustrating these problems, so
+in the alignment we can see that
+the model had to take a b move which was
+not mimicked by reality, and
+at the end there was a g and an h.
+And in the model one of
+these two had to be ignored.
+So, what are the terms that we are using,
+when we are talking about alignments?
+So, an alignment is a row consisting
+of two lines, where the top line
+refers to the log, the bottom line
+refers to the path through the model.
+We can have a move in log only,
+then we only see
+the label of an activity in the top row,
+but not in the bottom row.
+A move in model only is the reverse.
+The model had to make a move which
+could not be mimicked by reality.
+If we look at a move in both,
+also called a synchronous move,
+then both make a move at the same time.
+Note that all of these terms and
+these concepts and also
+the corresponding analysis techniques, are
+independent of the process model notation.
+So we can do this for Petri nets, for
+BPMN models, for transition systems,
+it doesn't really matter.
+Let us take a look at some examples.
+So, the first notion that we
+would like to introduce is
+the notion of an optimal alignment.
+There are multiple ways of relating
+a reality, to a path through the model,
+and in principal, there may be many
+paths possible through the model.
+So which path are we going to choose?
+We choose the path that is closest
+to what we have seen in reality.
+So here,
+it is very obvious that the top alignment,
+is the alignment that is optimal.
+Because there's a perfect agreement,
+between model and log.
+Here, we see a more tricky example, so,
+we look at a trace that doesn't fit,
+it's an example that we have used before.
+And now there are multiple
+explanations that can be used.
+so, which one is the best explanation for
+what we have seen?
+In the first alignment that you see here,
+it basically says that a and
+b have been swapped.
+The second alignment,
+takes us explanation that the e1, e2,
+e3 that we saw reality, in the model
+correspond to d1, d2, and d3.
+So which is the best alignment?
+It is difficult to say,
+it depends on the cost function.
+Are the deviations related to e1,
+e2 and e3.
+More or less of here, than the deviation
+that we saw with respect to a and b.
+To quantify this and
+to make an objective decision we
+introduced the notion of a cost function.
+So we associate costs to moves.
+If we have a synchronous move,
+where log and
+mobile agree on the action to be taken,
+we have cost 0.
+For all the other situations,
+we need to introduce positive costs.
+What we typically do is that,
+if two activities disagree,
+that we say the costs are infinite,
+in other ways we give it such high cost
+that we will never take such a solution.
+And if we use a standard cost function
+we assign to a move on model and
+a move on log the same cost, namely one.
+So, in the remainder in all of
+the examples we will use this standard
+cost function.
+So if we apply it to the examples
+that we have seen before, then we
+can look at the three alignments and we
+can see that the top alignment has cost 0,
+the second alignment has cost 2, because
+we have a move a log and a move in model.
+The bottom one has cost 10,
+because there are 10 no move symbols.
+So the top one is optimal, because there
+is no other alignment that has lower cost.
+We can take a look at this example,
+here we see the two alignments
+that we have seen before.
+Now, using the standard cost function,
+we can make a decision, and we can decide
+that, the first one is
+an alignment that is optimal,
+because we can not find other
+alignments that have lower costs.
+And so all alignments have cost two or
+higher.
+Let's take a look at this example, so, and
+it is intended to show that there
+may be many different optimal alignments,
+given a trace in the log, and a model.
+So the cost of this alignment is two.
+The explanation that this alignment
+provides, is that the reality e and
+f happened, but we should ignore them.
+In other ways, we don't go through the
+loop, we only go through the process once,
+and we ignore e and f, cost 2.
+Another explanation also having cost 2,
+is the explanation that we have to go
+through the iteration once, and, so, now,
+we accept the fact that we
+need to execute f but, for
+that we need to add two events that
+did not happen in reality to explain.
+The scenario in terms of a path in
+the model from beginning to end.
+And so d and
+b are missing in the event log, but
+in this explanation they are added.
+So there can be multiple alignments,
+corresponding to the same trace and
+the same model.
+Let's see whether you
+understood these concepts.
+So, take a look at this trace.
+The one that we have seen before,
+and the model.
+How many optimal alignments are there?
+The answer is nine.
+There are nine optimal alignments, and
+let's try to understand what
+these nine alignments are.
+Here we see the two that
+we have shown before, and
+the b move in model only
+is highlighted in red here,
+because this b could be replaced by a c,
+and so we have these possible variants.
+Now when we say that okay, there are three
+possible optimal alignments, but
+there are more,
+because d is concurrent with b and c.
+So, we can reorder these
+different variants.
+So we can swap the move related to d
+with the move related to b, or to c.
+So, if we look at the situation we can
+see that there are actually nine moves in
+total, because we can look
+at all the combinations of
+all the different variants.
+So far we have considered only
+the standard cost function,
+which assigns cost one to a move
+in log and a move in model, but
+one can think of any cost structure also
+take into account other attributes and
+other properties of events.
+So, for example, if we would need
+to align these two, actions, so
+one event in the log, and one execution
+of a transition in the model,
+then we could take into account
+how similar thesee activities are,
+if they are very similar,
+then we can have a lower cost.
+We can also assign penalties
+to activities that
+are being executed by the wrong person.
+So, suppose that John is not
+authorized to execute this activity,
+then we can associate a penalty to it.
+In most process models, you also often
+have deadlines, things should happen, for
+example within a period of three weeks.
+If then in reality it takes four weeks,
+you can assign a penalty to the fact
+that things are being too late.
+One can also take into account data,
+so certain paths through the
+process model are only allowed for
+particular types of customers or
+particular types of orders.
+For example larger orders or smaller
+orders should take different paths.
+This also can be taken into account,
+when creating a cost function and
+a corresponding alignment.
+One can take a look at the risks, one
+can take a look at context information.
+So anything can be added
+to this cost function, and
+still we can provide
+an optimal alignment and
+diagnose the differences taking into
+account these other perspectives.
+So far we only provided diagnostics,
+move in model only, move in log only.
+As indications of that reality and
+the model disagree.
+But if we want to quantify fitness,
+using a number between zero and
+one, we need to think of
+a worst case scenario.
+What kind of costs does
+the worst case scenario have?
+Well if you think about it, the worst
+case scenario is a scenario where we
+just have move in models,
+and move in logs.
+So what does it mean?
+Take a look at this example again,
+and let us
+compute fitness using
+the worst case scenario.
+In this case, the worst case scenario is
+that for all the events in the trace,
+we just do a move in log only.
+Next, we take the shortest
+path through the model, and
+do just move in model only actions.
+And if we do that,
+then we get this number.
+So, the optimal alignment had a cost
+of two, we have seen that before.
+The trace has length seven,
+the shortest path has length five.
+So if we fill out the formula,
+we will see that the fitness of
+this particular trace is 0.83.
+So this is the way that
+we can compute fitness.
+Now try to compute
+fitness using this trace.
+And again we should think about a worst
+case scenario to be able to compute this.
+The answer is as follows.
+So, we need to align the trace
+that we have seen with the model.
+Look at the optimal alignment,
+and the worst case alignment.
+The optimal alignment,
+we have seen that before, has a cost of 2.
+If we look at the worst case alignment,
+what does it look like?
+Well, this is an example
+of a worst case alignment.
+So, and it consists of two parts,
+if we look at the first part
+we see that everything that was in the
+log, corresponds to a move in log only.
+And then we take the shortest
+path through the model, and
+we just do move on model there.
+And if we do that, we can see that
+the optimal alignment has a cost of two.
+And the worst case scenario,
+has cost six plus six.
+And now we can use these numbers
+to fill out in the formula, and
+we find the fitness of 0.833.
+Just by accident, it is the same
+value as what we have seen before.
+So what are the advantages
+of aligning log and model.
+We can directly relate observed behavior,
+to the model itself,
+which is very important.
+It is very flexible, I showed to you
+that one can use any cost function,
+assigning penalties to
+not making deadlines,
+events being executed by the wrong person,
+etcetera.
+We get very detailed diagnostics.
+We can compare events at
+a very refined level.
+And after aligning the log and the model,
+we get a path through the model,
+and we can do all kinds of
+other types of analysis.
+And so that
+makes alignments extremely important.
+To illustrate this,
+let us take a look at this diagram.
+So this is a path through the model,
+and so this is the modeled behavior.
+If then in reality we see a deviating
+trace, we can use alignment
+to diagnose where these deviations are,
+and why they happened.
+But this is not the only thing,
+why alignments are important.
+We can also use alignments to
+squeeze behavior that we see in
+reality into the model,
+even if it does not fit perfectly.
+This is crucial for performance analysis,
+and all kinds of other types of
+analysis that require us to use the model
+and the event data at the same time.
+One element of conformance checking
+that we did not discuss so far,
+is the ability to drill down.
+So we can always separate
+traces into fitting traces and
+non-fitting traces, and
+then we can analyze them separately.
+So we can do this to try to understand,
+what the differences are,
+between the deviating cases and
+the non-deviating cases.
+Note that if we separate
+a log like this in two parts,
+we can analyze the two parts as
+if they are a new event log.
+So we can apply all of the techniques
+that we have seen before.
+We can also move beyond fitness and
+control flow.
+So, our lion's share of attention that
+we have given so far, was focused on
+fitness but also precision, generalization
+and simplicity are important.
+And there are precise
+definitions possible also for
+these dimensions but
+they are outside the scope of this course.
+Also, if we look at
+things like alignments,
+we have mostly focus on control flow.
+But we can also take into
+account the other perspectives,
+as has been illustrated before.
+A nice example of are the so
+called data-aware alignments,
+that take into account control flow and
+data at the same time.
+To read more on conformance checking
+you can look in chapter seven.
+Also see the article highlighted here,
+that this providing much more information
+related to the notion of alignments.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

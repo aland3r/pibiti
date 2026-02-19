@@ -1,0 +1,352 @@
+[MUSIC]
+Welcome to this lecture of the course on
+Process Mining Data Science in Action.
+In this fourth lecture,
+on conformance checking we continue to
+focus on token-based replay,
+as a means to diagnose and
+quantify discrepancies,
+between modeled and observed behavior.
+In the last lecture,
+we introduced a notion of
+token-based replay as a means
+to do conformance checking.
+In this lecture we will
+focus on several examples,
+showing this conformance
+checking technique in action.
+This was one of the examples
+that we saw before,
+given this one log containing
+almost 1,400 cases.
+We checked the conformance with
+respect to four different models.
+The first model and
+the last model had a perfect fitness.
+The two other models showed that therer were
+differences between the log and the model.
+So, how does it work if
+we quantify fitness,
+in terms of a number between zero and one?
+We need to count the number of missing
+tokens, consumed tokens, remaining tokens,
+and produced tokens, while replaying
+the event log on top of the model.
+Okay, let's take a look at some questions.
+Some of these may take some
+time to actually compute.
+What is shown here is an event
+log containing 35 cases,
+as is indicated in the table.
+We have this very simple process
+model that we have seen before,
+the question is to compute fitness, using
+the formula shown on the previous slide.
+To answer this question,
+we first look at the trace acd,
+which happened once in this event log.
+As always, we start with the production
+action on the source place,
+then we can execute a.
+We consume one token and
+produce two tokens.
+Then we need to do c,
+c is also possible, so we do
+a consumption and a production action.
+Now we need to execute d,
+but d is not enabled because there
+is no token on place p3.
+So, we see that there is a problem,
+we need to add a missing token and
+only then we can execute d.
+It leads to the consumption of the two
+tokens, and the production of one token.
+Finally, we need to consume
+the token from the final place, and
+when we have done that, we see that
+one token is remaining in place p1.
+So if we now add up these numbers
+we can see that in this example,
+there are five produced tokens,
+five consumed tokens,
+there is one missing token, and
+there is one remaining token.
+And we can use this to quantify
+the fitness of this single trace.
+But we need to do that for the whole log.
+We do that using a spreadsheet,
+and the row highlighted now
+shows the trace that we just looked at,
+with one missing token and
+one remaining token, five produced
+tokens and five consumed tokens.
+This trace happened only once,
+so if we multiply this by one,
+then we get these numbers of consumed,
+produced, missing and remaining tokens.
+We can also take a look at another trace,
+for
+example, the first one,
+which is perfectly fitting.
+If we replay it, we don't encounter
+any missing or remaining tokens.
+This trace is happening ten times, so
+we need to multiply the numbers for
+this trace by ten.
+If we do this for all the traces,
+then we can add up the number of produced,
+remaining, consumed, and
+missing tokens, as is highlighted here.
+And then we can simply apply the formula,
+and get, the fitness of 0.96.
+So this is the way that we
+can compute a fitness for
+a log consisting of multiple traces.
+Here we can see the output of ProM,
+so ProM
+provides exactly the types of diagnostics
+that we obtained during replay.
+So here you can see the missing or
+remaining tokens,
+one can see the overall fitness.
+But one can also select the cases
+that are fitting and not fitting.
+Note that this is not
+output taken from ProM 6,
+it's taken from an earlier version,
+ProM 5.2.
+Because ProM 6 provides more
+advanced conformance checking techniques,
+that we will discuss in the next lecture.
+Let us take a look at another example.
+So the question to you is, now we look at
+an event log that contains only one case.
+And this one case contains only one event,
+namely e, please compute the fitness
+using the formulas that we have seen before.
+To answer this question,
+we need to replay this trace.
+We start with the production
+action on the source place, and
+then we need to execute e.
+But as it is clearly visible, e is not
+enabled because p1 and p2 are empty,
+they have no tokens.
+So, we record the fact that we have two
+missing tokens, one for p1, one for p2.
+Then we can execute e, we consume
+two tokens, we produce two tokens.
+And then the trace has ended.
+But the environment still needs to
+consume a token from place end, but
+place end contains no token.
+So, we record the fact that
+there is a missing token there,
+we consume that token.
+And then if we look at the final state,
+we can see that there are still tokens
+remaining, namely in the source place and
+places p3 and p4.
+So if we look at these numbers, we can
+see that we have three produced tokens,
+three consumed tokens, three missing
+tokens and three remaining tokens.
+So what is now the fitness
+of this particular trace?
+It is equal to 0, because we do 3 divided
+by 3, and then we take 1 minus that number.
+And that holds both for production and
+consumption, so the fitness is equal to 0.
+In other words, none of the,
+produced tokens was actually used.
+And none of the consumed
+tokens,was actually present,
+showing that this is clearly the worst
+fitness that one can imagine.
+Let us take a look at another example,
+this is a log that consists of 33 cases.
+For example,
+trace acd happens 10 times, trace d,
+that you can see at the bottom,
+happened only once.
+Again, we would like to
+compute the fitness.
+Again we create the spreadsheet
+to evaluate the fitness of
+this particular example.
+And just as an illustration
+let us focus on the trace ace.
+This trace has happened five times.
+And let us replay it using
+the technique that we have seen before.
+If we do this,
+then we have these numbers of consumed,
+produced, missing, and remaining token.
+There is one token remaining,
+and there is one token missing.
+So that leads to five traces,
+each having the remaining token and
+a missing token so in total there are five
+remaining tokens and five missing tokens.
+Next to the five times five produced
+tokens and consumed tokens.
+Well, this was an example for this row,
+we can do that for all the rows and then
+we get these total numbers of produced,
+remaining, consumed and missing tokens.
+And this leads to a fitness
+of just below 0.9.
+And again we obtain this by applying
+the formula that we have seen before.
+Here again we can see some diagnostics
+in ProM, so ProM is showing the fitness,
+exactly the same fitness as
+what we have computed by hand.
+And again we can see where
+are the tokens remaining and
+where are the tokens missing.
+Numbers that have a minus sign in front of
+them, they correspond to missing tokens.
+Positive numbers correspond to
+kind of like tokens that are not
+consumed while replaying the trace.
+As a last example take a look at
+this event log containing 20 cases.
+The first trace is a b e f c d,
+and I hope that you can see that
+there are some problems here.
+So again the question is how
+to quantify the fitness and
+we can do it in exactly the same
+way as we have seen before.
+In this case we get in total 200
+produced tokens, 200 consumed tokens, 40
+remaining tokens and 40 missing tokens,
+and this leads to a fitness of 0.8.
+Also again a screen shot of ProM,
+showing exactly this same type of
+diagnostics, that we have seen before.
+Okay, so this is the replay approach, and
+you can see that it works really
+nice on the simple examples, but
+we are making some simplifying
+assumptions while doing this.
+First of all, in all the examples,
+all the transitions that we looked at,
+have a unique and visible label.
+If we want to apply this technique to
+models that may have multiple transitions
+with the same label, or transitions that
+do not have a label that are invisible.
+We need to apply heuristics and so, there
+may be situations in which the diagnostics
+may be misleading because, while
+replaying in a way, we need to guess, for
+example, which of the two transitions
+having the same label should be executed.
+The conformance values may also
+be sometimes too optimistic.
+If there are many problems,
+then what you will see is that the net
+gets flooded by tokens, because each time
+a token is missing, it is simply added.
+So, in the end, there may be too many
+tokens and you can execute everything.
+And last but not least,
+this simple approach makes local decisions
+that may lead to misleading diagnostics.
+Let us take a look at this example
+showing that local decision
+making is not good enough.
+So if you look at this trace, we want
+to execute a, c1, c2, e1, e2 and e3.
+And these numbers have been
+chosen in an arbitrary manner so
+we can have many more c activities.
+We could have also a much
+longer chain of e activities.
+The problem is that the execution of a,
+at the beginning,
+can not be matched with
+the execution of e1, e2, and e3.
+But if we do the replay what
+you will see is that it
+naively starts replaying
+from the beginning.
+So, we start with the produced token
+on the source place, then we execute a,
+we consume one token, produce two tokens.
+Then we can do c1 and c2,
+not encountering any types of problems.
+But then when executing e1,
+we see that there is a problem,
+because one of the input places
+of e1 doesn't contain a token.
+So we need to record the fact that
+there is a missing token here, and
+then we can continue towards the end,
+adding the produced and consumed tokens.
+At the end we consume
+a token from the sink place.
+And we acknowledge that there is
+a remaining token left behind.
+So, these diagnostics
+are a bit misleading, because,
+in the beginning we chose the path
+through a, whereas, if you look
+at it more closely, it would probably have
+been better to take the path involving b.
+The fitness is computed in this case, and
+it gives a particular number, but
+the diagnostics are a bit problematic.
+It does not provide a corresponding
+path through the model,
+because the path that is now being
+replayed, if we look at the p and
+c tokens, is a path that is not possible.
+What we would really like to see is that
+we would like to see the path which is
+closest to the trace that we
+have observed in reality.
+And in this case, this would have been
+the sequence b, c1, c2, e1, e2, e3.
+In the next lecture, we will look at
+the notion of alignments, and
+the diagnostics provided by
+alignments are much better.
+So here you can see
+an example of an alignment,
+the top row of such an alignment
+corresponds to a trace in the event log.
+The bottom row corresponds
+to a real path in the model.
+And we would like to relate these two.
+We also have this symbol which
+indicates a so called no move.
+It is modeling the fact,
+that reality could not mimic the model or
+the model could not mimic reality.
+So, we have move in log only,
+something happened in reality which
+could not be mimicked by the model.
+We have a move in model only,
+something is needed according to
+the model, but did not happen in reality.
+And we have so called synchronize moves,
+or moves in both.
+Indicating that a model and
+log agree on what should happen.
+So, if you look at alignments we get
+a much better diagnostics than through
+simple token replay, because you can
+clearly see from the alignment that there
+was a problem related to a and
+b at the beginning.
+In the next lecture we will talk more
+about alignments, if you would like to
+read more on conformance checking
+please take a look at chapter seven.
+Thank you for watching this lecture,
+see you next time.
+[MUSIC]
+

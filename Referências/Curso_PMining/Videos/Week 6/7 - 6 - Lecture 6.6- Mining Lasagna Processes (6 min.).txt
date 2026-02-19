@@ -1,0 +1,119 @@
+[MUSIC]
+Today, we focus on the analysis of so
+called lasagna processes.
+We can apply all the techniques discussed
+in this course to such processes.
+In fact, for lasagna processes,
+control for discovery only serves as
+a starting point for
+more advanced process mining techniques.
+We've used the term spaghetti and
+lasagna processes several times before.
+So what does it actually mean?
+If we use the term spaghetti processes,
+we are referring to
+processes that are unstructured,
+that have irregular behavior,
+that are characterized by words
+like flexible and variable.
+Lasagna processes on the other hand.
+Correspond to processes that
+are structured, repetitive, regular, and
+that can be controlled.
+Of course, these are two extremes.
+In fact,
+one can talk about a spectrum of processes
+ranging from very unstructured
+to very structured processes.
+Today, we focus on lasagna processes.
+Processes that are repetitive and
+well structured.
+How can we define lasagna processes,
+here is an attempt at the rule of thumb.
+Saying that for
+a lasagna process you should be able to
+create a model that has
+a fitness of at least 0.8, and
+the stakeholders can confirm
+the validity of the model.
+So this excludes a model
+like a flower model.
+The mainstream behavior should fit
+into a relatively simple model.
+This is an example of a lasagna process.
+It's taken from a Dutch municipality and
+it corresponds to
+event data in the context of people
+requesting for household helps.
+So the event log here is
+using over 500 requests,
+500 cases, generating approximately
+five and a half thousand events.
+From the dotted chart you can
+already see that this process has
+a rather regular behavior.
+There is a continuous
+flow of new cases and
+cases typically take relatively
+short amount of time.
+If you look at the color of the dots you
+can also see that there
+are relatively few activities.
+If we use the inductive miner then
+this is the model that is discovered.
+We can convert it to a Petri net or
+a BPMN model.
+And they all show the same
+relatively simple process.
+If you look at the fitness
+of this discovered process.
+The fitness is almost perfect, in fact 505
+of the 528 cases fit
+perfectly into this model.
+So we can do performance analysis.
+And the activity highlighted
+here in red is the bottleneck.
+It's an optional activity
+that often takes a long time.
+If you use Disco rather than ProM,
+we find exactly the same results.
+And so here in blue you can
+see frequencies, in red,
+yellow you can see the time
+spent in the various phases.
+And we find the same bottlenecks.
+All the stages of the L* lifecycle model
+can be visited for such Lasagna processes.
+And so we can even do operational support
+because the behavior is very regular,
+and therefore, for example, we can
+predict things based on historic data.
+Also, all the ten process mining
+activities in the refined reference model
+can actually be applied in
+the context of lasagna processes.
+So lasagna processes are easy to discover,
+but
+the drawback is that it is less
+interesting to discover the real process.
+Because typically people know what
+a real process because it is so regular.
+So the added value is that the whole
+process mining tool box can be applied.
+So typically replay techniques are very
+important to understand bottlenecks,
+to understand decisions in the process
+to see which customers take longer,
+which customers take shorter.
+So the advanced types of process
+mining based on alignments
+with respect to a relatively simple model,
+is where the value lies.
+If you would like to read more
+on these types of processes,
+lasagna processes,
+take a look at chapter 11.
+Thank you for watching this lecture,
+see you next time.
+[MUSIC]
+

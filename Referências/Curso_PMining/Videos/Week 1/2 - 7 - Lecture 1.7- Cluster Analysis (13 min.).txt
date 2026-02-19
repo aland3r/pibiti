@@ -1,0 +1,307 @@
+[MUSIC]
+Welcome to this lecture.
+Today we will look at another
+unsupervised data mining technique.
+We will show how instances
+can be clustered
+in homogenous groups using the so
+called k-means technique.
+Here again we see the overview of all the
+different data mining techniques that we
+are considering.
+Decision tree learning was an example
+of a supervised learning technique.
+Association rules that we
+discussed in the last lecture
+is an unsupervised learning
+techniques just like the clustering
+approaches we will discuss today.
+So, what is the basic idea of clustering?
+We have,
+instances that have different attributes.
+Here, we only see two attributes, but
+it could be hundreds or
+thousands of attributes.
+And we would like to group.
+These instances in homogeneous groups,
+just as is sketched here in this slide.
+So, we have a cluster A,
+a cluster B, and a cluster C
+of points that are closer related to
+each other than to the other instances.
+So, how to compute these clusters?
+One approach is the so
+called k-means clustering,
+where beforehand we need to
+set the number of clusters.
+In this case we set k
+to 3 indicating that we would like
+to extract three different clusters.
+Again, I'm using a 2 dimensional diagram,
+but this is very misleading.
+Often, there are hundreds or
+thousands of dimensions,
+making clustering much more challenging.
+So, how does k-means clustering work?
+We start by, setting so called centroids.
+These are points in this
+n dimensional space.
+These points could be set randomly, or
+some other approach could be used
+like, for example,
+making it match to one of the instances.
+After setting these three centroids,
+what we do is that we decide for
+every instance to which
+centroid it is closest.
+So if we do that we have a blue,
+a red, and a green centroid.
+And we start coloring the instances,
+then this is what we get.
+So we have assigned all instances
+to the closest centroid.
+After coloring the instances,
+what we can do is that we
+can look at the instance of a particular
+color, and compute a new centroid.
+The centroids that is
+like the average of all
+the different points
+having a particular color.
+If we do that,
+then this is the situation that we get.
+So for example,
+if we look at the 3 green dots,
+then they have a centroids which
+is like the point in the middle.
+The same holds for the blue
+cluster, and the red cluster.
+After recomputing the centroids,
+we again start
+coloring the different instances,
+again based on the closest centroid.
+If we do that, then this is the result.
+So what we can see is that the one
+instance highlighted here,
+it is still closest to the blue centroid.
+After doing this we, again, based on the
+instances that have a particular color,
+we again recompute the centroids.
+And if we do that,
+then this is the resulting situation.
+Now take a look at the blue
+dot closest to the bottom.
+It is now closest to the red centroid, so
+in the next iteration it will
+be added to the red centroid.
+Now we start recomputing,
+the middle of all of the centroids, and
+this is the result that we get.
+The situation that we see
+here is a so-called fixpoint.
+If we now iterate further,
+nothing will change anymore.
+Note that approach is
+non-deterministic if we
+take a random initialization
+of the centroids.
+So, typically the experiment
+is repeated multiple times.
+We take the best clustering.
+That results from all these random trials.
+This is the way that we
+can use k-means clustering
+to find homogenous groups of instances.
+So the main idea is that instances in
+a cluster are more similar to each
+other than those in other clusters.
+And this has many applications.
+So for example, we can try to find
+homogenous groups of customers,
+of patients, of sessions, of students.
+Etcetera.
+After creating these clusters,
+we get smaller datasets.
+So for example, now we have
+partitioned the dataset that is
+shown here into loyal customers,
+discount customers, and impuls customers.
+And now to each of these clusters,
+we can apply.
+Other data mining techniques or
+process mining techniques.
+For example, we could now build decision
+trees, based on these individual clusters.
+Or create association rules for
+these different clusters.
+Let's go back to the Italian restaurant
+that we have used before, but
+now to simplify things we have
+restricted the menu to only 6 items.
+In other ways we just abstract
+from all the other items, and
+just look at customers buying these
+particular dishes and drinks.
+We can now apply this mining technique.
+This is the input that we get,
+again we have a class label but
+we can ignore it,
+because this is an unsupervised method.
+We would like to find patterns and
+groups of,
+customers that belong together
+without labeling the data before.
+So, to compute the clusters,
+we use this, workflow in rapid miner.
+We load the data sets,
+we apply k-means clustering,
+where we set k in this case to 2.
+And then, at the end,
+we measure performance.
+And there are different ways of measuring.
+The performance of clustering, but they
+are outside of the scope of this course.
+If we apply two means
+clustering to this data set we
+find two clusters that have
+approximately the same size.
+And if we look at the centroids of
+these two clusters we can clearly see.
+What these two clusters represent.
+So, in cluster zero, we can find,
+typically instances,
+customers that have bought lasagna,
+spaghetti carbonara, and drank beer.
+In the other cluster,
+we typically find people.
+That have eaten pizza, pizza margherita or
+pizza siciliana, and
+that were drinking wine.
+So, using clustering, we find two
+homogeneous groups of customers.
+Customers that drink beer, and
+that eat lasagna and or spaghetti.
+And customers that drink wine and
+eat pizza.
+Let's take a look at this in
+rapid minor and where we try to
+plot the data to create some additional
+insights into these clusters and
+to see that they
+are actually valid clusters.
+So here you see a scatter plot,
+where every dot corresponds to a customer.
+And we indicate the number
+of pizza sicilliana that
+the customer has ordered on the y axis.
+On the x axis we plot the number of pizzas
+margherita that people have bought.
+The color.
+Correspond to the clustering that
+was automatically discovered.
+What we see is that customers in cluster
+zero, indicated by the blue dots.
+These are typically not
+ordering any pizzas.
+But people in the red cluster,
+typically, are ordering.
+Just a pizza margherita, just a pizza
+siciliana, or multiple pizzas.
+Here we see another scatter plot.
+So, on the y axis,
+we are plotting the number of times
+that spaghetti carbonara was ordered.
+On the x axis, we plot the number
+of times that lasagna was ordered.
+If you look at the red and the blue dots,
+they again correspond to the clusters
+that we have discovered before.
+So the blue dots are in cluster zero, and
+they correspond to customers
+that typically ordered at least.
+One time spaghetti carbonara,
+or one time lasagna,
+or multiple items of lasagna and
+spaghetti carbonara.
+Customers in the red cluster,
+they typically ordered no pasta.
+We can also look at the dimension
+of drinks, and again we
+can clearly see that the customers in
+the red cluster are drinking wine,
+whereas the customer in the blue
+cluster are drinking beer.
+So this provides evidence that the
+clustering we automatically discovered.
+Actually make sense for this data set.
+So, k-means is one of several
+clustering techniques that one can use.
+One of the drawbacks of k-means is that
+you need to decide on the value of
+k up front.
+Like in the previous example,
+we set k to 2.
+If you would like to see whether there
+are tree clusters that make sense,
+we need to try the same approach
+with the k set to tree.
+Other clustering techniques may
+provide a hierarchy of clusters.
+And you can see an example here.
+On the right hand side,
+you see a so-called dendogram and
+it is indicating a hierarchy of clusters.
+On the other side,
+you can see the corresponding clusters.
+So how to read such a diagram,
+such a hierarchy.
+A group similar sets of instances
+in a hierarchical manner.
+And it can build it in this way in,
+in an incremental way.
+If we cut the hierarchy
+at a particular place,
+we find as many clusters as the number
+of lines that we are crossing.
+So if we take a higher abstraction
+level, we will only find two clusters.
+One cluster consisting of a,
+b, c, and d, and
+another cluster consisting of
+the rest of the instances.
+We can also go lower in the hierarchy,
+and again if we cut the hierarchy,
+we find different clusters.
+So in the example now,
+we find the cluster consisting of a and
+b, the cluster consisting of c and d,
+a cluster containing just e,
+a cluster containing f and
+g, a cluster containing h and
+i, and a cluster containing j.
+And so we can seamlessly decide
+on the number of clusters that we
+would like to have.
+Clustering can also be
+used to split event logs.
+So suppose that we have event logs
+referring to different types of customers.
+We could first do clustering based on
+the characteristics of the patients or
+the customers.
+And then we can automatically build
+process models for each of the clusters.
+So this way you can see
+how process mining and
+data mining techniques can be combined.
+This was the last data mining technique
+that we have discussed, in the next
+lecture we will focus more on evaluating
+the quality of data mining results.
+And then we can switch to more
+the process-oriented aspects of
+process mining.
+Thank you for watching, and
+I hope to see you soon.
+[MUSIC]
+

@@ -1,0 +1,1069 @@
+1
+00:00:00,000 --> 00:00:07,274
+[MUSIC]
+
+2
+00:00:07,274 --> 00:00:11,850
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+
+3
+00:00:11,850 --> 00:00:16,640
+Today we focus on the representation
+used during discovery.
+
+4
+00:00:16,640 --> 00:00:22,880
+We can use different modeling notations to
+present discovered processes to end users.
+
+5
+00:00:22,880 --> 00:00:27,920
+However, this is independent of
+the representation used when searching for
+
+6
+00:00:27,920 --> 00:00:31,490
+a process that best explains
+the observed event data.
+
+7
+00:00:33,050 --> 00:00:37,990
+Earlier, we have been taking about
+desire lines as a metaphor for
+
+8
+00:00:37,990 --> 00:00:40,580
+process mining and process discovery.
+
+9
+00:00:40,580 --> 00:00:45,900
+Here you see a picture with my daughter
+cycling over such a desire line.
+
+10
+00:00:45,900 --> 00:00:48,300
+They indicate what people really do.
+
+11
+00:00:50,350 --> 00:00:52,090
+Here you see another desire line.
+
+12
+00:00:52,090 --> 00:00:56,460
+It's taken at the campus of
+Tsinghua University in Beijing.
+
+13
+00:00:56,460 --> 00:01:01,810
+And we see a desire line here
+that has been building over time.
+
+14
+00:01:01,810 --> 00:01:05,250
+Because people were leaving traces
+of the things that they did.
+
+15
+00:01:05,250 --> 00:01:07,730
+As you can clearly see from the sign,
+
+16
+00:01:07,730 --> 00:01:13,880
+they are violating a rule, but there is
+evidence to show what has really happened.
+
+17
+00:01:13,880 --> 00:01:17,100
+This metaphor of desire
+lines allows us to
+
+18
+00:01:17,100 --> 00:01:21,230
+talk about representational
+bias of process mining.
+
+19
+00:01:21,230 --> 00:01:21,900
+Let's take a look.
+
+20
+00:01:23,060 --> 00:01:27,460
+The lines here indicate
+the behavior that we have observed.
+
+21
+00:01:28,510 --> 00:01:33,840
+Now given this observed behavior, we would
+like to create a model of the behaviors
+
+22
+00:01:33,840 --> 00:01:39,380
+that we have seen that is also
+predictive for things into the future.
+
+23
+00:01:39,380 --> 00:01:42,400
+And so it's a description of what
+we have seen in the past, and
+
+24
+00:01:42,400 --> 00:01:46,340
+says something about what we
+can expect in the future.
+
+25
+00:01:46,340 --> 00:01:49,580
+Well, so we tried to convert
+what we have seen into a model.
+
+26
+00:01:49,580 --> 00:01:52,770
+And what is indicated here.
+
+27
+00:01:52,770 --> 00:01:54,980
+For example, the circular building blocks,
+
+28
+00:01:54,980 --> 00:01:59,900
+is that we tried to capture the behavior
+that we have seen in terms of a model.
+
+29
+00:02:01,680 --> 00:02:05,330
+So this model seems to be a good
+description of what we have seen.
+
+30
+00:02:06,740 --> 00:02:11,120
+However, we can take
+a look at this situation.
+
+31
+00:02:11,120 --> 00:02:17,240
+Where the yellow line indicates
+a behavior that is violating the model.
+
+32
+00:02:17,240 --> 00:02:20,290
+In other words,
+the model doesn't allow for this behavior.
+
+33
+00:02:20,290 --> 00:02:22,320
+But it happened anyway.
+
+34
+00:02:22,320 --> 00:02:24,140
+So, is this an outlier?
+
+35
+00:02:25,280 --> 00:02:29,440
+Or, should we modify
+our model to allow for
+
+36
+00:02:29,440 --> 00:02:32,460
+this particular behavior that
+does not fit into the model?
+
+37
+00:02:35,650 --> 00:02:41,140
+So, what you see here is that we
+can build an alternative model
+
+38
+00:02:41,140 --> 00:02:45,960
+that now has much more detail
+that allows for the yellow line.
+
+39
+00:02:45,960 --> 00:02:49,220
+But is this model overfitting?
+
+40
+00:02:49,220 --> 00:02:53,240
+Before we had the outlier, which was
+not possible according to the model.
+
+41
+00:02:53,240 --> 00:02:57,160
+Now we have adapted this
+model to the outlier.
+
+42
+00:02:57,160 --> 00:03:03,180
+So, this is related to the four forces
+that we have been talking about before.
+
+43
+00:03:03,180 --> 00:03:07,090
+We can also have a model that is
+completely underfitting, that allows for
+
+44
+00:03:07,090 --> 00:03:09,980
+any behavior that is somewhere
+there in the middle.
+
+45
+00:03:11,240 --> 00:03:13,330
+So this is an underfitting model.
+
+46
+00:03:14,500 --> 00:03:20,070
+So if we look at these two models, we can
+see an over and an underfitting model.
+
+47
+00:03:20,070 --> 00:03:22,990
+But that's not the thing that
+we are going to talk about.
+
+48
+00:03:22,990 --> 00:03:25,930
+Today, we are going to talk
+about representations that we
+
+49
+00:03:25,930 --> 00:03:29,220
+use to capture these models.
+
+50
+00:03:29,220 --> 00:03:33,760
+So, before we were using circles and
+these other objects.
+
+51
+00:03:33,760 --> 00:03:38,920
+But what would happen if our basic
+building blocks our modeling language.
+
+52
+00:03:38,920 --> 00:03:42,290
+Does not allow for these circles,
+and these bars, and
+
+53
+00:03:42,290 --> 00:03:46,380
+these triangles, but also it only
+allows for this particular shape.
+
+54
+00:03:47,770 --> 00:03:52,460
+We then have a different modeling language
+and we cannot capture exactly the same
+
+55
+00:03:52,460 --> 00:04:00,070
+things, and we are tempted to capture
+the behavior in a particular way.
+
+56
+00:04:00,070 --> 00:04:03,670
+So this is what
+representational bias is about.
+
+57
+00:04:03,670 --> 00:04:07,460
+It impacts the search space of
+process discovery techniques.
+
+58
+00:04:09,320 --> 00:04:12,740
+Let's take a look at an example
+to make this more clear.
+
+59
+00:04:12,740 --> 00:04:14,210
+So this is a Petri net and
+
+60
+00:04:14,210 --> 00:04:18,830
+a Petri net has no problems
+whatsoever to capture concurrency.
+
+61
+00:04:18,830 --> 00:04:23,840
+So if you have a process discovery
+technique using Petri nets natively,
+
+62
+00:04:24,850 --> 00:04:29,770
+the discovery technique will be
+tempted to discover concurrency.
+
+63
+00:04:29,770 --> 00:04:33,970
+However, if we would use as
+a representation a transition system.
+
+64
+00:04:33,970 --> 00:04:38,150
+This is the transition system
+corresponding to the same process.
+
+65
+00:04:38,150 --> 00:04:41,490
+And we are only seeing
+a tiny fraction of it.
+
+66
+00:04:41,490 --> 00:04:43,640
+It has many different states and
+
+67
+00:04:43,640 --> 00:04:50,110
+many different transitions because it is
+not able to capture concurrency natively.
+
+68
+00:04:50,110 --> 00:04:54,450
+So when we use this representation,
+discovering concurrency will be
+
+69
+00:04:54,450 --> 00:04:55,420
+much more difficult.
+
+70
+00:04:57,660 --> 00:05:03,940
+So the representation is influencing
+how we can discover processes and
+
+71
+00:05:03,940 --> 00:05:11,200
+there are many possible languages that
+we internally use for process discovery.
+
+72
+00:05:11,200 --> 00:05:12,700
+We've seen Petri nets,
+
+73
+00:05:12,700 --> 00:05:17,010
+we can look at workflow nets,
+we can look at transition systems.
+
+74
+00:05:17,010 --> 00:05:20,060
+Later we will look at BPMN diagrams.
+
+75
+00:05:20,060 --> 00:05:24,050
+And there are many other
+notations that you can see.
+
+76
+00:05:24,050 --> 00:05:27,110
+The notations that you see
+here are just a few of
+
+77
+00:05:27,110 --> 00:05:30,000
+the process modelling
+languages that are out there.
+
+78
+00:05:31,000 --> 00:05:36,870
+So the choice of language will
+influence how our discovery
+
+79
+00:05:36,870 --> 00:05:42,190
+process will actually be conducted and
+it will influence the outcome.
+
+80
+00:05:43,910 --> 00:05:48,400
+So before, with the transition system,
+I already indicated that
+
+81
+00:05:48,400 --> 00:05:54,000
+to discover concurrency, you need to have
+a notation that allows for concurrency.
+
+82
+00:05:54,000 --> 00:05:56,910
+So let us elaborate a bit about this.
+
+83
+00:05:56,910 --> 00:06:00,010
+Many things in real life are concurrent.
+
+84
+00:06:00,010 --> 00:06:01,920
+If we look at an office.
+
+85
+00:06:01,920 --> 00:06:05,890
+If we look at a factory, many things
+are happening at the same time.
+
+86
+00:06:06,920 --> 00:06:12,370
+If we want to mine things on the internet
+like social media, we will see that
+
+87
+00:06:12,370 --> 00:06:18,270
+many actors, many people are acting
+concurrently at the same thing.
+
+88
+00:06:18,270 --> 00:06:22,000
+And you don't want to build one big
+transition system to capture this.
+
+89
+00:06:23,020 --> 00:06:28,240
+Also if we look at complex machines,
+like X-ray machines, they
+
+90
+00:06:28,240 --> 00:06:33,600
+are composed of many components that are
+interacting and are working concurrently.
+
+91
+00:06:33,600 --> 00:06:36,550
+So concurrency is very important.
+
+92
+00:06:36,550 --> 00:06:40,450
+So should the process discovery
+notation that we are using,
+
+93
+00:06:40,450 --> 00:06:44,060
+should it be able to capture
+concurrency compactly?
+
+94
+00:06:44,060 --> 00:06:45,310
+Probably yes.
+
+95
+00:06:45,310 --> 00:06:48,020
+If we look at processes that
+have these types of behavior.
+
+96
+00:06:49,040 --> 00:06:52,160
+But if we want to capture
+concurrency are there
+
+97
+00:06:52,160 --> 00:06:56,140
+also higher level constructs
+that we should also capture?
+
+98
+00:06:56,140 --> 00:07:00,180
+Like for example OR-joins and
+cancellations.
+
+99
+00:07:00,180 --> 00:07:03,870
+And these are the things that we
+will elaborate on in later lectures.
+
+100
+00:07:06,470 --> 00:07:10,540
+So let's go back to the case of
+concurrency and the OR-joins.
+
+101
+00:07:10,540 --> 00:07:15,250
+First we look at concurrency, and I ask
+you a question which is very much related
+
+102
+00:07:15,250 --> 00:07:19,131
+to things that we have seen before when
+we were talking about workflow nets and
+
+103
+00:07:19,131 --> 00:07:21,730
+Petri nets and reachability graphs.
+
+104
+00:07:21,730 --> 00:07:27,270
+So, suppose that we have a process that
+has a start activity an end activity, and
+
+105
+00:07:27,270 --> 00:07:32,770
+k activities that are concurrently in
+between the start and end activity.
+
+106
+00:07:33,850 --> 00:07:38,070
+So, my question to you is,
+how many traces are possible.
+
+107
+00:07:38,070 --> 00:07:42,930
+And if we feed the Alpha algorithm
+with all of these traces,
+
+108
+00:07:42,930 --> 00:07:45,560
+will it be able to discover such a model?
+
+109
+00:07:45,560 --> 00:07:49,650
+And what is the minimum number
+of observations needed?
+
+110
+00:07:49,650 --> 00:07:51,238
+Please think about this.
+
+111
+00:07:56,944 --> 00:08:00,270
+The answer to the question is as follows.
+
+112
+00:08:00,270 --> 00:08:04,170
+So if we model these k parallel activities,
+nobody will be surprised that
+
+113
+00:08:04,170 --> 00:08:08,250
+the process model looks like this, and the
+Alpha algorithm is able to discover it.
+
+114
+00:08:10,170 --> 00:08:15,520
+If we look at the number of different,
+sequences allowed by this model,
+
+115
+00:08:17,080 --> 00:08:23,480
+it's easy to compute and here you can see
+the numbers for different values of k.
+
+116
+00:08:23,480 --> 00:08:28,040
+So the moment that k becomes bigger,
+many different traces are possible.
+
+117
+00:08:29,440 --> 00:08:33,990
+The Alpha algorithm does not need
+to observe all of these traces.
+
+118
+00:08:33,990 --> 00:08:37,790
+In principal, k times k minus 1
+
+119
+00:08:37,790 --> 00:08:40,170
+observations are sufficient.
+
+120
+00:08:40,170 --> 00:08:42,050
+What do I mean by that?
+
+121
+00:08:42,050 --> 00:08:51,080
+If an activity b1 can be followed by b3,
+we should observe that at least once.
+
+122
+00:08:51,080 --> 00:08:56,110
+And so in this model k times k minus 1
+is the number of observations that we
+
+123
+00:08:56,110 --> 00:08:57,330
+need to see.
+
+124
+00:08:57,330 --> 00:09:00,460
+And in a single trace they can be
+already multiple observations.
+
+125
+00:09:03,250 --> 00:09:07,760
+Let's take a look at another
+question involving an OR-join.
+
+126
+00:09:07,760 --> 00:09:13,200
+Suppose that we have again k parallel
+activities but these are all optional.
+
+127
+00:09:13,200 --> 00:09:14,336
+So they can be skipped.
+
+128
+00:09:14,336 --> 00:09:21,043
+The questions are: is the Alpha algorithm
+able to discover this process and
+
+129
+00:09:21,043 --> 00:09:26,300
+how many traces are possible
+let's say again for k is ten.
+
+130
+00:09:32,540 --> 00:09:34,240
+To answer this question,
+
+131
+00:09:34,240 --> 00:09:39,430
+let us first take a look at a model
+that captures this type of behavior.
+
+132
+00:09:39,430 --> 00:09:43,020
+We see k concurrent
+activities in the middle, and
+
+133
+00:09:43,020 --> 00:09:46,980
+they all have a so-called tau
+transition associated to it.
+
+134
+00:09:46,980 --> 00:09:49,990
+That allows us to bypass that activity.
+
+135
+00:09:49,990 --> 00:09:53,520
+So this models the behavior
+that was described.
+
+136
+00:09:55,290 --> 00:09:58,410
+The alpha algorithm is
+unable to discover this
+
+137
+00:09:58,410 --> 00:10:03,680
+model because the Alpha algorithm is
+unable to detect silent transitions.
+
+138
+00:10:03,680 --> 00:10:05,740
+It will create a model.
+
+139
+00:10:05,740 --> 00:10:08,040
+For this event log, that is incorrect.
+
+140
+00:10:09,430 --> 00:10:12,110
+How many traces are there?
+
+141
+00:10:12,110 --> 00:10:13,870
+That number is incredible.
+
+142
+00:10:13,870 --> 00:10:16,700
+And here you can see for
+different values of k,
+
+143
+00:10:16,700 --> 00:10:21,770
+what the corresponding number
+of possible traces is.
+
+144
+00:10:21,770 --> 00:10:24,340
+So these numbers are incredible.
+
+145
+00:10:24,340 --> 00:10:27,940
+And you can imagine that, if you would
+like to represent this behavior as
+
+146
+00:10:27,940 --> 00:10:33,380
+a transition system,
+it would look like a big bag of spaghetti.
+
+147
+00:10:33,380 --> 00:10:38,080
+Incredibly complicated, but
+as the Petri net model looks very simple.
+
+148
+00:10:39,720 --> 00:10:44,655
+So, if we would like to
+discover concurrency or
+
+149
+00:10:44,655 --> 00:10:51,160
+OR-joins we should have a representation
+that can represent these behaviors easily.
+
+150
+00:10:51,160 --> 00:10:54,280
+Otherwise your discovery
+technique will be,
+
+151
+00:10:54,280 --> 00:10:57,540
+not able to capture that
+behavior that you're looking for.
+
+152
+00:10:59,840 --> 00:11:03,480
+The discovery process
+is guided by the bias.
+
+153
+00:11:03,480 --> 00:11:05,733
+That is the important
+message of this lecture.
+
+154
+00:11:08,235 --> 00:11:12,637
+So let us take a look at some examples
+that we have seen in the past, and
+
+155
+00:11:12,637 --> 00:11:15,090
+that we now can relate to,
+to this problem.
+
+156
+00:11:16,520 --> 00:11:21,990
+So we assume that our representational
+bias is workflow-nets with unique labels.
+
+157
+00:11:21,990 --> 00:11:25,230
+So they cannot be two
+transitions with the same label.
+
+158
+00:11:25,230 --> 00:11:28,200
+And we are given this event log.
+
+159
+00:11:28,200 --> 00:11:32,750
+Now think of a perfect discovery
+algorithm as long as it is using
+
+160
+00:11:32,750 --> 00:11:37,584
+a representational bias that only allows
+for work flow nets with unique labels.
+
+161
+00:11:39,180 --> 00:11:44,870
+Then, there is no technique that
+actually can discover this model for
+
+162
+00:11:44,870 --> 00:11:45,715
+this event log.
+
+163
+00:11:45,715 --> 00:11:51,920
+The Petri net that is able to
+reflect behavior well is shown here.
+
+164
+00:11:51,920 --> 00:11:56,160
+But you can see that the e
+activity is duplicated.
+
+165
+00:11:56,160 --> 00:12:04,940
+There are two e's, and only by duplicating
+e, we get a process model that fits well
+
+166
+00:12:04,940 --> 00:12:09,420
+in all the four quality dimensions with
+respect to the log that we used as input.
+
+167
+00:12:11,040 --> 00:12:14,200
+So if we require that we need to
+
+168
+00:12:14,200 --> 00:12:19,190
+have a work flow net with unique labels we
+are unable to find this desirable model.
+
+169
+00:12:21,200 --> 00:12:23,400
+Let's take a look at another example.
+
+170
+00:12:23,400 --> 00:12:24,280
+Here we have a log.
+
+171
+00:12:26,130 --> 00:12:31,350
+Acd and bce are frequent traces.
+
+172
+00:12:31,350 --> 00:12:36,800
+Suppose now that we have a representation
+that does not allow for indirect or
+
+173
+00:12:36,800 --> 00:12:38,960
+long term dependencies.
+
+174
+00:12:38,960 --> 00:12:44,510
+So, we can only connect two activities if
+one is directly influencing the other.
+
+175
+00:12:45,520 --> 00:12:50,390
+And in this model this is not the case,
+because the choice between a and
+
+176
+00:12:50,390 --> 00:12:53,980
+b is influencing the choice between d and
+e.
+
+177
+00:12:53,980 --> 00:12:58,420
+If a happens then d will happen later and
+not e.
+
+178
+00:12:58,420 --> 00:13:00,790
+But a and
+e are never following one another.
+
+179
+00:13:02,700 --> 00:13:06,590
+The model that describes this
+behavior well is shown here.
+
+180
+00:13:06,590 --> 00:13:13,660
+And you can see that there is a dependency
+between a and d, and b and e.
+
+181
+00:13:13,660 --> 00:13:16,819
+Although these two pairs of activities
+never followed one another.
+
+182
+00:13:17,900 --> 00:13:23,090
+So, a representation
+that does not allow for
+
+183
+00:13:23,090 --> 00:13:28,310
+indirect dependencies will be unable
+to discover this particular model.
+
+184
+00:13:30,020 --> 00:13:35,929
+So, the representational bias matters a
+lot if we are discovering process models.
+
+185
+00:13:37,700 --> 00:13:42,020
+It is impact to search space
+of the discovery process.
+
+186
+00:13:44,620 --> 00:13:47,950
+One point that I would
+like to make very clear
+
+187
+00:13:47,950 --> 00:13:53,670
+is that the visualization of
+the discovered model to the end user
+
+188
+00:13:53,670 --> 00:13:58,950
+is something completely different than
+the internal representational bias.
+
+189
+00:13:58,950 --> 00:14:01,970
+Using while searching for
+a suitable process model.
+
+190
+00:14:03,060 --> 00:14:07,510
+You can always use one
+technique during discovery, and
+
+191
+00:14:07,510 --> 00:14:11,990
+then visualize it in the notation
+that people would like to use.
+
+192
+00:14:11,990 --> 00:14:16,390
+That is why later we will talk about
+the BPMN notation as a notation that
+
+193
+00:14:16,390 --> 00:14:18,920
+people would often like to see.
+
+194
+00:14:18,920 --> 00:14:23,840
+But it's a notation that is rarely used
+in the discovery algorithm itself.
+
+195
+00:14:26,390 --> 00:14:28,710
+So these conversions are easy.
+
+196
+00:14:28,710 --> 00:14:29,620
+So here you see, for
+
+197
+00:14:29,620 --> 00:14:32,460
+example, the model discovered
+using using the alpha algorithm.
+
+198
+00:14:32,460 --> 00:14:35,150
+You have seen that before.
+
+199
+00:14:35,150 --> 00:14:39,350
+And we can take such Petri nets and
+
+200
+00:14:39,350 --> 00:14:44,460
+automatically convert it to a BPMN
+diagram as you can here in ProM.
+
+201
+00:14:44,460 --> 00:14:49,410
+So the visualization of what we show
+to the end user does not need to the be
+
+202
+00:14:49,410 --> 00:14:52,250
+same as the representation
+that was used internally.
+
+203
+00:14:55,130 --> 00:15:01,010
+Much more important than what kind of
+flavor of visualization you are using.
+
+204
+00:15:01,010 --> 00:15:04,560
+Is to realize that process
+discovery is a difficult problem.
+
+205
+00:15:04,560 --> 00:15:08,490
+And that the choice of
+representational bias is important.
+
+206
+00:15:08,490 --> 00:15:12,370
+For finding the right model,
+not the right visualization.
+
+207
+00:15:14,170 --> 00:15:18,960
+A problem that we have mentioned before is
+that we do not have any negative examples,
+
+208
+00:15:18,960 --> 00:15:21,500
+which is making discovery challenging.
+
+209
+00:15:23,400 --> 00:15:28,470
+Also the search space has a very
+complicated structure there are constructs
+
+210
+00:15:28,470 --> 00:15:35,310
+like concurrency, loops, OR-splits,
+OR-joins, cancellations.
+
+211
+00:15:35,310 --> 00:15:37,140
+This makes things very difficult and
+
+212
+00:15:37,140 --> 00:15:40,250
+we only see a fraction of the behavior
+that is actually possible.
+
+213
+00:15:41,520 --> 00:15:45,640
+There is also a very unclear relationship
+between the size of the model and
+
+214
+00:15:45,640 --> 00:15:46,450
+the behavior.
+
+215
+00:15:47,840 --> 00:15:53,400
+A smaller model may actually allow for
+much more traces than a larger model.
+
+216
+00:15:53,400 --> 00:15:56,220
+But also the relationship
+can hold in the other way.
+
+217
+00:15:56,220 --> 00:15:59,880
+That the larger model has much more
+behavior than the smaller model.
+
+218
+00:15:59,880 --> 00:16:02,010
+This is making discovery difficult.
+
+219
+00:16:03,950 --> 00:16:08,460
+So a careful consideration of
+the representational bias is key
+
+220
+00:16:08,460 --> 00:16:10,590
+to discovering the right process model.
+
+221
+00:16:12,680 --> 00:16:15,320
+If you are interested in
+reading more about this,
+
+222
+00:16:15,320 --> 00:16:17,500
+please take a look at these two chapters.
+
+223
+00:16:17,500 --> 00:16:19,810
+That will provide you with more examples.
+
+224
+00:16:21,570 --> 00:16:23,750
+Thank you for watching this lecture.
+
+225
+00:16:23,750 --> 00:16:24,885
+See you next time.
+
+226
+00:16:24,885 --> 00:16:34,885
+[MUSIC]
+

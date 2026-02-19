@@ -1,0 +1,347 @@
+[MUSIC]
+Welcome to this lecture of the course on
+process mining, data science in action.
+Today we will show that there are many
+ways to construct a transition system,
+based on an event log.
+This will be used for process discovery,
+based on state-based regions.
+In earlier lectures, we have seen many
+different process discovery algorithms.
+We started by looking at
+the Alpha algorithm, and
+we showed that it is
+possible to discover places,
+that capture concurrency, sequences,
+loops, and all of these types of things.
+After that we looked at heuristic mining,
+consisting of two steps building a
+dependency graph and, then building
+a C-net capturing the nature of splits and
+joins also,
+being able to handle infrequent behavior.
+We also looked at various tools, like for
+example the fuzzy miner in ProM.
+And a disco tool,
+which also provides different ways
+of discovering process models.
+Today we will look at
+another two-phase approach.
+This approach is based on state-based
+regions, and in the first step we create
+a transition system from an event log, and
+that will be the focus of this lecture.
+After building the transition system,
+we convert it to a Petri net
+by detecting concurrency.
+The result is a Petri net, and if we want
+we can translate it to another language
+like, for example, BPMN, so
+this is the approach that we will look at.
+In the next lecture we will
+zoom in a lot of detail,
+into the discovery of places using the
+notion of so called state-based regions.
+Here you see an illustration of that,
+the basic idea is that a set of states in
+the transition system,
+corresponds to a place in the Petri net.
+But today, we will focus on first
+creating the transition system.
+So from an event log, we want to
+automatically create a transition system,
+which can be compared to
+the reachability graph of a Petri net.
+So how does it work?
+An event log consists of traces and
+in every trace,
+we can look at any of the positions.
+So for example, here in this trace,
+we look at the position between e and f.
+In the longer trace,
+it starts with a and ends with i.
+So what is the state that this case
+is in if it's in between e and f?
+Well there are many ways of
+defining such a state notion.
+We can for example look at the past, and
+consider all the activities that have
+happened before, and also their order.
+And now in the state you see annotated
+what the description of that state is.
+We can also look at the future,
+and it may sound very odd, but
+if we have complete traces and
+we look at the position in such a trace,
+we know what the future of
+the case is going to be.
+In this situation the next
+step will be an f.
+The step after that will be an a, etc.
+So we can also characterize
+the state where we are in,
+by what is going to happen in the future,
+and we can combine both.
+So a state may be described by
+what happened in the past, and
+what will happen in the future.
+So there are various ways of building
+states of a transition system.
+Once we have captured the states, it is
+very easy to add the missing transitions.
+If we do this it may be that we
+have too many different states, and
+that all states are more or
+less unique or very infrequently visited,
+so often we need to use abstractions.
+If we use no abstraction, we look at
+the full sequence, as you can see here.
+So now if we look at the past,
+both the order and
+frequency of all activities matter.
+But we can use an abstraction,
+like for example the set abstraction
+that captures the activities
+that have happened in the past.
+While we can ignore the order in which
+these activities have been executed now so
+for how many times.
+So for example, now in the state
+description we can not see that c and
+d have been executed twice, and
+we can tell nothing about the order.
+We can also use the so-called multi-set
+abstraction, if you now look at the state,
+you can see that we capture how
+many times every activity has been
+executed in the past, but not their
+order so, only the frequencies matter.
+We can also use a time window,
+an horizon of four events,
+in this case we look at the four
+events in the past, and
+we can see that the state when
+we are in between e and f for
+this particular trace,
+is determined by d c d e.
+This is also called the k-tail, in this
+case k is four of that particular state.
+We can also a set abstraction, now we can
+no longer so that d has happened twice and
+we can no longer see the order,
+in which things have happened.
+We can also use the multiset abstraction,
+combined with an horizon of four events.
+And now we can see that
+d has happened twice.
+C has happened once.
+E happened also once.
+In the past four events, but
+we cannot see the order.
+So, different orderings of
+the same multiset of activities,
+will be mapped onto the same state.
+We can also look into the future,
+and look at the next two events.
+In this case, we ignore the order,
+so we can just see that,
+in the next two steps, a and
+f will happen, not knowing their order.
+So there are different ways of capturing
+the state, can be based on the past,
+on the future or
+a combination of these things.
+We can use a set or
+a multiset abstraction, and
+we can look at just the last two,
+three or four events.
+Let's take a look at an example, and
+that will also illustrate how we
+capture the transitions and
+the labels of the transitions.
+So here we see an event log, that we have
+seen several times before consisting of
+the sequence a, b, c, d,
+a, c, b, d and a, e, d.
+And let's build a transition system,
+using different types of abstractions.
+So here we look at the complete prefixes,
+so
+for example it starts with the empty
+prefix, then we do an a, and then we
+end up in the state, which is described
+by the sequence consisting of just a.
+If we then take a b,
+we end up in the state, described by
+the sequence a comma b, et cetera.
+So this is based on the past, and
+we care about the ordering
+of the different activities.
+This is known as the so called prefix
+automaton and it's an abstraction
+that we will frequently use
+to build transition systems.
+We can also look at the future,
+it may be very counterintuitive,
+as I mentioned before, but if we are at
+a particular position in the log,
+we know what is going to
+happen to that trace.
+So we can describe
+the corresponding state,
+by the events that will happen in
+the future that is what you see here.
+We can also look again at the past, and
+then take a so-called multi set
+abstraction, so now we no longer know
+the order, but we know which activities
+have happened and how many times.
+What is interesting here is to look at the
+state, labelled with a multi set a, b, c.
+In this state, we do not know
+whether first b has happened and
+then c or the other way around,
+they are both mapped onto the same state.
+And again, we get a transition system
+capturing the behavior that we
+have seen in the log.
+We can use a more rigorous extraction,
+and just look at the last event.
+So here, every state is described,
+by the last event that was being executed.
+We can also look at the next event,
+this is, again, a transition
+system which is able to replay the log,
+it's also generalizing a bit.
+And now every state is described,
+by what the next step will be.
+So in the initial state of
+this transition system,
+we see that we will always do an a.
+So let's see whether you understand
+the abstractions that have been discussed.
+So here you see a more
+complicated event log.
+I also show a transition system.
+So, what kind of
+abstraction was being used?
+Was it the set?
+The multi-set, or
+the sequence abstraction?
+Did we look at the past,
+or the future, or both?
+So, take a moment to think about this.
+The answer is that when building
+this transition system,
+the states are determined by the last
+event that was being executed, and
+then the corresponding activity net.
+Let's take a look at another event log and
+corresponding transition system.
+Again there is the question what
+kind of abstraction was used?
+The answer is that we use an abstraction,
+that only considered the last two events,
+ignoring the ordering of
+these two activities.
+I've shown you several transition systems,
+also when we were talking about
+a reachability graph of a Petri net,
+we were already talking
+about transition systems.
+You can see that the notation
+varies slightly, and
+it has to do whether we want to
+put inscriptions in the states.
+So, if you want to label or color the
+states, we don't use these black dots, but
+then we don't care about their labeling,
+or we don't care about
+coloring them in a particular way,
+we will just show them as black dots and
+we also have these two notations to show
+final stage, but this is not relevant.
+So I've shown you the basic mechanism
+to build a transition system, but if we
+look at an event log, events may have
+many other attributes that can be used.
+So for example,
+an event may have a description of
+the resource executing
+the corresponding activity.
+We may know the location of the event,
+we may know the associated cost.
+There can be all kind of attributes
+associated to events, and
+we can use them while building
+the transition system.
+So, for example, states may correspond
+to resources rather than activities.
+Also the transitions from
+one state to another state,
+may have a label that is not
+a corresponding activity, but
+is the corresponding resource or
+the corresponding customer type.
+We can also filter infrequent paths,
+it's very easy to do that.
+We just replay the log on
+the transition system, and
+leave out the paths that are not often
+taken the same holds for activities.
+So we can prune the transition system,
+to remove infrequent or noisy behavior.
+Once we have the transition system,
+we may also want to postprocess it,
+so in some cases for
+readability we may want to remove
+self loops in this case transition x.
+Note that this will jeopardize fitness,
+if the log was
+perfectly fitting the transition system
+before, it may no longer be the case.
+We can also improve the diamond structure,
+in this situation we have,
+for example, activities a and b.
+If we know,
+that there is a choice between a and b and
+after taking a we can still do b.
+Then it is reasonable to assume that a and
+b are concurrent, but that we
+did not happen to see
+the interleaving b followed by a.
+So we can improve the diamond structure,
+to later be able to discover concurrency.
+We also may want to merge states
+having similar inputs, or
+merge states having similar
+outputs as is shown here.
+These are all ways of
+generalizing the behavior,
+to avoid that we have a transition
+system that is over fitting.
+So if we us ProM, we can take a log,
+we can build a transition system by it.
+And if we actually do this,
+we can see that all the different
+configuration choices that I've
+mentioned before, you can actually take.
+And the result is always a transition
+system, and under most parameters,
+it is guaranteed that transition system is
+able to replay the log from beginning to
+end, as you can see here.
+Once you have a transition system,
+we can apply so-called state-based regions
+to create a corresponding process model.
+And, this will be the topic
+of the next lecture,
+how to convert transition systems into
+process models, for example, a Petri net.
+If you would like to read more
+about this particular approach,
+it is described in chapter six.
+Thank you for watching this lecture,
+see you next time.
+[MUSIC]
+

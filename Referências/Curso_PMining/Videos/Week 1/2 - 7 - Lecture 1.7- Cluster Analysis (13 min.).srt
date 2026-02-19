@@ -1,0 +1,840 @@
+1
+00:00:00,000 --> 00:00:07,314
+[MUSIC]
+
+2
+00:00:07,314 --> 00:00:08,820
+Welcome to this lecture.
+
+3
+00:00:08,820 --> 00:00:12,550
+Today we will look at another
+unsupervised data mining technique.
+
+4
+00:00:12,550 --> 00:00:15,850
+We will show how instances
+can be clustered
+
+5
+00:00:15,850 --> 00:00:19,570
+in homogenous groups using the so
+called k-means technique.
+
+6
+00:00:22,180 --> 00:00:26,720
+Here again we see the overview of all the
+different data mining techniques that we
+
+7
+00:00:26,720 --> 00:00:28,040
+are considering.
+
+8
+00:00:28,040 --> 00:00:33,300
+Decision tree learning was an example
+of a supervised learning technique.
+
+9
+00:00:33,300 --> 00:00:36,660
+Association rules that we
+discussed in the last lecture
+
+10
+00:00:36,660 --> 00:00:41,320
+is an unsupervised learning
+techniques just like the clustering
+
+11
+00:00:41,320 --> 00:00:42,950
+approaches we will discuss today.
+
+12
+00:00:44,850 --> 00:00:47,240
+So, what is the basic idea of clustering?
+
+13
+00:00:47,240 --> 00:00:53,950
+We have,
+instances that have different attributes.
+
+14
+00:00:53,950 --> 00:00:55,880
+Here, we only see two attributes, but
+
+15
+00:00:55,880 --> 00:00:59,320
+it could be hundreds or
+thousands of attributes.
+
+16
+00:00:59,320 --> 00:01:01,520
+And we would like to group.
+
+17
+00:01:01,520 --> 00:01:07,490
+These instances in homogeneous groups,
+just as is sketched here in this slide.
+
+18
+00:01:07,490 --> 00:01:10,220
+So, we have a cluster A,
+a cluster B, and a cluster C
+
+19
+00:01:11,220 --> 00:01:16,690
+of points that are closer related to
+each other than to the other instances.
+
+20
+00:01:18,840 --> 00:01:22,670
+So, how to compute these clusters?
+
+21
+00:01:22,670 --> 00:01:26,400
+One approach is the so
+called k-means clustering,
+
+22
+00:01:26,400 --> 00:01:30,620
+where beforehand we need to
+set the number of clusters.
+
+23
+00:01:30,620 --> 00:01:32,520
+In this case we set k
+
+24
+00:01:33,780 --> 00:01:37,870
+to 3 indicating that we would like
+to extract three different clusters.
+
+25
+00:01:38,890 --> 00:01:44,520
+Again, I'm using a 2 dimensional diagram,
+but this is very misleading.
+
+26
+00:01:44,520 --> 00:01:46,564
+Often, there are hundreds or
+
+27
+00:01:46,564 --> 00:01:52,346
+thousands of dimensions,
+making clustering much more challenging.
+
+28
+00:01:52,346 --> 00:01:56,350
+So, how does k-means clustering work?
+
+29
+00:01:56,350 --> 00:02:00,850
+We start by, setting so called centroids.
+
+30
+00:02:00,850 --> 00:02:04,920
+These are points in this
+n dimensional space.
+
+31
+00:02:04,920 --> 00:02:09,100
+These points could be set randomly, or
+some other approach could be used
+
+32
+00:02:09,100 --> 00:02:10,490
+like, for example,
+
+33
+00:02:10,490 --> 00:02:12,940
+making it match to one of the instances.
+
+34
+00:02:14,040 --> 00:02:19,950
+After setting these three centroids,
+what we do is that we decide for
+
+35
+00:02:19,950 --> 00:02:24,260
+every instance to which
+centroid it is closest.
+
+36
+00:02:25,330 --> 00:02:30,320
+So if we do that we have a blue,
+a red, and a green centroid.
+
+37
+00:02:30,320 --> 00:02:33,700
+And we start coloring the instances,
+then this is what we get.
+
+38
+00:02:33,700 --> 00:02:38,480
+So we have assigned all instances
+to the closest centroid.
+
+39
+00:02:40,320 --> 00:02:44,250
+After coloring the instances,
+what we can do is that we
+
+40
+00:02:44,250 --> 00:02:49,980
+can look at the instance of a particular
+color, and compute a new centroid.
+
+41
+00:02:49,980 --> 00:02:53,940
+The centroids that is
+like the average of all
+
+42
+00:02:53,940 --> 00:02:56,560
+the different points
+having a particular color.
+
+43
+00:02:57,660 --> 00:03:01,480
+If we do that,
+then this is the situation that we get.
+
+44
+00:03:01,480 --> 00:03:04,520
+So for example,
+if we look at the 3 green dots,
+
+45
+00:03:04,520 --> 00:03:09,350
+then they have a centroids which
+is like the point in the middle.
+
+46
+00:03:09,350 --> 00:03:10,550
+The same holds for the blue
+
+47
+00:03:11,630 --> 00:03:13,690
+cluster, and the red cluster.
+
+48
+00:03:16,350 --> 00:03:21,630
+After recomputing the centroids,
+we again start
+
+49
+00:03:21,630 --> 00:03:27,510
+coloring the different instances,
+again based on the closest centroid.
+
+50
+00:03:27,510 --> 00:03:31,030
+If we do that, then this is the result.
+
+51
+00:03:32,250 --> 00:03:36,420
+So what we can see is that the one
+instance highlighted here,
+
+52
+00:03:36,420 --> 00:03:38,925
+it is still closest to the blue centroid.
+
+53
+00:03:41,690 --> 00:03:47,050
+After doing this we, again, based on the
+instances that have a particular color,
+
+54
+00:03:47,050 --> 00:03:49,960
+we again recompute the centroids.
+
+55
+00:03:49,960 --> 00:03:52,890
+And if we do that,
+then this is the resulting situation.
+
+56
+00:03:54,060 --> 00:03:58,100
+Now take a look at the blue
+dot closest to the bottom.
+
+57
+00:03:59,120 --> 00:04:03,170
+It is now closest to the red centroid, so
+
+58
+00:04:03,170 --> 00:04:07,440
+in the next iteration it will
+be added to the red centroid.
+
+59
+00:04:09,820 --> 00:04:15,280
+Now we start recomputing,
+the middle of all of the centroids, and
+
+60
+00:04:15,280 --> 00:04:16,540
+this is the result that we get.
+
+61
+00:04:18,300 --> 00:04:21,780
+The situation that we see
+here is a so-called fixpoint.
+
+62
+00:04:21,780 --> 00:04:25,280
+If we now iterate further,
+nothing will change anymore.
+
+63
+00:04:27,640 --> 00:04:30,430
+Note that approach is
+non-deterministic if we
+
+64
+00:04:30,430 --> 00:04:33,940
+take a random initialization
+of the centroids.
+
+65
+00:04:33,940 --> 00:04:37,910
+So, typically the experiment
+is repeated multiple times.
+
+66
+00:04:37,910 --> 00:04:40,170
+We take the best clustering.
+
+67
+00:04:40,170 --> 00:04:42,640
+That results from all these random trials.
+
+68
+00:04:44,320 --> 00:04:47,750
+This is the way that we
+can use k-means clustering
+
+69
+00:04:47,750 --> 00:04:52,529
+to find homogenous groups of instances.
+
+70
+00:04:55,180 --> 00:04:58,100
+So the main idea is that instances in
+
+71
+00:04:58,100 --> 00:05:02,810
+a cluster are more similar to each
+other than those in other clusters.
+
+72
+00:05:02,810 --> 00:05:05,280
+And this has many applications.
+
+73
+00:05:05,280 --> 00:05:09,090
+So for example, we can try to find
+homogenous groups of customers,
+
+74
+00:05:09,090 --> 00:05:13,850
+of patients, of sessions, of students.
+
+75
+00:05:13,850 --> 00:05:14,350
+Etcetera.
+
+76
+00:05:15,820 --> 00:05:20,410
+After creating these clusters,
+we get smaller datasets.
+
+77
+00:05:20,410 --> 00:05:23,070
+So for example, now we have
+partitioned the dataset that is
+
+78
+00:05:23,070 --> 00:05:29,130
+shown here into loyal customers,
+discount customers, and impuls customers.
+
+79
+00:05:29,130 --> 00:05:32,440
+And now to each of these clusters,
+we can apply.
+
+80
+00:05:33,580 --> 00:05:36,560
+Other data mining techniques or
+process mining techniques.
+
+81
+00:05:36,560 --> 00:05:42,110
+For example, we could now build decision
+trees, based on these individual clusters.
+
+82
+00:05:43,220 --> 00:05:46,300
+Or create association rules for
+these different clusters.
+
+83
+00:05:48,760 --> 00:05:53,140
+Let's go back to the Italian restaurant
+that we have used before, but
+
+84
+00:05:53,140 --> 00:05:56,000
+now to simplify things we have
+
+85
+00:05:56,000 --> 00:05:59,030
+restricted the menu to only 6 items.
+
+86
+00:05:59,030 --> 00:06:02,760
+In other ways we just abstract
+from all the other items, and
+
+87
+00:06:02,760 --> 00:06:08,630
+just look at customers buying these
+particular dishes and drinks.
+
+88
+00:06:10,270 --> 00:06:14,590
+We can now apply this mining technique.
+
+89
+00:06:15,650 --> 00:06:19,540
+This is the input that we get,
+again we have a class label but
+
+90
+00:06:19,540 --> 00:06:23,220
+we can ignore it,
+because this is an unsupervised method.
+
+91
+00:06:23,220 --> 00:06:27,900
+We would like to find patterns and
+groups of,
+
+92
+00:06:27,900 --> 00:06:33,570
+customers that belong together
+without labeling the data before.
+
+93
+00:06:35,300 --> 00:06:40,280
+So, to compute the clusters,
+we use this, workflow in rapid miner.
+
+94
+00:06:40,280 --> 00:06:44,820
+We load the data sets,
+we apply k-means clustering,
+
+95
+00:06:44,820 --> 00:06:47,670
+where we set k in this case to 2.
+
+96
+00:06:47,670 --> 00:06:50,400
+And then, at the end,
+we measure performance.
+
+97
+00:06:50,400 --> 00:06:52,770
+And there are different ways of measuring.
+
+98
+00:06:52,770 --> 00:06:56,580
+The performance of clustering, but they
+are outside of the scope of this course.
+
+99
+00:06:58,350 --> 00:07:03,130
+If we apply two means
+clustering to this data set we
+
+100
+00:07:03,130 --> 00:07:06,900
+find two clusters that have
+approximately the same size.
+
+101
+00:07:08,080 --> 00:07:13,630
+And if we look at the centroids of
+these two clusters we can clearly see.
+
+102
+00:07:13,630 --> 00:07:15,320
+What these two clusters represent.
+
+103
+00:07:16,580 --> 00:07:23,120
+So, in cluster zero, we can find,
+typically instances,
+
+104
+00:07:23,120 --> 00:07:30,320
+customers that have bought lasagna,
+spaghetti carbonara, and drank beer.
+
+105
+00:07:30,320 --> 00:07:33,980
+In the other cluster,
+we typically find people.
+
+106
+00:07:33,980 --> 00:07:36,540
+That have eaten pizza, pizza margherita or
+
+107
+00:07:36,540 --> 00:07:39,130
+pizza siciliana, and
+that were drinking wine.
+
+108
+00:07:41,360 --> 00:07:47,910
+So, using clustering, we find two
+homogeneous groups of customers.
+
+109
+00:07:47,910 --> 00:07:53,750
+Customers that drink beer, and
+that eat lasagna and or spaghetti.
+
+110
+00:07:53,750 --> 00:07:57,410
+And customers that drink wine and
+eat pizza.
+
+111
+00:07:59,930 --> 00:08:04,540
+Let's take a look at this in
+rapid minor and where we try to
+
+112
+00:08:04,540 --> 00:08:09,440
+plot the data to create some additional
+insights into these clusters and
+
+113
+00:08:09,440 --> 00:08:12,980
+to see that they
+are actually valid clusters.
+
+114
+00:08:12,980 --> 00:08:17,230
+So here you see a scatter plot,
+where every dot corresponds to a customer.
+
+115
+00:08:18,690 --> 00:08:22,110
+And we indicate the number
+of pizza sicilliana that
+
+116
+00:08:22,110 --> 00:08:25,810
+the customer has ordered on the y axis.
+
+117
+00:08:25,810 --> 00:08:30,390
+On the x axis we plot the number of pizzas
+margherita that people have bought.
+
+118
+00:08:32,500 --> 00:08:34,200
+The color.
+
+119
+00:08:34,200 --> 00:08:38,490
+Correspond to the clustering that
+was automatically discovered.
+
+120
+00:08:38,490 --> 00:08:44,840
+What we see is that customers in cluster
+zero, indicated by the blue dots.
+
+121
+00:08:44,840 --> 00:08:48,070
+These are typically not
+ordering any pizzas.
+
+122
+00:08:48,070 --> 00:08:53,280
+But people in the red cluster,
+typically, are ordering.
+
+123
+00:08:53,280 --> 00:08:57,780
+Just a pizza margherita, just a pizza
+siciliana, or multiple pizzas.
+
+124
+00:08:59,080 --> 00:09:01,520
+Here we see another scatter plot.
+
+125
+00:09:01,520 --> 00:09:03,700
+So, on the y axis,
+
+126
+00:09:03,700 --> 00:09:07,968
+we are plotting the number of times
+that spaghetti carbonara was ordered.
+
+127
+00:09:07,968 --> 00:09:12,500
+On the x axis, we plot the number
+of times that lasagna was ordered.
+
+128
+00:09:14,070 --> 00:09:17,480
+If you look at the red and the blue dots,
+
+129
+00:09:17,480 --> 00:09:23,370
+they again correspond to the clusters
+that we have discovered before.
+
+130
+00:09:23,370 --> 00:09:26,800
+So the blue dots are in cluster zero, and
+
+131
+00:09:26,800 --> 00:09:32,610
+they correspond to customers
+that typically ordered at least.
+
+132
+00:09:32,610 --> 00:09:36,270
+One time spaghetti carbonara,
+or one time lasagna,
+
+133
+00:09:36,270 --> 00:09:39,930
+or multiple items of lasagna and
+spaghetti carbonara.
+
+134
+00:09:41,450 --> 00:09:45,770
+Customers in the red cluster,
+they typically ordered no pasta.
+
+135
+00:09:47,370 --> 00:09:50,870
+We can also look at the dimension
+of drinks, and again we
+
+136
+00:09:50,870 --> 00:09:56,830
+can clearly see that the customers in
+the red cluster are drinking wine,
+
+137
+00:09:56,830 --> 00:10:00,540
+whereas the customer in the blue
+cluster are drinking beer.
+
+138
+00:10:01,800 --> 00:10:08,540
+So this provides evidence that the
+clustering we automatically discovered.
+
+139
+00:10:08,540 --> 00:10:10,800
+Actually make sense for this data set.
+
+140
+00:10:13,160 --> 00:10:19,730
+So, k-means is one of several
+clustering techniques that one can use.
+
+141
+00:10:19,730 --> 00:10:25,230
+One of the drawbacks of k-means is that
+you need to decide on the value of
+
+142
+00:10:25,230 --> 00:10:26,510
+k up front.
+
+143
+00:10:26,510 --> 00:10:30,290
+Like in the previous example,
+we set k to 2.
+
+144
+00:10:30,290 --> 00:10:34,210
+If you would like to see whether there
+are tree clusters that make sense,
+
+145
+00:10:34,210 --> 00:10:37,240
+we need to try the same approach
+with the k set to tree.
+
+146
+00:10:38,980 --> 00:10:44,900
+Other clustering techniques may
+provide a hierarchy of clusters.
+
+147
+00:10:44,900 --> 00:10:46,810
+And you can see an example here.
+
+148
+00:10:48,970 --> 00:10:52,780
+On the right hand side,
+you see a so-called dendogram and
+
+149
+00:10:52,780 --> 00:10:56,240
+it is indicating a hierarchy of clusters.
+
+150
+00:10:57,310 --> 00:11:01,720
+On the other side,
+you can see the corresponding clusters.
+
+151
+00:11:01,720 --> 00:11:06,530
+So how to read such a diagram,
+such a hierarchy.
+
+152
+00:11:06,530 --> 00:11:11,420
+A group similar sets of instances
+in a hierarchical manner.
+
+153
+00:11:11,420 --> 00:11:16,040
+And it can build it in this way in,
+in an incremental way.
+
+154
+00:11:16,040 --> 00:11:19,420
+If we cut the hierarchy
+at a particular place,
+
+155
+00:11:19,420 --> 00:11:25,470
+we find as many clusters as the number
+of lines that we are crossing.
+
+156
+00:11:25,470 --> 00:11:31,970
+So if we take a higher abstraction
+level, we will only find two clusters.
+
+157
+00:11:31,970 --> 00:11:35,506
+One cluster consisting of a,
+b, c, and d, and
+
+158
+00:11:35,506 --> 00:11:39,850
+another cluster consisting of
+the rest of the instances.
+
+159
+00:11:41,120 --> 00:11:45,626
+We can also go lower in the hierarchy,
+and again if we cut the hierarchy,
+
+160
+00:11:45,626 --> 00:11:51,410
+we find different clusters.
+So in the example now,
+
+161
+00:11:51,410 --> 00:11:55,955
+we find the cluster consisting of a and
+b, the cluster consisting of c and d,
+
+162
+00:11:55,955 --> 00:12:00,570
+a cluster containing just e,
+a cluster containing f and
+
+163
+00:12:00,570 --> 00:12:06,760
+g, a cluster containing h and
+i, and a cluster containing j.
+
+164
+00:12:06,760 --> 00:12:10,170
+And so we can seamlessly decide
+on the number of clusters that we
+
+165
+00:12:10,170 --> 00:12:10,890
+would like to have.
+
+166
+00:12:13,170 --> 00:12:17,460
+Clustering can also be
+used to split event logs.
+
+167
+00:12:17,460 --> 00:12:21,830
+So suppose that we have event logs
+referring to different types of customers.
+
+168
+00:12:21,830 --> 00:12:27,660
+We could first do clustering based on
+the characteristics of the patients or
+
+169
+00:12:27,660 --> 00:12:29,010
+the customers.
+
+170
+00:12:29,010 --> 00:12:34,180
+And then we can automatically build
+process models for each of the clusters.
+
+171
+00:12:34,180 --> 00:12:37,720
+So this way you can see
+how process mining and
+
+172
+00:12:37,720 --> 00:12:39,900
+data mining techniques can be combined.
+
+173
+00:12:42,050 --> 00:12:46,240
+This was the last data mining technique
+that we have discussed, in the next
+
+174
+00:12:46,240 --> 00:12:51,470
+lecture we will focus more on evaluating
+the quality of data mining results.
+
+175
+00:12:51,470 --> 00:12:56,729
+And then we can switch to more
+the process-oriented aspects of
+
+176
+00:12:56,729 --> 00:12:58,330
+process mining.
+
+177
+00:12:58,330 --> 00:13:01,383
+Thank you for watching, and
+I hope to see you soon.
+
+178
+00:13:01,383 --> 00:13:11,383
+[MUSIC]
+

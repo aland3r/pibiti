@@ -1,0 +1,1220 @@
+1
+00:00:00,034 --> 00:00:06,941
+[MUSIC]
+
+2
+00:00:06,941 --> 00:00:08,650
+Glad to see you again.
+
+3
+00:00:08,650 --> 00:00:11,130
+After learning how to
+build a dependency graph,
+
+4
+00:00:11,130 --> 00:00:16,240
+we now focus on learning the more
+precise split join behavior.
+
+5
+00:00:16,240 --> 00:00:21,730
+In other words, we will learn how
+we can discover a C-net based
+
+6
+00:00:21,730 --> 00:00:24,230
+on the dependency graph and the event log.
+
+7
+00:00:26,930 --> 00:00:29,750
+This is the picture that we
+have been looking at before.
+
+8
+00:00:31,230 --> 00:00:33,280
+We now focus on the second phase.
+
+9
+00:00:33,280 --> 00:00:36,880
+So we first learned how to
+learn the dependency graph.
+
+10
+00:00:36,880 --> 00:00:39,300
+Now we are going to learn a C-net.
+
+11
+00:00:39,300 --> 00:00:43,790
+And once we have a C-net annotated
+with the split join semantics and
+
+12
+00:00:43,790 --> 00:00:45,610
+also with frequencies.
+
+13
+00:00:45,610 --> 00:00:50,420
+We can later visualize this easily
+in terms of a BPMN diagram,
+
+14
+00:00:50,420 --> 00:00:55,040
+UML activity diagram, or whatever
+notation people would like to see.
+
+15
+00:00:55,040 --> 00:00:59,870
+So the focus is now on learning C-nets.
+
+16
+00:00:59,870 --> 00:01:02,880
+So let's see what we have
+done before.
+
+17
+00:01:02,880 --> 00:01:04,250
+We started from a log.
+
+18
+00:01:04,250 --> 00:01:10,390
+From a log we count how many times an
+activity is followed by another activity.
+
+19
+00:01:10,390 --> 00:01:14,720
+Then we compute the dependency measure
+using the formulas discussed in
+
+20
+00:01:14,720 --> 00:01:16,750
+the previous lecture.
+
+21
+00:01:16,750 --> 00:01:18,480
+Then we set thresholds.
+
+22
+00:01:18,480 --> 00:01:21,950
+And, based on the thresholds,
+we get a graph.
+
+23
+00:01:21,950 --> 00:01:26,580
+And the higher we set the threshold,
+the fewer connections we will get.
+
+24
+00:01:26,580 --> 00:01:30,980
+But at some point in time we are happy
+with the dependency graph that we have.
+
+25
+00:01:30,980 --> 00:01:33,775
+And we use it as input for
+learning C-nets.
+
+26
+00:01:35,610 --> 00:01:38,690
+So this is the output that we are after.
+
+27
+00:01:38,690 --> 00:01:40,539
+From the event log and
+
+28
+00:01:40,539 --> 00:01:46,091
+the dependency graph learning
+a C-net annotated with input and
+
+29
+00:01:46,091 --> 00:01:53,100
+output bindings and frequencies of
+activities of connections and of bindings.
+
+30
+00:01:54,250 --> 00:01:56,070
+So, the question is how to do this.
+
+31
+00:01:58,010 --> 00:02:01,870
+So we want to learn splits and
+joins, how to find these.
+
+32
+00:02:01,870 --> 00:02:04,020
+We want to learn about frequencies,
+
+33
+00:02:04,020 --> 00:02:09,430
+how to count these frequencies and
+that is what we will try to uncover.
+
+34
+00:02:11,040 --> 00:02:13,790
+So let's take a look at activity A.
+
+35
+00:02:15,110 --> 00:02:19,690
+Activity A has three output bindings.
+
+36
+00:02:19,690 --> 00:02:25,930
+Just e, which is not visible on
+this slide, or b and c together, or
+
+37
+00:02:25,930 --> 00:02:30,280
+just d, these are the possible
+binding that we, that we have.
+
+38
+00:02:31,770 --> 00:02:37,020
+If we look at d, what we would like
+to discover based on this event log.
+
+39
+00:02:37,020 --> 00:02:41,070
+We would like to discover that
+there are two input bindings.
+
+40
+00:02:41,070 --> 00:02:43,700
+Ones of one is just a.
+
+41
+00:02:43,700 --> 00:02:44,990
+The other is d.
+
+42
+00:02:44,990 --> 00:02:49,535
+That d triggers itself because there
+can be a loop involving multiple d's.
+
+43
+00:02:50,870 --> 00:02:55,490
+On the output side of d,
+we find two output bindings.
+
+44
+00:02:55,490 --> 00:03:00,820
+One involving just d,
+to trigger the next iteration of d.
+
+45
+00:03:00,820 --> 00:03:02,220
+Or we go to the end.
+
+46
+00:03:02,220 --> 00:03:04,060
+We have an output binding involving e.
+
+47
+00:03:05,800 --> 00:03:10,970
+If we look at the last activity
+in this graph then, again,
+
+48
+00:03:10,970 --> 00:03:13,410
+we see that there
+are three input bindings.
+
+49
+00:03:13,410 --> 00:03:16,820
+Very symmetric to the,
+to the start activity.
+
+50
+00:03:16,820 --> 00:03:22,710
+We see just a, b, and c or just d.
+
+51
+00:03:22,710 --> 00:03:25,610
+These are the three combinations
+that we would like to discover.
+
+52
+00:03:27,070 --> 00:03:30,830
+So, if we take a look
+at a particular path,
+
+53
+00:03:30,830 --> 00:03:37,550
+then we see it indicated in red here,
+a binding sequence.
+
+54
+00:03:37,550 --> 00:03:41,150
+The valid binding sequence
+that involves a, d, d, e.
+
+55
+00:03:42,590 --> 00:03:47,210
+And the frequencies of the activities,
+of the bindings, and
+
+56
+00:03:47,210 --> 00:03:49,200
+of the connections are indicated here.
+
+57
+00:03:51,100 --> 00:03:54,040
+So how to discover these splits and
+joints?
+
+58
+00:03:54,040 --> 00:03:59,620
+Well, there are two main types of
+approaches that one can consider.
+
+59
+00:03:59,620 --> 00:04:04,680
+The first one is more heuristic based,
+where you take a time window.
+
+60
+00:04:04,680 --> 00:04:10,520
+So for example, you take a time window
+before the activity and you count how many
+
+61
+00:04:10,520 --> 00:04:16,620
+times certain activities that
+are causally related to the activity.
+
+62
+00:04:16,620 --> 00:04:17,940
+How many times they appear.
+
+63
+00:04:18,980 --> 00:04:21,640
+We do the same for
+
+64
+00:04:21,640 --> 00:04:26,540
+a window of activities after
+the activity we are interested in.
+
+65
+00:04:26,540 --> 00:04:31,810
+We again count what combinations
+appear in this time window, just
+
+66
+00:04:31,810 --> 00:04:36,490
+considering the ones that are causally
+related based on the dependency graph.
+
+67
+00:04:37,932 --> 00:04:40,200
+Based on counting these sets of input and
+
+68
+00:04:40,200 --> 00:04:43,850
+output activities,
+we can determine the bindings.
+
+69
+00:04:45,860 --> 00:04:49,160
+Another approach,
+which is more expensive and
+
+70
+00:04:49,160 --> 00:04:54,790
+less based on heuristics is that
+you choose a particular variant
+
+71
+00:04:54,790 --> 00:05:00,120
+of this A activity that has a finite
+number of things that one can consider.
+
+72
+00:05:00,120 --> 00:05:05,370
+And then we see whether the traces
+can be replayed properly,
+
+73
+00:05:05,370 --> 00:05:09,050
+assuming particular input and
+output bindings.
+
+74
+00:05:09,050 --> 00:05:13,340
+And then using certain goal function,
+we take the best bindings.
+
+75
+00:05:13,340 --> 00:05:18,630
+It's a more expensive approach, but
+it provides certain guarantees.
+
+76
+00:05:20,220 --> 00:05:23,870
+It's important to realize that these are
+just two main approaches, and that many
+
+77
+00:05:23,870 --> 00:05:29,490
+variants are possible, and are being used
+in both academic and commercial tools.
+
+78
+00:05:31,240 --> 00:05:35,330
+So let's take a look at the first
+approach, which is based on heuristics.
+
+79
+00:05:35,330 --> 00:05:39,650
+Here we see an activity, a,
+happening somewhere in a trace.
+
+80
+00:05:40,740 --> 00:05:43,790
+Then we can take a window before a.
+
+81
+00:05:44,930 --> 00:05:51,670
+We look at what are possible input
+activities of this activity a,
+
+82
+00:05:51,670 --> 00:05:57,170
+and we look at what kind of combinations
+appear in the various traces.
+
+83
+00:05:57,170 --> 00:05:59,390
+We do the same on the output side.
+
+84
+00:05:59,390 --> 00:06:05,530
+On the output side we count how many
+of the output activities appear,
+
+85
+00:06:05,530 --> 00:06:08,120
+and in which type of combinations.
+
+86
+00:06:08,120 --> 00:06:11,570
+Based on this, we determine the input and
+the output bindings.
+
+87
+00:06:12,810 --> 00:06:16,760
+So, it is best to explain
+this using a small example.
+
+88
+00:06:16,760 --> 00:06:19,780
+So, assume that we take
+a window of size four.
+
+89
+00:06:20,800 --> 00:06:24,160
+Before an activity and after an activity.
+
+90
+00:06:24,160 --> 00:06:27,210
+And in this diagram we
+just focus on activity a.
+
+91
+00:06:28,240 --> 00:06:31,100
+And activity a if we look at
+
+92
+00:06:31,100 --> 00:06:34,790
+the dependency graph there
+are two input activities b and c.
+
+93
+00:06:34,790 --> 00:06:37,820
+There are two output activities d and e.
+
+94
+00:06:39,160 --> 00:06:42,464
+The dependency graph doesn't
+talk about bindings and
+
+95
+00:06:42,464 --> 00:06:44,830
+and's and or's and things like that.
+
+96
+00:06:44,830 --> 00:06:51,460
+That is what we would need to derive,
+but now we scan a window of size four.
+
+97
+00:06:51,460 --> 00:06:55,970
+Before a and
+we scan a window of size four after a.
+
+98
+00:06:55,970 --> 00:06:58,410
+And we count which combinations appear.
+
+99
+00:06:59,440 --> 00:07:03,360
+And if you take a look at this very
+simple log that contains the fragment of
+
+100
+00:07:03,360 --> 00:07:09,910
+five different traces, then what you will
+see is that there were three traces,
+
+101
+00:07:09,910 --> 00:07:17,440
+three situations where just B appeared
+before a in this time window of four.
+
+102
+00:07:17,440 --> 00:07:21,050
+There were two traces
+where just c appeared.
+
+103
+00:07:21,050 --> 00:07:23,690
+Before a in this time window of four.
+
+104
+00:07:25,290 --> 00:07:30,040
+We can also look on the output side and
+here in every window of
+
+105
+00:07:30,040 --> 00:07:34,330
+four following a, both d and e happen.
+
+106
+00:07:34,330 --> 00:07:36,790
+So in total it happens five times.
+
+107
+00:07:36,790 --> 00:07:42,250
+So we have these two input bindings
+happening three and two times and
+
+108
+00:07:42,250 --> 00:07:46,920
+we have this five times that
+there is a single output binding.
+
+109
+00:07:48,390 --> 00:07:51,290
+So we can use this to annotate the graph.
+
+110
+00:07:52,740 --> 00:07:54,740
+Exploiting this information.
+
+111
+00:07:54,740 --> 00:07:57,460
+So now you should focus on
+the arcs surrounding a.
+
+112
+00:07:57,460 --> 00:08:02,620
+And what you see is that now
+it is indicated that there
+
+113
+00:08:02,620 --> 00:08:07,280
+are three times where a is
+being triggered by b.
+
+114
+00:08:08,530 --> 00:08:11,160
+Just b.
+There are two times where
+
+115
+00:08:11,160 --> 00:08:12,480
+c is triggering a.
+
+116
+00:08:13,490 --> 00:08:17,970
+Together they account for
+the five times that a was executed.
+
+117
+00:08:17,970 --> 00:08:22,750
+So we can see that there is
+an XOR-join in front of a.
+
+118
+00:08:22,750 --> 00:08:26,580
+Now we can look at the output side of a.
+
+119
+00:08:26,580 --> 00:08:32,810
+We have learned, using the time windows,
+that a is always followed by d and e.
+
+120
+00:08:33,870 --> 00:08:35,560
+In different order.
+
+121
+00:08:35,560 --> 00:08:41,300
+So we have output binding and it was
+activated five times, and so this is
+
+122
+00:08:41,300 --> 00:08:45,460
+the way that we can discover frequencies
+and the split and join behavior.
+
+123
+00:08:47,010 --> 00:08:51,320
+Let's take a look at another example,
+again we focus on activity a, so
+
+124
+00:08:51,320 --> 00:08:55,120
+we should do this separately for
+every activity, but we focus on activity a.
+
+125
+00:08:55,120 --> 00:08:58,550
+And if we look at activity a.
+
+126
+00:08:58,550 --> 00:09:03,520
+We again look at the time windows
+before a and the windows
+
+127
+00:09:03,520 --> 00:09:07,630
+after a and we count how many
+times certain combinations appear.
+
+128
+00:09:08,820 --> 00:09:13,950
+In this particular log
+consisting of five traces and
+
+129
+00:09:13,950 --> 00:09:16,310
+we can only see a fragment of them.
+
+130
+00:09:16,310 --> 00:09:20,650
+We see that there was one trace
+where just b appeared before a.
+
+131
+00:09:22,100 --> 00:09:27,260
+There were two traces where
+just c appeared before a and
+
+132
+00:09:27,260 --> 00:09:30,290
+there were two traces where both b and
+c appeared.
+
+133
+00:09:31,310 --> 00:09:37,980
+So, what we see here is that is a kind
+of OR-join on the input side of a.
+
+134
+00:09:37,980 --> 00:09:40,430
+We can also look at the output side and
+
+135
+00:09:40,430 --> 00:09:45,410
+there we see that there were two
+traces with just d was following, and
+
+136
+00:09:45,410 --> 00:09:50,130
+there were three traces where both d and
+e were following.
+
+137
+00:09:50,130 --> 00:09:55,710
+So we can again use this information to
+create bindings, and this is the result.
+
+138
+00:09:56,790 --> 00:09:59,040
+So, again, in the middle, we see a.
+
+139
+00:09:59,040 --> 00:10:02,840
+It occurred five times,
+as is indicated, but now, if
+
+140
+00:10:02,840 --> 00:10:07,546
+we look on the input side of a, we can see
+that there are three possible bindings.
+
+141
+00:10:07,546 --> 00:10:11,460
+Just b, just c, or b and c.
+
+142
+00:10:12,470 --> 00:10:15,640
+And the frequencies of these
+bindings are indicated.
+
+143
+00:10:15,640 --> 00:10:20,070
+On the output side,
+there are two possible output bindings.
+
+144
+00:10:20,070 --> 00:10:26,530
+One is just d, and the other is d and
+e together in some order.
+
+145
+00:10:26,530 --> 00:10:28,350
+And all the frequencies
+are indicated here.
+
+146
+00:10:30,460 --> 00:10:32,880
+So now here is a question for you.
+
+147
+00:10:32,880 --> 00:10:34,750
+Again we look at the same situation.
+
+148
+00:10:34,750 --> 00:10:35,480
+We have a.
+
+149
+00:10:35,480 --> 00:10:39,330
+A has two input activities and
+two output activities.
+
+150
+00:10:39,330 --> 00:10:44,360
+We see a fragment of a log and
+the question to you is please determine
+
+151
+00:10:44,360 --> 00:10:50,400
+the input and output bindings
+assuming again a window size of four.
+
+152
+00:10:50,400 --> 00:10:56,230
+So the answer to the question is
+that if we look on the input side,
+
+153
+00:10:56,230 --> 00:10:59,450
+we see that it is always the same.
+
+154
+00:10:59,450 --> 00:11:04,420
+B and c always happen in this
+time window of four before a.
+
+155
+00:11:04,420 --> 00:11:08,710
+So there is just one input binding
+that it has a frequency of five.
+
+156
+00:11:09,930 --> 00:11:16,290
+If we look on the output side,
+we will see that there are two situations,
+
+157
+00:11:16,290 --> 00:11:18,890
+two cases where just e is happening, and
+
+158
+00:11:18,890 --> 00:11:24,010
+three situations, three cases
+where both d and e are happening.
+
+159
+00:11:24,010 --> 00:11:25,110
+So.
+
+160
+00:11:25,110 --> 00:11:29,220
+There are two output bindings, and
+the frequencies are indicated here.
+
+161
+00:11:29,220 --> 00:11:34,150
+So if you put this in a diagram,
+this is the result that we have.
+
+162
+00:11:34,150 --> 00:11:40,810
+So the diagram clearly
+shows that a is an AND-join,
+
+163
+00:11:40,810 --> 00:11:45,380
+so b and
+c need to happen before a can happen.
+
+164
+00:11:45,380 --> 00:11:47,880
+And if we look on the output side of a.
+
+165
+00:11:47,880 --> 00:11:51,230
+We can see that there are two
+possible output bindings.
+
+166
+00:11:51,230 --> 00:11:55,750
+One is that just both d and
+e will happen.
+
+167
+00:11:55,750 --> 00:12:00,470
+The other one is that just e happens, and
+again the frequency are indicated.
+
+168
+00:12:00,470 --> 00:12:04,699
+They give an idea of what
+are the main flows of the process.
+
+169
+00:12:06,170 --> 00:12:09,760
+So the algorithm that I just
+described is very simplistic.
+
+170
+00:12:09,760 --> 00:12:12,230
+And several refinements are needed.
+
+171
+00:12:12,230 --> 00:12:17,000
+So first of all, what should one
+do if there are no activities in
+
+172
+00:12:17,000 --> 00:12:19,120
+the window size that has been indicated?
+
+173
+00:12:19,120 --> 00:12:22,110
+You need to resolve this in some way.
+
+174
+00:12:22,110 --> 00:12:26,620
+Also, often in the dependency graph there
+is the requirement that there is at
+
+175
+00:12:26,620 --> 00:12:29,120
+least one input and one output.
+
+176
+00:12:29,120 --> 00:12:33,130
+That's where you should relax
+things to make sure that you get
+
+177
+00:12:33,130 --> 00:12:35,490
+at least one input and
+at least one output.
+
+178
+00:12:36,790 --> 00:12:39,540
+One needs to filter for noise.
+
+179
+00:12:39,540 --> 00:12:42,690
+And so
+if certain bindings are very frequent and
+
+180
+00:12:42,690 --> 00:12:45,910
+other bindings are very infrequent,
+perhaps you want to
+
+181
+00:12:45,910 --> 00:12:50,950
+cut away the bindings that are very
+infrequent to just show the main behavior.
+
+182
+00:12:53,680 --> 00:12:57,910
+I didn't talk about the fact
+that there can be multiple a's.
+
+183
+00:12:57,910 --> 00:12:59,590
+So, a can follow itself.
+
+184
+00:13:01,960 --> 00:13:07,030
+It could also be that the activities
+before and after happen multiple times.
+
+185
+00:13:07,030 --> 00:13:11,750
+So, we need to think about extensions
+that deal with this problem of
+
+186
+00:13:11,750 --> 00:13:15,210
+repeating activities and
+there are many ways to resolve this.
+
+187
+00:13:16,690 --> 00:13:20,410
+But all of these details are out
+of the scope of this lecture, but
+
+188
+00:13:20,410 --> 00:13:22,260
+when you are interpreting the results,
+
+189
+00:13:22,260 --> 00:13:25,960
+it's important that you understand,
+let's say how this works and
+
+190
+00:13:25,960 --> 00:13:29,639
+that there these kind of
+subtle things that need to be considered.
+
+191
+00:13:31,490 --> 00:13:38,670
+The other approach,
+uses a more rigorous, type of analysis.
+
+192
+00:13:38,670 --> 00:13:44,400
+So, there are only finitely many possible,
+input and
+
+193
+00:13:44,400 --> 00:13:46,960
+output bindings for
+a particular activity.
+
+194
+00:13:46,960 --> 00:13:50,100
+There is only a finite number
+of activities, so there is only
+
+195
+00:13:50,100 --> 00:13:56,370
+a finite number of possible configurations
+of input and output bindings.
+
+196
+00:13:56,370 --> 00:14:00,600
+So what you can do is you cam simply
+explore all of these possibilities,
+
+197
+00:14:00,600 --> 00:14:04,970
+replay traces from beginning to end,
+and check whether things fit.
+
+198
+00:14:06,320 --> 00:14:10,380
+And then,
+then you can evaluate the quality
+
+199
+00:14:10,380 --> 00:14:14,480
+of a particular collection of input and
+output bindings.
+
+200
+00:14:15,880 --> 00:14:17,800
+Later we will talk about
+conformance checking.
+
+201
+00:14:17,800 --> 00:14:21,030
+And we will provide metrics for
+all of these things.
+
+202
+00:14:21,030 --> 00:14:25,840
+It's important to realize that
+it is not just about fitness.
+
+203
+00:14:25,840 --> 00:14:31,680
+It is also about other things like
+precision, generalization and simplicity.
+
+204
+00:14:33,030 --> 00:14:38,260
+But the bottom line is that you can
+simply try lots of possibilities,
+
+205
+00:14:38,260 --> 00:14:40,730
+evaluate them, and then pick the best one.
+
+206
+00:14:42,230 --> 00:14:48,360
+So to illustrate this a bit,
+take a look at this fragment of a model,
+
+207
+00:14:48,360 --> 00:14:53,120
+where we have a with two inputs,
+b and c, and two outputs, d and e.
+
+208
+00:14:53,120 --> 00:14:57,145
+What is the total number of possible a's.
+
+209
+00:14:58,540 --> 00:15:04,710
+If we look at the input bindings there
+a three possible input bindings,
+
+210
+00:15:04,710 --> 00:15:08,340
+just b, just c, or
+the combination of both.
+
+211
+00:15:09,360 --> 00:15:15,290
+So in principle, a can have multiple
+bindings, but it should be in such a way
+
+212
+00:15:15,290 --> 00:15:22,120
+that at least one of these bindings is
+covering each of the input connections.
+
+213
+00:15:22,120 --> 00:15:24,030
+So for every input connection,
+
+214
+00:15:24,030 --> 00:15:28,150
+there should at least be one
+binding that includes it.
+
+215
+00:15:28,150 --> 00:15:30,480
+The same holds for the output side.
+
+216
+00:15:30,480 --> 00:15:35,400
+So for this very simple fragment of an a
+with two input and two output bindings,
+
+217
+00:15:35,400 --> 00:15:41,710
+there are four times
+four is 16 possible a's.
+
+218
+00:15:41,710 --> 00:15:44,650
+Possible activities a's based on
+
+219
+00:15:44,650 --> 00:15:50,300
+subsets of the total number
+of possible bindings.
+
+220
+00:15:51,440 --> 00:15:52,974
+So this is a finite number.
+
+221
+00:15:52,974 --> 00:15:53,580
+We can do this for a.
+
+222
+00:15:53,580 --> 00:15:57,020
+We can do this for all the activities.
+
+223
+00:15:57,020 --> 00:15:59,550
+And then we get lots of possibilities.
+
+224
+00:15:59,550 --> 00:16:03,590
+And we can explore them and
+check which is the best one.
+
+225
+00:16:03,590 --> 00:16:08,650
+So we can exhaustively
+try all the combinations,
+
+226
+00:16:08,650 --> 00:16:14,580
+use replay as we have seen before
+to see whether things actually fit.
+
+227
+00:16:14,580 --> 00:16:19,460
+Do the traces in the log correspond
+to valid binding sequences?
+
+228
+00:16:19,460 --> 00:16:21,360
+And in the end, we take the best one.
+
+229
+00:16:21,360 --> 00:16:25,700
+And as I mentioned before it's not
+just about fitness also precision,
+
+230
+00:16:25,700 --> 00:16:27,520
+generalization, and simplicity.
+
+231
+00:16:27,520 --> 00:16:31,300
+The concepts that have been discussed
+before need to be taken into account.
+
+232
+00:16:34,190 --> 00:16:36,350
+This may be very time consuming but
+
+233
+00:16:36,350 --> 00:16:39,610
+there are all kinds of ways of doing
+it smarter and more efficient.
+
+234
+00:16:39,610 --> 00:16:43,830
+You can take a random selection of
+bindings and pick the best one.
+
+235
+00:16:43,830 --> 00:16:47,010
+You can also use more
+sophisticated algorithms.
+
+236
+00:16:47,010 --> 00:16:53,210
+Using the genetic approach where you
+take good collections of bindings,
+
+237
+00:16:53,210 --> 00:16:58,350
+evaluate them and
+if they don't fit you just change a bit to
+
+238
+00:16:58,350 --> 00:17:04,320
+gradually improve a generation of models
+until you have the desired results.
+
+239
+00:17:04,320 --> 00:17:07,530
+But these concepts will be
+discussed in later lectures.
+
+240
+00:17:09,430 --> 00:17:13,870
+So now we have a complete approach.
+
+241
+00:17:13,870 --> 00:17:15,760
+First we learned the dependency graph.
+
+242
+00:17:16,760 --> 00:17:19,380
+Then we learned the split and
+join behavior.
+
+243
+00:17:19,380 --> 00:17:23,060
+And we can annotate
+models with frequencies.
+
+244
+00:17:23,060 --> 00:17:26,970
+So if you look at the heuristic minor
+you see many different settings that you
+
+245
+00:17:26,970 --> 00:17:28,130
+can set.
+
+246
+00:17:28,130 --> 00:17:30,630
+And they are related to the thresholds and
+
+247
+00:17:30,630 --> 00:17:33,110
+to the choices that we
+have discussed before.
+
+248
+00:17:35,730 --> 00:17:38,440
+Once you run the heuristic miner
+you see a model like this.
+
+249
+00:17:38,440 --> 00:17:43,140
+And in this visualization you cannot
+see the split/join behavior, but
+
+250
+00:17:43,140 --> 00:17:46,370
+there are also visualizations that
+show show the split/join behavior.
+
+251
+00:17:48,190 --> 00:17:52,460
+You can even show the frequencies,
+as you can see here.
+
+252
+00:17:52,460 --> 00:17:55,390
+And so
+everything that we have been talking about
+
+253
+00:17:55,390 --> 00:17:59,430
+is implemented in many
+
+254
+00:17:59,430 --> 00:18:02,750
+of the process mining algorithms that
+you can use in a practical setting.
+
+255
+00:18:04,250 --> 00:18:07,380
+If you would like to learn
+more about these advanced
+
+256
+00:18:07,380 --> 00:18:11,740
+process discovery techniques that go
+far beyond the basic Alpha algorithm.
+
+257
+00:18:13,000 --> 00:18:16,030
+You can read more about
+this in chapter six.
+
+258
+00:18:16,030 --> 00:18:17,832
+Thank you for watching this lecture.
+
+259
+00:18:17,832 --> 00:18:19,033
+See you next time.
+
+260
+00:18:19,033 --> 00:18:29,033
+[MUSIC]
+

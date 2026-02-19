@@ -1,0 +1,915 @@
+1
+00:00:00,000 --> 00:00:07,421
+[MUSIC]
+
+2
+00:00:07,421 --> 00:00:09,000
+Glad to see you again.
+
+3
+00:00:09,000 --> 00:00:12,550
+Until now,
+we have been focusing on one process at
+
+4
+00:00:12,550 --> 00:00:17,820
+a time without comparing process variants,
+organizations, or groups of cases.
+
+5
+00:00:17,820 --> 00:00:21,110
+Today we introduce process
+cubes as a means to
+
+6
+00:00:21,110 --> 00:00:24,690
+support more systematic forms
+of comparative process mining.
+
+7
+00:00:26,380 --> 00:00:29,570
+I'm sure that as a child
+you have played this game.
+
+8
+00:00:29,570 --> 00:00:34,400
+You will compare two pictures and you need
+to find the ten differences between them.
+
+9
+00:00:34,400 --> 00:00:37,630
+For example, you can see that
+the cookie on one side is half eaten,
+
+10
+00:00:37,630 --> 00:00:40,210
+whereas on the other side, it is not.
+
+11
+00:00:40,210 --> 00:00:44,960
+If you are interested in comparing
+different departments in a hospital.
+
+12
+00:00:44,960 --> 00:00:47,700
+If you are interested
+in comparing different
+
+13
+00:00:49,510 --> 00:00:52,780
+locations of a car rental agency.
+
+14
+00:00:52,780 --> 00:00:55,280
+You would like to compare
+different processes.
+
+15
+00:00:57,210 --> 00:00:59,660
+If you put these process
+models on top of each other,
+
+16
+00:00:59,660 --> 00:01:01,930
+you can see where the differences are.
+
+17
+00:01:01,930 --> 00:01:05,100
+But if you look at processes,
+it is not that simple.
+
+18
+00:01:05,100 --> 00:01:09,700
+We would like to find what
+are differences in performance,
+
+19
+00:01:09,700 --> 00:01:13,610
+what are differences in conformance,
+and how can they be explained.
+
+20
+00:01:15,440 --> 00:01:20,750
+To do this in a systematic manner
+we use so called process cubes.
+
+21
+00:01:20,750 --> 00:01:27,490
+So, process cubes contain all event
+data in a particular situation,
+
+22
+00:01:27,490 --> 00:01:32,400
+but the event data is organized
+along a number of dimensions.
+
+23
+00:01:32,400 --> 00:01:38,180
+For example, time, department, in which
+department does the event take place.
+
+24
+00:01:38,180 --> 00:01:40,180
+At which location.
+
+25
+00:01:40,180 --> 00:01:44,760
+What is the amount involved in
+the case the event belongs to?
+
+26
+00:01:45,830 --> 00:01:49,520
+What is the gender of the student
+studying a particular course?
+
+27
+00:01:50,620 --> 00:01:54,280
+What is the priority of a customer order?
+
+28
+00:01:54,280 --> 00:01:56,220
+Is the case compliant, or not?
+
+29
+00:01:56,220 --> 00:01:58,810
+All of these characteristics of events and
+
+30
+00:01:58,810 --> 00:02:03,100
+cases can be used to build
+a multi-dimensional cube.
+
+31
+00:02:04,590 --> 00:02:10,320
+This cube helps us to compare event data
+and processes along different dimensions,
+
+32
+00:02:10,320 --> 00:02:14,780
+in order to compare
+different process variance,
+
+33
+00:02:14,780 --> 00:02:17,990
+different departments,
+different types of customers.
+
+34
+00:02:19,740 --> 00:02:21,350
+So let's take a step back.
+
+35
+00:02:21,350 --> 00:02:24,778
+If we take a classical
+data mining problem,
+
+36
+00:02:24,778 --> 00:02:29,790
+we start with data that looks like this.
+
+37
+00:02:29,790 --> 00:02:33,040
+And so we have a table
+consisting of different rows.
+
+38
+00:02:33,040 --> 00:02:35,450
+The rows correspond to instances.
+
+39
+00:02:35,450 --> 00:02:38,730
+The columns correspond to variables.
+
+40
+00:02:38,730 --> 00:02:41,660
+We can look at predictor variables.
+
+41
+00:02:41,660 --> 00:02:46,820
+And if we do supervised learning, we
+also need to select a response variable.
+
+42
+00:02:46,820 --> 00:02:48,990
+And given the same set of data,
+
+43
+00:02:48,990 --> 00:02:53,250
+we can one time select one
+variable as a response variable.
+
+44
+00:02:53,250 --> 00:02:54,650
+For other types of analysis,
+
+45
+00:02:54,650 --> 00:02:57,380
+we will select another variable
+as a response variable.
+
+46
+00:02:58,700 --> 00:03:02,340
+In the case of process mining,
+it is very similar.
+
+47
+00:03:02,340 --> 00:03:08,390
+Again, we have input, but
+now the input are events.
+
+48
+00:03:08,390 --> 00:03:13,540
+And events have very specific
+characteristics different from
+
+49
+00:03:13,540 --> 00:03:16,280
+the input that we take for
+a general data mining problem.
+
+50
+00:03:18,470 --> 00:03:21,720
+We need to select one of these columns,
+
+51
+00:03:21,720 --> 00:03:25,500
+one of these attributes,
+as representing the case.
+
+52
+00:03:26,650 --> 00:03:30,540
+But that's not all,
+we need to decide what is the activity.
+
+53
+00:03:30,540 --> 00:03:33,750
+We need to decide what
+is the time attribute,
+
+54
+00:03:33,750 --> 00:03:37,270
+because we need to be able to
+order events within a case.
+
+55
+00:03:39,090 --> 00:03:43,580
+We can also have optional attributes
+like the resource executing
+
+56
+00:03:43,580 --> 00:03:45,050
+the corresponding activity.
+
+57
+00:03:46,150 --> 00:03:49,510
+There may be transactional information,
+start and complete.
+
+58
+00:03:49,510 --> 00:03:55,220
+And there may be all kinds of other
+attributes associated with an event or
+
+59
+00:03:55,220 --> 00:03:56,480
+the corresponding case.
+
+60
+00:03:57,550 --> 00:04:02,420
+So we have multiple dimensions,
+and given one set of data,
+
+61
+00:04:02,420 --> 00:04:08,710
+we can do this type of mapping onto
+process minings concepts multiple times.
+
+62
+00:04:09,760 --> 00:04:15,960
+For example, if you load a CSV file,
+so a comma separated value file,
+
+63
+00:04:15,960 --> 00:04:22,150
+into Disco, when loading, you need
+to decide what all the columns mean.
+
+64
+00:04:22,150 --> 00:04:24,680
+What is the column that
+represents the case ID?
+
+65
+00:04:24,680 --> 00:04:26,810
+What is the column that
+represents activity?
+
+66
+00:04:27,860 --> 00:04:30,120
+Multiple mappings are possible.
+
+67
+00:04:30,120 --> 00:04:33,430
+Depending on the type of analysis
+that you would like to do,
+
+68
+00:04:33,430 --> 00:04:35,278
+you choose a different mapping.
+
+69
+00:04:35,278 --> 00:04:42,420
+Also, you often filter event
+data in such a way that
+
+70
+00:04:42,420 --> 00:04:47,510
+you are able to compare different groups
+of cases, or different group of events.
+
+71
+00:04:47,510 --> 00:04:52,670
+In a process cube, you try to do this
+in a more systematic manner rather than
+
+72
+00:04:52,670 --> 00:04:57,820
+making ad hoc decisions
+whenever we reload event data.
+
+73
+00:04:59,638 --> 00:05:04,920
+So if we group events in a so called
+process cube then it will look like this.
+
+74
+00:05:04,920 --> 00:05:08,680
+So, this is a cube consisting
+of three dimensions.
+
+75
+00:05:08,680 --> 00:05:10,770
+In general, if we look at process cubes,
+
+76
+00:05:10,770 --> 00:05:14,710
+we may have dozens of
+different dimensions.
+
+77
+00:05:14,710 --> 00:05:19,610
+If you look at the car
+rental agency like Hertz,
+
+78
+00:05:19,610 --> 00:05:22,520
+it has thousands of offices
+all over the world.
+
+79
+00:05:23,570 --> 00:05:27,080
+Offices in Amsterdam, offices in Eindhoven,
+offices in Paris, and
+
+80
+00:05:27,080 --> 00:05:28,460
+all kinds of other locations.
+
+81
+00:05:29,710 --> 00:05:32,060
+We have different types of customers.
+
+82
+00:05:32,060 --> 00:05:35,210
+There are gold customers,
+silver customers, normal customers.
+
+83
+00:05:36,580 --> 00:05:40,770
+Also we can look at the process
+at different points in time.
+
+84
+00:05:40,770 --> 00:05:43,880
+So we can look at
+the events in January and
+
+85
+00:05:43,880 --> 00:05:46,260
+compare these events
+with events in February.
+
+86
+00:05:47,380 --> 00:05:51,160
+And for each of the cells in
+this multi-dimensional cube,
+
+87
+00:05:51,160 --> 00:05:54,710
+we can automatically construct
+models using the techniques that we
+
+88
+00:05:54,710 --> 00:05:56,200
+have seen in earlier lectures.
+
+89
+00:05:57,850 --> 00:06:01,230
+And then it becomes very
+interesting to compare these.
+
+90
+00:06:01,230 --> 00:06:05,950
+Did the process change,
+moving from January to February?
+
+91
+00:06:05,950 --> 00:06:09,340
+Is the process for gold customers
+different than the process for
+
+92
+00:06:09,340 --> 00:06:11,150
+silver customers?
+
+93
+00:06:11,150 --> 00:06:16,310
+Does the location in Amsterdam work
+different than the location in Eindhoven.
+
+94
+00:06:17,840 --> 00:06:21,639
+Using comparative process mining,
+you can answer such questions.
+
+95
+00:06:22,780 --> 00:06:24,620
+Let's take a look at another example.
+
+96
+00:06:25,870 --> 00:06:26,800
+In the Netherlands,
+
+97
+00:06:26,800 --> 00:06:31,200
+there are approximately 400
+different municipalities, and
+
+98
+00:06:31,200 --> 00:06:35,850
+in each of these municipalities,
+you can request a building permit.
+
+99
+00:06:37,020 --> 00:06:39,660
+Building permits may relate to very
+
+100
+00:06:41,030 --> 00:06:46,540
+large construction activities or
+very small construction activities.
+
+101
+00:06:46,540 --> 00:06:49,030
+There are different municipalities.
+
+102
+00:06:49,030 --> 00:06:51,430
+There are also different periods.
+
+103
+00:06:51,430 --> 00:06:55,940
+And again, it is very interesting
+to compare the process within one
+
+104
+00:06:55,940 --> 00:07:01,050
+municipality and
+compare that to another one.
+
+105
+00:07:01,050 --> 00:07:04,010
+And to see what
+are the typical differences.
+
+106
+00:07:04,010 --> 00:07:07,060
+Also we would like to
+see changes over time.
+
+107
+00:07:07,060 --> 00:07:09,730
+This is often referred
+to as concept drift.
+
+108
+00:07:09,730 --> 00:07:12,970
+You would like to understand
+why did the process change at
+
+109
+00:07:12,970 --> 00:07:14,180
+a particular point in time.
+
+110
+00:07:16,190 --> 00:07:18,640
+Last example of a process cube.
+
+111
+00:07:18,640 --> 00:07:20,300
+Here, we look at student data.
+
+112
+00:07:20,300 --> 00:07:24,370
+Students are studying,
+they generate all kinds of events.
+
+113
+00:07:24,370 --> 00:07:29,050
+For example, they make assignments,
+they may make homework.
+
+114
+00:07:29,050 --> 00:07:31,300
+They take a final exam.
+
+115
+00:07:31,300 --> 00:07:34,970
+They may have different overall marks,
+
+116
+00:07:34,970 --> 00:07:36,330
+here from one to ten.
+
+117
+00:07:37,420 --> 00:07:40,250
+We can compare students that
+studied the course in 2012 with
+
+118
+00:07:40,250 --> 00:07:44,020
+students that study a course in 2013.
+
+119
+00:07:44,020 --> 00:07:48,579
+And again it is very interesting to
+compare all of these different processes.
+
+120
+00:07:50,480 --> 00:07:53,730
+So the basic idea of a process
+cube is very simple.
+
+121
+00:07:54,830 --> 00:08:00,710
+We have this multi-dimensional data and
+using slicing and dicing, drilling down,
+
+122
+00:08:00,710 --> 00:08:08,750
+drilling up, we can select, cells, and
+these cells will correspond to events.
+
+123
+00:08:08,750 --> 00:08:11,770
+We can materialize these cells,
+in other words,
+
+124
+00:08:11,770 --> 00:08:17,530
+we convert them to an ordinary event log,
+and then we can do all kinds of analysis.
+
+125
+00:08:18,570 --> 00:08:23,780
+So we can do this for every cell,
+we can focus on particular dimensions,
+
+126
+00:08:23,780 --> 00:08:27,230
+we can split cells,
+we can group cells together.
+
+127
+00:08:27,230 --> 00:08:32,340
+So this is a very flexible way of
+interacting with the event data.
+
+128
+00:08:32,340 --> 00:08:37,670
+At any point in time we can take
+an array of cells and compare them.
+
+129
+00:08:37,670 --> 00:08:39,140
+We can look at the process models.
+
+130
+00:08:39,140 --> 00:08:40,670
+We can look at the dotted charts.
+
+131
+00:08:41,680 --> 00:08:45,060
+Let's take a look at a concrete example.
+
+132
+00:08:45,060 --> 00:08:47,980
+So, what you see here is a dotted chart
+
+133
+00:08:47,980 --> 00:08:53,780
+of students studying a particular
+course in Eindhoven.
+
+134
+00:08:53,780 --> 00:08:57,990
+What you see is that every
+row corresponds to a student.
+
+135
+00:08:57,990 --> 00:09:01,760
+Every dot corresponds to
+some action of the student.
+
+136
+00:09:01,760 --> 00:09:07,140
+And you should know that in this course
+students can watch video lectures.
+
+137
+00:09:07,140 --> 00:09:12,010
+So it is expected that students
+over time will look at
+
+138
+00:09:12,010 --> 00:09:17,210
+lectures where whenever they
+are ready to study a particular week.
+
+139
+00:09:18,810 --> 00:09:22,960
+The red dots in this diagram
+correspond to exams.
+
+140
+00:09:22,960 --> 00:09:25,789
+So you can see that they
+form straight lines.
+
+141
+00:09:26,920 --> 00:09:30,390
+These are the points in time
+where students can take an exam.
+
+142
+00:09:30,390 --> 00:09:34,390
+You can see that,
+often students fail an exam and
+
+143
+00:09:34,390 --> 00:09:36,940
+have to redo it at a later point in time.
+
+144
+00:09:38,200 --> 00:09:45,450
+Let's now zoom in into a particular
+instance of this course running in 2011.
+
+145
+00:09:45,450 --> 00:09:47,600
+So we now zoom in into this data.
+
+146
+00:09:48,670 --> 00:09:54,110
+And when we zoom into this data,
+we could compare the process, for
+
+147
+00:09:54,110 --> 00:09:58,810
+example, for
+male students versus female students.
+
+148
+00:09:58,810 --> 00:10:01,040
+We could also look at
+the study behavior and
+
+149
+00:10:01,040 --> 00:10:06,159
+try to compare the difference between
+Dutch students and foreign students.
+
+150
+00:10:07,590 --> 00:10:12,780
+We can also compare the difference
+between the behavior of students that
+
+151
+00:10:12,780 --> 00:10:18,370
+in the end pass the course, and the
+students that in the end fail the course.
+
+152
+00:10:18,370 --> 00:10:21,900
+So if we take the last example, we can
+
+153
+00:10:23,050 --> 00:10:27,190
+automatically generate a process model for
+the students that have passed, and
+
+154
+00:10:27,190 --> 00:10:32,060
+we can automatically generate a process
+model for the students that have failed.
+
+155
+00:10:32,060 --> 00:10:33,050
+What you can see in this d,
+
+156
+00:10:33,050 --> 00:10:36,900
+this diagram is that these
+processes look very different.
+
+157
+00:10:36,900 --> 00:10:40,030
+It's not important that you can
+read the labels, but let me, for
+
+158
+00:10:40,030 --> 00:10:44,620
+example, explain one of
+the characteristic differences.
+
+159
+00:10:44,620 --> 00:10:48,430
+So the students that pass, they typically,
+
+160
+00:10:48,430 --> 00:10:53,140
+the first event is typically
+follow the lecture of week one.
+
+161
+00:10:54,180 --> 00:10:56,560
+If you look at the students that fail,
+
+162
+00:10:56,560 --> 00:11:01,350
+then the typical first activity
+that they execute is make the exam.
+
+163
+00:11:01,350 --> 00:11:06,580
+So, before watching any of the lectures,
+they try to make the exam and then fail.
+
+164
+00:11:07,970 --> 00:11:10,880
+We can also do conformance
+checking of these two
+
+165
+00:11:10,880 --> 00:11:15,890
+sets of students with respect
+to an ideal study model,
+
+166
+00:11:15,890 --> 00:11:20,360
+that would describe the ideal behavior
+of a student following such a course.
+
+167
+00:11:20,360 --> 00:11:24,130
+What you then see is that
+the conformance level of students that
+
+168
+00:11:24,130 --> 00:11:27,370
+are passing is much higher than
+
+169
+00:11:27,370 --> 00:11:31,910
+the conformance level of the students
+that in the end fail the course.
+
+170
+00:11:31,910 --> 00:11:36,530
+So this is a nice illustration of
+comparative process mining, and
+
+171
+00:11:36,530 --> 00:11:41,180
+you can quickly get to these types of
+results by using the process cube notion.
+
+172
+00:11:43,120 --> 00:11:48,160
+So, using process cubes, we are able to
+play with multi-dimensional event data.
+
+173
+00:11:48,160 --> 00:11:52,980
+And for people that have
+a background in data warehouses or
+
+174
+00:11:52,980 --> 00:11:56,840
+in OLAP technologies, they will see
+that certain things are very similar.
+
+175
+00:11:57,880 --> 00:12:00,370
+However, there is one
+important difference.
+
+176
+00:12:00,370 --> 00:12:05,800
+If you look at data warehouses and
+OLAP type of technologies.
+
+177
+00:12:05,800 --> 00:12:10,630
+Typically, the goal is to aggregate
+things as fast as possible,
+
+178
+00:12:10,630 --> 00:12:14,230
+to come to clear-cut results.
+
+179
+00:12:14,230 --> 00:12:18,690
+This typically jeopardizes doing
+process mining because the actual
+
+180
+00:12:18,690 --> 00:12:20,620
+events are being lost.
+
+181
+00:12:20,620 --> 00:12:22,600
+So if you use a process cube,
+
+182
+00:12:22,600 --> 00:12:27,950
+you're typically using data which is
+at a lower level, let's say more raw,
+
+183
+00:12:27,950 --> 00:12:31,230
+than the typical information that
+you will find in a data warehouse.
+
+184
+00:12:34,450 --> 00:12:41,840
+So we have been looking at event data
+using a multidimensional process cube.
+
+185
+00:12:41,840 --> 00:12:46,940
+And we do this to be able to compare
+different groups of customers,
+
+186
+00:12:46,940 --> 00:12:52,540
+different groups of patients,
+different offices of the same company.
+
+187
+00:12:52,540 --> 00:12:55,430
+And this provides very
+valuable information.
+
+188
+00:12:57,530 --> 00:13:00,230
+If would like
+to learn more about this,
+
+189
+00:13:00,230 --> 00:13:04,740
+you will not find much about
+process cubes in the book.
+
+190
+00:13:04,740 --> 00:13:08,478
+But you can read this article
+that you see on the slide to
+
+191
+00:13:08,478 --> 00:13:14,099
+get more information about this approach
+to look at comparative process mining.
+
+192
+00:13:14,099 --> 00:13:15,957
+Thank you for watching this lecture.
+
+193
+00:13:15,957 --> 00:13:17,775
+See you next time.
+
+194
+00:13:17,775 --> 00:13:27,775
+[MUSIC]
+

@@ -1,0 +1,334 @@
+[MUSIC]
+Glad to see you again.
+Until now,
+we have been focusing on one process at
+a time without comparing process variants,
+organizations, or groups of cases.
+Today we introduce process
+cubes as a means to
+support more systematic forms
+of comparative process mining.
+I'm sure that as a child
+you have played this game.
+You will compare two pictures and you need
+to find the ten differences between them.
+For example, you can see that
+the cookie on one side is half eaten,
+whereas on the other side, it is not.
+If you are interested in comparing
+different departments in a hospital.
+If you are interested
+in comparing different
+locations of a car rental agency.
+You would like to compare
+different processes.
+If you put these process
+models on top of each other,
+you can see where the differences are.
+But if you look at processes,
+it is not that simple.
+We would like to find what
+are differences in performance,
+what are differences in conformance,
+and how can they be explained.
+To do this in a systematic manner
+we use so called process cubes.
+So, process cubes contain all event
+data in a particular situation,
+but the event data is organized
+along a number of dimensions.
+For example, time, department, in which
+department does the event take place.
+At which location.
+What is the amount involved in
+the case the event belongs to?
+What is the gender of the student
+studying a particular course?
+What is the priority of a customer order?
+Is the case compliant, or not?
+All of these characteristics of events and
+cases can be used to build
+a multi-dimensional cube.
+This cube helps us to compare event data
+and processes along different dimensions,
+in order to compare
+different process variance,
+different departments,
+different types of customers.
+So let's take a step back.
+If we take a classical
+data mining problem,
+we start with data that looks like this.
+And so we have a table
+consisting of different rows.
+The rows correspond to instances.
+The columns correspond to variables.
+We can look at predictor variables.
+And if we do supervised learning, we
+also need to select a response variable.
+And given the same set of data,
+we can one time select one
+variable as a response variable.
+For other types of analysis,
+we will select another variable
+as a response variable.
+In the case of process mining,
+it is very similar.
+Again, we have input, but
+now the input are events.
+And events have very specific
+characteristics different from
+the input that we take for
+a general data mining problem.
+We need to select one of these columns,
+one of these attributes,
+as representing the case.
+But that's not all,
+we need to decide what is the activity.
+We need to decide what
+is the time attribute,
+because we need to be able to
+order events within a case.
+We can also have optional attributes
+like the resource executing
+the corresponding activity.
+There may be transactional information,
+start and complete.
+And there may be all kinds of other
+attributes associated with an event or
+the corresponding case.
+So we have multiple dimensions,
+and given one set of data,
+we can do this type of mapping onto
+process minings concepts multiple times.
+For example, if you load a CSV file,
+so a comma separated value file,
+into Disco, when loading, you need
+to decide what all the columns mean.
+What is the column that
+represents the case ID?
+What is the column that
+represents activity?
+Multiple mappings are possible.
+Depending on the type of analysis
+that you would like to do,
+you choose a different mapping.
+Also, you often filter event
+data in such a way that
+you are able to compare different groups
+of cases, or different group of events.
+In a process cube, you try to do this
+in a more systematic manner rather than
+making ad hoc decisions
+whenever we reload event data.
+So if we group events in a so called
+process cube then it will look like this.
+So, this is a cube consisting
+of three dimensions.
+In general, if we look at process cubes,
+we may have dozens of
+different dimensions.
+If you look at the car
+rental agency like Hertz,
+it has thousands of offices
+all over the world.
+Offices in Amsterdam, offices in Eindhoven,
+offices in Paris, and
+all kinds of other locations.
+We have different types of customers.
+There are gold customers,
+silver customers, normal customers.
+Also we can look at the process
+at different points in time.
+So we can look at
+the events in January and
+compare these events
+with events in February.
+And for each of the cells in
+this multi-dimensional cube,
+we can automatically construct
+models using the techniques that we
+have seen in earlier lectures.
+And then it becomes very
+interesting to compare these.
+Did the process change,
+moving from January to February?
+Is the process for gold customers
+different than the process for
+silver customers?
+Does the location in Amsterdam work
+different than the location in Eindhoven.
+Using comparative process mining,
+you can answer such questions.
+Let's take a look at another example.
+In the Netherlands,
+there are approximately 400
+different municipalities, and
+in each of these municipalities,
+you can request a building permit.
+Building permits may relate to very
+large construction activities or
+very small construction activities.
+There are different municipalities.
+There are also different periods.
+And again, it is very interesting
+to compare the process within one
+municipality and
+compare that to another one.
+And to see what
+are the typical differences.
+Also we would like to
+see changes over time.
+This is often referred
+to as concept drift.
+You would like to understand
+why did the process change at
+a particular point in time.
+Last example of a process cube.
+Here, we look at student data.
+Students are studying,
+they generate all kinds of events.
+For example, they make assignments,
+they may make homework.
+They take a final exam.
+They may have different overall marks,
+here from one to ten.
+We can compare students that
+studied the course in 2012 with
+students that study a course in 2013.
+And again it is very interesting to
+compare all of these different processes.
+So the basic idea of a process
+cube is very simple.
+We have this multi-dimensional data and
+using slicing and dicing, drilling down,
+drilling up, we can select, cells, and
+these cells will correspond to events.
+We can materialize these cells,
+in other words,
+we convert them to an ordinary event log,
+and then we can do all kinds of analysis.
+So we can do this for every cell,
+we can focus on particular dimensions,
+we can split cells,
+we can group cells together.
+So this is a very flexible way of
+interacting with the event data.
+At any point in time we can take
+an array of cells and compare them.
+We can look at the process models.
+We can look at the dotted charts.
+Let's take a look at a concrete example.
+So, what you see here is a dotted chart
+of students studying a particular
+course in Eindhoven.
+What you see is that every
+row corresponds to a student.
+Every dot corresponds to
+some action of the student.
+And you should know that in this course
+students can watch video lectures.
+So it is expected that students
+over time will look at
+lectures where whenever they
+are ready to study a particular week.
+The red dots in this diagram
+correspond to exams.
+So you can see that they
+form straight lines.
+These are the points in time
+where students can take an exam.
+You can see that,
+often students fail an exam and
+have to redo it at a later point in time.
+Let's now zoom in into a particular
+instance of this course running in 2011.
+So we now zoom in into this data.
+And when we zoom into this data,
+we could compare the process, for
+example, for
+male students versus female students.
+We could also look at
+the study behavior and
+try to compare the difference between
+Dutch students and foreign students.
+We can also compare the difference
+between the behavior of students that
+in the end pass the course, and the
+students that in the end fail the course.
+So if we take the last example, we can
+automatically generate a process model for
+the students that have passed, and
+we can automatically generate a process
+model for the students that have failed.
+What you can see in this d,
+this diagram is that these
+processes look very different.
+It's not important that you can
+read the labels, but let me, for
+example, explain one of
+the characteristic differences.
+So the students that pass, they typically,
+the first event is typically
+follow the lecture of week one.
+If you look at the students that fail,
+then the typical first activity
+that they execute is make the exam.
+So, before watching any of the lectures,
+they try to make the exam and then fail.
+We can also do conformance
+checking of these two
+sets of students with respect
+to an ideal study model,
+that would describe the ideal behavior
+of a student following such a course.
+What you then see is that
+the conformance level of students that
+are passing is much higher than
+the conformance level of the students
+that in the end fail the course.
+So this is a nice illustration of
+comparative process mining, and
+you can quickly get to these types of
+results by using the process cube notion.
+So, using process cubes, we are able to
+play with multi-dimensional event data.
+And for people that have
+a background in data warehouses or
+in OLAP technologies, they will see
+that certain things are very similar.
+However, there is one
+important difference.
+If you look at data warehouses and
+OLAP type of technologies.
+Typically, the goal is to aggregate
+things as fast as possible,
+to come to clear-cut results.
+This typically jeopardizes doing
+process mining because the actual
+events are being lost.
+So if you use a process cube,
+you're typically using data which is
+at a lower level, let's say more raw,
+than the typical information that
+you will find in a data warehouse.
+So we have been looking at event data
+using a multidimensional process cube.
+And we do this to be able to compare
+different groups of customers,
+different groups of patients,
+different offices of the same company.
+And this provides very
+valuable information.
+If would like
+to learn more about this,
+you will not find much about
+process cubes in the book.
+But you can read this article
+that you see on the slide to
+get more information about this approach
+to look at comparative process mining.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

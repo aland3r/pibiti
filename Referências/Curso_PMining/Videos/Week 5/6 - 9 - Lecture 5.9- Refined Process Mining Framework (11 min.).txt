@@ -1,0 +1,280 @@
+[MUSIC]
+Welcome to this lecture.
+This short lecture presents the so
+called refined process mining framework.
+This framework aims to
+provide an overview of
+the different process mining activities.
+This is a diagram that we have
+seen several times before.
+It is explaining the role of discovery,
+conformance, and enhancement.
+Today we will refine this framework
+into a much more detailed framework.
+Identifying ten different
+process mining activities.
+And, we will explain this more
+complicated framework, step-by-step.
+In the earlier lectures,
+we focused on process discovery.
+Only looking at control flow.
+Then we looked at conformance checking.
+And in the last couple of lectures
+we have been extending this in
+all kinds of directions.
+We have been incorporating role
+information about a resource involved in
+a process.
+We looked at decision point mining.
+We looked at bottlenecks.
+But this is just the tip of the iceberg.
+There are many more process mining
+techniques that one can use.
+And there are much more
+questions that one could ask.
+For example, one can ask
+questions related to performance.
+If you are dealing with
+terabytes of event data,
+you need to distribute your
+process mining activities.
+Today's framework will
+not focus in things like.
+Distributed process mining.
+But will look at the typical
+activities that you may want to
+do in the context of
+a process mining project.
+And for that we detail this
+refined process mining framework.
+Let's start with the top
+of the refined framework.
+You can see the word provenance here.
+The word provenance refers to
+the fact that event data that we
+are collecting should be faithful.
+It should describe what
+has really happened.
+Once we collect event data,
+it should be safe.
+Data should not just disappear,
+preferably,
+also not disappear selectively.
+We should always be able to
+reconstruct history based on
+the event data that we have.
+So this is something
+that is very important.
+So suppose now that we
+have the event data,
+then we can partition the event data.
+Into pre mortem and
+post mortem event data.
+What does it mean?
+If you look at post mortem event data,
+we look at event data that refers to cases
+that have already completely finished.
+So these were cases that
+were handled in the past.
+We can no longer influence them.
+If you look at pre mortem event data,
+we refer to cases that are still running,
+that are still alive.
+And, if we look at these cases,
+we may still want to influence them.
+For example if we see a case and we can
+we know that the case is running late.
+We could for example try to involve
+additional resources to make
+sure that the case is handled in time.
+So pre mortem event data refers to
+cases that can still be influenced.
+It's important to make this
+distinction for
+the rest of the framework.
+Let's take a look at some examples.
+So, here you can see three different
+situations, students studying.
+We can look at the sales process,
+we can look at the hospital
+with patient related data.
+And if we look at post
+mortem like questions,
+we are interested in bottlenecks.
+We are interested in seeing how we
+could improve the process, not for
+the case that is running now,
+but for the process in general.
+That's post-mortem data.
+If we look at pre-mortem data,
+we are particularly interested in
+the cases that are running now,
+and that can still be influenced.
+So for example, if we see that a
+particular student is likely to drop out,
+we may still want to take some action.
+Or if we see that students are not
+engaged enough in a particular course,
+we can take action.
+We can also take action, for example,
+if we look at a hospital and
+we see certain non-conformance
+of a particular patient.
+That we want to take action to make
+sure that no bigger problems will occur.
+So pre mortem data refers to cases
+that we can still influence.
+At the bottom of the diagram of
+the reference model we look at the models.
+And the models may cover
+multiple perspectives.
+They typically always
+cover control flow.
+But with the control flow
+backbone we may add data and
+rules, information about resources,
+about time, costs, etc.
+At the bottom of the diagram you can also
+see that we distinguish between the de
+jure models and the de facto models.
+Let's take a look at what that means.
+The de facto model is descriptive,
+the de facto model tries to
+describe reality as it is.
+It is not intended to
+influence behavior or
+to guide behavior but
+just to describe what is happening.
+When we do process discovery
+we discover de facto models.
+But we also have de jure models.
+These models are typically normative.
+They specify how things should be done or
+handled.
+For example if one is
+using a workflow system or
+a BPM system,
+one is using normative models.
+These models are driving the system to
+force people to work in a particular way.
+If we have models just on paper
+they can still be normative.
+However if they are not enforced
+by a system people can choose to
+deviate from them if they want.
+So we have de facto and de jure models and
+it's very important to see that our
+roles may be completely different.
+Based on the difference between
+de jure and de facto models and
+pre mortem and post mortem data
+we can create this framework.
+And this framework identifies ten
+different activities by no means.
+It is intended to be complete but
+it gives a good feeling of the broadness
+of the process mining spectrum.
+Let's take a look at these
+ten different activities.
+The first group of activities
+looks at process models as maps.
+So the most typical example is discovery.
+Control flow discovery or
+discovery of other perspectives.
+This is learning the model of
+the process as it is really happening.
+We can also combine an existing
+model with event data, and
+then extend or repair the model.
+And models can also serve
+a purpose just by themselves,
+not directly connected to event data.
+And so for example, the model that
+was discovered at some point in time.
+Can be used for
+diagnosis purposes much later without
+really looking at event data.
+The activities in the middle,
+they refer to auditing.
+So here we are confronting
+model with reality.
+And we distinguish four
+different activities.
+The first activity is detect.
+It is using pre mortem data.
+So data related to cases
+that are still running.
+And they are compared
+with the de jure models.
+And each time there is a deviation
+an alert is generated.
+Note that we are now looking at
+the online setting where want to
+generate alert the moment
+that thy take place.
+A more common situation that we have
+discussed many times in the past.
+It's conformance checking,
+simply called check here.
+This is done in an offline setting,
+so we look at the past, and
+we compare event data
+with the process model.
+Detect and check, they have in common that
+we compare event data with the model.
+We can also compare two models.
+For example, when we were discussing about
+foot prints, we provided metrics for
+comparing two different models.
+This way we can again compare
+the de jure with de facto model.
+Or we can compare different
+variants of the same process.
+At the level of a model.
+Last but not least, 
+we have the activity promote.
+It means that we have elements of a de
+facto model that we want to
+transfer to a de jure model.
+So if you look at model repair,
+that would be something, typical activity
+that you could see in this context.
+The last category of activities
+are related to navigation, supporting, and
+guiding process execution.
+First of all,
+using a combination of event data, and
+models, we may explore
+the process at run time.
+It's just like a query language.
+We can try to understand what is
+happening now and should we do something.
+Then there is the notion of prediction.
+If you have learned the model
+based on historic information.
+And you combine that with pre mortem data,
+data about running cases in the current
+state, you can make predictions.
+And if you can make predictions you
+can also recommend certain actions.
+And so
+using information from the past you can
+recommend a particular activity,
+or a particular resource.
+To execute the next activity.
+So, these examples,
+these ten different activities showed that
+the process mining spectrum
+is actually quite broad.
+Much broader than just process discovery.
+We are now in Chapter nine.
+Operational support so
+the refined process mining
+framework was an introduction to the more
+online setting of process mining.
+And the next lecture we'll
+talk about this in detail.
+Thank you for watching and
+hope to see you soon.
+[MUSIC]
+

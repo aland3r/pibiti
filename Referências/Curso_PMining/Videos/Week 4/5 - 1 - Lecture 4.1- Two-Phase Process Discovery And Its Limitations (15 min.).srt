@@ -1,0 +1,952 @@
+1
+00:00:00,053 --> 00:00:07,200
+[MUSIC]
+
+2
+00:00:07,200 --> 00:00:08,590
+Glad to see you again.
+
+3
+00:00:08,590 --> 00:00:13,086
+In the last two lectures, we discussed
+a two-phase process discovery approach,
+
+4
+00:00:13,086 --> 00:00:16,100
+based on state-based regions.
+
+5
+00:00:16,100 --> 00:00:19,470
+Today, we will discuss
+the limitations of this approach, but
+
+6
+00:00:19,470 --> 00:00:22,029
+also point out possible extensions.
+
+7
+00:00:23,800 --> 00:00:28,680
+So here, again, you see an overview
+of the two-phase approach.
+
+8
+00:00:28,680 --> 00:00:33,830
+In the first phase, we construct a
+transition system based on the event log,
+
+9
+00:00:33,830 --> 00:00:38,970
+and we can play with different
+abstractions to make a more general or
+
+10
+00:00:38,970 --> 00:00:40,400
+more specific model.
+
+11
+00:00:41,850 --> 00:00:46,540
+Once we have the transition system, we try
+to discover concurrency using the notion
+
+12
+00:00:46,540 --> 00:00:49,400
+of regions, and
+get the corresponding Petri net.
+
+13
+00:00:50,830 --> 00:00:56,270
+In the last lecture,
+we explained this algorithm to
+
+14
+00:00:56,270 --> 00:01:00,990
+convert a transition
+system into a Petri net
+
+15
+00:01:00,990 --> 00:01:06,160
+by discovering concurrency,
+using the notion of state-based regions.
+
+16
+00:01:06,160 --> 00:01:09,340
+So let us take a look at an example.
+
+17
+00:01:09,340 --> 00:01:11,620
+So suppose that we have an event log, and
+
+18
+00:01:11,620 --> 00:01:15,670
+that this is a transition system,
+that we have learned from it.
+
+19
+00:01:17,270 --> 00:01:22,150
+Once we have such a transition system
+we would like to discover which things
+
+20
+00:01:22,150 --> 00:01:23,260
+happen in parallel?
+
+21
+00:01:23,260 --> 00:01:25,630
+Which things happen in sequence?
+
+22
+00:01:25,630 --> 00:01:27,780
+What choices are there?
+
+23
+00:01:27,780 --> 00:01:31,350
+And if we do this we start by looking at
+
+24
+00:01:31,350 --> 00:01:35,240
+what are the so-called
+minimal non-trivial regions.
+
+25
+00:01:35,240 --> 00:01:39,420
+Here every color corresponds to
+a minimal non-trivial region.
+
+26
+00:01:40,470 --> 00:01:46,020
+Once we have these regions we can easily
+construct the corresponding Petri net
+
+27
+00:01:47,330 --> 00:01:50,010
+capturing the behaviour that
+is in the transition system.
+
+28
+00:01:51,350 --> 00:01:57,790
+So in this example the transition
+system and the Petri net are bisimilar.
+
+29
+00:01:57,790 --> 00:01:59,490
+So what does this mean?
+
+30
+00:01:59,490 --> 00:02:04,050
+It means that they are equivalent
+from a behavioral point of view.
+
+31
+00:02:04,050 --> 00:02:10,180
+More precise any move of the transition
+system can be mimicked by the Petri net,
+
+32
+00:02:10,180 --> 00:02:13,960
+and any move of the Petri net can be
+mimicked by the transition system.
+
+33
+00:02:16,990 --> 00:02:18,590
+So that's the approach.
+
+34
+00:02:18,590 --> 00:02:23,780
+So what are possible problems
+related to the state-based regions.
+
+35
+00:02:23,780 --> 00:02:26,480
+First of all, as you will see in a minute,
+
+36
+00:02:26,480 --> 00:02:30,960
+there are certain process constructs
+which can not be discovered.
+
+37
+00:02:30,960 --> 00:02:31,990
+But as we will show
+
+38
+00:02:31,990 --> 00:02:37,040
+later, there are many extensions
+possible to resolve these problems.
+
+39
+00:02:37,040 --> 00:02:40,260
+A more foundational problem
+is that regions have
+
+40
+00:02:40,260 --> 00:02:45,340
+difficulties balancing the four forces,
+fitness, precision,
+
+41
+00:02:45,340 --> 00:02:49,320
+generalization, and
+simplicity, in a right manner.
+
+42
+00:02:49,320 --> 00:02:51,710
+But we will see more about
+this later in this lecture.
+
+43
+00:02:54,230 --> 00:02:57,670
+So let us start by
+looking at some examples.
+
+44
+00:02:57,670 --> 00:03:04,290
+So we have a log and in the log
+there are always two occurrences of a.
+
+45
+00:03:04,290 --> 00:03:06,380
+So what is the corresponding
+transition system?
+
+46
+00:03:06,380 --> 00:03:09,540
+It is a transition
+system that we see here.
+
+47
+00:03:10,930 --> 00:03:14,900
+What is the Petri net constructed
+from this transition system,
+
+48
+00:03:14,900 --> 00:03:18,800
+if we use the basic algorithm
+that we have described before?
+
+49
+00:03:23,760 --> 00:03:27,070
+If we try to construct
+the corresponding Petri net,
+
+50
+00:03:27,070 --> 00:03:32,120
+we first need to decide what are
+the regions.
+
+51
+00:03:32,120 --> 00:03:38,410
+But in this case, only the empty region
+and the set of all states form a region.
+
+52
+00:03:38,410 --> 00:03:43,380
+So there are no nontrivial
+regions in this example.
+
+53
+00:03:43,380 --> 00:03:47,200
+So if we construct a corresponding
+Petri net using the algorithm,
+
+54
+00:03:47,200 --> 00:03:53,430
+the Petri net consists of just one
+transition, and this Petri net allows for
+
+55
+00:03:53,430 --> 00:03:57,610
+two a's, but also for
+one a, three a's, 15 as.
+
+56
+00:03:57,610 --> 00:04:02,890
+So it's not the behavior
+that we started with.
+
+57
+00:04:02,890 --> 00:04:03,990
+It allows for more.
+
+58
+00:04:06,390 --> 00:04:08,880
+Let us take a look at another example.
+
+59
+00:04:09,890 --> 00:04:14,220
+Here you see an event log where
+all traces start with an a,
+
+60
+00:04:14,220 --> 00:04:19,440
+all traces end with a c and
+in between there can be any number of b's.
+
+61
+00:04:19,440 --> 00:04:24,340
+If we construct a corresponding
+transition system it looks like this.
+
+62
+00:04:24,340 --> 00:04:30,800
+If we again try to apply the basic
+state-based region algorithm,
+
+63
+00:04:30,800 --> 00:04:33,660
+what is the Petri net
+that will result from it?
+
+64
+00:04:36,120 --> 00:04:40,920
+If we construct a Petri net
+based on this transition system,
+
+65
+00:04:40,920 --> 00:04:45,940
+we first need to,
+compute the minimal nontrivial regions.
+
+66
+00:04:45,940 --> 00:04:48,420
+And in this case, there are three of them.
+
+67
+00:04:48,420 --> 00:04:52,853
+The region just consisting of
+state s1 indicated in red here,
+
+68
+00:04:52,853 --> 00:04:58,670
+the region consisting just of state 2,
+the region consisting just of state 3.
+
+69
+00:04:58,670 --> 00:05:01,450
+So these are three regions, and
+
+70
+00:05:01,450 --> 00:05:06,710
+if you observe them closely you
+will see that b is never crossing.
+
+71
+00:05:08,570 --> 00:05:10,650
+Right?
+So, it's always non-crossing so
+
+72
+00:05:10,650 --> 00:05:13,420
+it's never entering and never exiting.
+
+73
+00:05:14,540 --> 00:05:22,010
+So if we compute the corresponding Petri
+Net based on this minimal non-trivial
+
+74
+00:05:22,010 --> 00:05:28,860
+regions, then we get the Petri net where
+b is unconnected to any of the places.
+
+75
+00:05:28,860 --> 00:05:32,860
+Because it is always
+Petrinon-crossing.
+
+76
+00:05:32,860 --> 00:05:33,800
+This allows for
+
+77
+00:05:33,800 --> 00:05:38,940
+more behavior than the behavior that
+we could see in the transition system.
+
+78
+00:05:38,940 --> 00:05:44,980
+So, for example, this Petri net
+allows b to be executed before a or
+
+79
+00:05:44,980 --> 00:05:50,820
+after c which was not the case in the
+original behavior that we started with.
+
+80
+00:05:53,970 --> 00:05:56,760
+Let's take a look at the third example.
+
+81
+00:05:56,760 --> 00:05:58,190
+Again, we take a log.
+
+82
+00:05:58,190 --> 00:06:00,370
+From it we construct a transition system.
+
+83
+00:06:00,370 --> 00:06:01,690
+It looks like this.
+
+84
+00:06:02,710 --> 00:06:05,100
+So we see a followed by b.
+
+85
+00:06:05,100 --> 00:06:06,890
+Or we just see b.
+
+86
+00:06:06,890 --> 00:06:09,450
+Again there is the question,
+what is the Petri net.
+
+87
+00:06:10,490 --> 00:06:13,278
+That we get if we apply
+state-based regions.
+
+88
+00:06:16,736 --> 00:06:18,529
+To answer this question,
+
+89
+00:06:18,529 --> 00:06:22,770
+we again first compute the regions
+which are indicated here.
+
+90
+00:06:22,770 --> 00:06:26,680
+In total,
+there are four different regions, and
+
+91
+00:06:26,680 --> 00:06:30,680
+if we convert these
+regions into a Petri net.
+
+92
+00:06:30,680 --> 00:06:36,850
+We find the Petri net with two transitions
+that can be executed concurrently.
+
+93
+00:06:38,130 --> 00:06:42,060
+So the original behavior
+is possible in this model.
+
+94
+00:06:42,060 --> 00:06:45,948
+But the model also allows for
+behavior that we did not see before.
+
+95
+00:06:45,948 --> 00:06:52,410
+In particular,
+we can see that the sequence,
+
+96
+00:06:52,410 --> 00:06:58,190
+b followed by a, is possible in the Petri
+net, although we never observed it,
+
+97
+00:06:59,320 --> 00:07:03,680
+in the original log, and it's not a trace
+of the corresponding transition system.
+
+98
+00:07:05,290 --> 00:07:08,980
+So, the three examples
+that I just showed to you,
+
+99
+00:07:08,980 --> 00:07:13,300
+they all produce a Petri
+net that allows for
+
+100
+00:07:13,300 --> 00:07:16,870
+the behavior that we have seen, but
+it also allows for more behavior.
+
+101
+00:07:18,750 --> 00:07:23,250
+So, in other words, the Petri net
+can simulate the behavior that we
+
+102
+00:07:23,250 --> 00:07:27,080
+started with, but it also allows for more.
+
+103
+00:07:27,080 --> 00:07:30,800
+And so the transition system cannot always
+mimic the behavior of the Petri net.
+
+104
+00:07:33,530 --> 00:07:37,900
+So one can look at various refinements.
+
+105
+00:07:37,900 --> 00:07:41,090
+And one of the refinements
+is based on label splitting.
+
+106
+00:07:41,090 --> 00:07:42,158
+So how does it work?
+
+107
+00:07:42,158 --> 00:07:46,672
+We first compute the corresponding
+transition system,
+
+108
+00:07:46,672 --> 00:07:50,430
+using some notion of abstraction.
+
+109
+00:07:50,430 --> 00:07:55,420
+Once we have the transition system
+we check certain properties.
+
+110
+00:07:55,420 --> 00:07:57,530
+In this case the forward closure property.
+
+111
+00:07:58,790 --> 00:08:04,190
+If this property does not hold we
+know that we need to split labels.
+
+112
+00:08:04,190 --> 00:08:09,585
+Concretely, we need to
+rename a into a1 and a2.
+
+113
+00:08:09,585 --> 00:08:13,755
+Once we do that,
+we can apply again our technique, and
+
+114
+00:08:13,755 --> 00:08:19,850
+construct a corresponding Petri net where
+you have two transitions labeled a.
+
+115
+00:08:19,850 --> 00:08:23,290
+Exactly capturing the behavior
+that we would like to see.
+
+116
+00:08:25,330 --> 00:08:30,190
+Let's take a look at the example where
+we had the trace a comma b and
+
+117
+00:08:30,190 --> 00:08:33,300
+the trace just consisting of b.
+
+118
+00:08:33,300 --> 00:08:38,880
+Again, we apply the approach that we
+had before, and now again we apply
+
+119
+00:08:38,880 --> 00:08:43,880
+label splitting, because we see that the
+forward closure property does not hold,
+
+120
+00:08:43,880 --> 00:08:47,610
+it's not important that you exactly
+understand what it means, but
+
+121
+00:08:47,610 --> 00:08:53,860
+we can detect based on the properties of
+the region, whether it is okay or not.
+
+122
+00:08:53,860 --> 00:08:56,780
+If it's not okay,
+we need to apply label splitting.
+
+123
+00:08:56,780 --> 00:09:01,630
+In this case,
+we rename the b's into a b1 and a b2.
+
+124
+00:09:01,630 --> 00:09:07,150
+We apply standard region theory and
+then we end up with this process model,
+
+125
+00:09:07,150 --> 00:09:12,354
+where we have two b transitions capturing
+the behavior that we would like to see.
+
+126
+00:09:12,354 --> 00:09:20,760
+The ProM plug-ins, based on state-based
+regions, they ensure bisimulation.
+
+127
+00:09:20,760 --> 00:09:25,440
+So if we feed it with the examples
+that we just showed it is able to
+
+128
+00:09:25,440 --> 00:09:29,589
+create a correct Petri net,
+in this case by spitting the two a's.
+
+129
+00:09:31,260 --> 00:09:36,360
+It is also able to handle these loops
+that were disconnected before so
+
+130
+00:09:36,360 --> 00:09:39,420
+note now that b is connected
+to the place in the middle.
+
+131
+00:09:42,020 --> 00:09:45,300
+If we apply it to this example
+that we have seen before
+
+132
+00:09:45,300 --> 00:09:47,710
+it correctly splits the b's.
+
+133
+00:09:47,710 --> 00:09:53,390
+And so the ProM plug-in again uses these
+extensions to guarantee the proper result.
+
+134
+00:09:56,610 --> 00:10:01,330
+Besides label splitting
+there are many extensions and
+
+135
+00:10:01,330 --> 00:10:04,980
+refinements of this basic region approach.
+
+136
+00:10:04,980 --> 00:10:08,480
+So we can impose
+any constraint on places.
+
+137
+00:10:08,480 --> 00:10:12,580
+So for example we could say we only
+want to have places that have,
+
+138
+00:10:12,580 --> 00:10:15,820
+at most, two inputs, and
+at most, two outputs.
+
+139
+00:10:15,820 --> 00:10:21,410
+Or we only want to have places where it
+is a clear split or a join, but not both.
+
+140
+00:10:22,790 --> 00:10:24,940
+And many of these extensions are possible.
+
+141
+00:10:27,750 --> 00:10:34,230
+So, we have now covered the first weakness
+of the state-based region approach.
+
+142
+00:10:34,230 --> 00:10:38,950
+Now we focus on the second problem,
+how to balance the four forces.
+
+143
+00:10:38,950 --> 00:10:42,850
+And we understand that regions
+have problems with this.
+
+144
+00:10:45,070 --> 00:10:48,130
+This is a picture that
+we have seen before.
+
+145
+00:10:48,130 --> 00:10:51,740
+It illustrates that if we
+are discovering a Petri net
+
+146
+00:10:51,740 --> 00:10:54,740
+we need to balance different forces.
+
+147
+00:10:54,740 --> 00:10:56,620
+There's a struggle between fitness and
+
+148
+00:10:56,620 --> 00:10:59,320
+simplicity between generalization and
+precision.
+
+149
+00:11:00,440 --> 00:11:03,660
+So, if we now look at
+the two phase approach,
+
+150
+00:11:03,660 --> 00:11:09,259
+what are the properties of this
+approach in terms of these four forces?
+
+151
+00:11:10,870 --> 00:11:15,140
+Let's first start by looking at
+building the transition system.
+
+152
+00:11:15,140 --> 00:11:19,860
+When we build a transition system,
+we have many parameters that we can use.
+
+153
+00:11:20,950 --> 00:11:25,340
+So, for example,
+if we take the prefix automaton, so
+
+154
+00:11:25,340 --> 00:11:32,780
+we consider the entire past of a trace of
+the prefix, and we apply no abstraction.
+
+155
+00:11:32,780 --> 00:11:35,510
+So the ordering is preserved.
+
+156
+00:11:35,510 --> 00:11:37,560
+Then based on the particular log,
+
+157
+00:11:37,560 --> 00:11:41,370
+this is the transition system that you
+can see in the background that we get.
+
+158
+00:11:42,420 --> 00:11:46,350
+So this transition system is
+good in terms of fitness.
+
+159
+00:11:46,350 --> 00:11:48,690
+It is good in terms of precision.
+
+160
+00:11:48,690 --> 00:11:51,350
+But it is not simple and
+it is not generalizing.
+
+161
+00:11:52,900 --> 00:11:57,950
+We could have chosen a different,
+abstraction.
+
+162
+00:11:57,950 --> 00:12:01,370
+For example the abstraction where
+we only look at a last event.
+
+163
+00:12:01,370 --> 00:12:03,640
+If we do that and
+
+164
+00:12:03,640 --> 00:12:08,360
+we apply it to the same log we get
+a much simpler transition system.
+
+165
+00:12:10,100 --> 00:12:14,240
+The problem with this transition
+system is that it has a good fitness,
+
+166
+00:12:14,240 --> 00:12:19,670
+it is generalizing, it is simple but at
+that the same time it is not very precise.
+
+167
+00:12:19,670 --> 00:12:23,450
+That allows for all kinds of
+behaviors that we did not see before.
+
+168
+00:12:23,450 --> 00:12:29,280
+So when building the transition system,
+we can look at the various trade offs
+
+169
+00:12:29,280 --> 00:12:33,870
+between fitness, simplicity,
+precision and generalization.
+
+170
+00:12:37,150 --> 00:12:39,950
+If we look at the second step there we
+
+171
+00:12:39,950 --> 00:12:43,450
+would like to discover
+concurrency by using regions.
+
+172
+00:12:44,730 --> 00:12:52,260
+Here if we use the classical approaches,
+behavioral equivalence is preserved.
+
+173
+00:12:52,260 --> 00:12:55,640
+Earlier, I explained you
+the notion of bisimulation.
+
+174
+00:12:55,640 --> 00:12:59,080
+So, any move of the transition
+system can be mimicked by
+
+175
+00:12:59,080 --> 00:13:03,550
+a move of the corresponding Petri net,
+and vice versa.
+
+176
+00:13:03,550 --> 00:13:08,410
+So there is no generalization, and
+there is no special consideration for
+
+177
+00:13:08,410 --> 00:13:09,540
+notions like simplicity.
+
+178
+00:13:10,560 --> 00:13:14,890
+And so if we would like to address these
+things we need to do it in the first step.
+
+179
+00:13:17,450 --> 00:13:22,050
+So let's give a summary of the two
+phase approach based on regions.
+
+180
+00:13:23,450 --> 00:13:27,130
+It can be used specifically
+through the extensions to
+
+181
+00:13:27,130 --> 00:13:29,530
+capture very complicated process patterns.
+
+182
+00:13:30,790 --> 00:13:36,540
+Patterns that existing algorithms like the
+alpha algorithm cannot really discover well.
+
+183
+00:13:37,750 --> 00:13:39,890
+It also provides
+
+184
+00:13:39,890 --> 00:13:43,240
+insight into the essence of
+process discovery and concurrency.
+
+185
+00:13:45,530 --> 00:13:50,040
+As drawbacks, there is the problem
+that if we look at the second phase,
+
+186
+00:13:50,040 --> 00:13:52,350
+when we are discovering concurrency.
+
+187
+00:13:53,450 --> 00:13:58,650
+We ensure that the result is
+bisimilar to the transition system.
+
+188
+00:13:58,650 --> 00:14:00,450
+So that may lead to overfitting.
+
+189
+00:14:00,450 --> 00:14:03,390
+We are not generalizing in this phase.
+
+190
+00:14:03,390 --> 00:14:08,850
+Also, in the second step we can not,
+filter out infrequent behavior.
+
+191
+00:14:08,850 --> 00:14:14,420
+If we would like to do so, we need to do
+so while building the transition system.
+
+192
+00:14:14,420 --> 00:14:18,450
+So noise and incompleteness
+cannot be handled very well.
+
+193
+00:14:18,450 --> 00:14:22,140
+But it's still a very
+important approach because it
+
+194
+00:14:22,140 --> 00:14:26,330
+shows what the essence of
+process discovery is all about.
+
+195
+00:14:28,490 --> 00:14:34,490
+This was the last discovery technique
+that we are going to discuss in detail.
+
+196
+00:14:34,490 --> 00:14:37,790
+You can read chapter six and
+read more about this.
+
+197
+00:14:37,790 --> 00:14:41,800
+In the next lecture we will
+specifically look at other
+
+198
+00:14:41,800 --> 00:14:45,530
+approaches that we will not
+cover in any form of detail.
+
+199
+00:14:47,700 --> 00:14:49,503
+Thank you for watching this lecture.
+
+200
+00:14:49,503 --> 00:14:51,135
+See you next time.
+
+201
+00:14:51,135 --> 00:15:01,135
+[MUSIC]
+

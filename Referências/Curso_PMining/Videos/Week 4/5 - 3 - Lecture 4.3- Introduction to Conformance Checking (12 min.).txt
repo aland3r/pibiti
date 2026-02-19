@@ -1,0 +1,272 @@
+[MUSIC]
+Welcome to this lecture.
+Thus far,
+our main focus was on process discovery.
+In this lecture today, we will introduce
+another very important process mining
+task, namely conformance checking.
+This is a diagram that we have
+seen several times before, and
+it is now highlighting where
+conformance checking fits in.
+So we no longer want to discover
+a process model, but we would like
+to compare a process
+model with the corresponding event log.
+When doing conformance checking,
+we need to take into consideration
+the four dimensions that
+we've also discussed when we were
+looking at process discovery techniques.
+However in many of the conformance
+checking techniques, replay fitness,
+the ability to replay the event log
+on the model is the thing
+which is most important.
+And also, many of the techniques that we
+will discuss in this lecture
+will focus on that dimension.
+But it doesn't mean that the other
+dimensions are not important.
+When we look at replay fitness,
+we have already seen the principle before.
+So the basic idea is that we would
+like to replay traces that we
+have seen in the log on top of a model.
+So we have executed a and c and now
+the event log says that we should do e.
+But if you look at the model and
+you look at the state that we are in,
+e is not yet enabled.
+So we need to force the process forward,
+although we see that something
+does not fit completely.
+And we go towards the end.
+But while doing that, we are counting
+how many problems we see, and
+we are also recording the types
+of problems that we have seen.
+So this is what we are trying to
+do if we are checking for fitness.
+If we do this we are comparing observed
+behavior with modeled behavior.
+So, the kind of diagnostics that
+we can show are diagnostics at
+the level of an event log.
+For example, these are the traces
+that do not fit well into the model.
+We can also provide
+diagnostics at the model level,
+showing the parts of the model
+where reality often deviates.
+Or we can look at global metrics.
+For example,
+we will often look at a fitness metric,
+having a value between zero and one,
+where zero means that fitness is very
+poor and a fitness of one means that
+everything that was seen in the log was
+indeed possible according to the model.
+So what are use cases for
+conformance checking?
+The first use case is related
+to auditing and compliance.
+Things at the level of business processes.
+We would like to understand,
+do people deviate?
+Why do they deviate?
+Are the things that are reported,
+reported correctly?
+Another use case is that we want
+to use conformance checking to
+evaluate the quality of process
+discovery algorithms and their results.
+Last but not least, often we also want to
+check conformance to some specification
+based on the actual behavior.
+For example, if we have a piece
+of software and that software has
+a specification describing how it should
+work, we can compare it with a real
+event log and see where the software
+is deviating from the specification.
+Also if we provide services,
+we can also check
+whether the description of the service
+is consistent with the actual behavior.
+So there are many different use cases.
+For all of these cases we
+need to have a model that we
+are checking the event logs to.
+And these models, in our case it will
+typically be a Petri net.
+But it can also be any set of rule or
+any set of model that captures
+some kind of behavior.
+If we look at auditing,
+the basic idea is to
+check whether what was reported
+was reported correctly.
+And this is done to check whether
+business processes are executed within
+the boundaries set by managers,
+governments, and other stakeholders.
+And these boundaries are expressed
+in terms of a process model or
+a set of rules.
+And one can think of rules
+as small process models.
+In the last couple of years there has
+been lots of emphasis on compliance and
+auditing related issues.
+Many of you know the term Sarbanes-Oxley.
+And that is referring legislation
+that has been created
+to ensure that organizations are doing
+what they say they are doing.
+A completely different use
+case is the evaluation of
+process discovery algorithms.
+Suppose that I have four algorithms.
+I use these algorithms.
+I get four process models.
+And then I would like to know which is
+the best process discovery technique.
+And we can compare them using conformance
+checking, typically looking at the four
+dimensions fitness, simplicity,
+generalization and precision.
+This is not an easy task.
+If we try to compare the results of
+different process discovery algorithms.
+Or when a process discovery
+algorithm has a lot of parameters.
+We can also create many discovered models.
+What are the best models
+that we can look at?
+In this diagram every red dot corresponds
+to a discovered process model.
+And the two dimensions indicate how
+well the fitness of that model is and
+how well the precision of that model is.
+Then the question is,
+what are good models to consider?
+That is not the single best model,
+because what you can clearly see in
+this diagram is that there is apparently
+a tradeoff between precision and fitness.
+So if we pick a model on
+the so-called Pareto front,
+then we are looking at a model for
+which there are no other models
+that are better in all dimensions.
+So, the model highlighted
+here is Pareto optimal.
+And, because this model exists,
+the models indicated in grey
+cannot be Pareto optimal if we
+just look at these two dimensions.
+We can take a look at another
+model on the Pareto front and
+again you can see that a couple
+of models are discarded.
+Because they are dominated by the models,
+the models on the Pareto front.
+You can do that for all the models on the
+Pareto front and then we get red dots.
+And if we are just interested
+in these two dimensions,
+these are all the models that we should
+inspect because they are interesting.
+The other models are not
+interesting because there is
+always a model that is better, or
+at least as good in all the dimensions.
+So far, we considered two dimensions,
+fitness and precision, and
+in this diagram you can see that model 5
+is being dominated by model two because
+model 2 is better in terms of fitness and
+is better in terms of precision.
+However, if we include a third dimension,
+it may be that model 5
+is on the Pareto front.
+So if we, for example, plots fitness
+against simplicity, one can see that
+if you look at model 5 it is no
+longer dominated by model 2 or
+any of the other models.
+So there is no model that at the same
+time has a better fitness, precision and
+simplicity, than model 5.
+So it's not dominated.
+So it is on the Pareto front.
+And so we are interested in the models
+that are on the Pareto front.
+And compare and discover models is not
+very easy, because one model can be better
+in terms of fitness but worse in terms
+of simplicity or the other way around.
+So there is no such
+thing as the best model.
+And that is very
+important to understand when you're
+looking at process discovery.
+Let's get back to
+compliance-related questions.
+So, we are comparing an event
+log with the process model.
+If there are deviations,
+an obvious question to ask is,
+is the model wrong or is the log wrong?
+And both can be the case.
+So deviations may be
+considered to be good or bad.
+In this context,
+we often talk about breaking the glass.
+In many processes, people deliberately
+deviate from the process and
+in that way do something good.
+Ans so for example,
+in hospitals doctors will deviate and
+by these deviations they are
+saving the lives of patients.
+We can also look for positive deviants.
+Things that deviate but
+in a positive manner.
+And so deviations are not always negative.
+And it is not always the case that
+the process model is right and
+the event log is wrong.
+So far we have been discussing
+conformance checking mostly offline.
+But, of course,
+you can also that at the runtime.
+Online conformance checking means that
+the moment that the deviation occurs,
+you immediately generate an alert.
+In the next couple of lectures we
+will focus on conformance checking
+techniques and thereby we often
+focus just on control flow.
+We also typically do not look
+at the simplicity of the model.
+We can of course do conformance
+checking for models with data or time.
+For example, the model specifies that
+a case should be handled within 30 days.
+But the first type of techniques
+that we will look at do not do that.
+In the next lectures we will look at three
+types of approaches, causal footprints,
+token-based replay and
+alignment-based conformance checking.
+And in the next lecture,
+we will start with causal footprints.
+If you would like to read more
+about conformance checking,
+Chapter 7 is devoted to it.
+Thank you for watching,
+and hope to see you soon.
+[MUSIC]
+

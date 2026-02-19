@@ -1,0 +1,1454 @@
+1
+00:00:00,000 --> 00:00:07,119
+[MUSIC]
+
+2
+00:00:07,119 --> 00:00:11,930
+Welcome to this lecture of the course on
+Process Mining, Data Science and Action.
+
+3
+00:00:11,930 --> 00:00:15,200
+Today is the last lecture
+on process discovery.
+
+4
+00:00:15,200 --> 00:00:16,989
+The aim is to illustrate,
+
+5
+00:00:16,989 --> 00:00:20,699
+that there are many more approaches
+than the ones that we have seen so far.
+
+6
+00:00:22,441 --> 00:00:25,050
+We have seen the alpha algorithm.
+
+7
+00:00:25,050 --> 00:00:27,510
+We have seen the heuristic
+mining algorithm.
+
+8
+00:00:27,510 --> 00:00:31,090
+We have seen region-based approaches.
+
+9
+00:00:31,090 --> 00:00:33,200
+But there are many more.
+
+10
+00:00:33,200 --> 00:00:38,960
+And we cannot discuss all of these
+different process mining techniques, but
+
+11
+00:00:38,960 --> 00:00:40,950
+we will discuss a few more.
+
+12
+00:00:42,190 --> 00:00:46,120
+As you can see on this slide,
+there are many choices that one can make.
+
+13
+00:00:46,120 --> 00:00:51,610
+If one looks at a process discovery
+technique, one should look at things
+
+14
+00:00:51,610 --> 00:00:56,920
+like what is the balance between fitness,
+simplicity, precision and generalization?
+
+15
+00:00:58,020 --> 00:00:59,300
+What is the speed?
+
+16
+00:00:59,300 --> 00:01:04,220
+So, how fast will the analysis
+technique produce results.
+
+17
+00:01:04,220 --> 00:01:06,290
+How much memory is used?
+
+18
+00:01:06,290 --> 00:01:11,680
+What is the representation that is being
+used by the discovery technique and
+
+19
+00:01:11,680 --> 00:01:13,220
+how flexible is the approach?
+
+20
+00:01:13,220 --> 00:01:17,360
+Can we also explore related problems?
+
+21
+00:01:17,360 --> 00:01:22,100
+One should always distinguish between the
+implementation of an algorithm that can be
+
+22
+00:01:22,100 --> 00:01:26,900
+fast or
+slow versus the approach itself, and
+
+23
+00:01:26,900 --> 00:01:29,950
+it will often be mixed and
+a combination of two.
+
+24
+00:01:32,230 --> 00:01:33,680
+Let's take a step back.
+
+25
+00:01:33,680 --> 00:01:37,900
+So we have been talking
+about process discovery and
+
+26
+00:01:39,980 --> 00:01:45,820
+we can look at it from the angle
+of adding and removing behavior.
+
+27
+00:01:45,820 --> 00:01:47,120
+So a first question would be,
+
+28
+00:01:47,120 --> 00:01:51,240
+we see here a Petri net,
+one that we have seen many times before.
+
+29
+00:01:51,240 --> 00:01:54,934
+How can we add behavior
+to this model in terms of
+
+30
+00:01:54,934 --> 00:01:58,267
+edit operations on the Petri net itself?
+
+31
+00:02:01,864 --> 00:02:06,430
+The first approach to add behavior
+is by adding transitions.
+
+32
+00:02:06,430 --> 00:02:11,030
+Here I added a transition x and
+that allows for new traces.
+
+33
+00:02:11,030 --> 00:02:15,360
+For example, the trace xed,
+that was not possible before.
+
+34
+00:02:16,980 --> 00:02:20,720
+Another approach is that we
+can also simply remove places.
+
+35
+00:02:20,720 --> 00:02:26,860
+If we remove the place in between a and
+b, we can do b before a.
+
+36
+00:02:26,860 --> 00:02:32,170
+So to trace b, a, c,
+d becomes possible by removing this place.
+
+37
+00:02:33,690 --> 00:02:38,730
+We can also remove or add arcs,
+just changing the behaviour.
+
+38
+00:02:38,730 --> 00:02:42,625
+If we remove an arc from
+a place to a transition,
+
+39
+00:02:42,625 --> 00:02:47,790
+we allow for more behavior because
+essentially, we are removing a constraint.
+
+40
+00:02:49,170 --> 00:02:53,350
+If we add arcs from a transition to
+a place, we can also add behavior.
+
+41
+00:02:54,510 --> 00:02:56,940
+So that was about adding behavior,
+
+42
+00:02:56,940 --> 00:03:00,190
+let's now take a look at
+the problem of removing behavior.
+
+43
+00:03:01,250 --> 00:03:03,080
+So again, we see the same Petri net.
+
+44
+00:03:04,150 --> 00:03:09,155
+How can we remove behavior,
+no longer allowing certain traces?
+
+45
+00:03:11,709 --> 00:03:16,035
+The answer to this question is
+the opposite of the answer to
+
+46
+00:03:16,035 --> 00:03:18,630
+the previous question.
+
+47
+00:03:18,630 --> 00:03:21,990
+So first of all,
+we can remove transitions.
+
+48
+00:03:21,990 --> 00:03:25,070
+By removing transitions,
+we remove behavior.
+
+49
+00:03:25,070 --> 00:03:29,510
+So if remove e,
+the trace aed is no longer possible.
+
+50
+00:03:30,700 --> 00:03:33,040
+We can also add places.
+
+51
+00:03:33,040 --> 00:03:38,763
+So by adding the highlighted
+place in this model, we enforce
+
+52
+00:03:38,763 --> 00:03:44,590
+that b will be followed by c and that
+we cannot do c before b has been done.
+
+53
+00:03:44,590 --> 00:03:48,349
+So adding places is like
+adding extra constraints.
+
+54
+00:03:50,690 --> 00:03:55,790
+Finally we can again remove or
+add arcs and thus changing the behavior.
+
+55
+00:03:55,790 --> 00:03:58,540
+If we remove an arc from
+a transition to a place,
+
+56
+00:03:59,990 --> 00:04:05,390
+what we are doing is we
+are disallowing potential behavior.
+
+57
+00:04:05,390 --> 00:04:09,730
+We can also add a arc from places
+to transitions having the same
+
+58
+00:04:09,730 --> 00:04:11,450
+type of effect.
+
+59
+00:04:11,450 --> 00:04:13,200
+So adding and
+
+60
+00:04:13,200 --> 00:04:17,090
+removing places is influencing
+whether we have more or less behavior.
+
+61
+00:04:18,230 --> 00:04:22,600
+So a viewpoint that one can
+take that we have used before,
+
+62
+00:04:22,600 --> 00:04:28,780
+is that you can view at process discovery
+as the problem of finding places.
+
+63
+00:04:28,780 --> 00:04:33,630
+So this is a Petri net that allows for
+any behavior composed of
+
+64
+00:04:33,630 --> 00:04:40,190
+the activities that are listed here and
+adding places is like adding constraints.
+
+65
+00:04:40,190 --> 00:04:44,720
+So when we looked at the alpha algorithm,
+we tried to discover places to
+
+66
+00:04:44,720 --> 00:04:47,920
+constrain the behavior to the behavior
+that we had seen in the log.
+
+67
+00:04:49,310 --> 00:04:54,690
+When we were using state-based regions,
+we first created the transition system and
+
+68
+00:04:54,690 --> 00:04:57,920
+then tried to group sets of states in
+
+69
+00:04:57,920 --> 00:05:02,110
+the transition system into places
+of the corresponding process model.
+
+70
+00:05:04,490 --> 00:05:10,580
+Today, one of the techniques that we will
+briefly discuss is language-based regions.
+
+71
+00:05:10,580 --> 00:05:15,780
+It's similar to state-based regions, but
+we do not construct the transition system,
+
+72
+00:05:15,780 --> 00:05:17,920
+we start directly from traces.
+
+73
+00:05:19,480 --> 00:05:24,710
+So the first approach that we will
+discuss today, are language based
+
+74
+00:05:24,710 --> 00:05:31,280
+regions and it is basically
+solving a system of in-equations.
+
+75
+00:05:31,280 --> 00:05:34,670
+So if you look at this equation,
+it looks very scary.
+
+76
+00:05:34,670 --> 00:05:40,110
+A and
+A prime are matrices representing the log,
+
+77
+00:05:40,110 --> 00:05:43,980
+x and
+y correspond to arcs in the Petri net, and
+
+78
+00:05:43,980 --> 00:05:49,310
+c corresponds to the number of tokens in
+the place that we are trying to discover.
+
+79
+00:05:50,850 --> 00:05:53,700
+So it looks very complicated,
+but it just says that
+
+80
+00:05:54,740 --> 00:05:59,770
+whenever we are replaying the log,
+a place can never become negative.
+
+81
+00:05:59,770 --> 00:06:02,030
+There can be no negative number of tokens.
+
+82
+00:06:03,300 --> 00:06:07,730
+Any solution of this system of
+in-equations is a region and
+
+83
+00:06:07,730 --> 00:06:14,610
+such a region corresponds to a place that
+we can add without removing any behavior.
+
+84
+00:06:14,610 --> 00:06:15,150
+So as I said,
+
+85
+00:06:15,150 --> 00:06:19,810
+it looks very complicated, therefore I use
+a very small example to illustrate it.
+
+86
+00:06:21,260 --> 00:06:25,966
+Suppose that we have a lock
+where we see the traces b, a and
+
+87
+00:06:25,966 --> 00:06:28,820
+a, b, and we see both 30 times.
+
+88
+00:06:29,840 --> 00:06:35,660
+Then the language, the prefix closed
+language generated by these traces is
+
+89
+00:06:35,660 --> 00:06:40,360
+a language consisting of the anti-trace,
+the trace just consisting of a,
+
+90
+00:06:40,360 --> 00:06:45,000
+the trace just consisting of b,
+the trace consisting of a and b, and
+
+91
+00:06:45,000 --> 00:06:46,680
+the trace consisting of b and a.
+
+92
+00:06:48,140 --> 00:06:52,069
+If we then look at these
+non empty prefixes,
+
+93
+00:06:53,230 --> 00:06:58,300
+then we can compute how many
+times a transition has fired in
+
+94
+00:06:58,300 --> 00:07:03,175
+each of these prefixes and that way,
+we can create this matrix A.
+
+95
+00:07:03,175 --> 00:07:09,620
+If you look at the first row of matrix
+A, there is the prefix a, so just
+
+96
+00:07:09,620 --> 00:07:14,650
+a has happened, and the numbers indicate
+a happened once, b happened zero times.
+
+97
+00:07:15,650 --> 00:07:21,310
+If you look at the last row of this
+matrix, if we look at the prefix b,
+
+98
+00:07:21,310 --> 00:07:25,400
+a, we can see that a happens once,
+and b happens once.
+
+99
+00:07:26,570 --> 00:07:28,310
+So that's how a is defined.
+
+100
+00:07:29,960 --> 00:07:34,680
+In a similar way, we define a-prime,
+it's again a matrix.
+
+101
+00:07:34,680 --> 00:07:42,150
+But now it is based on all the steps that
+have been taken, except the last one.
+
+102
+00:07:42,150 --> 00:07:44,212
+So, we ignore the last step in the trace.
+
+103
+00:07:44,212 --> 00:07:50,620
+So for example, if we take a look at
+the last row in this matrix a prime,
+
+104
+00:07:50,620 --> 00:07:56,220
+what you will see is there is the sequence
+b, a, we ignore the last one,
+
+105
+00:07:56,220 --> 00:07:59,040
+so we see that only b
+has happened one time.
+
+106
+00:08:00,930 --> 00:08:04,450
+And so, we have these matrices,
+a and a prime, and
+
+107
+00:08:04,450 --> 00:08:09,400
+we can use them to create
+an in-equation system.
+
+108
+00:08:09,400 --> 00:08:11,670
+For the small example
+that I just listed here
+
+109
+00:08:12,710 --> 00:08:17,700
+these are all the equations that
+are ensuring that at no point in time,
+
+110
+00:08:17,700 --> 00:08:22,260
+the number of tokens in the place that we
+are trying to discover will go negative.
+
+111
+00:08:23,310 --> 00:08:24,730
+So what is it composed of?
+
+112
+00:08:26,370 --> 00:08:27,870
+We have c,
+
+113
+00:08:27,870 --> 00:08:31,830
+that's the initial number of tokens in
+the place that we are trying to discover.
+
+114
+00:08:33,160 --> 00:08:38,854
+We have a and a prime, the ones that
+we have seen before and we have two
+
+115
+00:08:38,854 --> 00:08:44,080
+column vectors that
+correspond to the input and
+
+116
+00:08:44,080 --> 00:08:48,990
+output arcs of the place that
+we are trying to discover.
+
+117
+00:08:48,990 --> 00:08:55,260
+So xa is the number of arcs
+from transition a to the place,
+
+118
+00:08:55,260 --> 00:08:58,340
+xb is a number of arcs from transition b
+
+119
+00:08:58,340 --> 00:09:01,730
+to the place that we are trying to
+discover and these are variables.
+
+120
+00:09:01,730 --> 00:09:03,430
+We do not know them yet.
+
+121
+00:09:03,430 --> 00:09:05,290
+This is exactly what we
+are trying to discover.
+
+122
+00:09:07,620 --> 00:09:11,900
+you is the number of arcs from
+the place that we are trying to
+
+123
+00:09:11,900 --> 00:09:14,490
+discover through transition a.
+
+124
+00:09:14,490 --> 00:09:18,321
+yb is the number of arcs from
+the place to transition b.
+
+125
+00:09:21,256 --> 00:09:25,330
+Okay, so if we take a step back,
+then the first part of
+
+126
+00:09:25,330 --> 00:09:30,500
+the system of in-equations
+corresponds to the initialization.
+
+127
+00:09:30,500 --> 00:09:32,570
+What are the tokens that
+are there at the beginning?
+
+128
+00:09:32,570 --> 00:09:36,340
+Then there is the part that is
+just concerned with production.
+
+129
+00:09:36,340 --> 00:09:39,137
+It is based on a prime.
+
+130
+00:09:39,137 --> 00:09:42,676
+And then there is the part that
+is concerned with consumption,
+
+131
+00:09:42,676 --> 00:09:44,760
+that's why the minus sign is there.
+
+132
+00:09:45,830 --> 00:09:51,860
+And here we use matrix A and
+the result should always be positive.
+
+133
+00:09:54,700 --> 00:09:58,980
+So if we look at this in-equation
+system and we rewrite it,
+
+134
+00:09:58,980 --> 00:10:03,020
+we find these four in-equations.
+
+135
+00:10:03,020 --> 00:10:08,750
+So the first row says that c should
+be at least the same as ya.
+
+136
+00:10:08,750 --> 00:10:14,500
+So that means that the initial number of
+tokens in the place should at least be
+
+137
+00:10:14,500 --> 00:10:18,950
+the number of arcs from
+the place to transition a.
+
+138
+00:10:18,950 --> 00:10:21,180
+The same holds for
+
+139
+00:10:21,180 --> 00:10:24,950
+all the other in-equations,
+you can read them in the same way.
+
+140
+00:10:24,950 --> 00:10:28,331
+So again, xa and b, and
+
+141
+00:10:28,331 --> 00:10:35,580
+xb are the arcs from
+transitions to the place.
+
+142
+00:10:35,580 --> 00:10:39,260
+So from transition a to the place,
+from transition b to the place.
+
+143
+00:10:39,260 --> 00:10:45,330
+ya and yb are the number of arcs from
+the place to transitions a and b.
+
+144
+00:10:46,950 --> 00:10:51,140
+So any solution of this system
+of inequations is a place.
+
+145
+00:10:51,140 --> 00:10:54,060
+So let's take a look at
+an example solution.
+
+146
+00:10:54,060 --> 00:10:57,240
+What we see here are two places and
+
+147
+00:10:57,240 --> 00:11:02,080
+both of these places correspond to
+a solution of this in-equation system.
+
+148
+00:11:02,080 --> 00:11:06,970
+So if we take a look at the first one,
+c is equal to 1 and
+
+149
+00:11:06,970 --> 00:11:09,740
+ya is also equal to 1 and
+
+150
+00:11:09,740 --> 00:11:14,780
+this models that there is an arc
+connecting the place to transition a.
+
+151
+00:11:16,230 --> 00:11:22,410
+For example, yb is 0 because there
+is no arc from b to this place.
+
+152
+00:11:24,580 --> 00:11:27,340
+The other place can be
+represented by this.
+
+153
+00:11:27,340 --> 00:11:31,720
+So c equals 1 and yb equals 1.
+
+154
+00:11:31,720 --> 00:11:38,800
+This indicates that there is a connection
+between the place and transition b.
+
+155
+00:11:39,900 --> 00:11:41,110
+And if you fill in these values,
+
+156
+00:11:41,110 --> 00:11:43,830
+you will indeed see that all
+the constraints are satisfied.
+
+157
+00:11:45,350 --> 00:11:48,910
+So, language-based regions
+are a very powerful method and
+
+158
+00:11:48,910 --> 00:11:52,430
+I can only talk about
+a general concept here.
+
+159
+00:11:52,430 --> 00:11:57,480
+Any solution of the system of in-equations
+correspond to a feasible place,
+
+160
+00:11:57,480 --> 00:12:00,450
+a place that does not disallow
+the behavior that we have seen.
+
+161
+00:12:01,930 --> 00:12:05,190
+It is very easy to add
+additional constraints.
+
+162
+00:12:05,190 --> 00:12:09,440
+So for example, we want many of
+the places to be empty at the end,
+
+163
+00:12:09,440 --> 00:12:11,920
+we can just add a constraint.
+
+164
+00:12:11,920 --> 00:12:17,240
+If we would like to ensure that
+the place has never more than two input
+
+165
+00:12:17,240 --> 00:12:22,140
+transitions or two output transitions,
+we can add that as a constraint.
+
+166
+00:12:22,140 --> 00:12:26,410
+We can also put all kinds of constraints
+on the network structure just by
+
+167
+00:12:26,410 --> 00:12:31,440
+adding additional in-equations.
+
+168
+00:12:31,440 --> 00:12:35,890
+Moreover, we use a goal function because
+we are not interested in all places.
+
+169
+00:12:35,890 --> 00:12:41,960
+We are interested in the places
+that restrict the behavior most and
+
+170
+00:12:41,960 --> 00:12:47,190
+we may have certain preferences for
+discovering a particular type of places.
+
+171
+00:12:47,190 --> 00:12:51,220
+So we can put that into the goal function,
+and then we get a standard
+
+172
+00:12:51,220 --> 00:12:56,165
+optimization problem that we can use
+that we can solve using ILP techniques.
+
+173
+00:12:58,190 --> 00:13:03,100
+So this is an example of another
+more sophisticated approach than
+
+174
+00:13:03,100 --> 00:13:05,690
+the approaches we have been looking at so
+far.
+
+175
+00:13:05,690 --> 00:13:09,580
+But these, and also the other approaches
+that I will talk about are supported by
+
+176
+00:13:09,580 --> 00:13:11,250
+ProM, as you can see here.
+
+177
+00:13:14,250 --> 00:13:17,590
+Let's now take a look at
+a completely different technique,
+
+178
+00:13:17,590 --> 00:13:19,530
+genetic process mining.
+
+179
+00:13:19,530 --> 00:13:23,260
+What is the basic idea of genetic
+process mining, because again,
+
+180
+00:13:23,260 --> 00:13:26,309
+I'm not able to go into the details
+of this particular method.
+
+181
+00:13:27,510 --> 00:13:33,500
+The idea is that you use
+evolution to continuously improve
+
+182
+00:13:33,500 --> 00:13:38,140
+your model in many different
+iterations ending up
+
+183
+00:13:38,140 --> 00:13:42,920
+with a model that describes
+the log in the best way possible.
+
+184
+00:13:42,920 --> 00:13:44,299
+So how does it work?
+
+185
+00:13:45,960 --> 00:13:48,540
+We start from an event log and
+from this event log,
+
+186
+00:13:48,540 --> 00:13:53,470
+we can randomly create process models
+indicated here by the blue stars.
+
+187
+00:13:54,910 --> 00:13:57,900
+Every blue star corresponds
+to a process model, and
+
+188
+00:13:57,900 --> 00:14:02,350
+we can just generate them randomly
+to create the first generation.
+
+189
+00:14:03,460 --> 00:14:05,980
+Then we can measure the quality.
+
+190
+00:14:05,980 --> 00:14:08,560
+If the quality is already good enough,
+
+191
+00:14:08,560 --> 00:14:11,630
+which will not be the case,
+then we can stop.
+
+192
+00:14:11,630 --> 00:14:13,350
+Often it's not, but
+
+193
+00:14:13,350 --> 00:14:17,330
+we look at the quality to see what
+are good candidates to continue with.
+
+194
+00:14:18,850 --> 00:14:21,730
+The best candidates go to the next round.
+
+195
+00:14:21,730 --> 00:14:25,410
+We may also take multiple candidates.
+
+196
+00:14:25,410 --> 00:14:30,340
+I use a so called crossover operator
+to recombine them and
+
+197
+00:14:30,340 --> 00:14:32,480
+to create new models, and
+
+198
+00:14:32,480 --> 00:14:38,340
+we can use mutation to change something in
+the model and hope that it will improve.
+
+199
+00:14:38,340 --> 00:14:40,980
+But we are all doing this in a random way.
+
+200
+00:14:40,980 --> 00:14:44,360
+We get a new generation of process models.
+
+201
+00:14:44,360 --> 00:14:48,300
+In each generation,
+there may be thousands of process models.
+
+202
+00:14:48,300 --> 00:14:51,860
+We again check the quality using
+conformance checking of all of
+
+203
+00:14:51,860 --> 00:14:52,640
+these models.
+
+204
+00:14:54,490 --> 00:14:57,940
+Select again the best ones, etc, etc.
+
+205
+00:14:57,940 --> 00:15:03,140
+So after perhaps hundreds or
+thousands of iterations, we end
+
+206
+00:15:03,140 --> 00:15:08,110
+up with a model that has a good quality
+and that is the model that we return.
+
+207
+00:15:09,800 --> 00:15:12,200
+So what are the properties
+of genetic mining?
+
+208
+00:15:12,200 --> 00:15:14,412
+It is typically extremely slow.
+
+209
+00:15:14,412 --> 00:15:19,950
+If we look at real life logs and
+you need large generations,
+
+210
+00:15:19,950 --> 00:15:26,390
+many generations to get
+to the desired result.
+
+211
+00:15:26,390 --> 00:15:29,130
+But it is extremely flexible.
+
+212
+00:15:29,130 --> 00:15:35,070
+It is very easy to add new forces to the
+four forces that we have looked at before.
+
+213
+00:15:35,070 --> 00:15:40,400
+So we can besides looking at fitness,
+precision, generalization, and
+
+214
+00:15:40,400 --> 00:15:45,680
+simplicity, we can add new forces
+like what is the added distance
+
+215
+00:15:45,680 --> 00:15:50,490
+compared to some reference model or
+we may have some cost information or
+
+216
+00:15:50,490 --> 00:15:56,010
+risk information and we can incorporate
+this in the discovery problem
+
+217
+00:15:56,010 --> 00:15:59,700
+giving weights to all the dimensions
+that we would like to consider.
+
+218
+00:16:01,650 --> 00:16:06,610
+We often use genetic process mining if
+we are confronted with a new problem.
+
+219
+00:16:06,610 --> 00:16:09,900
+We have no ways of solving
+it efficiently yet, but
+
+220
+00:16:09,900 --> 00:16:11,620
+we just want to experiment with it.
+
+221
+00:16:12,870 --> 00:16:14,110
+Based on these techniques,
+
+222
+00:16:14,110 --> 00:16:17,970
+you often get ideas to implement
+much faster discovery techniques.
+
+223
+00:16:20,255 --> 00:16:25,410
+Okay, the last approach that we will
+look at today is inductive mining.
+
+224
+00:16:25,410 --> 00:16:27,860
+So, what is the idea of inductive mining?
+
+225
+00:16:27,860 --> 00:16:34,870
+We take an event log and we try to
+decompose it into different parts.
+
+226
+00:16:34,870 --> 00:16:40,640
+So every row that you see here corresponds
+to a trace and we would like to split or
+
+227
+00:16:40,640 --> 00:16:43,430
+decompose these traces in a different way,
+so
+
+228
+00:16:43,430 --> 00:16:46,280
+that we can see the underlying
+structure of the process.
+
+229
+00:16:47,920 --> 00:16:51,040
+So what we are going to do first,
+
+230
+00:16:51,040 --> 00:16:56,340
+is we are going to partition
+the set of labels into two sets.
+
+231
+00:16:56,340 --> 00:17:05,040
+So the set of all labels is partitioned
+into a set a,b,c,d and a set e,f,g.
+
+232
+00:17:05,040 --> 00:17:11,640
+If we do that and we project the log on
+these two sets, then this is what we get and
+
+233
+00:17:11,640 --> 00:17:19,510
+so the first trace,
+abdef is decomposed in abd and ef.
+
+234
+00:17:19,510 --> 00:17:21,450
+And if we use the sequenced operator and
+
+235
+00:17:21,450 --> 00:17:25,290
+we glue these things together,
+we get again the original traces.
+
+236
+00:17:27,020 --> 00:17:32,460
+Of course, the question is how did
+I decide here what operator to use?
+
+237
+00:17:32,460 --> 00:17:35,630
+That is the basic idea of the technique
+how you can discover these
+
+238
+00:17:35,630 --> 00:17:36,790
+types of things.
+
+239
+00:17:36,790 --> 00:17:39,260
+But here I'm just
+explaining the main ideas.
+
+240
+00:17:40,590 --> 00:17:46,850
+So after using the sequence operator, we
+can look at the first part of the log and
+
+241
+00:17:46,850 --> 00:17:50,100
+we again see that everything
+starts with an a.
+
+242
+00:17:51,740 --> 00:17:55,590
+So again we can split there
+using the sequence operator.
+
+243
+00:17:56,610 --> 00:18:00,460
+And for example if we now look at
+the first row, we have a which
+
+244
+00:18:00,460 --> 00:18:06,230
+is sequentially followed by bd,
+which is sequentially followed by e and f.
+
+245
+00:18:06,230 --> 00:18:08,770
+So we are breaking down
+the log in smaller parts.
+
+246
+00:18:10,390 --> 00:18:16,200
+Now we can take a look at the last
+column where we see ef and eg.
+
+247
+00:18:16,200 --> 00:18:17,920
+So again it's logical to,
+
+248
+00:18:17,920 --> 00:18:22,380
+to split this using the sequence
+operator and this is the result.
+
+249
+00:18:25,640 --> 00:18:29,980
+Now there is nothing that we can split
+based on the sequence operator anymore,
+
+250
+00:18:29,980 --> 00:18:32,020
+but we can try other operators.
+
+251
+00:18:32,020 --> 00:18:38,450
+So if we take a look at the last column,
+it contains the symbols,
+
+252
+00:18:38,450 --> 00:18:43,290
+the activities f and g and we can split
+it based on f and g, but not
+
+253
+00:18:43,290 --> 00:18:46,180
+in the sense of a sequence,
+in the sense of an XOR split.
+
+254
+00:18:47,810 --> 00:18:49,440
+So we can split it like this.
+
+255
+00:18:50,500 --> 00:18:51,080
+So what now?
+
+256
+00:18:51,080 --> 00:18:56,820
+With the XOR operator,
+you can see that there is either an f or
+
+257
+00:18:56,820 --> 00:19:00,310
+a g and the f and
+gs are in different columns, but
+
+258
+00:19:00,310 --> 00:19:04,810
+there is never a situation that there is
+a symbol in both columns at the same time.
+
+259
+00:19:06,090 --> 00:19:08,890
+So, that is the XOR operator.
+
+260
+00:19:08,890 --> 00:19:10,130
+If we take a look at
+
+261
+00:19:10,130 --> 00:19:13,900
+the second column,
+we can see that we cannot use sequence.
+
+262
+00:19:15,330 --> 00:19:21,600
+It is very natural to see to apply
+here the so-called parallel operator.
+
+263
+00:19:21,600 --> 00:19:29,560
+So we split the set bcd and
+the sets bc and d using AND decomposition.
+
+264
+00:19:29,560 --> 00:19:31,530
+If we do that, this is what we get.
+
+265
+00:19:33,530 --> 00:19:38,300
+We're still not done because if you
+look at the second column which is
+
+266
+00:19:38,300 --> 00:19:40,600
+part of this parallel operator,
+
+267
+00:19:40,600 --> 00:19:44,830
+you can see that there are still two
+different types of activities, b and c.
+
+268
+00:19:45,860 --> 00:19:50,980
+So now we can again apply the XOR
+operator, split it into the sets
+
+269
+00:19:50,980 --> 00:19:55,530
+consisting just b and the set consisting
+of just c and this is what you get.
+
+270
+00:19:57,140 --> 00:20:01,070
+So if I now look again at
+what we have been doing,
+
+271
+00:20:01,070 --> 00:20:06,770
+we have been splitting the log until no
+further decomposition is possible, and
+
+272
+00:20:06,770 --> 00:20:08,370
+you can represent that as a tree.
+
+273
+00:20:09,710 --> 00:20:14,030
+So a tree as is shown here,
+is called a process tree.
+
+274
+00:20:14,030 --> 00:20:20,720
+We decompose the log based on AND,
+XOR, sequences,
+
+275
+00:20:20,720 --> 00:20:23,760
+but also operators like loops
+that you cannot see here.
+
+276
+00:20:25,410 --> 00:20:28,980
+If you look at this process
+tree we can easily convert it
+
+277
+00:20:28,980 --> 00:20:33,940
+to a structured process model, for example
+here, you see the corresponding Petri net,
+
+278
+00:20:33,940 --> 00:20:36,160
+and here you can see
+the corresponding BPMN model.
+
+279
+00:20:38,100 --> 00:20:42,340
+What you can see is that these models
+can indeed replay all the traces that we
+
+280
+00:20:42,340 --> 00:20:43,490
+have seen before.
+
+281
+00:20:43,490 --> 00:20:48,470
+So, they are a natural representation
+of the behavior that we have seen.
+
+282
+00:20:48,470 --> 00:20:54,920
+So, that's the idea of the inductive miner
+and it is supported, by the ProM tool set.
+
+283
+00:20:54,920 --> 00:20:57,050
+So here you see the tool in action,
+
+284
+00:20:57,050 --> 00:21:02,420
+you can also see that different
+cases are being animated,
+
+285
+00:21:02,420 --> 00:21:06,480
+just as we have seen in the fuzzy miner
+and we have seen in the disco tool.
+
+286
+00:21:09,210 --> 00:21:13,930
+The underlying representation is a process
+tree, that is what is shown here, but
+
+287
+00:21:13,930 --> 00:21:18,180
+such a process tree can be automatically
+converted into a Petri net or
+
+288
+00:21:18,180 --> 00:21:18,780
+a BPMN diagram.
+
+289
+00:21:19,876 --> 00:21:23,050
+So we can choose whatever
+notation we like.
+
+290
+00:21:24,578 --> 00:21:28,730
+This inductive miner also has a slider and
+
+291
+00:21:28,730 --> 00:21:32,350
+you can choose the level of
+abstraction that you can look at.
+
+292
+00:21:32,350 --> 00:21:35,970
+So here you can see that this is
+based on the same event log, but
+
+293
+00:21:35,970 --> 00:21:37,860
+I now selected fewer activities.
+
+294
+00:21:37,860 --> 00:21:41,520
+I just look at the most frequent
+activities and in this way,
+
+295
+00:21:41,520 --> 00:21:42,640
+I get the simpler model.
+
+296
+00:21:43,970 --> 00:21:46,050
+This mining tool has many more features.
+
+297
+00:21:46,050 --> 00:21:50,910
+It can also show deviations
+you can look at frequent and
+
+298
+00:21:50,910 --> 00:21:53,910
+infrequent paths and so
+it's really a tool where you
+
+299
+00:21:53,910 --> 00:21:57,330
+can explore a data set within
+a very comprehensive manner.
+
+300
+00:21:59,620 --> 00:22:02,540
+So these are examples of more advanced,
+
+301
+00:22:02,540 --> 00:22:07,610
+more sophisticated process discovery
+techniques than we have seen before.
+
+302
+00:22:07,610 --> 00:22:10,630
+There are many more but
+
+303
+00:22:10,630 --> 00:22:14,440
+this was everything there was in
+this course about process discovery.
+
+304
+00:22:15,920 --> 00:22:20,780
+In the next lecture, we will start talking
+about conformance checking which is
+
+305
+00:22:20,780 --> 00:22:23,560
+also a very important process mining task.
+
+306
+00:22:25,280 --> 00:22:26,851
+Thank you for watching this lecture.
+
+307
+00:22:26,851 --> 00:22:28,121
+See you next time.
+
+308
+00:22:28,121 --> 00:22:38,121
+[MUSIC]
+

@@ -1,0 +1,316 @@
+1
+00:00:00,000 --> 00:00:07,861
+[MUSIC]
+
+2
+00:00:07,861 --> 00:00:12,520
+Today, we focus on the analysis of so
+called lasagna processes.
+
+3
+00:00:12,520 --> 00:00:17,710
+We can apply all the techniques discussed
+in this course to such processes.
+
+4
+00:00:17,710 --> 00:00:22,570
+In fact, for lasagna processes,
+control for discovery only serves as
+
+5
+00:00:22,570 --> 00:00:26,420
+a starting point for
+more advanced process mining techniques.
+
+6
+00:00:29,010 --> 00:00:34,310
+We've used the term spaghetti and
+lasagna processes several times before.
+
+7
+00:00:34,310 --> 00:00:35,670
+So what does it actually mean?
+
+8
+00:00:36,980 --> 00:00:41,240
+If we use the term spaghetti processes,
+we are referring to
+
+9
+00:00:41,240 --> 00:00:46,790
+processes that are unstructured,
+that have irregular behavior,
+
+10
+00:00:46,790 --> 00:00:50,020
+that are characterized by words
+like flexible and variable.
+
+11
+00:00:51,270 --> 00:00:53,830
+Lasagna processes on the other hand.
+
+12
+00:00:53,830 --> 00:00:59,560
+Correspond to processes that
+are structured, repetitive, regular, and
+
+13
+00:00:59,560 --> 00:01:01,000
+that can be controlled.
+
+14
+00:01:02,670 --> 00:01:04,850
+Of course, these are two extremes.
+
+15
+00:01:04,850 --> 00:01:08,970
+In fact,
+one can talk about a spectrum of processes
+
+16
+00:01:08,970 --> 00:01:13,830
+ranging from very unstructured
+to very structured processes.
+
+17
+00:01:15,790 --> 00:01:18,900
+Today, we focus on lasagna processes.
+
+18
+00:01:18,900 --> 00:01:22,190
+Processes that are repetitive and
+well structured.
+
+19
+00:01:25,350 --> 00:01:30,210
+How can we define lasagna processes,
+here is an attempt at the rule of thumb.
+
+20
+00:01:31,290 --> 00:01:35,160
+Saying that for
+a lasagna process you should be able to
+
+21
+00:01:35,160 --> 00:01:40,340
+create a model that has
+a fitness of at least 0.8, and
+
+22
+00:01:40,340 --> 00:01:44,660
+the stakeholders can confirm
+the validity of the model.
+
+23
+00:01:44,660 --> 00:01:47,980
+So this excludes a model
+like a flower model.
+
+24
+00:01:47,980 --> 00:01:53,280
+The mainstream behavior should fit
+into a relatively simple model.
+
+25
+00:01:55,810 --> 00:01:58,200
+This is an example of a lasagna process.
+
+26
+00:01:58,200 --> 00:02:02,610
+It's taken from a Dutch municipality and
+it corresponds to
+
+27
+00:02:02,610 --> 00:02:08,200
+event data in the context of people
+requesting for household helps.
+
+28
+00:02:08,200 --> 00:02:13,260
+So the event log here is
+using over 500 requests,
+
+29
+00:02:13,260 --> 00:02:19,310
+500 cases, generating approximately
+five and a half thousand events.
+
+30
+00:02:21,028 --> 00:02:25,030
+From the dotted chart you can
+already see that this process has
+
+31
+00:02:25,030 --> 00:02:27,200
+a rather regular behavior.
+
+32
+00:02:27,200 --> 00:02:31,960
+There is a continuous
+flow of new cases and
+
+33
+00:02:31,960 --> 00:02:36,270
+cases typically take relatively
+short amount of time.
+
+34
+00:02:36,270 --> 00:02:39,290
+If you look at the color of the dots you
+
+35
+00:02:39,290 --> 00:02:43,320
+can also see that there
+are relatively few activities.
+
+36
+00:02:45,220 --> 00:02:49,860
+If we use the inductive miner then
+this is the model that is discovered.
+
+37
+00:02:49,860 --> 00:02:53,760
+We can convert it to a Petri net or
+a BPMN model.
+
+38
+00:02:53,760 --> 00:02:58,520
+And they all show the same
+relatively simple process.
+
+39
+00:03:00,910 --> 00:03:05,670
+If you look at the fitness
+of this discovered process.
+
+40
+00:03:05,670 --> 00:03:11,080
+The fitness is almost perfect, in fact 505
+
+41
+00:03:11,080 --> 00:03:16,210
+of the 528 cases fit
+perfectly into this model.
+
+42
+00:03:18,360 --> 00:03:20,550
+So we can do performance analysis.
+
+43
+00:03:20,550 --> 00:03:23,880
+And the activity highlighted
+here in red is the bottleneck.
+
+44
+00:03:23,880 --> 00:03:29,700
+It's an optional activity
+that often takes a long time.
+
+45
+00:03:32,002 --> 00:03:36,988
+If you use Disco rather than ProM,
+we find exactly the same results.
+
+46
+00:03:36,988 --> 00:03:41,070
+And so here in blue you can
+see frequencies, in red,
+
+47
+00:03:41,070 --> 00:03:44,870
+yellow you can see the time
+spent in the various phases.
+
+48
+00:03:44,870 --> 00:03:46,735
+And we find the same bottlenecks.
+
+49
+00:03:49,410 --> 00:03:58,230
+All the stages of the L* lifecycle model
+can be visited for such Lasagna processes.
+
+50
+00:03:58,230 --> 00:04:04,030
+And so we can even do operational support
+because the behavior is very regular,
+
+51
+00:04:04,030 --> 00:04:08,800
+and therefore, for example, we can
+predict things based on historic data.
+
+52
+00:04:11,000 --> 00:04:16,350
+Also, all the ten process mining
+activities in the refined reference model
+
+53
+00:04:16,350 --> 00:04:20,970
+can actually be applied in
+the context of lasagna processes.
+
+54
+00:04:22,800 --> 00:04:27,290
+So lasagna processes are easy to discover,
+but
+
+55
+00:04:27,290 --> 00:04:32,620
+the drawback is that it is less
+interesting to discover the real process.
+
+56
+00:04:32,620 --> 00:04:36,980
+Because typically people know what
+a real process because it is so regular.
+
+57
+00:04:38,140 --> 00:04:44,780
+So the added value is that the whole
+process mining tool box can be applied.
+
+58
+00:04:44,780 --> 00:04:51,370
+So typically replay techniques are very
+important to understand bottlenecks,
+
+59
+00:04:51,370 --> 00:04:57,410
+to understand decisions in the process
+to see which customers take longer,
+
+60
+00:04:57,410 --> 00:04:59,660
+which customers take shorter.
+
+61
+00:04:59,660 --> 00:05:06,190
+So the advanced types of process
+mining based on alignments
+
+62
+00:05:06,190 --> 00:05:11,550
+with respect to a relatively simple model,
+is where the value lies.
+
+63
+00:05:11,550 --> 00:05:15,870
+If you would like to read more
+on these types of processes,
+
+64
+00:05:15,870 --> 00:05:20,000
+lasagna processes,
+take a look at chapter 11.
+
+65
+00:05:20,000 --> 00:05:23,795
+Thank you for watching this lecture,
+see you next time.
+
+66
+00:05:23,795 --> 00:05:33,795
+[MUSIC]
+

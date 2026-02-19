@@ -1,0 +1,1057 @@
+1
+00:00:00,000 --> 00:00:07,492
+[MUSIC]
+
+2
+00:00:07,492 --> 00:00:12,240
+Welcome to this lecture of the course on
+Process Mining: Data science in Action.
+
+3
+00:00:12,240 --> 00:00:17,120
+Process models, handmade or discovered,
+may have many decision points.
+
+4
+00:00:17,120 --> 00:00:19,390
+For example, XOR splits.
+
+5
+00:00:19,390 --> 00:00:23,510
+In this lecture, we will show that by
+replaying the event log on the model,
+
+6
+00:00:23,510 --> 00:00:25,660
+we can analyze these choices,
+
+7
+00:00:25,660 --> 00:00:29,420
+thereby exploiting the data
+attributes in the event log.
+
+8
+00:00:31,210 --> 00:00:35,190
+This is a diagram that we have
+seen several times before.
+
+9
+00:00:35,190 --> 00:00:40,070
+In earlier lectures, we focused on
+discovery and conformance checking.
+
+10
+00:00:40,070 --> 00:00:43,670
+In the next couple of lectures,
+we will look at the bottom arrow,
+
+11
+00:00:43,670 --> 00:00:45,530
+called enhancement.
+
+12
+00:00:45,530 --> 00:00:50,800
+So we want to improve
+a model based on event data.
+
+13
+00:00:51,830 --> 00:00:54,800
+So, what types of enhancement are there?
+
+14
+00:00:54,800 --> 00:00:58,160
+The first type of
+enhancement is extension.
+
+15
+00:00:58,160 --> 00:01:04,560
+So we take event data and add additional
+elements to the process model.
+
+16
+00:01:05,860 --> 00:01:09,270
+We can also use event data
+to repair an existing model.
+
+17
+00:01:10,320 --> 00:01:16,580
+Both extension and repair have in
+common that we produce a new model,
+
+18
+00:01:16,580 --> 00:01:22,300
+which is either better or extended,
+adding additional perspectives.
+
+19
+00:01:22,300 --> 00:01:25,220
+This is different from conformance
+checking, where we were
+
+20
+00:01:25,220 --> 00:01:30,660
+generating diagnostics based on the fit
+between the reality and the model.
+
+21
+00:01:32,110 --> 00:01:35,170
+In this lecture,
+we will focus on extension.
+
+22
+00:01:35,170 --> 00:01:36,970
+There are different types of extensions.
+
+23
+00:01:36,970 --> 00:01:42,000
+We can extend the model with guards and
+data related aspects.
+
+24
+00:01:42,000 --> 00:01:47,880
+We can extend the model with time related
+aspects, with resource related aspects.
+
+25
+00:01:47,880 --> 00:01:50,700
+But the focus of today is on data.
+
+26
+00:01:50,700 --> 00:01:54,470
+We would like to add a data
+perspective to process models.
+
+27
+00:01:56,360 --> 00:01:59,390
+For that,
+we will focus on decision points.
+
+28
+00:01:59,390 --> 00:02:05,090
+In process models, there are many points
+at which cases can go left or right.
+
+29
+00:02:05,090 --> 00:02:07,350
+And we would like to
+understand these choices,
+
+30
+00:02:07,350 --> 00:02:09,399
+these decisions in such a process.
+
+31
+00:02:10,890 --> 00:02:13,050
+What do we need to do this?
+
+32
+00:02:13,050 --> 00:02:15,660
+First of all,
+we need to have an event log.
+
+33
+00:02:15,660 --> 00:02:17,730
+And we need to have a process model.
+
+34
+00:02:17,730 --> 00:02:20,870
+The process model may have been
+discovered, or made by hand.
+
+35
+00:02:22,740 --> 00:02:27,700
+And what is then very important is that,
+through the notion of alignments,
+
+36
+00:02:27,700 --> 00:02:31,460
+we are able to relate the traces
+that we saw in reality,
+
+37
+00:02:31,460 --> 00:02:36,206
+which are stored in the event log,
+we can replay them on top of the model.
+
+38
+00:02:36,206 --> 00:02:43,310
+So every trace, seen in reality,
+can be related to a path in the model.
+
+39
+00:02:43,310 --> 00:02:47,820
+So we need to match the names in
+the event log and in the model.
+
+40
+00:02:49,570 --> 00:02:54,560
+This is a figure that we have seen
+before showing the essence of alignment.
+
+41
+00:02:54,560 --> 00:03:00,560
+So, even if things do not fit perfectly
+and we have move on model or
+
+42
+00:03:00,560 --> 00:03:05,900
+move on log type of problems, we can
+still squeeze reality in the model and
+
+43
+00:03:05,900 --> 00:03:09,720
+then use this as a starting point for
+analysis.
+
+44
+00:03:09,720 --> 00:03:13,680
+So in the remainder of this lecture,
+I will not worry about
+
+45
+00:03:13,680 --> 00:03:18,370
+nonconformance because that has been taken
+care of by true denotion of alignment.
+
+46
+00:03:20,400 --> 00:03:24,790
+So, after we have aligned
+reality with a model,
+
+47
+00:03:24,790 --> 00:03:31,130
+we would like to understand why particular
+choices are being made in a process model.
+
+48
+00:03:31,130 --> 00:03:34,870
+For example, we can accept a claim or
+reject a claim.
+
+49
+00:03:34,870 --> 00:03:40,530
+This is a choice between two activities,
+which cases are accepted,
+
+50
+00:03:40,530 --> 00:03:42,790
+which cases are rejected.
+
+51
+00:03:42,790 --> 00:03:44,760
+So this is an XOR split.
+
+52
+00:03:44,760 --> 00:03:48,249
+We choose one of the two
+possible activities.
+
+53
+00:03:49,400 --> 00:03:52,500
+We also have the notion of OR splits.
+
+54
+00:03:52,500 --> 00:03:55,970
+Here, we have multiple activities, but
+
+55
+00:03:55,970 --> 00:04:02,520
+we sometimes may pick multiple
+activities from the set of alternatives.
+
+56
+00:04:02,520 --> 00:04:06,600
+So, for example, in this case,
+we can book a flight.
+
+57
+00:04:06,600 --> 00:04:11,210
+And we can book a hotel at the same time,
+but we can also just book a flight.
+
+58
+00:04:11,210 --> 00:04:13,290
+That's why this is an OR split.
+
+59
+00:04:13,290 --> 00:04:16,255
+So we would also like to discover
+these types of constructs.
+
+60
+00:04:19,000 --> 00:04:22,550
+Let's make it more concrete through a,
+a very small example.
+
+61
+00:04:23,580 --> 00:04:26,960
+Suppose that we have so-called red cases.
+
+62
+00:04:26,960 --> 00:04:30,970
+These are cases that have
+particular properties.
+
+63
+00:04:30,970 --> 00:04:35,810
+And assume that they always take
+the path where they do A and
+
+64
+00:04:35,810 --> 00:04:39,480
+then B and C in some order, and finally D.
+
+65
+00:04:39,480 --> 00:04:42,469
+So E is not executed for the red cases.
+
+66
+00:04:43,820 --> 00:04:46,140
+On the other hand,
+we also have blue cases.
+
+67
+00:04:46,140 --> 00:04:49,410
+And these blue cases,
+they follow a different path.
+
+68
+00:04:49,410 --> 00:04:53,550
+So instead of doing B and
+C, E is executed.
+
+69
+00:04:54,870 --> 00:04:58,120
+If we would now like to capture
+information about red and
+
+70
+00:04:58,120 --> 00:05:04,390
+blue cases in a single process model,
+we need to have a notion of guards.
+
+71
+00:05:04,390 --> 00:05:08,170
+So, here you see the process
+model extended with guards.
+
+72
+00:05:08,170 --> 00:05:12,420
+And they are telling which
+are the paths that red cases take.
+
+73
+00:05:12,420 --> 00:05:14,440
+And which are the paths
+that blue cases take.
+
+74
+00:05:15,970 --> 00:05:21,770
+So, this is what we would like to discover
+once we have a control flow model and
+
+75
+00:05:21,770 --> 00:05:22,800
+we have event data.
+
+76
+00:05:24,560 --> 00:05:30,520
+So what we are looking for
+is learning more about decision points.
+
+77
+00:05:30,520 --> 00:05:35,096
+So in this Petri net model we see
+that there are two decision points.
+
+78
+00:05:35,096 --> 00:05:37,197
+So in a Petri net in general,
+
+79
+00:05:37,197 --> 00:05:41,849
+places with multiple output
+arcs model choices, decisions.
+
+80
+00:05:43,620 --> 00:05:45,800
+If we look at a BPMN diagram,
+
+81
+00:05:45,800 --> 00:05:49,610
+we have dedicated constructs
+to model such choices.
+
+82
+00:05:50,700 --> 00:05:56,565
+In BPMN we have so-called XOR-split
+gateways, OR-split gateways, and we can
+
+83
+00:05:56,565 --> 00:06:02,795
+also have the notion of a deferred choice
+having an event-based XOR-split gateway.
+
+84
+00:06:02,795 --> 00:06:05,350
+So,these model decision points.
+
+85
+00:06:05,350 --> 00:06:10,360
+But we would not just like to see the
+control flow, we would like to understand.
+
+86
+00:06:10,360 --> 00:06:12,770
+What are the cases that go left?
+
+87
+00:06:12,770 --> 00:06:14,260
+What are the cases that go right?
+
+88
+00:06:16,100 --> 00:06:21,360
+So decision point
+analysis is an example of
+
+89
+00:06:22,680 --> 00:06:27,140
+a type of analysis where we need to
+combine data mining and process mining.
+
+90
+00:06:27,140 --> 00:06:31,440
+And this combination provides
+many powerful possibilities,
+
+91
+00:06:31,440 --> 00:06:34,770
+as we will see in this lecture,
+and also in future lectures.
+
+92
+00:06:37,080 --> 00:06:41,140
+So, here,
+we are using decision tree analysis,
+
+93
+00:06:41,140 --> 00:06:44,020
+as we have seen it in the first week.
+
+94
+00:06:44,020 --> 00:06:51,450
+We are looking at classifying cases
+based on predictor variables.
+
+95
+00:06:51,450 --> 00:06:54,470
+So, in this particular example,
+there is one response variable,
+
+96
+00:06:54,470 --> 00:06:58,790
+the variable that we are interested in,
+will people claim or not.
+
+97
+00:06:58,790 --> 00:07:03,140
+And we would like to understand it
+in terms of predictor variables,
+
+98
+00:07:03,140 --> 00:07:06,810
+in this case, the gender of the customer,
+the age of the customer,
+
+99
+00:07:06,810 --> 00:07:11,340
+what kind of car the customer driving,
+is driving, etc.
+
+100
+00:07:11,340 --> 00:07:15,818
+So we would like to explain
+the response variable in terms of
+
+101
+00:07:15,818 --> 00:07:18,410
+relevant predictor variables.
+
+102
+00:07:18,410 --> 00:07:20,880
+We've seen how this works in week one.
+
+103
+00:07:20,880 --> 00:07:24,740
+And now we would like to apply
+this to decision point analysis.
+
+104
+00:07:26,170 --> 00:07:30,880
+So the output of decision tree
+learning is a decision tree.
+
+105
+00:07:30,880 --> 00:07:36,430
+Here you see one of the decision trees
+that we discussed in the first week.
+
+106
+00:07:36,430 --> 00:07:40,550
+It is showing that female drivers
+typically don't claim insurance.
+
+107
+00:07:41,860 --> 00:07:45,890
+Male Alfa Romeo drivers,
+they claim insurance.
+
+108
+00:07:45,890 --> 00:07:49,520
+You can follow that by taking
+the path from the root node to
+
+109
+00:07:49,520 --> 00:07:50,915
+the corresponding leaf node.
+
+110
+00:07:52,470 --> 00:07:57,470
+Male Volvo drivers younger
+than 25 also claim insurance.
+
+111
+00:07:57,470 --> 00:08:02,680
+So this provides
+information about choices.
+
+112
+00:08:02,680 --> 00:08:05,970
+And we can apply this in
+the context of process models.
+
+113
+00:08:05,970 --> 00:08:09,630
+So what will it look like in the process
+model, we will have a choice.
+
+114
+00:08:09,630 --> 00:08:15,030
+For example, the choice between claiming
+insurance and not claiming insurance.
+
+115
+00:08:15,030 --> 00:08:22,090
+And then we could learn a guard for
+example given a certain gender and
+
+116
+00:08:22,090 --> 00:08:26,170
+a certain type of car that people drive,
+whether people claim insurance or not.
+
+117
+00:08:28,830 --> 00:08:35,080
+So we would like to create classification
+problems based on decision points.
+
+118
+00:08:35,080 --> 00:08:40,800
+So let's focus on decision point one here,
+where we are choosing between b and c.
+
+119
+00:08:42,250 --> 00:08:48,420
+So the response variable is whether
+b is chosen or c is chosen.
+
+120
+00:08:48,420 --> 00:08:53,010
+And the predictor variables
+are all the things that we know,
+
+121
+00:08:54,220 --> 00:08:57,110
+that are there in
+the context of this choice.
+
+122
+00:08:57,110 --> 00:09:04,300
+So, very concretely, activity a was
+executed before the choice to do b or c.
+
+123
+00:09:04,300 --> 00:09:10,040
+So the choice may depend, for example,
+on which person executed activity a.
+
+124
+00:09:10,040 --> 00:09:12,760
+So that's an example of
+a predictor variable.
+
+125
+00:09:12,760 --> 00:09:15,400
+But it could also be
+the type of the customer,
+
+126
+00:09:15,400 --> 00:09:17,688
+the age of the customer, etcetera.
+
+127
+00:09:17,688 --> 00:09:23,410
+So, based on all
+
+128
+00:09:23,410 --> 00:09:28,920
+these times that the choice is being made,
+we create instances that look like this,
+
+129
+00:09:28,920 --> 00:09:33,490
+having a set of predictor variables and
+one response variable.
+
+130
+00:09:34,560 --> 00:09:39,520
+And that naturally defines
+a decision tree problem.
+
+131
+00:09:39,520 --> 00:09:42,070
+So let's take a look at
+some more examples.
+
+132
+00:09:42,070 --> 00:09:49,400
+So here we would like to understand what
+is influencing the choice between y and z.
+
+133
+00:09:51,230 --> 00:09:53,720
+Here we have the corresponding data.
+
+134
+00:09:53,720 --> 00:09:58,220
+And if we look at this data, one could
+come to the conclusion that these
+
+135
+00:09:58,220 --> 00:10:06,120
+are the guards that are explaining
+the factors influencing this choice.
+
+136
+00:10:06,120 --> 00:10:10,070
+So, customers that are gold customers and
+
+137
+00:10:10,070 --> 00:10:15,830
+that claim an amount less
+than 500 Euros always take y.
+
+138
+00:10:15,830 --> 00:10:17,880
+The other customers take z.
+
+139
+00:10:17,880 --> 00:10:22,482
+So if you look at the concrete example,
+here we have our silver
+
+140
+00:10:22,482 --> 00:10:28,164
+customers from the Southern region
+claiming an amount of more than 500.
+
+141
+00:10:28,164 --> 00:10:31,343
+And for this customer,
+z was being executed, and
+
+142
+00:10:31,343 --> 00:10:35,520
+this is consistent with the guards
+that we have discovered here.
+
+143
+00:10:37,280 --> 00:10:39,760
+Here we see this in terms of a Petri net.
+
+144
+00:10:39,760 --> 00:10:43,280
+We can have it in terms of any
+other process model notation.
+
+145
+00:10:43,280 --> 00:10:48,190
+For example, here we see
+a BPMN XOR-split gateway which is
+
+146
+00:10:48,190 --> 00:10:51,010
+expressing exactly the same
+type of information.
+
+147
+00:10:52,720 --> 00:10:57,100
+In a BPMN model, but
+in many other modelling notations we
+
+148
+00:10:57,100 --> 00:11:02,300
+also have OR-splits, inclusive OR-splits.
+
+149
+00:11:02,300 --> 00:11:08,380
+Here in this example, we can take just y,
+just z, but we can also take both.
+
+150
+00:11:09,520 --> 00:11:15,290
+So this is a different type of
+decision tree learning problem, but
+
+151
+00:11:15,290 --> 00:11:18,250
+it can be solved in exactly the same way.
+
+152
+00:11:18,250 --> 00:11:21,570
+So here we could learn these two guards.
+
+153
+00:11:21,570 --> 00:11:25,980
+And if you closely look at these guards,
+you can see that they are overlapping.
+
+154
+00:11:25,980 --> 00:11:31,355
+So there are certain circumstances
+where we will both take y and z.
+
+155
+00:11:32,840 --> 00:11:35,300
+So again,
+we can look at a concrete example.
+
+156
+00:11:35,300 --> 00:11:42,750
+A silver customer from region west
+claiming an amount less than 500 Euros.
+
+157
+00:11:44,440 --> 00:11:48,730
+For this particular customer,
+y and z were being executed.
+
+158
+00:11:48,730 --> 00:11:53,330
+And if we look at
+the corresponding BPMN fragment,
+
+159
+00:11:53,330 --> 00:11:57,640
+we can see that this consistent with
+the guards that we have learned.
+
+160
+00:11:57,640 --> 00:11:59,140
+So, this what we would like to do.
+
+161
+00:12:01,320 --> 00:12:06,600
+So the response variable is
+the decision that we are taking.
+
+162
+00:12:06,600 --> 00:12:10,650
+Do we take activity f or
+some other activity?
+
+163
+00:12:10,650 --> 00:12:12,870
+We can look at the decision point,
+
+164
+00:12:12,870 --> 00:12:18,560
+and reasoning from the decision point
+just before the choice is being made,
+
+165
+00:12:18,560 --> 00:12:22,756
+we can look at what are the variables
+influencing this decision?
+
+166
+00:12:22,756 --> 00:12:26,400
+The so-called predictor variables.
+
+167
+00:12:26,400 --> 00:12:29,750
+It can be properties of the case itself.
+
+168
+00:12:29,750 --> 00:12:34,190
+So case variables are variables that
+do not depend on a particular event.
+
+169
+00:12:34,190 --> 00:12:37,890
+They do not change over
+the lifetime of a case.
+
+170
+00:12:37,890 --> 00:12:41,670
+So for example, a customer is a gold
+customer from beginning to end.
+
+171
+00:12:43,160 --> 00:12:49,300
+We may also use attributes of the last
+event executed before the decision.
+
+172
+00:12:49,300 --> 00:12:55,390
+In this case, e was the last event
+before we had to make the decision.
+
+173
+00:12:56,670 --> 00:12:59,480
+We can look at the attributes
+of this event.
+
+174
+00:12:59,480 --> 00:13:06,520
+Which person executed e, and
+what kind of data was associated to e.
+
+175
+00:13:06,520 --> 00:13:08,850
+Rather than just looking
+at the last event,
+
+176
+00:13:08,850 --> 00:13:14,680
+we can look at all the events executed
+before the decision had to be made.
+
+177
+00:13:14,680 --> 00:13:19,050
+And this can serve as input to
+the the decision tree learning problem.
+
+178
+00:13:20,270 --> 00:13:25,410
+In fact, we can also take all the events
+also looking at things in the future.
+
+179
+00:13:25,410 --> 00:13:28,520
+For example,
+we may want to relate a decision in
+
+180
+00:13:28,520 --> 00:13:32,540
+the middle to the process to
+an outcome later in the process.
+
+181
+00:13:32,540 --> 00:13:35,180
+For example, will the case be too late?
+
+182
+00:13:35,180 --> 00:13:37,830
+Will the case be rejected,
+and things like that.
+
+183
+00:13:41,010 --> 00:13:45,320
+The examples that I gave so
+far are information predictor
+
+184
+00:13:45,320 --> 00:13:50,400
+variables associated to
+a particular process instance.
+
+185
+00:13:50,400 --> 00:13:53,000
+But the context may be much broader.
+
+186
+00:13:53,000 --> 00:13:57,820
+For example, we can look at
+the number of cases that are running,
+
+187
+00:13:57,820 --> 00:14:02,620
+and see whether this is
+influencing a particular decision.
+
+188
+00:14:02,620 --> 00:14:07,870
+For example, if it is very busy,
+then we typically skip an activity.
+
+189
+00:14:07,870 --> 00:14:10,770
+We can also look at the work
+load of a resource,
+
+190
+00:14:10,770 --> 00:14:13,180
+how many resources are available.
+
+191
+00:14:13,180 --> 00:14:16,540
+In fact, we can even look at
+the day of the week or the weather.
+
+192
+00:14:16,540 --> 00:14:19,510
+These may be factors
+influencing the decision.
+
+193
+00:14:19,510 --> 00:14:23,150
+So we can all add them
+as predictor variables.
+
+194
+00:14:24,420 --> 00:14:25,790
+However, there is one problem.
+
+195
+00:14:25,790 --> 00:14:28,250
+One needs to be very careful with this,
+
+196
+00:14:28,250 --> 00:14:31,090
+because there is the so-called
+curse of dimensionality.
+
+197
+00:14:32,280 --> 00:14:36,430
+This means that the more
+variables that you add,
+
+198
+00:14:36,430 --> 00:14:40,080
+the more possible combinations
+of all these variables you get,
+
+199
+00:14:41,090 --> 00:14:46,050
+the fewer observations you have
+per combination of variables.
+
+200
+00:14:46,050 --> 00:14:51,760
+So, the data gets extremely sparse and
+we get the danger of overfitting.
+
+201
+00:14:51,760 --> 00:14:56,390
+So you carefully need to think about
+what are the variables that one would
+
+202
+00:14:56,390 --> 00:14:57,250
+like to include.
+
+203
+00:14:59,740 --> 00:15:01,290
+In all the examples so far,
+
+204
+00:15:02,420 --> 00:15:08,210
+a decision point was defined as deciding
+what is going to be the next activity.
+
+205
+00:15:08,210 --> 00:15:12,390
+And it's a very important problem
+that needs to be addressed and
+
+206
+00:15:12,390 --> 00:15:14,540
+that needs to be understood well.
+
+207
+00:15:14,540 --> 00:15:19,750
+However, if you understand this,
+the applicability is much broader.
+
+208
+00:15:19,750 --> 00:15:23,290
+Rather than having as a response
+variable the next activity,
+
+209
+00:15:23,290 --> 00:15:28,300
+we can also take as a response
+variable the remaining flow time,
+
+210
+00:15:28,300 --> 00:15:34,630
+the service level, costs,
+risks, fraud, incidents, etc.
+
+211
+00:15:34,630 --> 00:15:39,070
+So for example, in a hospital,
+you would be interested to see whether
+
+212
+00:15:39,070 --> 00:15:45,610
+deviations of the process lead
+to incidents or higher costs.
+
+213
+00:15:45,610 --> 00:15:52,030
+Using exactly the same principles as
+decision point analysis, you can also
+
+214
+00:15:52,030 --> 00:15:57,000
+understand these types of phenomena by
+using exactly the same type of techniques.
+
+215
+00:15:58,790 --> 00:16:02,690
+In fact, in a later lecture,
+we will also look into the future.
+
+216
+00:16:02,690 --> 00:16:07,170
+You can use these models
+to make predictions, and
+
+217
+00:16:07,170 --> 00:16:10,740
+that is what we will discuss when
+we talk about operational support.
+
+218
+00:16:10,740 --> 00:16:15,650
+If you would like to learn more
+about decision point analysis,
+
+219
+00:16:15,650 --> 00:16:18,260
+please start reading in chapter 8.
+
+220
+00:16:18,260 --> 00:16:20,055
+Thank you for watching this lecture.
+
+221
+00:16:20,055 --> 00:16:22,586
+See you next time.
+
+222
+00:16:22,586 --> 00:16:32,586
+[MUSIC]
+

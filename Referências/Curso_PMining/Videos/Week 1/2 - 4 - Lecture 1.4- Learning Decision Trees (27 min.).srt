@@ -1,0 +1,1647 @@
+1
+00:00:00,072 --> 00:00:07,183
+[MUSIC].
+
+2
+00:00:07,183 --> 00:00:11,570
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+
+3
+00:00:11,570 --> 00:00:13,890
+Before we focus on process mining,
+
+4
+00:00:13,890 --> 00:00:18,049
+it is good t have a solid understanding
+of the mainstream data mining techniques.
+
+5
+00:00:19,080 --> 00:00:22,140
+Hence, there will be several
+lectures on data mining.
+
+6
+00:00:22,140 --> 00:00:26,070
+Today we start by presenting
+a technique to learn decision trees.
+
+7
+00:00:27,520 --> 00:00:31,687
+This slide shows that process
+mining is the linking pin
+
+8
+00:00:31,687 --> 00:00:37,230
+between data-oriented analysis,
+and process-oriented analysis.
+
+9
+00:00:37,230 --> 00:00:42,150
+Before we focus on process discovery
+techniques, conformance checking.
+
+10
+00:00:42,150 --> 00:00:45,910
+Predictive analytics, and
+other forms of process mining.
+
+11
+00:00:45,910 --> 00:00:49,650
+We now look at so-called
+decision tree learning,
+
+12
+00:00:49,650 --> 00:00:52,780
+which is one of many available
+data mining techniques.
+
+13
+00:00:54,490 --> 00:00:56,210
+So what is a decision tree?
+
+14
+00:00:56,210 --> 00:01:00,630
+In a decision tree we have a number
+of predictor variables, and
+
+15
+00:01:00,630 --> 00:01:03,330
+based on these predictor variables.
+
+16
+00:01:03,330 --> 00:01:07,220
+We try to predict,
+what the so-called response variable is.
+
+17
+00:01:08,250 --> 00:01:12,120
+Decision tree learning is
+a form of supervised learning,
+
+18
+00:01:12,120 --> 00:01:14,030
+because the data is labeled.
+
+19
+00:01:14,030 --> 00:01:16,470
+Labeled using the response variable.
+
+20
+00:01:16,470 --> 00:01:18,950
+In our case, this is categorical data.
+
+21
+00:01:20,930 --> 00:01:22,840
+Let's take a look at some examples.
+
+22
+00:01:22,840 --> 00:01:25,700
+For example, we would like
+to know what the effect is of
+
+23
+00:01:25,700 --> 00:01:28,890
+lifestyle on how old people get.
+
+24
+00:01:30,070 --> 00:01:33,050
+One can take this as input data, so
+
+25
+00:01:33,050 --> 00:01:37,220
+we know whether people are drinking,
+smoking, what their weight is.
+
+26
+00:01:37,220 --> 00:01:39,780
+And we know the age at
+which people have died.
+
+27
+00:01:40,910 --> 00:01:47,250
+Now we try to predict, whether people will
+die at an older age or at a younger age.
+
+28
+00:01:48,620 --> 00:01:54,190
+So as a response variable,
+we take the age and we make it discrete.
+
+29
+00:01:54,190 --> 00:01:59,530
+We turn it into a categorical variable,
+so people that die about 70.
+
+30
+00:01:59,530 --> 00:02:05,720
+Are labeled old, people that
+die under the age of 70 are labeled young.
+
+31
+00:02:05,720 --> 00:02:09,240
+And the other variables are used
+as predictor variables.
+
+32
+00:02:09,240 --> 00:02:12,920
+So we would like to predict
+the response variable in terms of
+
+33
+00:02:12,920 --> 00:02:13,920
+these predictor variables.
+
+34
+00:02:16,510 --> 00:02:18,980
+This is a so called decision tree.
+
+35
+00:02:18,980 --> 00:02:22,910
+It is learned based on the data,
+and what it tells you, for
+
+36
+00:02:22,910 --> 00:02:29,280
+example, that if people are smoking,
+they are likely to die young.
+
+37
+00:02:29,280 --> 00:02:34,740
+If people are not smoking, they are not
+drinking, then they are likely to die old.
+
+38
+00:02:36,440 --> 00:02:40,710
+We can also see numbers in
+the leaves of such a tree.
+
+39
+00:02:40,710 --> 00:02:43,350
+This is explaining,
+
+40
+00:02:43,350 --> 00:02:48,770
+what was done with the training set
+used to learn this decision tree.
+
+41
+00:02:48,770 --> 00:02:52,190
+In this case there were 195 smokers.
+
+42
+00:02:52,190 --> 00:02:55,760
+They were all classified as young,
+but there were
+
+43
+00:02:55,760 --> 00:03:01,340
+11 smokers that actually died at an older
+age so that are classified incorrectly.
+
+44
+00:03:01,340 --> 00:03:03,860
+The other leaves have similar numbers.
+
+45
+00:03:03,860 --> 00:03:07,880
+For example, there were two
+people that were not drinking,
+
+46
+00:03:07,880 --> 00:03:11,520
+that were not smoking,
+but still died young.
+
+47
+00:03:14,050 --> 00:03:14,580
+Okay.
+
+48
+00:03:14,580 --> 00:03:18,110
+Let's see whether we can
+read such a decision tree.
+
+49
+00:03:18,110 --> 00:03:19,370
+Take Mary.
+
+50
+00:03:19,370 --> 00:03:22,580
+She is drinking, but she's not smoking.
+
+51
+00:03:22,580 --> 00:03:26,120
+Her weight is 70 kilos, and
+she died at the age of 85.
+
+52
+00:03:26,120 --> 00:03:31,920
+So the question is, is Mary classified
+correctly in this decision tree.
+
+53
+00:03:35,640 --> 00:03:37,370
+The answer is yes.
+
+54
+00:03:37,370 --> 00:03:42,610
+And the red path shows what
+Mary's path is through this decision tree.
+
+55
+00:03:42,610 --> 00:03:48,510
+So Mary was not smoking, she was drinking,
+and her weight was below 90,
+
+56
+00:03:48,510 --> 00:03:53,320
+so according to the decision tree
+she should be classified as old,
+
+57
+00:03:53,320 --> 00:03:55,870
+dying above the age of 70.
+
+58
+00:03:55,870 --> 00:03:56,720
+And indeed she did.
+
+59
+00:03:58,140 --> 00:04:01,040
+Let's take a look at another person, Sue.
+
+60
+00:04:02,590 --> 00:04:06,520
+Is she classified correctly
+according to this decision tree?
+
+61
+00:04:09,640 --> 00:04:11,310
+Again we follow the path.
+
+62
+00:04:11,310 --> 00:04:16,100
+So Sue is not a
+smoker and is not a drinker.
+
+63
+00:04:16,100 --> 00:04:22,150
+So it is predicted that she will die at an
+older age, above 70, but she died at 35.
+
+64
+00:04:22,150 --> 00:04:26,310
+So she's not classified correctly
+according to this decision tree.
+
+65
+00:04:28,330 --> 00:04:31,100
+Let's take a look at another data set.
+
+66
+00:04:31,100 --> 00:04:34,730
+Suppose that we have data about.
+
+67
+00:04:34,730 --> 00:04:38,150
+The marks that student had for
+individual courses.
+
+68
+00:04:39,230 --> 00:04:44,000
+If there is a dash in this table it means
+that the course was actually not taken,
+
+69
+00:04:44,000 --> 00:04:46,000
+and so no result is known.
+
+70
+00:04:46,000 --> 00:04:48,740
+In all the other cases,
+there's a number between one and
+
+71
+00:04:48,740 --> 00:04:54,359
+ten indicating how well somebody made
+the exam for that particular course.
+
+72
+00:04:56,160 --> 00:04:59,600
+Then we could be interested in
+the duration, or we could also be
+
+73
+00:04:59,600 --> 00:05:04,860
+interested in the fact whether people
+pass, fail, or graduate cum laude.
+
+74
+00:05:06,070 --> 00:05:09,510
+If we are interested
+in the latter column.
+
+75
+00:05:10,520 --> 00:05:14,360
+Then the response variable is the result,
+which is cum laude, passed, or
+
+76
+00:05:14,360 --> 00:05:19,790
+failed, and the predictor variables are
+the grades for all the individual courses.
+
+77
+00:05:21,110 --> 00:05:24,840
+Using such data,
+we can again learn a decision tree, and
+
+78
+00:05:24,840 --> 00:05:26,700
+here you see an example of it.
+
+79
+00:05:27,710 --> 00:05:28,210
+So.
+
+80
+00:05:29,390 --> 00:05:36,200
+People that had a mark lower than 8 for
+logic and had a mark of 6 or
+
+81
+00:05:36,200 --> 00:05:42,300
+higher for linear algebra, it is predicted
+that they have, that they will pass.
+
+82
+00:05:44,050 --> 00:05:46,570
+People that did not make
+the course on logic, or
+
+83
+00:05:46,570 --> 00:05:50,160
+did not have a grade for
+it are predicted to fail.
+
+84
+00:05:51,310 --> 00:05:56,430
+So again, the decision tree makes
+predictions by learning from
+
+85
+00:05:56,430 --> 00:05:57,940
+a larger set of examples.
+
+86
+00:05:59,630 --> 00:06:01,750
+Let's take a look at the third data set.
+
+87
+00:06:03,170 --> 00:06:08,390
+Here we see what people are buying
+in a coffee shop, and so
+
+88
+00:06:08,390 --> 00:06:09,990
+people may order cappuccino.
+
+89
+00:06:09,990 --> 00:06:12,110
+latte, espresso.
+
+90
+00:06:12,110 --> 00:06:16,610
+Cafe Americano, tea, and
+they may eat a muffin or a bagel.
+
+91
+00:06:18,600 --> 00:06:23,620
+As a response variable we
+take the column muffin, and
+
+92
+00:06:23,620 --> 00:06:29,420
+we again make it discrete into a
+categorical variable, muffin or no muffin.
+
+93
+00:06:29,420 --> 00:06:33,840
+And so
+we ignore the numbers in this table.
+
+94
+00:06:33,840 --> 00:06:36,110
+Just whether things are present or not.
+
+95
+00:06:37,570 --> 00:06:43,100
+So this is decision tree that
+we could learn over this data.
+
+96
+00:06:43,100 --> 00:06:47,370
+So what we see is that people
+that drink tea according to
+
+97
+00:06:47,370 --> 00:06:50,830
+this decision tree also eat a muffin.
+
+98
+00:06:50,830 --> 00:06:54,126
+People that do not drink a tea,
+do not drink latte.
+
+99
+00:06:54,126 --> 00:06:58,880
+Are predicted to not order a muffin.
+
+100
+00:07:00,570 --> 00:07:03,370
+So, let's take again
+a look at some questions.
+
+101
+00:07:03,370 --> 00:07:08,580
+So here you see the check
+of a visitor of this cafe.
+
+102
+00:07:08,580 --> 00:07:13,199
+And this visitor ordered 2 cappuccinos,
+3 lattes, 1 muffin and 2 bagels.
+
+103
+00:07:14,490 --> 00:07:19,730
+Is this particular example classified
+correctly according to the decision tree?
+
+104
+00:07:22,700 --> 00:07:27,020
+The answer is yes, and here in red,
+you can see again the path.
+
+105
+00:07:27,020 --> 00:07:33,870
+People that, do not drink tea but
+drink at least two lattes.
+
+106
+00:07:33,870 --> 00:07:37,660
+They are predicted to also order a muffin.
+
+107
+00:07:37,660 --> 00:07:39,400
+And that is the case in this situation.
+
+108
+00:07:40,530 --> 00:07:42,990
+Let's take a look at another example.
+
+109
+00:07:42,990 --> 00:07:46,950
+A person ordered a bagel,
+a latte, and a ristretto.
+
+110
+00:07:46,950 --> 00:07:50,070
+The question is,
+is this person classified correctly?
+
+111
+00:07:52,070 --> 00:07:54,970
+If we follow the path
+through the decision tree,
+
+112
+00:07:54,970 --> 00:07:59,860
+it is predicted that such
+a person would order a muffin.
+
+113
+00:07:59,860 --> 00:08:01,780
+But this is actually not the case.
+
+114
+00:08:01,780 --> 00:08:06,190
+And so this would be an instance that
+would be classified incorrectly by this
+
+115
+00:08:06,190 --> 00:08:06,920
+decision tree.
+
+116
+00:08:09,380 --> 00:08:16,020
+We can use the decision tree to make
+predictions over unseen instances.
+
+117
+00:08:16,020 --> 00:08:18,570
+So, suppose that we have this check,
+
+118
+00:08:18,570 --> 00:08:23,520
+we know that somebody ordered the bagel,
+two lattes, and one cappuccino.
+
+119
+00:08:23,520 --> 00:08:28,680
+Then the question is, is it likely that
+the person also ordered a muffin?
+
+120
+00:08:29,850 --> 00:08:31,810
+Then we can use a decision tree.
+
+121
+00:08:31,810 --> 00:08:35,590
+So, in this situation what
+would a decision tree tell?
+
+122
+00:08:37,810 --> 00:08:42,990
+The decision tree would tell that this
+person would indeed order a muffin,
+
+123
+00:08:42,990 --> 00:08:46,570
+and that is the case because
+the person ordered no tea.
+
+124
+00:08:47,618 --> 00:08:49,550
+At least 2 lattes, and
+
+125
+00:08:49,550 --> 00:08:53,520
+people that fall into this class
+are predicted to order a muffin.
+
+126
+00:08:55,490 --> 00:08:57,100
+So how does this work?
+
+127
+00:08:57,100 --> 00:09:00,500
+We now have seen what a decision tree is,
+how we can use it.
+
+128
+00:09:00,500 --> 00:09:03,010
+It can be used for understanding data, for
+
+129
+00:09:03,010 --> 00:09:07,670
+predicting data, but how when can we
+automatically learn such a decision tree.
+
+130
+00:09:08,730 --> 00:09:16,160
+Well, it is done by splitting nodes to
+reduce the variability within every node.
+
+131
+00:09:16,160 --> 00:09:22,010
+So, if we look at this,
+if we look at 6, persons, and
+
+132
+00:09:22,010 --> 00:09:27,830
+they are all in the same category,
+3 are red and 3 are green.
+
+133
+00:09:27,830 --> 00:09:30,290
+Then we have a high entropy.
+
+134
+00:09:30,290 --> 00:09:34,480
+We are very uncertain,
+wether it should be green or red.
+
+135
+00:09:36,170 --> 00:09:42,508
+The idea is that we split nodes
+that we are uncertain about into
+
+136
+00:09:42,508 --> 00:09:48,810
+smaller sets,
+smaller classes that are more homogenous.
+
+137
+00:09:48,810 --> 00:09:55,110
+So, for example, if we split a set of
+people, into smokers and non-smokers,
+
+138
+00:09:55,110 --> 00:10:02,130
+and we find that the 2 smokers died
+at a younger age labeled here as red
+
+139
+00:10:03,470 --> 00:10:09,960
+then we reduce the variation
+within the individual subsets.
+
+140
+00:10:11,560 --> 00:10:15,940
+So, we are still uncertain
+about people who do not smoke.
+
+141
+00:10:15,940 --> 00:10:20,110
+And we could again split the group
+of non-smokers into two groups.
+
+142
+00:10:20,110 --> 00:10:23,490
+The people that drink, and
+the people that do not drink.
+
+143
+00:10:23,490 --> 00:10:27,340
+What we then find is that
+the variation within the group of
+
+144
+00:10:27,340 --> 00:10:29,930
+people that do not drink.
+
+145
+00:10:29,930 --> 00:10:30,780
+And do not smoke.
+
+146
+00:10:31,810 --> 00:10:35,490
+That all of these people live longer.
+
+147
+00:10:37,520 --> 00:10:40,770
+So, this overview slide shows that we
+
+148
+00:10:40,770 --> 00:10:45,740
+try to go from a bigger
+class with high entropy,
+
+149
+00:10:45,740 --> 00:10:51,490
+a high degree of uncertainty, to smaller
+classes where we are more certain about.
+
+150
+00:10:51,490 --> 00:10:55,380
+And, this way we can incrementally
+build a decision tree.
+
+151
+00:10:57,520 --> 00:11:00,860
+What is crucial for
+understanding decision trees,
+
+152
+00:11:00,860 --> 00:11:04,410
+is that you have a good understanding
+of the notion of entropy.
+
+153
+00:11:04,410 --> 00:11:07,470
+So, entropy is the degree of uncertainty.
+
+154
+00:11:08,740 --> 00:11:14,120
+One can also think of entropy as
+the inverse of compressibility.
+
+155
+00:11:14,120 --> 00:11:15,750
+Or zippability.
+
+156
+00:11:15,750 --> 00:11:19,780
+If there is very little
+variation within a group,
+
+157
+00:11:19,780 --> 00:11:22,250
+then we can compress the data very much.
+
+158
+00:11:22,250 --> 00:11:29,010
+The goal is now to reduce the entropy
+in the leaves of the decision tree.
+
+159
+00:11:29,010 --> 00:11:32,570
+And in this way we improve
+the predictability.
+
+160
+00:11:32,570 --> 00:11:35,020
+Of elements that belong
+to a particular class.
+
+161
+00:11:37,250 --> 00:11:42,540
+To formalize the notion of entropy,
+we need to use logarithms.
+
+162
+00:11:42,540 --> 00:11:46,650
+And this is, basic high school math,
+mathematics.
+
+163
+00:11:46,650 --> 00:11:48,190
+But still it is repeated so
+
+164
+00:11:48,190 --> 00:11:52,680
+that you easily can apply
+the formulas on the coming slides.
+
+165
+00:11:52,680 --> 00:11:57,990
+For example if we take the logarithm of
+2 to the power n, then the result is n.
+
+166
+00:11:57,990 --> 00:12:03,850
+If we take the logarithm of 1 divided
+by 2 to the power n, we get minus n.
+
+167
+00:12:03,850 --> 00:12:07,400
+Here you can see some examples.
+
+168
+00:12:07,400 --> 00:12:11,340
+So for example,
+the logarithm of 1 is equal to zero.
+
+169
+00:12:11,340 --> 00:12:14,290
+The logarithm of 1024 is equal to 10.
+
+170
+00:12:14,290 --> 00:12:20,200
+So what is not the formula for entropy?
+
+171
+00:12:20,200 --> 00:12:27,950
+The formula for entropy takes
+the sum over a set of values.
+
+172
+00:12:27,950 --> 00:12:30,979
+So suppose that we have k possible values.
+
+173
+00:12:32,680 --> 00:12:38,370
+We enumerate them from 1 to k and
+then pi is the probability
+
+174
+00:12:40,190 --> 00:12:44,070
+or in other words, the fraction
+of elements having this value.
+
+175
+00:12:44,070 --> 00:12:50,000
+So we can estimate this pi,
+this probability by taking the number.
+
+176
+00:12:50,000 --> 00:12:55,780
+Of elements that have that particular
+value by the set of all elements.
+
+177
+00:12:55,780 --> 00:13:00,140
+As we divide ci by n, and
+then we get the fraction pi.
+
+178
+00:13:00,140 --> 00:13:02,440
+And then we apply this formula.
+
+179
+00:13:03,480 --> 00:13:10,040
+So we take the sum over pi
+times the logarithm of pi.
+
+180
+00:13:11,110 --> 00:13:14,510
+This looks very complicated,
+but if one starts to apply it,
+
+181
+00:13:14,510 --> 00:13:15,950
+it will become more clear.
+
+182
+00:13:16,950 --> 00:13:22,270
+So, if we have two groups of people
+
+183
+00:13:22,270 --> 00:13:28,730
+that are represented in
+a particular class, and of both
+
+184
+00:13:28,730 --> 00:13:34,390
+types of people we have the same amount,
+then that is the worst case situation.
+
+185
+00:13:34,390 --> 00:13:38,610
+And so we have 3 reds, and 3 green dots.
+
+186
+00:13:38,610 --> 00:13:42,425
+So the entropy if we apply
+this formula is equal to 1.
+
+187
+00:13:43,540 --> 00:13:47,510
+What this means is that we
+need to have one bit to
+
+188
+00:13:47,510 --> 00:13:53,760
+encode whether a person belongs to the
+
+189
+00:13:53,760 --> 00:13:56,720
+red labeled class or
+the green labeled class.
+
+190
+00:13:58,270 --> 00:14:05,850
+If we now split based on the attribute
+smoker we get more homogeneous groups.
+
+191
+00:14:05,850 --> 00:14:08,990
+Let's see how this is
+reflected in entropy.
+
+192
+00:14:08,990 --> 00:14:12,266
+So if we compute
+the entropy of the smokers.
+
+193
+00:14:12,266 --> 00:14:16,610
+There are 2 smokers, and
+they are both labeled red,
+
+194
+00:14:16,610 --> 00:14:20,310
+meaning that they both
+die at a younger age.
+
+195
+00:14:21,400 --> 00:14:23,050
+If we now look at the entropy and
+
+196
+00:14:23,050 --> 00:14:26,136
+we fill out a formula,
+the entropy is equal to zero.
+
+197
+00:14:26,136 --> 00:14:27,290
+We need no information.
+
+198
+00:14:27,290 --> 00:14:31,720
+We need no bits to encode.
+
+199
+00:14:32,920 --> 00:14:37,020
+What people in this class,
+whether they are dying young or not.
+
+200
+00:14:37,020 --> 00:14:39,100
+Because that they all have the same label.
+
+201
+00:14:41,050 --> 00:14:45,380
+Now we can take a look at the class
+of all people that do not smoke.
+
+202
+00:14:46,400 --> 00:14:50,505
+3 persons in the class, live longer.
+
+203
+00:14:50,505 --> 00:14:53,490
+1 person in this class live shorter.
+
+204
+00:14:53,490 --> 00:14:58,530
+If you now apply the formula,
+then we get a value of 0.8.
+
+205
+00:14:58,530 --> 00:15:04,570
+And so we can see that the entropy,
+
+206
+00:15:04,570 --> 00:15:08,659
+we do not need to have one bit,
+we can use slightly less.
+
+207
+00:15:11,080 --> 00:15:14,990
+We can split further based on
+whether people are drinking or not.
+
+208
+00:15:14,990 --> 00:15:17,400
+So again, we have the class of smokers.
+
+209
+00:15:17,400 --> 00:15:19,320
+Still the entropy is equal to zero.
+
+210
+00:15:20,520 --> 00:15:25,080
+We can take a look at the people
+that do not smoke but
+
+211
+00:15:25,080 --> 00:15:29,560
+that do drink, and
+the entropy is equal to 1.
+
+212
+00:15:29,560 --> 00:15:33,670
+Because both groups
+are equally represented.
+
+213
+00:15:33,670 --> 00:15:35,150
+It is a one-to-one relationship.
+
+214
+00:15:36,200 --> 00:15:38,510
+Finally, we have the people
+who do not drink and
+
+215
+00:15:38,510 --> 00:15:42,060
+do not smoke,
+the entropy of the group is equal to zero.
+
+216
+00:15:43,390 --> 00:15:46,090
+So this is the way that we
+can compute entropy, and
+
+217
+00:15:46,090 --> 00:15:50,080
+here we can see all the numbers
+that we have just computed.
+
+218
+00:15:50,080 --> 00:15:52,396
+Using this basic formula.
+
+219
+00:15:55,018 --> 00:16:00,060
+We can now take the weighted
+average of these 3 decision trees.
+
+220
+00:16:00,060 --> 00:16:05,750
+So if we take a look at the first
+decision tree there is just one leaf.
+
+221
+00:16:05,750 --> 00:16:11,040
+And in this leaf
+the entropy is equal to 1.
+
+222
+00:16:11,040 --> 00:16:14,200
+And it is the complete fractions,
+so 6 divided by 6.
+
+223
+00:16:14,200 --> 00:16:18,650
+So, the overall weighted average
+of entropy is equal to 1.
+
+224
+00:16:18,650 --> 00:16:24,310
+If we take a look at the second
+decision tree where we split
+
+225
+00:16:24,310 --> 00:16:33,320
+based on the label smoker, and we take
+the weighted average of zero and 0.811.
+
+226
+00:16:33,320 --> 00:16:38,861
+Then we can see that the entropy is 0.54.
+
+227
+00:16:38,861 --> 00:16:43,599
+Note that 2 of the 6 persons ended up in
+
+228
+00:16:43,599 --> 00:16:48,350
+the class that had
+an entropy equal to zero.
+
+229
+00:16:49,410 --> 00:16:50,480
+The rest.
+
+230
+00:16:50,480 --> 00:16:54,640
+Had an entropy of, 0.811.
+
+231
+00:16:54,640 --> 00:16:57,060
+That is why we need to apply
+the formula in this way.
+
+232
+00:16:58,740 --> 00:17:02,580
+We can split based on the label smoker.
+
+233
+00:17:02,580 --> 00:17:04,520
+Now we have three, leaves.
+
+234
+00:17:05,770 --> 00:17:07,730
+Each of these leaves has a weight,
+
+235
+00:17:07,730 --> 00:17:12,050
+depending on the number of
+people in that particular leaf.
+
+236
+00:17:12,050 --> 00:17:15,960
+We take the weighted average of
+the different entropy values, and
+
+237
+00:17:15,960 --> 00:17:19,717
+we see that the resulting entropy is 0.33.
+
+238
+00:17:19,717 --> 00:17:25,990
+So what we can see is that
+in the first decision tree,
+
+239
+00:17:25,990 --> 00:17:30,480
+the weighted average over all
+these entropy values was 1, and
+
+240
+00:17:30,480 --> 00:17:37,450
+by splitting, based on the label smoker,
+it went down from one to 0.54.
+
+241
+00:17:37,450 --> 00:17:44,760
+This means that we had
+an information gain of 0.46.
+
+242
+00:17:44,760 --> 00:17:50,930
+If we take the tree in the middle,
+we can split based on the level drinker.
+
+243
+00:17:50,930 --> 00:17:54,570
+And we get an entropy of one-third.
+
+244
+00:17:54,570 --> 00:17:58,948
+So now the information gain is 0.21.
+
+245
+00:17:58,948 --> 00:18:03,460
+So we would like to reduce the entropy.
+
+246
+00:18:03,460 --> 00:18:09,590
+And we would to split on the labels that
+maximize the reduction of this entropy,
+
+247
+00:18:09,590 --> 00:18:11,990
+so that maximize information gain.
+
+248
+00:18:15,720 --> 00:18:20,009
+So the idea of the algorithm is now
+that we continue splitting labels.
+
+249
+00:18:21,630 --> 00:18:25,900
+Trying to maximize information gain,
+but stop if this is no longer possible.
+
+250
+00:18:27,840 --> 00:18:30,610
+So let's take a look at some
+questions to see whether you
+
+251
+00:18:30,610 --> 00:18:32,530
+really understand the notion of entropy.
+
+252
+00:18:34,070 --> 00:18:41,840
+Here you see several
+sets of colored balls.
+
+253
+00:18:41,840 --> 00:18:46,280
+And we would like to compute the entropy
+of all the individual cells.
+
+254
+00:18:46,280 --> 00:18:52,760
+If you do that then you can
+compute the overall entropy
+
+255
+00:18:52,760 --> 00:18:55,710
+of all of these 9 different squares.
+
+256
+00:18:57,420 --> 00:19:00,080
+And we can compare that with the overall.
+
+257
+00:19:00,080 --> 00:19:06,720
+Entropy if it would put all the balls in
+1 big bin, and then compute the entropy.
+
+258
+00:19:06,720 --> 00:19:12,662
+And so please, try to compute these
+values that are asked for here.
+
+259
+00:19:16,654 --> 00:19:20,630
+Okay, let's first take a look
+at the cell in the middle.
+
+260
+00:19:20,630 --> 00:19:22,540
+If we look at the cell in the middle.
+
+261
+00:19:22,540 --> 00:19:24,540
+There are, 16 balls.
+
+262
+00:19:25,770 --> 00:19:27,280
+Two of each color.
+
+263
+00:19:27,280 --> 00:19:29,170
+And there are 8 different colors.
+
+264
+00:19:30,290 --> 00:19:37,000
+If we then apply the entropy formula, we
+find that the entropy is equal to three.
+
+265
+00:19:37,000 --> 00:19:42,680
+So, we need to have 3 bits to
+encode the color of a single ball.
+
+266
+00:19:42,680 --> 00:19:44,440
+In the square in the middle.
+
+267
+00:19:47,480 --> 00:19:52,350
+If we not take a look at the other cells,
+they all contain 16 balls.
+
+268
+00:19:52,350 --> 00:19:54,360
+But they all have the same color.
+
+269
+00:19:54,360 --> 00:19:58,710
+So the entropy for
+all these other cells is equal to zero.
+
+270
+00:19:58,710 --> 00:20:02,339
+And we can learn that by just filling out
+the formula that we have seen before.
+
+271
+00:20:04,380 --> 00:20:08,940
+So, if we now look at the over all
+entropy, we need to take the weighted
+
+272
+00:20:08,940 --> 00:20:16,640
+average of these 9 different squares and
+we get an entropy of one-third.
+
+273
+00:20:16,640 --> 00:20:19,270
+That's right,
+entropy of all cells is zero,
+
+274
+00:20:19,270 --> 00:20:22,300
+the cell in the middle
+has an entropy of three.
+
+275
+00:20:22,300 --> 00:20:28,396
+There are nine cells, so
+the resulting weighted average is 0.33.
+
+276
+00:20:31,191 --> 00:20:36,740
+What is the entropy after we take all
+the different cells and mix them?
+
+277
+00:20:37,810 --> 00:20:43,009
+Then we have 144 balls
+having 18 different colors.
+
+278
+00:20:44,730 --> 00:20:47,770
+So this is the distribution
+that we then get, and
+
+279
+00:20:47,770 --> 00:20:49,910
+this corresponds to an entropy of three.
+
+280
+00:20:51,280 --> 00:20:58,150
+So if we now compare these 2 situations,
+if we have these 9 different cells.
+
+281
+00:20:58,150 --> 00:21:01,050
+Where the cell in the middle
+has all the colors, and
+
+282
+00:21:01,050 --> 00:21:06,310
+all the other cells have just 1 color,
+we have a much lower entropy.
+
+283
+00:21:06,310 --> 00:21:10,830
+Then when we have one big
+cell containing all balls,
+
+284
+00:21:10,830 --> 00:21:13,480
+because then the entropy is equal to 3.
+
+285
+00:21:13,480 --> 00:21:19,090
+So, if we move from
+the situation with an entropy
+
+286
+00:21:19,090 --> 00:21:26,634
+of 3 to the entropy of one-third, we
+have an information gain equal to 2.666.
+
+287
+00:21:29,260 --> 00:21:33,570
+So this is what is being used
+when learning a decision tree.
+
+288
+00:21:33,570 --> 00:21:35,460
+So, you see another example.
+
+289
+00:21:36,480 --> 00:21:41,580
+We start by classifying
+all people as dying young.
+
+290
+00:21:42,690 --> 00:21:45,320
+Then we split on the attribute smoker.
+
+291
+00:21:45,320 --> 00:21:48,610
+So we go from the attribute
+that is listed here.
+
+292
+00:21:48,610 --> 00:21:55,680
+To these entropies for
+the 2 new leaves that we find.
+
+293
+00:21:55,680 --> 00:21:58,690
+Then we can take the weighted average, and
+
+294
+00:21:58,690 --> 00:22:04,970
+compare this weighted average of the
+overall entropy to the original entropy.
+
+295
+00:22:04,970 --> 00:22:09,684
+And we can see that there is indeed
+an information gain of 0.107.
+
+296
+00:22:12,500 --> 00:22:17,040
+Although the classification did not
+change there was information gain.
+
+297
+00:22:17,040 --> 00:22:22,590
+And this is because the group of smokers
+is now more homogenous that it was before.
+
+298
+00:22:24,460 --> 00:22:26,370
+We can split further.
+
+299
+00:22:26,370 --> 00:22:30,740
+And again, we can look at
+the original entropy values.
+
+300
+00:22:30,740 --> 00:22:32,870
+This is the weighted average.
+
+301
+00:22:32,870 --> 00:22:35,600
+And compare that to the new situation,
+
+302
+00:22:35,600 --> 00:22:39,090
+where we can basically apply
+the formulas that we have seen before.
+
+303
+00:22:40,190 --> 00:22:45,440
+So these are the entropy values for
+the different leaves.
+
+304
+00:22:45,440 --> 00:22:48,180
+We again take the weighted average.
+
+305
+00:22:48,180 --> 00:22:52,855
+We can compare both, and
+we see that there is an information gain.
+
+306
+00:22:52,855 --> 00:22:56,155
+Of 0.07.
+
+307
+00:22:56,155 --> 00:23:03,010
+So, this shows you the basic idea
+of the decision tree algorithm.
+
+308
+00:23:03,010 --> 00:23:07,110
+We start with the root node
+that has all instances, and
+
+309
+00:23:07,110 --> 00:23:10,660
+then we iteratively go
+through all the nodes.
+
+310
+00:23:10,660 --> 00:23:15,330
+And see whether we can
+achieve an information gain.
+
+311
+00:23:15,330 --> 00:23:20,060
+We do that by trying to split on
+all the possible attributes, and
+
+312
+00:23:20,060 --> 00:23:24,210
+see whether the entropy is indeed reduced.
+
+313
+00:23:24,210 --> 00:23:29,800
+So we select the attribute with
+the biggest information gain,
+
+314
+00:23:29,800 --> 00:23:31,840
+above a certain threshold.
+
+315
+00:23:31,840 --> 00:23:34,260
+And then we split that node, and
+
+316
+00:23:34,260 --> 00:23:38,370
+we continue doing that until no
+significant improvements are possible.
+
+317
+00:23:40,290 --> 00:23:42,750
+Then we return the decision tree.
+
+318
+00:23:42,750 --> 00:23:46,690
+So that's the basic idea of
+learning a decision tree,
+
+319
+00:23:46,690 --> 00:23:48,390
+using the notion of entropy.
+
+320
+00:23:50,100 --> 00:23:54,816
+There are many parameters and
+variations possible to do this.
+
+321
+00:23:54,816 --> 00:24:00,820
+For example one can define a minimal size
+of a node before or after splitting,
+
+322
+00:24:00,820 --> 00:24:06,070
+to avoid overfitting, having all
+kinds of leaves that correspond to for
+
+323
+00:24:06,070 --> 00:24:07,789
+example just a single instance.
+
+324
+00:24:09,520 --> 00:24:13,720
+We can set the threshold on
+the minimal gain that is needed, and
+
+325
+00:24:13,720 --> 00:24:16,140
+stop splitting if this
+gain cannot be achieved.
+
+326
+00:24:17,220 --> 00:24:19,930
+We can define a maximal depth of the tree.
+
+327
+00:24:21,700 --> 00:24:29,080
+We can also have, allow for
+multiple times using a label.
+
+328
+00:24:29,080 --> 00:24:31,210
+Along a certain path.
+
+329
+00:24:31,210 --> 00:24:34,400
+Some decision tree algorithms
+do not allow it, others do.
+
+330
+00:24:36,320 --> 00:24:37,790
+But rather than using entropy,
+
+331
+00:24:37,790 --> 00:24:42,280
+we can use alternative notions,
+like the Gini index of diversity.
+
+332
+00:24:44,170 --> 00:24:48,500
+If we have a numerical variable,
+we can make it.
+
+333
+00:24:48,500 --> 00:24:52,720
+Automatically categorical,
+using particular types of techniques.
+
+334
+00:24:52,720 --> 00:24:56,650
+And so we split the domain of a numerical
+variable to make it categorical.
+
+335
+00:24:58,240 --> 00:25:03,990
+We can also do a post pruning of the tree
+to remove the leaf notes that do not
+
+336
+00:25:03,990 --> 00:25:10,517
+significantly increase the explanatory
+power of the resulting decision trees.
+
+337
+00:25:14,001 --> 00:25:17,657
+Decision tree learning has many
+applications also in the field of
+
+338
+00:25:17,657 --> 00:25:19,080
+process mining.
+
+339
+00:25:19,080 --> 00:25:22,000
+So for example,
+if we take a look at this process model,
+
+340
+00:25:22,000 --> 00:25:25,890
+then we ask ourselves what
+is driving these decisions?
+
+341
+00:25:25,890 --> 00:25:31,740
+These 2 decision points in this
+process model, why are certain
+
+342
+00:25:31,740 --> 00:25:35,280
+instances going left and
+our other instances going right.
+
+343
+00:25:36,690 --> 00:25:41,290
+What is the most likely path of
+a running case giving it's attributes?
+
+344
+00:25:43,400 --> 00:25:45,050
+If we look at the particular case,
+
+345
+00:25:45,050 --> 00:25:48,280
+we would like to predict whether
+it will be late or rejected.
+
+346
+00:25:49,320 --> 00:25:54,090
+Using decision tree learning on top
+of process models, we can do that.
+
+347
+00:25:54,090 --> 00:25:59,330
+But it is crucial to see that these
+questions require a discovered process,
+
+348
+00:25:59,330 --> 00:26:02,160
+otherwise none of this is possible.
+
+349
+00:26:02,160 --> 00:26:07,790
+So process discovery is necessary before
+we can use decision tree learning.
+
+350
+00:26:10,350 --> 00:26:16,010
+Today was the first lecture that we start
+talking about data mining techniques.
+
+351
+00:26:16,010 --> 00:26:21,321
+Please read chapter 3 to learn
+more about decision tree learning.
+
+352
+00:26:21,321 --> 00:26:24,729
+Thank you for watching this lecture,
+see you next time
+
+353
+00:26:24,729 --> 00:26:34,729
+[MUSIC].
+

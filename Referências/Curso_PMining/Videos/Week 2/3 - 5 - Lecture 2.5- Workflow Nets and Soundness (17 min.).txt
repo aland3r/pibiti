@@ -1,0 +1,398 @@
+[MUSIC]
+Welcome to this lecture of the course of
+process mining data science in action.
+Today we will focus on the class
+of process models having a clear
+start and end.
+Traces in an event log correspond to
+process instances of such models.
+On this slide,
+you see an example of a Workflow Net.
+This is a Petri net that has
+a well-defined start place and
+a well-defined end place.
+Moreover, it should be free of obvious
+problems like livelocks and deadlocks.
+And later we will introduce
+the notion of soundness.
+Traces in a log need to go from
+the initial state to the final state.
+So, this is a class of models
+that is not only used for
+process mining, but is also widely used
+in the area of workflow management and
+business process management.
+So let's take a step back.
+Business process management, BPM.
+What is this?
+This is the linking pin between IT and
+management science.
+And it has a long tradition.
+The main goal is to ensure efficiency.
+Already in the 18th century, Adam Smith
+showed that by the division of labor,
+you could make processes
+more efficient and cheaper.
+Taylor introduced
+scientific management.
+Henry Ford, we all know introduced
+the notion of mass production,
+when he made the T-Ford.
+But the greatest breakthrough that we find
+if we look at business process management,
+how to make things more efficient,
+started in the 1950s when information
+systems and computers became omnipresent.
+Currently, we can see a new wave.
+Tremendous amounts of data are available.
+So we can take BPM to the next
+level where data is the new oil.
+This is a variant of
+the well-known BPM lifecycle.
+If you look at the small
+circle in the middle,
+you can see that a BPM project,
+if you want to make processes better,
+more efficient, starts with a design or
+redesign phase.
+Then you implement or
+configure an information system based
+on the processes you have designed.
+And then you run these processes, and
+maybe you need to adjust them on the fly.
+If you look at this well-known BPM
+lifecycle from an analysis perspective,
+you can look at model-based analysis,
+which you use mostly in the design or
+re-design phase.
+And you can look at data-based analysis.
+And process mining is typically focusing
+on the red part in this diagram.
+Learning from processes
+while they are running.
+So, what is the role of processes in BPM,
+or work flow management.
+First of all, process models
+are used to reason about processes.
+Where are the bottle necks?
+How can we make things cheaper?
+But models are also used inside processes.
+For example, to support decisions.
+Like will I accept this claim or not?
+Here you see a list of typical ways
+that process models may be used.
+To discuss responsibilities and
+bottlenecks.
+To analyze compliance.
+To predict possible problems in
+the future using simulation.
+And last but not least,
+to configure information systems.
+For example using workflow or
+BPM technology.
+Unfortunately, many models
+are being used in practice.
+Here you see a picture of the Tower of
+Babel, indicating that there are so
+many languages and
+that sometimes it is a bit confusing.
+In this course we will see several
+different process modeling languages but I
+would like to stress that the differences
+between these languages are minimal.
+They're all based on the same concept.
+Here you see three types of process
+models that one frequently sees.
+The top shows the so called BPMN model.
+The Business Process Model and
+Notation that expresses
+behavior of cases starting in initial
+state, leading to some final state.
+Below that you see a so-called
+Event-Driven Process Chain, and
+this is the notation typically used
+in the context of systems like SAP.
+At the bottom you see Petri nets,
+and today we will focus on
+a particular variant of Petri nets,
+namely workflow nets.
+The representations look different,
+but they all try to express the same
+phenomena, and in the end they
+all generate traces of events.
+We can all record event logs for these
+types of processes if they are executed.
+We've already seen a lot of Petri nets.
+We know that they
+are composed of places and
+transitions and arcs and
+tokens are flowing through them.
+We've seen that before.
+So here you see an example run,
+just to refresh our mind a bit.
+So, from the initial state with the token
+on the start place, we can execute
+different activities through firing
+transitions until we reach the end.
+So, this is one of many
+possible firing sequences.
+Before, we also saw the notion of a
+reachability graph and a transition system.
+So the Petri net shown here
+generates this transition system,
+which captures all the behavior.
+And the trace that I just showed you, is
+one path through this transition system.
+So let's now focus on the question,
+if we have a workflow net,
+so a model with a start place and
+an end place, is it a good model?
+So here you see an example,
+and please think about this.
+Is this a good process model?
+If you look carefully,
+you will see that that is not the case,
+because there is a possible deadlock.
+If we take the loop back, we may end up
+in the situation with just a token at c3
+which corresponds to a deadlock.
+Let's take a look at
+another process model.
+Again, take a minute to
+look at this model, and
+try to tell whether this
+model is a good model or not.
+If you look closely, you will see that in
+the beginning there is an AND-split, but
+it doesn't really
+correspond to an AND-join.
+So, again, we see that there is a problem.
+And if you draw the reachability
+graph of this model,
+you will see that this doesn't have
+the behavior that you expect it to have.
+Let's take a look at another
+variant of the same process.
+Is this a good model?
+It doesn't have the problems
+that we have seen before, but
+there is another problem in this model,
+that the task pay compensation,
+which is modeled by the transition
+at the end, can never be fired.
+It's dead.
+You can never reach the state where
+both of the input places are marked.
+Let's take a look at another model.
+So, carefully look at this model.
+Is this a correct process model?
+In terms that it doesn't have any of
+the anomalies that we discussed before.
+Yes, it has all the desired properties.
+But one may ask yourself,
+why is this a good model?
+What is the criterion that we are using?
+Well the criterion that we
+are using is soundness, and
+it is defined on top of WorkFlow
+nets that we already introduced.
+So a WorkFlow net has one start place,
+one end place,
+and all the transitions and all the places
+are on a path from start to end.
+Based on this,
+we can define the notion of soundness.
+A WorkFlow net is sound if and only if
+the following four properties hold.
+The first property expresses
+that places should be safe.
+At most, one token should be at
+a place at any point in time.
+There should be proper completion,
+meaning that the moment we
+put a token on the end place,
+all other places should be empty.
+We should have the option to complete.
+No matter what we do, we should
+always be able to reach the state,
+the marking,
+with just a token on the final place.
+And last but not least,
+there should not be any dead parts.
+So all the parts of the process model
+should potentially be activated.
+So there should be scenarios
+where they play a role.
+So these are the four minimal
+requirements that any WorkFlow net should
+satisfy in order to be sound.
+So let's take again a look
+at several examples, and
+try to see whether these models
+satisfy these four properties.
+So here we see again,
+a process model, does it satisfy these
+four properties, making it sound?
+The answer is no.
+The rows highlighted here in green,
+correspond to properties that hold for
+this particular model.
+But we also see two properties,
+proper completion and
+option to complete, that do not hold.
+And we can see that, because the state
+that is now indicated by the red tokens,
+is a reachable state, and from this state,
+we can no longer go to the situation
+where there's just a token on p6.
+Let's take a look at another example.
+Is this model sound?
+Again we can look at
+its reachability graph,
+look at the traces that it generates.
+And if we do that,
+we see that only the last property,
+absence of deadlock parts, holds.
+All the other properties
+are not satisfied.
+Well, it's easy to see,
+because once you put the token in p3,
+transition t3 can fire any number of
+times, and there is no way that you
+can remove these tokens and
+go back to the final state.
+Yeah,
+so it's clear that these
+properties are violated.
+If we take a look at this model.
+Again, think about it.
+Is this model sound or not?
+Then you see that the top three properties
+hold, but transition t3 is dead.
+It cannot be executed.
+So it's not a sound model.
+Now we can take a look
+at this model again.
+Again, we can check whether it's sound,
+and in this case,
+we can see that all the four properties
+are satisfied, making the model sound.
+So on these toy examples it is very
+easy to see whether things are sound or
+not, but
+in general it's much more difficult.
+But there are good analysis techniques
+to check soundness of such models.
+Let's take a look at some more examples.
+So, this shows a WorkFlow
+net that is not safe.
+So it's not sound because one of the four
+properties is being violated, and
+you can see the markings
+here that can be reached.
+So it's not sound.
+This is another more tricky example
+where there is no option to complete
+because we can reach the
+the state with just a token in place c3.
+So then decision is not enabled, and
+we get stuck somewhere in
+the middle of the process.
+So again it is not sound.
+So, if we look at these properties,
+you may have noticed that the option
+to complete implies proper completion.
+So in other words, if proper
+completion does not hold, so there
+is a token on the final place, but still
+something is remaining in the process.
+If it does not hold, then also
+the option to complete does not hold.
+And it's easy to see, because the only
+way that a token in the middle of
+this cloud can disappear is
+to go to the final place, but
+then there would be two
+tokens in this final place.
+So, if we have the option to complete,
+we automatically have proper completion.
+So when checking the model,
+we don't need to look at proper completion
+because it holds automatically.
+There is a logical connection between the
+Petri net properties that we have seen in
+earlier lectures, and
+the property of soundness that we
+are looking at in this lecture.
+So this is a Petri net, a WorkFlow net.
+We can short-circuit it by adding
+a transition from the final
+part of the process to
+the initial part of the process.
+So in other words, when we reach the end,
+we go back to the beginning.
+This is the so-called
+short-circuited WorkFlow net.
+And we have the very nice property net
+that a WorkFlow net is sound, if and
+only if the corresponding short-circuited
+Petri net is live and bounded.
+If we also want to have safety, the first
+property, it should also be safe.
+But boundedness is sufficient
+for the next three activities.
+So what are the main types
+of model-based analysis?
+At a higher level we can
+distinguish two types of analysis.
+verification, like the soundness
+checks we just discussed.
+Performance analysis,
+often using techniques like simulation or
+Markov analysis.
+These are the typical types
+of analysis that people do
+when they talk about
+business process management.
+However, just looking at
+the models is not sufficient.
+All these analysis techniques,
+they rely on the quality of the model.
+The model has to represent reality
+properly, otherwise any
+analysis result doesn't have any value.
+Whereas if we look in practice,
+often the model that people make by hand,
+have a poor alignment with reality,
+making the conclusions very unreliable.
+So process mining aims to address
+this problem by establishing a very
+tight connection between models and
+the actual event data.
+In the next lecture,
+we will really start talking about
+concrete process mining algorithms.
+In this case a discovery technique.
+We will talk in the next lecture
+about the Alpha Algorithm.
+The goal of the Alpha Algorithm
+is to discover WorkFlow nets.
+So the types of process models
+that we have discussed in this
+lecture from event logs.
+So we start from an event log,
+as a multiset of traces, and
+from this multiset of traces, we try to
+automatically learn a process model
+expressed in terms of a WorkFlow net.
+And you can see an example here.
+In the last couple of lectures we have
+been talking about many things related to
+process models.
+So chapter two is the central chapter
+where all of these things will
+be discussed.
+Thank you for watching this lecture and
+hope to see you in the next lecture.
+[MUSIC]
+

@@ -1,0 +1,739 @@
+1
+00:00:00,000 --> 00:00:07,421
+[MUSIC]
+
+2
+00:00:07,421 --> 00:00:12,780
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+
+3
+00:00:12,780 --> 00:00:15,690
+We are coming closer to
+the end of this course.
+
+4
+00:00:15,690 --> 00:00:18,550
+So it's time for some reflections.
+
+5
+00:00:18,550 --> 00:00:21,940
+Today we compare process models to maps.
+
+6
+00:00:21,940 --> 00:00:25,710
+We use this metaphor to better
+understand the role of process mining.
+
+7
+00:00:27,390 --> 00:00:30,390
+There is a long tradition in making maps.
+
+8
+00:00:30,390 --> 00:00:32,540
+And here you can see a nice example.
+
+9
+00:00:34,390 --> 00:00:40,180
+At the same time, we can view
+process models as maps of processes.
+
+10
+00:00:40,180 --> 00:00:44,710
+So it's interesting to see
+what we can learn from maps.
+
+11
+00:00:44,710 --> 00:00:47,500
+This is a map showing
+the center of Moscow.
+
+12
+00:00:47,500 --> 00:00:53,280
+If you look at such a map we can
+see that abstraction is being used.
+
+13
+00:00:54,360 --> 00:00:58,620
+Insignificant roads are left
+out to not clutter the diagram.
+
+14
+00:01:00,110 --> 00:01:05,680
+At the time, smaller entities
+are aggregated into larger ones.
+
+15
+00:01:05,680 --> 00:01:09,780
+For example, if we would draw 'em out,
+we would see individual cities.
+
+16
+00:01:09,780 --> 00:01:13,620
+If we look at one city in itself,
+we can see suburbs.
+
+17
+00:01:15,740 --> 00:01:19,790
+Also, maps play with size and color.
+
+18
+00:01:19,790 --> 00:01:20,880
+These are not the size and
+
+19
+00:01:20,880 --> 00:01:26,530
+the color of the real entities, but they
+highlight the things that are important.
+
+20
+00:01:26,530 --> 00:01:31,400
+For example, highways will
+have a different color than other roads,
+
+21
+00:01:31,400 --> 00:01:34,760
+to signify their importance.
+
+22
+00:01:34,760 --> 00:01:40,980
+Moreover, the layout of things has a clear
+meaning that everybody can understand.
+
+23
+00:01:40,980 --> 00:01:43,690
+So this is what we can learn from maps.
+
+24
+00:01:43,690 --> 00:01:46,350
+If we now compare maps to process models.
+
+25
+00:01:46,350 --> 00:01:48,660
+And, here you can see three examples.
+
+26
+00:01:48,660 --> 00:01:51,800
+Then, we can see that process
+models are actually very poor.
+
+27
+00:01:53,070 --> 00:01:55,050
+So, where is abstraction?
+
+28
+00:01:55,050 --> 00:01:56,300
+Where is aggregation?
+
+29
+00:01:57,480 --> 00:01:59,860
+How are size and color being used?
+
+30
+00:02:00,910 --> 00:02:03,940
+What does the layout of
+the different activities in
+
+31
+00:02:03,940 --> 00:02:06,460
+a process model actually mean?
+
+32
+00:02:06,460 --> 00:02:08,580
+There are no strong conventions for this.
+
+33
+00:02:10,410 --> 00:02:12,945
+Take for
+example a look at this process model.
+
+34
+00:02:12,945 --> 00:02:16,960
+The activities,
+which activities correspond to
+
+35
+00:02:16,960 --> 00:02:20,430
+metropolis which activities
+correspond to small village?
+
+36
+00:02:21,740 --> 00:02:24,930
+Which connections correspond to highways?
+
+37
+00:02:24,930 --> 00:02:28,140
+Which connections
+correspond to dirt roads?
+
+38
+00:02:28,140 --> 00:02:30,510
+We cannot see these types of things.
+
+39
+00:02:30,510 --> 00:02:35,280
+So if we do process mining, we would
+like to learn from cartography and
+
+40
+00:02:35,280 --> 00:02:36,840
+add that to the diagrams.
+
+41
+00:02:39,040 --> 00:02:42,430
+It's also very important
+to realize that there is
+
+42
+00:02:42,430 --> 00:02:46,150
+no such thing as the map
+of a process model.
+
+43
+00:02:47,620 --> 00:02:52,243
+One would give in one reality,
+there may be different process models
+
+44
+00:02:52,243 --> 00:02:57,040
+depending on the purpose for
+which one is the making the map.
+
+45
+00:02:59,100 --> 00:03:02,760
+Take for example again a look at
+this map of the center of Moscow.
+
+46
+00:03:03,850 --> 00:03:09,170
+We may want to zoom in into
+a particular area around the Kremlin.
+
+47
+00:03:09,170 --> 00:03:11,690
+It's the same reality, but if we zoom in,
+
+48
+00:03:11,690 --> 00:03:16,360
+we see that a different map is
+useful to look at this reality.
+
+49
+00:03:17,440 --> 00:03:20,490
+We may want to look at this
+diagram if we are interested, for
+
+50
+00:03:20,490 --> 00:03:23,610
+example, to see where there
+are trees in the center of Moscow.
+
+51
+00:03:25,030 --> 00:03:29,670
+If we travel by a subway,
+we need another map.
+
+52
+00:03:29,670 --> 00:03:31,980
+This is the subway map of Moscow.
+
+53
+00:03:31,980 --> 00:03:33,520
+Completely different map
+
+54
+00:03:33,520 --> 00:03:38,550
+than the maps that we have seen before but
+still looking at the same reality.
+
+55
+00:03:38,550 --> 00:03:42,580
+If we take a bicycle we
+would prefer using this map.
+
+56
+00:03:42,580 --> 00:03:46,255
+So there are different maps depending
+on the purpose one is after.
+
+57
+00:03:46,255 --> 00:03:51,986
+This shows that
+a map is a view on reality.
+
+58
+00:03:51,986 --> 00:03:54,810
+It's an abstraction that has to be useful.
+
+59
+00:03:56,080 --> 00:03:58,660
+The map itself is not the same as reality.
+
+60
+00:03:58,660 --> 00:04:03,260
+Therefore one should not seek in
+finding the map, or the process model.
+
+61
+00:04:05,760 --> 00:04:09,740
+All these things that we can learn from
+maps also apply to process models.
+
+62
+00:04:12,050 --> 00:04:15,160
+Here you see my glasses
+on top of an event log.
+
+63
+00:04:16,520 --> 00:04:20,700
+A model can be seen as a pair of glasses.
+
+64
+00:04:20,700 --> 00:04:26,650
+By using these glasses, one can see
+relevant information in the raw data,
+
+65
+00:04:26,650 --> 00:04:33,250
+and there is not just one view there may
+be multiple views, as is illustrated here.
+
+66
+00:04:33,250 --> 00:04:38,590
+So depending on the purpose one
+needs to look at the event data
+
+67
+00:04:38,590 --> 00:04:43,549
+from a particular angle, and different
+models are useful for this purpose.
+
+68
+00:04:45,860 --> 00:04:52,390
+It's also important to see process
+models not as static entities.
+
+69
+00:04:52,390 --> 00:04:57,780
+One should breathe life into process
+models using the event data available.
+
+70
+00:04:57,780 --> 00:05:01,260
+If one does not do this,
+these process models will be,
+
+71
+00:05:01,260 --> 00:05:05,160
+will end up in some drawer, and
+nobody will ever look at it.
+
+72
+00:05:05,160 --> 00:05:10,660
+So we need to connect process models
+to data as we have seen in this course.
+
+73
+00:05:12,130 --> 00:05:15,320
+Again, we see the map of
+the center of Moscow, and
+
+74
+00:05:15,320 --> 00:05:20,030
+now highlighted in red are the places
+where there are traffic jams.
+
+75
+00:05:20,030 --> 00:05:25,110
+And so the streets that are green,
+that the traffic is flowing well,
+
+76
+00:05:25,110 --> 00:05:32,140
+the streets that are red are highlighted
+bottlenecks, indicating congestion.
+
+77
+00:05:34,050 --> 00:05:37,160
+So on maps one can project traffic jams.
+
+78
+00:05:37,160 --> 00:05:41,300
+One can also project real estate,
+which are the houses that are for
+
+79
+00:05:41,300 --> 00:05:42,990
+sale in the center of Moscow.
+
+80
+00:05:44,090 --> 00:05:49,070
+We can highlight the location of vehicles,
+like trucks or trains.
+
+81
+00:05:49,070 --> 00:05:51,050
+One can project crime rates.
+
+82
+00:05:51,050 --> 00:05:54,160
+One can project all kinds
+of things on top of maps.
+
+83
+00:05:55,340 --> 00:06:00,530
+The same one can do by combining
+process models with event data.
+
+84
+00:06:00,530 --> 00:06:04,390
+In a process model one can also
+highlight the bottlenecks.
+
+85
+00:06:04,390 --> 00:06:09,595
+One can also highlight where
+the model is deviating from reality.
+
+86
+00:06:09,595 --> 00:06:13,880
+Where the biggest cost appear,
+where there are risks.
+
+87
+00:06:13,880 --> 00:06:16,890
+All of these things can be
+projected on process models,
+
+88
+00:06:16,890 --> 00:06:20,870
+thereby breathing life in
+these otherwise static models.
+
+89
+00:06:22,830 --> 00:06:25,740
+Here you can see some
+examples,using the tools that we
+
+90
+00:06:25,740 --> 00:06:28,220
+have been seeing in this course.
+
+91
+00:06:28,220 --> 00:06:32,660
+So here you see a replay
+of an event log on top of
+
+92
+00:06:33,970 --> 00:06:36,350
+a process model that was discovered.
+
+93
+00:06:36,350 --> 00:06:41,770
+And at any point in time the animation
+is showing a particular state.
+
+94
+00:06:41,770 --> 00:06:46,430
+And for example one can see traffic
+jams in a process model in this way.
+
+95
+00:06:46,430 --> 00:06:51,140
+The same holds for Disco, and many of
+the other process mining tools that we
+
+96
+00:06:51,140 --> 00:06:53,790
+have been discussing in one
+of the recent lectures.
+
+97
+00:06:56,450 --> 00:06:59,860
+Projecting information
+on maps is not that new.
+
+98
+00:06:59,860 --> 00:07:06,750
+Here you can see a very nice example
+of a map showing Napoleon's army.
+
+99
+00:07:07,870 --> 00:07:13,977
+What you can see is that the Army
+starts with over 400,000 soldiers,
+
+100
+00:07:13,977 --> 00:07:20,560
+and then while approaching Moscow,
+more and more soldiers die.
+
+101
+00:07:20,560 --> 00:07:26,290
+In the middle there are 175,000 people,
+soldiers still alive.
+
+102
+00:07:26,290 --> 00:07:33,240
+In the end 100,000 soldiers reached
+Moscow, but then they need to retreat.
+
+103
+00:07:33,240 --> 00:07:38,110
+And in the end only
+10,000 soldiers return.
+
+104
+00:07:38,110 --> 00:07:42,450
+So this is an early example
+of information visualization.
+
+105
+00:07:43,470 --> 00:07:46,620
+And it's exactly the same ideas
+that we are applying when we
+
+106
+00:07:46,620 --> 00:07:51,430
+are applying when we are projecting
+event data on top of process models.
+
+107
+00:07:53,770 --> 00:08:00,260
+It is not sufficient to breathe life
+into these models by projecting
+
+108
+00:08:00,260 --> 00:08:02,620
+event data in a smart way.
+
+109
+00:08:02,620 --> 00:08:07,840
+We should also try to actively use
+the process my, models, for example, for
+
+110
+00:08:07,840 --> 00:08:09,890
+operational support.
+
+111
+00:08:09,890 --> 00:08:14,210
+So we should use these
+models on a daily basis.
+
+112
+00:08:16,490 --> 00:08:19,700
+This is very similar to
+using a navigation device.
+
+113
+00:08:19,700 --> 00:08:24,230
+If one looks at a navigation
+device for example from TomTom.
+
+114
+00:08:24,230 --> 00:08:28,370
+Then these devices are showing
+you recommendations.
+
+115
+00:08:28,370 --> 00:08:30,380
+Take the next street and turn left.
+
+116
+00:08:32,180 --> 00:08:34,160
+We can look at predictions.
+
+117
+00:08:34,160 --> 00:08:36,560
+What is the estimated arrival time?
+
+118
+00:08:37,570 --> 00:08:42,990
+It's also warning us if we are driving
+too fast at the particular location.
+
+119
+00:08:42,990 --> 00:08:48,180
+So if you look at these things, you can
+clearly recognize the operational support
+
+120
+00:08:48,180 --> 00:08:51,160
+features that we
+have been discussing before.
+
+121
+00:08:52,260 --> 00:08:55,550
+So how can a navigation device do that?
+
+122
+00:08:55,550 --> 00:09:00,960
+It's the smart combination of maps,
+historic information,
+
+123
+00:09:00,960 --> 00:09:04,920
+where are typically traffic jams and
+things like that, and current information.
+
+124
+00:09:06,080 --> 00:09:11,010
+The combination of these things
+allows the navigation device
+
+125
+00:09:11,010 --> 00:09:13,160
+to predict and recommend.
+
+126
+00:09:13,160 --> 00:09:16,060
+And when we do process mining we would
+like to do exactly the same thing.
+
+127
+00:09:17,660 --> 00:09:20,610
+Note that the navigation
+device is also very flexible.
+
+128
+00:09:21,770 --> 00:09:25,510
+If a driver ignores the instructions,
+
+129
+00:09:25,510 --> 00:09:30,260
+the navigation device will still
+try to support the driver.
+
+130
+00:09:31,270 --> 00:09:37,880
+And so if the driver goes right rather
+than left on the next intersection,
+
+131
+00:09:37,880 --> 00:09:43,320
+the navigation will try to pick up on
+what the driver is trying to do and
+
+132
+00:09:43,320 --> 00:09:47,380
+support the driver in the actions
+that he or she wants to do.
+
+133
+00:09:49,110 --> 00:09:53,870
+Many information systems are unable
+to do these types of things.
+
+134
+00:09:53,870 --> 00:09:57,510
+They're not combining these different
+types of information and
+
+135
+00:09:57,510 --> 00:10:02,290
+they are typically very inflexible,
+or not providing any support at all.
+
+136
+00:10:03,980 --> 00:10:06,189
+So we can learn from
+these types of things.
+
+137
+00:10:07,540 --> 00:10:10,630
+So in conclusion,
+process models are like maps.
+
+138
+00:10:12,140 --> 00:10:16,620
+We can learn from cartography
+to improve our process models.
+
+139
+00:10:16,620 --> 00:10:21,810
+Smartly using color and
+size to indicate the parts
+
+140
+00:10:21,810 --> 00:10:26,400
+of the process model which are important
+or where there is congestion.
+
+141
+00:10:26,400 --> 00:10:31,280
+We need to highlight this type of
+information on top of process models,
+
+142
+00:10:31,280 --> 00:10:32,450
+otherwise nobody will care.
+
+143
+00:10:34,110 --> 00:10:40,140
+Often multiple maps are needed, depending
+on the goal that we have in mind.
+
+144
+00:10:40,140 --> 00:10:45,880
+The same if you go by bicycle or you
+go by subway, or you go by train.
+
+145
+00:10:45,880 --> 00:10:47,240
+You need to have a different map.
+
+146
+00:10:48,430 --> 00:10:50,480
+The same holds for process models.
+
+147
+00:10:52,110 --> 00:10:56,610
+We need to connect maps to real
+data to show traffic jams and
+
+148
+00:10:56,610 --> 00:10:58,950
+all kinds of other information.
+
+149
+00:10:58,950 --> 00:11:00,160
+And last but not least,
+
+150
+00:11:00,160 --> 00:11:05,670
+information systems that we developed
+should be more like navigation devices.
+
+151
+00:11:05,670 --> 00:11:07,470
+Flexible and adaptive.
+
+152
+00:11:09,830 --> 00:11:12,740
+If you would like to learn
+more about this map metaphor.
+
+153
+00:11:12,740 --> 00:11:16,000
+What we can learn from maps and
+navigation devices.
+
+154
+00:11:16,000 --> 00:11:19,180
+Please take a look at chapter
+13 of the Process Mining book.
+
+155
+00:11:20,640 --> 00:11:22,100
+Thank you for watching this lecture.
+
+156
+00:11:22,100 --> 00:11:25,868
+See you soon for
+the last lecture of this course.
+
+157
+00:11:25,868 --> 00:11:35,868
+[MUSIC]
+

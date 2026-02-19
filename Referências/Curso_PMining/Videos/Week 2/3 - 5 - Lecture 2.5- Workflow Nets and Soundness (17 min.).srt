@@ -1,0 +1,1102 @@
+1
+00:00:00,031 --> 00:00:07,279
+[MUSIC]
+
+2
+00:00:07,279 --> 00:00:11,980
+Welcome to this lecture of the course of
+process mining data science in action.
+
+3
+00:00:11,980 --> 00:00:15,700
+Today we will focus on the class
+of process models having a clear
+
+4
+00:00:15,700 --> 00:00:17,220
+start and end.
+
+5
+00:00:17,220 --> 00:00:22,390
+Traces in an event log correspond to
+process instances of such models.
+
+6
+00:00:23,810 --> 00:00:27,040
+On this slide,
+you see an example of a Workflow Net.
+
+7
+00:00:28,100 --> 00:00:33,000
+This is a Petri net that has
+a well-defined start place and
+
+8
+00:00:33,000 --> 00:00:35,510
+a well-defined end place.
+
+9
+00:00:35,510 --> 00:00:41,430
+Moreover, it should be free of obvious
+problems like livelocks and deadlocks.
+
+10
+00:00:41,430 --> 00:00:43,929
+And later we will introduce
+the notion of soundness.
+
+11
+00:00:45,120 --> 00:00:50,340
+Traces in a log need to go from
+the initial state to the final state.
+
+12
+00:00:51,520 --> 00:00:56,020
+So, this is a class of models
+that is not only used for
+
+13
+00:00:56,020 --> 00:01:00,660
+process mining, but is also widely used
+in the area of workflow management and
+
+14
+00:01:00,660 --> 00:01:01,880
+business process management.
+
+15
+00:01:02,980 --> 00:01:05,900
+So let's take a step back.
+
+16
+00:01:05,900 --> 00:01:08,410
+Business process management, BPM.
+
+17
+00:01:08,410 --> 00:01:09,930
+What is this?
+
+18
+00:01:09,930 --> 00:01:15,670
+This is the linking pin between IT and
+management science.
+
+19
+00:01:15,670 --> 00:01:17,330
+And it has a long tradition.
+
+20
+00:01:18,890 --> 00:01:21,950
+The main goal is to ensure efficiency.
+
+21
+00:01:23,190 --> 00:01:28,690
+Already in the 18th century, Adam Smith
+showed that by the division of labor,
+
+22
+00:01:28,690 --> 00:01:31,670
+you could make processes
+more efficient and cheaper.
+
+23
+00:01:33,360 --> 00:01:36,080
+Taylor introduced
+scientific management.
+
+24
+00:01:37,080 --> 00:01:43,230
+Henry Ford, we all know introduced
+the notion of mass production,
+
+25
+00:01:43,230 --> 00:01:45,430
+when he made the T-Ford.
+
+26
+00:01:45,430 --> 00:01:49,890
+But the greatest breakthrough that we find
+if we look at business process management,
+
+27
+00:01:49,890 --> 00:01:51,970
+how to make things more efficient,
+
+28
+00:01:51,970 --> 00:01:58,400
+started in the 1950s when information
+systems and computers became omnipresent.
+
+29
+00:01:59,850 --> 00:02:02,880
+Currently, we can see a new wave.
+
+30
+00:02:02,880 --> 00:02:05,720
+Tremendous amounts of data are available.
+
+31
+00:02:05,720 --> 00:02:11,420
+So we can take BPM to the next
+level where data is the new oil.
+
+32
+00:02:14,580 --> 00:02:18,710
+This is a variant of
+the well-known BPM lifecycle.
+
+33
+00:02:18,710 --> 00:02:21,978
+If you look at the small
+circle in the middle,
+
+34
+00:02:21,978 --> 00:02:26,968
+you can see that a BPM project,
+if you want to make processes better,
+
+35
+00:02:26,968 --> 00:02:31,204
+more efficient, starts with a design or
+redesign phase.
+
+36
+00:02:31,204 --> 00:02:32,501
+Then you implement or
+
+37
+00:02:32,501 --> 00:02:37,700
+configure an information system based
+on the processes you have designed.
+
+38
+00:02:37,700 --> 00:02:42,420
+And then you run these processes, and
+maybe you need to adjust them on the fly.
+
+39
+00:02:43,790 --> 00:02:48,480
+If you look at this well-known BPM
+lifecycle from an analysis perspective,
+
+40
+00:02:48,480 --> 00:02:53,725
+you can look at model-based analysis,
+which you use mostly in the design or
+
+41
+00:02:53,725 --> 00:02:55,240
+re-design phase.
+
+42
+00:02:55,240 --> 00:02:58,440
+And you can look at data-based analysis.
+
+43
+00:02:58,440 --> 00:03:02,880
+And process mining is typically focusing
+on the red part in this diagram.
+
+44
+00:03:02,880 --> 00:03:05,390
+Learning from processes
+while they are running.
+
+45
+00:03:07,930 --> 00:03:14,260
+So, what is the role of processes in BPM,
+or work flow management.
+
+46
+00:03:14,260 --> 00:03:18,710
+First of all, process models
+are used to reason about processes.
+
+47
+00:03:18,710 --> 00:03:20,230
+Where are the bottle necks?
+
+48
+00:03:20,230 --> 00:03:21,740
+How can we make things cheaper?
+
+49
+00:03:22,810 --> 00:03:26,530
+But models are also used inside processes.
+
+50
+00:03:26,530 --> 00:03:28,900
+For example, to support decisions.
+
+51
+00:03:28,900 --> 00:03:31,390
+Like will I accept this claim or not?
+
+52
+00:03:33,530 --> 00:03:37,730
+Here you see a list of typical ways
+that process models may be used.
+
+53
+00:03:37,730 --> 00:03:41,200
+To discuss responsibilities and
+bottlenecks.
+
+54
+00:03:41,200 --> 00:03:43,130
+To analyze compliance.
+
+55
+00:03:43,130 --> 00:03:47,980
+To predict possible problems in
+the future using simulation.
+
+56
+00:03:47,980 --> 00:03:51,620
+And last but not least,
+to configure information systems.
+
+57
+00:03:51,620 --> 00:03:54,720
+For example using workflow or
+BPM technology.
+
+58
+00:03:57,020 --> 00:04:01,530
+Unfortunately, many models
+are being used in practice.
+
+59
+00:04:01,530 --> 00:04:06,190
+Here you see a picture of the Tower of
+Babel, indicating that there are so
+
+60
+00:04:06,190 --> 00:04:09,040
+many languages and
+that sometimes it is a bit confusing.
+
+61
+00:04:10,380 --> 00:04:16,100
+In this course we will see several
+different process modeling languages but I
+
+62
+00:04:16,100 --> 00:04:20,650
+would like to stress that the differences
+between these languages are minimal.
+
+63
+00:04:20,650 --> 00:04:22,550
+They're all based on the same concept.
+
+64
+00:04:23,560 --> 00:04:28,520
+Here you see three types of process
+models that one frequently sees.
+
+65
+00:04:28,520 --> 00:04:32,020
+The top shows the so called BPMN model.
+
+66
+00:04:32,020 --> 00:04:37,360
+The Business Process Model and
+Notation that expresses
+
+67
+00:04:37,360 --> 00:04:42,720
+behavior of cases starting in initial
+state, leading to some final state.
+
+68
+00:04:43,800 --> 00:04:48,187
+Below that you see a so-called
+Event-Driven Process Chain, and
+
+69
+00:04:48,187 --> 00:04:52,895
+this is the notation typically used
+in the context of systems like SAP.
+
+70
+00:04:52,895 --> 00:04:57,290
+At the bottom you see Petri nets,
+and today we will focus on
+
+71
+00:04:57,290 --> 00:05:01,890
+a particular variant of Petri nets,
+namely workflow nets.
+
+72
+00:05:01,890 --> 00:05:06,340
+The representations look different,
+but they all try to express the same
+
+73
+00:05:06,340 --> 00:05:11,910
+phenomena, and in the end they
+all generate traces of events.
+
+74
+00:05:11,910 --> 00:05:17,290
+We can all record event logs for these
+types of processes if they are executed.
+
+75
+00:05:19,050 --> 00:05:21,720
+We've already seen a lot of Petri nets.
+
+76
+00:05:21,720 --> 00:05:24,490
+We know that they
+are composed of places and
+
+77
+00:05:24,490 --> 00:05:27,650
+transitions and arcs and
+tokens are flowing through them.
+
+78
+00:05:27,650 --> 00:05:28,710
+We've seen that before.
+
+79
+00:05:31,570 --> 00:05:35,560
+So here you see an example run,
+just to refresh our mind a bit.
+
+80
+00:05:35,560 --> 00:05:40,860
+So, from the initial state with the token
+on the start place, we can execute
+
+81
+00:05:40,860 --> 00:05:46,520
+different activities through firing
+transitions until we reach the end.
+
+82
+00:05:48,170 --> 00:05:52,400
+So, this is one of many
+possible firing sequences.
+
+83
+00:05:52,400 --> 00:05:58,240
+Before, we also saw the notion of a
+reachability graph and a transition system.
+
+84
+00:05:58,240 --> 00:06:03,400
+So the Petri net shown here
+generates this transition system,
+
+85
+00:06:03,400 --> 00:06:05,630
+which captures all the behavior.
+
+86
+00:06:05,630 --> 00:06:11,210
+And the trace that I just showed you, is
+one path through this transition system.
+
+87
+00:06:13,960 --> 00:06:16,900
+So let's now focus on the question,
+if we have a workflow net,
+
+88
+00:06:16,900 --> 00:06:21,370
+so a model with a start place and
+an end place, is it a good model?
+
+89
+00:06:21,370 --> 00:06:24,640
+So here you see an example,
+and please think about this.
+
+90
+00:06:24,640 --> 00:06:26,270
+Is this a good process model?
+
+91
+00:06:27,650 --> 00:06:28,850
+If you look carefully,
+
+92
+00:06:28,850 --> 00:06:34,040
+you will see that that is not the case,
+because there is a possible deadlock.
+
+93
+00:06:34,040 --> 00:06:39,430
+If we take the loop back, we may end up
+in the situation with just a token at c3
+
+94
+00:06:39,430 --> 00:06:41,040
+which corresponds to a deadlock.
+
+95
+00:06:42,830 --> 00:06:45,310
+Let's take a look at
+another process model.
+
+96
+00:06:45,310 --> 00:06:49,370
+Again, take a minute to
+look at this model, and
+
+97
+00:06:49,370 --> 00:06:53,040
+try to tell whether this
+model is a good model or not.
+
+98
+00:06:54,820 --> 00:06:58,920
+If you look closely, you will see that in
+the beginning there is an AND-split, but
+
+99
+00:06:58,920 --> 00:07:01,820
+it doesn't really
+correspond to an AND-join.
+
+100
+00:07:01,820 --> 00:07:04,650
+So, again, we see that there is a problem.
+
+101
+00:07:04,650 --> 00:07:08,284
+And if you draw the reachability
+graph of this model,
+
+102
+00:07:08,284 --> 00:07:13,795
+you will see that this doesn't have
+the behavior that you expect it to have.
+
+103
+00:07:13,795 --> 00:07:18,010
+Let's take a look at another
+variant of the same process.
+
+104
+00:07:18,010 --> 00:07:19,080
+Is this a good model?
+
+105
+00:07:21,170 --> 00:07:24,818
+It doesn't have the problems
+that we have seen before, but
+
+106
+00:07:24,818 --> 00:07:32,340
+there is another problem in this model,
+that the task pay compensation,
+
+107
+00:07:32,340 --> 00:07:37,020
+which is modeled by the transition
+at the end, can never be fired.
+
+108
+00:07:37,020 --> 00:07:37,960
+It's dead.
+
+109
+00:07:37,960 --> 00:07:42,620
+You can never reach the state where
+both of the input places are marked.
+
+110
+00:07:44,460 --> 00:07:46,570
+Let's take a look at another model.
+
+111
+00:07:46,570 --> 00:07:48,670
+So, carefully look at this model.
+
+112
+00:07:48,670 --> 00:07:51,590
+Is this a correct process model?
+
+113
+00:07:51,590 --> 00:07:55,640
+In terms that it doesn't have any of
+the anomalies that we discussed before.
+
+114
+00:07:57,480 --> 00:08:00,700
+Yes, it has all the desired properties.
+
+115
+00:08:00,700 --> 00:08:03,680
+But one may ask yourself,
+why is this a good model?
+
+116
+00:08:03,680 --> 00:08:05,740
+What is the criterion that we are using?
+
+117
+00:08:07,390 --> 00:08:10,550
+Well the criterion that we
+are using is soundness, and
+
+118
+00:08:10,550 --> 00:08:15,250
+it is defined on top of WorkFlow
+nets that we already introduced.
+
+119
+00:08:15,250 --> 00:08:20,616
+So a WorkFlow net has one start place,
+one end place,
+
+120
+00:08:20,616 --> 00:08:25,830
+and all the transitions and all the places
+are on a path from start to end.
+
+121
+00:08:29,200 --> 00:08:32,140
+Based on this,
+we can define the notion of soundness.
+
+122
+00:08:32,140 --> 00:08:37,620
+A WorkFlow net is sound if and only if
+the following four properties hold.
+
+123
+00:08:38,710 --> 00:08:43,090
+The first property expresses
+that places should be safe.
+
+124
+00:08:43,090 --> 00:08:47,800
+At most, one token should be at
+a place at any point in time.
+
+125
+00:08:50,150 --> 00:08:53,500
+There should be proper completion,
+meaning that the moment we
+
+126
+00:08:53,500 --> 00:08:57,930
+put a token on the end place,
+all other places should be empty.
+
+127
+00:08:59,820 --> 00:09:02,040
+We should have the option to complete.
+
+128
+00:09:02,040 --> 00:09:06,820
+No matter what we do, we should
+always be able to reach the state,
+
+129
+00:09:06,820 --> 00:09:10,500
+the marking,
+with just a token on the final place.
+
+130
+00:09:11,990 --> 00:09:14,740
+And last but not least,
+there should not be any dead parts.
+
+131
+00:09:14,740 --> 00:09:20,890
+So all the parts of the process model
+should potentially be activated.
+
+132
+00:09:20,890 --> 00:09:24,460
+So there should be scenarios
+where they play a role.
+
+133
+00:09:24,460 --> 00:09:28,440
+So these are the four minimal
+requirements that any WorkFlow net should
+
+134
+00:09:28,440 --> 00:09:30,700
+satisfy in order to be sound.
+
+135
+00:09:32,610 --> 00:09:36,210
+So let's take again a look
+at several examples, and
+
+136
+00:09:36,210 --> 00:09:40,890
+try to see whether these models
+satisfy these four properties.
+
+137
+00:09:40,890 --> 00:09:42,680
+So here we see again,
+
+138
+00:09:42,680 --> 00:09:47,970
+a process model, does it satisfy these
+four properties, making it sound?
+
+139
+00:09:49,540 --> 00:09:51,370
+The answer is no.
+
+140
+00:09:51,370 --> 00:09:56,390
+The rows highlighted here in green,
+correspond to properties that hold for
+
+141
+00:09:56,390 --> 00:09:57,980
+this particular model.
+
+142
+00:09:57,980 --> 00:10:01,021
+But we also see two properties,
+proper completion and
+
+143
+00:10:01,021 --> 00:10:03,210
+option to complete, that do not hold.
+
+144
+00:10:03,210 --> 00:10:08,375
+And we can see that, because the state
+that is now indicated by the red tokens,
+
+145
+00:10:08,375 --> 00:10:11,269
+is a reachable state, and from this state,
+
+146
+00:10:11,269 --> 00:10:15,910
+we can no longer go to the situation
+where there's just a token on p6.
+
+147
+00:10:18,755 --> 00:10:20,380
+Let's take a look at another example.
+
+148
+00:10:20,380 --> 00:10:21,580
+Is this model sound?
+
+149
+00:10:23,800 --> 00:10:26,400
+Again we can look at
+its reachability graph,
+
+150
+00:10:26,400 --> 00:10:29,200
+look at the traces that it generates.
+
+151
+00:10:29,200 --> 00:10:30,400
+And if we do that,
+
+152
+00:10:30,400 --> 00:10:35,810
+we see that only the last property,
+absence of deadlock parts, holds.
+
+153
+00:10:35,810 --> 00:10:38,210
+All the other properties
+are not satisfied.
+
+154
+00:10:39,470 --> 00:10:44,100
+Well, it's easy to see,
+because once you put the token in p3,
+
+155
+00:10:44,100 --> 00:10:48,300
+transition t3 can fire any number of
+times, and there is no way that you
+
+156
+00:10:48,300 --> 00:10:51,260
+can remove these tokens and
+go back to the final state.
+
+157
+00:10:51,260 --> 00:10:51,930
+Yeah,
+
+158
+00:10:51,930 --> 00:10:54,510
+so it's clear that these
+properties are violated.
+
+159
+00:10:56,380 --> 00:10:58,170
+If we take a look at this model.
+
+160
+00:10:58,170 --> 00:10:59,980
+Again, think about it.
+
+161
+00:10:59,980 --> 00:11:01,770
+Is this model sound or not?
+
+162
+00:11:03,710 --> 00:11:10,360
+Then you see that the top three properties
+hold, but transition t3 is dead.
+
+163
+00:11:10,360 --> 00:11:12,600
+It cannot be executed.
+
+164
+00:11:12,600 --> 00:11:13,740
+So it's not a sound model.
+
+165
+00:11:16,810 --> 00:11:19,190
+Now we can take a look
+at this model again.
+
+166
+00:11:19,190 --> 00:11:22,379
+Again, we can check whether it's sound,
+and in this case,
+
+167
+00:11:23,390 --> 00:11:28,440
+we can see that all the four properties
+are satisfied, making the model sound.
+
+168
+00:11:30,510 --> 00:11:34,570
+So on these toy examples it is very
+easy to see whether things are sound or
+
+169
+00:11:34,570 --> 00:11:37,820
+not, but
+in general it's much more difficult.
+
+170
+00:11:37,820 --> 00:11:41,989
+But there are good analysis techniques
+to check soundness of such models.
+
+171
+00:11:43,220 --> 00:11:46,130
+Let's take a look at some more examples.
+
+172
+00:11:46,130 --> 00:11:51,080
+So, this shows a WorkFlow
+net that is not safe.
+
+173
+00:11:51,080 --> 00:11:56,420
+So it's not sound because one of the four
+properties is being violated, and
+
+174
+00:11:56,420 --> 00:11:59,420
+you can see the markings
+here that can be reached.
+
+175
+00:11:59,420 --> 00:12:00,530
+So it's not sound.
+
+176
+00:12:02,600 --> 00:12:08,770
+This is another more tricky example
+where there is no option to complete
+
+177
+00:12:08,770 --> 00:12:14,670
+because we can reach the
+the state with just a token in place c3.
+
+178
+00:12:14,670 --> 00:12:17,410
+So then decision is not enabled, and
+
+179
+00:12:17,410 --> 00:12:20,430
+we get stuck somewhere in
+the middle of the process.
+
+180
+00:12:20,430 --> 00:12:21,640
+So again it is not sound.
+
+181
+00:12:23,270 --> 00:12:25,490
+So, if we look at these properties,
+
+182
+00:12:25,490 --> 00:12:31,630
+you may have noticed that the option
+to complete implies proper completion.
+
+183
+00:12:32,800 --> 00:12:37,770
+So in other words, if proper
+completion does not hold, so there
+
+184
+00:12:37,770 --> 00:12:42,260
+is a token on the final place, but still
+something is remaining in the process.
+
+185
+00:12:42,260 --> 00:12:47,460
+If it does not hold, then also
+the option to complete does not hold.
+
+186
+00:12:47,460 --> 00:12:52,420
+And it's easy to see, because the only
+way that a token in the middle of
+
+187
+00:12:52,420 --> 00:12:55,960
+this cloud can disappear is
+to go to the final place, but
+
+188
+00:12:55,960 --> 00:12:59,300
+then there would be two
+tokens in this final place.
+
+189
+00:12:59,300 --> 00:13:04,357
+So, if we have the option to complete,
+we automatically have proper completion.
+
+190
+00:13:04,357 --> 00:13:06,128
+So when checking the model,
+
+191
+00:13:06,128 --> 00:13:10,260
+we don't need to look at proper completion
+because it holds automatically.
+
+192
+00:13:12,580 --> 00:13:17,620
+There is a logical connection between the
+Petri net properties that we have seen in
+
+193
+00:13:17,620 --> 00:13:19,810
+earlier lectures, and
+
+194
+00:13:19,810 --> 00:13:24,030
+the property of soundness that we
+are looking at in this lecture.
+
+195
+00:13:24,030 --> 00:13:27,136
+So this is a Petri net, a WorkFlow net.
+
+196
+00:13:27,136 --> 00:13:33,450
+We can short-circuit it by adding
+a transition from the final
+
+197
+00:13:34,590 --> 00:13:38,860
+part of the process to
+the initial part of the process.
+
+198
+00:13:38,860 --> 00:13:42,050
+So in other words, when we reach the end,
+we go back to the beginning.
+
+199
+00:13:43,220 --> 00:13:47,240
+This is the so-called
+short-circuited WorkFlow net.
+
+200
+00:13:47,240 --> 00:13:51,940
+And we have the very nice property net
+that a WorkFlow net is sound, if and
+
+201
+00:13:51,940 --> 00:13:56,290
+only if the corresponding short-circuited
+Petri net is live and bounded.
+
+202
+00:13:57,400 --> 00:14:01,340
+If we also want to have safety, the first
+property, it should also be safe.
+
+203
+00:14:02,902 --> 00:14:06,240
+But boundedness is sufficient
+for the next three activities.
+
+204
+00:14:08,850 --> 00:14:12,640
+So what are the main types
+of model-based analysis?
+
+205
+00:14:12,640 --> 00:14:16,660
+At a higher level we can
+distinguish two types of analysis.
+
+206
+00:14:16,660 --> 00:14:20,228
+verification, like the soundness
+checks we just discussed.
+
+207
+00:14:20,228 --> 00:14:22,918
+Performance analysis,
+
+208
+00:14:22,918 --> 00:14:28,410
+often using techniques like simulation or
+Markov analysis.
+
+209
+00:14:28,410 --> 00:14:32,410
+These are the typical types
+of analysis that people do
+
+210
+00:14:32,410 --> 00:14:34,420
+when they talk about
+business process management.
+
+211
+00:14:35,720 --> 00:14:39,470
+However, just looking at
+the models is not sufficient.
+
+212
+00:14:40,900 --> 00:14:47,160
+All these analysis techniques,
+they rely on the quality of the model.
+
+213
+00:14:47,160 --> 00:14:52,490
+The model has to represent reality
+properly, otherwise any
+
+214
+00:14:52,490 --> 00:14:55,230
+analysis result doesn't have any value.
+
+215
+00:14:56,710 --> 00:15:01,200
+Whereas if we look in practice,
+often the model that people make by hand,
+
+216
+00:15:01,200 --> 00:15:08,030
+have a poor alignment with reality,
+making the conclusions very unreliable.
+
+217
+00:15:09,100 --> 00:15:14,680
+So process mining aims to address
+this problem by establishing a very
+
+218
+00:15:14,680 --> 00:15:18,740
+tight connection between models and
+the actual event data.
+
+219
+00:15:21,360 --> 00:15:23,830
+In the next lecture,
+
+220
+00:15:23,830 --> 00:15:29,540
+we will really start talking about
+concrete process mining algorithms.
+
+221
+00:15:29,540 --> 00:15:31,980
+In this case a discovery technique.
+
+222
+00:15:31,980 --> 00:15:34,610
+We will talk in the next lecture
+about the Alpha Algorithm.
+
+223
+00:15:36,020 --> 00:15:40,090
+The goal of the Alpha Algorithm
+is to discover WorkFlow nets.
+
+224
+00:15:40,090 --> 00:15:43,450
+So the types of process models
+that we have discussed in this
+
+225
+00:15:43,450 --> 00:15:45,520
+lecture from event logs.
+
+226
+00:15:45,520 --> 00:15:51,070
+So we start from an event log,
+as a multiset of traces, and
+
+227
+00:15:51,070 --> 00:15:54,120
+from this multiset of traces, we try to
+
+228
+00:15:54,120 --> 00:15:59,920
+automatically learn a process model
+expressed in terms of a WorkFlow net.
+
+229
+00:15:59,920 --> 00:16:01,710
+And you can see an example here.
+
+230
+00:16:03,900 --> 00:16:08,300
+In the last couple of lectures we have
+been talking about many things related to
+
+231
+00:16:08,300 --> 00:16:09,480
+process models.
+
+232
+00:16:09,480 --> 00:16:12,640
+So chapter two is the central chapter
+where all of these things will
+
+233
+00:16:12,640 --> 00:16:14,100
+be discussed.
+
+234
+00:16:15,940 --> 00:16:20,289
+Thank you for watching this lecture and
+hope to see you in the next lecture.
+
+235
+00:16:20,289 --> 00:16:30,289
+[MUSIC]
+

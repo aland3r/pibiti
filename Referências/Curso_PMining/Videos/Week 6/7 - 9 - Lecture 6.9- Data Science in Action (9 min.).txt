@@ -1,0 +1,217 @@
+[MUSIC]
+Welcome to the last lecture of the course
+on Process Mining: Data Science in Action.
+Today, we recap the main
+ingredients of this course.
+Our world is driven by data.
+In one of the first lectures,
+we discussed the internet of events.
+So we can find event data everywhere, and
+the challenge is to use it in a good way.
+This is a primary task for
+the data scientist.
+So data scientist should know about
+statistic, should know about economics and
+all kinds of aspect and
+it's very important that such a data
+scientist also knows about processes
+because it's not just about static data,
+in the end, you would like to
+improve real processes and
+products as they are being
+used in the field.
+So therefore, this combination is crucial.
+One can see process mining as
+something that bridges the gap
+between process oriented techniques and
+data oriented techniques.
+So business process management, process
+modeling and model-based analysis can be
+combined with techniques like data mining,
+business intelligence and statistics.
+But for this, we need to have new
+approaches, new techniques and
+these have been discussed in this course.
+One could say well, what's different
+from business intelligence?
+But if you would compare it
+to business intelligence and
+you would view analysis as
+seeing a child that has fever,
+then business intelligence will only be
+able to tell you that the child has fever.
+You can measure it and
+put it in a nice dashboard.
+However, process mining is able to
+look inside the process itself.
+So, BI is very different from process
+mining as we have seen in this course.
+Using tools like ProM and Disco and all
+kinds of other tools, we are able to look
+inside a process by analyzing the event
+data that is widely available today.
+If you look at the classical use of
+models, it is often used for play out.
+You have a model and
+you generate behavior from it.
+This is what happens if
+you're doing simulation or
+if you're using a BPMN system.
+In this course, we focused on play-in and
+replay, the confrontation between
+models and
+data where the actual behavior is leading.
+This way, we can relate
+process models to event logs.
+We started with this very simple
+model which identifies three
+types of process mining.
+Discovery, which can be seen as play-in.
+Learning, a model from event data.
+Conformance checking,
+which requires a form of replay.
+By replaying reality on top of the model,
+we can see where reality is different
+from the things that have been modeled.
+And last but not least, enhancement.
+Again, we replay the model, but
+now with the purpose of repairing a model,
+improving it, or extending it
+with other perspectives like for
+example, bottleneck information.
+This is the simple model
+that we started with.
+In later lectures, we extended this
+simple model just identifying three types
+of process mining into something that
+identified ten process mining activities,
+but also distinguishing between offline
+process mining and online process mining.
+Things like operational support,
+prediction, recommendation,
+detecting deviations as they occur.
+This refined process mining framework
+also shows other perspectives like time,
+resources and data.
+These can be connected by using
+the control flow backbone.
+We also identified the difference
+between normative and
+descriptive models and
+how this fits into this overall framework.
+So process mining is much
+more than process discovery.
+It's about conformance analysis,
+performance analysis,
+decision point mining.
+So if you see that in a process,
+there is a part where some of
+the customers go left and
+some of the customers go right,
+you would like to understand why
+there are these differences.
+Organizational mining,
+which people are doing what?
+Which people are most effective
+in doing particular things?
+Comparative process mining.
+For example,
+comparing different groups of customers or
+comparing different departments to
+operational support like things like
+predication, recommendation, etc.
+But process discovery is
+still the starting point and
+it is something that is fascinating.
+It's extremely useful.
+You start from raw event data and
+you automatically construct
+control flow models.
+It's often challenging, but always
+possible, you can always simplify models,
+spaghetti-like models into simpler models
+by looking at the most frequent behavior,
+but it requires expertise, the expertise
+that you've learned in this course.
+Which algorithm to apply?
+What is the effect of using
+a particular representational bias?
+And we have also seen that it is difficult
+because we never know the real process and
+we only can see positive examples in the
+event log that we are using for analysis.
+So it's a fascinating area with many
+open problems and many opportunities.
+If you do process discovery,
+you will find out that
+there are actually multiple forces
+that are competing with one another,
+fitness versus simplicity,
+generalization versus precision.
+There are metrics available for
+all of these four dimensions, and if you
+are using a process discovery technique,
+you need to identify how important
+are all these different dimensions.
+We also discussed tooling.
+In this course,
+we have been heavily using ProM and
+Disco as an example of an academic open
+source tool and a commercial tool.
+This way you get some feeling of
+the available functionality in
+existing software.
+In this last week, we also looked at
+running a process mining project.
+We looked at the L * life cycle
+model identifying different stages of
+a process mining project.
+We've also seen that if we talk about
+processes, there is a spectrum going from
+lasagna processes that are highly
+structured that we can apply the entire L *
+life cycle model to spaghetti like
+processes which are less structured, more
+variable but where the potential value
+of process mining can be much higher.
+This course was designed around
+the book Process Mining: Discovery,
+Conformance Checking and
+Enhancement of Business Processes.
+In the different lectures, we visited
+all of the chapters of this book.
+Sometimes, we had some excursions
+to neighboring fields or
+recent developments, but it is a very
+good reference for this course.
+What one should realize
+is that in this course,
+we have only seen the tip of the iceberg.
+There are many more process
+mining techniques and
+questions possible and available.
+And you're encouraged to
+visit websites like the
+one shown here to explore
+this field in more detail.
+We are now coming to
+a conclusion of this course on
+Process Mining: Data Science in Action.
+You should realize that there
+are opportunities everywhere.
+There is event data everywhere, so you can
+apply the things that you've learned in
+this course at many, many places.
+Experience the magic of process mining,
+discovering and
+improving processes based on
+facts rather than fiction.
+Thank you for watching this lecture and
+all the other lectures.
+I hope you enjoyed this course.
+I also hope that you will continue
+to apply the things you've learned.
+Opportunities are endless.
+All the best!
+[MUSIC]
+

@@ -1,0 +1,392 @@
+[MUSIC]
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+Today we focus on the representation
+used during discovery.
+We can use different modeling notations to
+present discovered processes to end users.
+However, this is independent of
+the representation used when searching for
+a process that best explains
+the observed event data.
+Earlier, we have been taking about
+desire lines as a metaphor for
+process mining and process discovery.
+Here you see a picture with my daughter
+cycling over such a desire line.
+They indicate what people really do.
+Here you see another desire line.
+It's taken at the campus of
+Tsinghua University in Beijing.
+And we see a desire line here
+that has been building over time.
+Because people were leaving traces
+of the things that they did.
+As you can clearly see from the sign,
+they are violating a rule, but there is
+evidence to show what has really happened.
+This metaphor of desire
+lines allows us to
+talk about representational
+bias of process mining.
+Let's take a look.
+The lines here indicate
+the behavior that we have observed.
+Now given this observed behavior, we would
+like to create a model of the behaviors
+that we have seen that is also
+predictive for things into the future.
+And so it's a description of what
+we have seen in the past, and
+says something about what we
+can expect in the future.
+Well, so we tried to convert
+what we have seen into a model.
+And what is indicated here.
+For example, the circular building blocks,
+is that we tried to capture the behavior
+that we have seen in terms of a model.
+So this model seems to be a good
+description of what we have seen.
+However, we can take
+a look at this situation.
+Where the yellow line indicates
+a behavior that is violating the model.
+In other words,
+the model doesn't allow for this behavior.
+But it happened anyway.
+So, is this an outlier?
+Or, should we modify
+our model to allow for
+this particular behavior that
+does not fit into the model?
+So, what you see here is that we
+can build an alternative model
+that now has much more detail
+that allows for the yellow line.
+But is this model overfitting?
+Before we had the outlier, which was
+not possible according to the model.
+Now we have adapted this
+model to the outlier.
+So, this is related to the four forces
+that we have been talking about before.
+We can also have a model that is
+completely underfitting, that allows for
+any behavior that is somewhere
+there in the middle.
+So this is an underfitting model.
+So if we look at these two models, we can
+see an over and an underfitting model.
+But that's not the thing that
+we are going to talk about.
+Today, we are going to talk
+about representations that we
+use to capture these models.
+So, before we were using circles and
+these other objects.
+But what would happen if our basic
+building blocks our modeling language.
+Does not allow for these circles,
+and these bars, and
+these triangles, but also it only
+allows for this particular shape.
+We then have a different modeling language
+and we cannot capture exactly the same
+things, and we are tempted to capture
+the behavior in a particular way.
+So this is what
+representational bias is about.
+It impacts the search space of
+process discovery techniques.
+Let's take a look at an example
+to make this more clear.
+So this is a Petri net and
+a Petri net has no problems
+whatsoever to capture concurrency.
+So if you have a process discovery
+technique using Petri nets natively,
+the discovery technique will be
+tempted to discover concurrency.
+However, if we would use as
+a representation a transition system.
+This is the transition system
+corresponding to the same process.
+And we are only seeing
+a tiny fraction of it.
+It has many different states and
+many different transitions because it is
+not able to capture concurrency natively.
+So when we use this representation,
+discovering concurrency will be
+much more difficult.
+So the representation is influencing
+how we can discover processes and
+there are many possible languages that
+we internally use for process discovery.
+We've seen Petri nets,
+we can look at workflow nets,
+we can look at transition systems.
+Later we will look at BPMN diagrams.
+And there are many other
+notations that you can see.
+The notations that you see
+here are just a few of
+the process modelling
+languages that are out there.
+So the choice of language will
+influence how our discovery
+process will actually be conducted and
+it will influence the outcome.
+So before, with the transition system,
+I already indicated that
+to discover concurrency, you need to have
+a notation that allows for concurrency.
+So let us elaborate a bit about this.
+Many things in real life are concurrent.
+If we look at an office.
+If we look at a factory, many things
+are happening at the same time.
+If we want to mine things on the internet
+like social media, we will see that
+many actors, many people are acting
+concurrently at the same thing.
+And you don't want to build one big
+transition system to capture this.
+Also if we look at complex machines,
+like X-ray machines, they
+are composed of many components that are
+interacting and are working concurrently.
+So concurrency is very important.
+So should the process discovery
+notation that we are using,
+should it be able to capture
+concurrency compactly?
+Probably yes.
+If we look at processes that
+have these types of behavior.
+But if we want to capture
+concurrency are there
+also higher level constructs
+that we should also capture?
+Like for example OR-joins and
+cancellations.
+And these are the things that we
+will elaborate on in later lectures.
+So let's go back to the case of
+concurrency and the OR-joins.
+First we look at concurrency, and I ask
+you a question which is very much related
+to things that we have seen before when
+we were talking about workflow nets and
+Petri nets and reachability graphs.
+So, suppose that we have a process that
+has a start activity an end activity, and
+k activities that are concurrently in
+between the start and end activity.
+So, my question to you is,
+how many traces are possible.
+And if we feed the Alpha algorithm
+with all of these traces,
+will it be able to discover such a model?
+And what is the minimum number
+of observations needed?
+Please think about this.
+The answer to the question is as follows.
+So if we model these k parallel activities,
+nobody will be surprised that
+the process model looks like this, and the
+Alpha algorithm is able to discover it.
+If we look at the number of different,
+sequences allowed by this model,
+it's easy to compute and here you can see
+the numbers for different values of k.
+So the moment that k becomes bigger,
+many different traces are possible.
+The Alpha algorithm does not need
+to observe all of these traces.
+In principal, k times k minus 1
+observations are sufficient.
+What do I mean by that?
+If an activity b1 can be followed by b3,
+we should observe that at least once.
+And so in this model k times k minus 1
+is the number of observations that we
+need to see.
+And in a single trace they can be
+already multiple observations.
+Let's take a look at another
+question involving an OR-join.
+Suppose that we have again k parallel
+activities but these are all optional.
+So they can be skipped.
+The questions are: is the Alpha algorithm
+able to discover this process and
+how many traces are possible
+let's say again for k is ten.
+To answer this question,
+let us first take a look at a model
+that captures this type of behavior.
+We see k concurrent
+activities in the middle, and
+they all have a so-called tau
+transition associated to it.
+That allows us to bypass that activity.
+So this models the behavior
+that was described.
+The alpha algorithm is
+unable to discover this
+model because the Alpha algorithm is
+unable to detect silent transitions.
+It will create a model.
+For this event log, that is incorrect.
+How many traces are there?
+That number is incredible.
+And here you can see for
+different values of k,
+what the corresponding number
+of possible traces is.
+So these numbers are incredible.
+And you can imagine that, if you would
+like to represent this behavior as
+a transition system,
+it would look like a big bag of spaghetti.
+Incredibly complicated, but
+as the Petri net model looks very simple.
+So, if we would like to
+discover concurrency or
+OR-joins we should have a representation
+that can represent these behaviors easily.
+Otherwise your discovery
+technique will be,
+not able to capture that
+behavior that you're looking for.
+The discovery process
+is guided by the bias.
+That is the important
+message of this lecture.
+So let us take a look at some examples
+that we have seen in the past, and
+that we now can relate to,
+to this problem.
+So we assume that our representational
+bias is workflow-nets with unique labels.
+So they cannot be two
+transitions with the same label.
+And we are given this event log.
+Now think of a perfect discovery
+algorithm as long as it is using
+a representational bias that only allows
+for work flow nets with unique labels.
+Then, there is no technique that
+actually can discover this model for
+this event log.
+The Petri net that is able to
+reflect behavior well is shown here.
+But you can see that the e
+activity is duplicated.
+There are two e's, and only by duplicating
+e, we get a process model that fits well
+in all the four quality dimensions with
+respect to the log that we used as input.
+So if we require that we need to
+have a work flow net with unique labels we
+are unable to find this desirable model.
+Let's take a look at another example.
+Here we have a log.
+Acd and bce are frequent traces.
+Suppose now that we have a representation
+that does not allow for indirect or
+long term dependencies.
+So, we can only connect two activities if
+one is directly influencing the other.
+And in this model this is not the case,
+because the choice between a and
+b is influencing the choice between d and
+e.
+If a happens then d will happen later and
+not e.
+But a and
+e are never following one another.
+The model that describes this
+behavior well is shown here.
+And you can see that there is a dependency
+between a and d, and b and e.
+Although these two pairs of activities
+never followed one another.
+So, a representation
+that does not allow for
+indirect dependencies will be unable
+to discover this particular model.
+So, the representational bias matters a
+lot if we are discovering process models.
+It is impact to search space
+of the discovery process.
+One point that I would
+like to make very clear
+is that the visualization of
+the discovered model to the end user
+is something completely different than
+the internal representational bias.
+Using while searching for
+a suitable process model.
+You can always use one
+technique during discovery, and
+then visualize it in the notation
+that people would like to use.
+That is why later we will talk about
+the BPMN notation as a notation that
+people would often like to see.
+But it's a notation that is rarely used
+in the discovery algorithm itself.
+So these conversions are easy.
+So here you see, for
+example, the model discovered
+using using the alpha algorithm.
+You have seen that before.
+And we can take such Petri nets and
+automatically convert it to a BPMN
+diagram as you can here in ProM.
+So the visualization of what we show
+to the end user does not need to the be
+same as the representation
+that was used internally.
+Much more important than what kind of
+flavor of visualization you are using.
+Is to realize that process
+discovery is a difficult problem.
+And that the choice of
+representational bias is important.
+For finding the right model,
+not the right visualization.
+A problem that we have mentioned before is
+that we do not have any negative examples,
+which is making discovery challenging.
+Also the search space has a very
+complicated structure there are constructs
+like concurrency, loops, OR-splits,
+OR-joins, cancellations.
+This makes things very difficult and
+we only see a fraction of the behavior
+that is actually possible.
+There is also a very unclear relationship
+between the size of the model and
+the behavior.
+A smaller model may actually allow for
+much more traces than a larger model.
+But also the relationship
+can hold in the other way.
+That the larger model has much more
+behavior than the smaller model.
+This is making discovery difficult.
+So a careful consideration of
+the representational bias is key
+to discovering the right process model.
+If you are interested in
+reading more about this,
+please take a look at these two chapters.
+That will provide you with more examples.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

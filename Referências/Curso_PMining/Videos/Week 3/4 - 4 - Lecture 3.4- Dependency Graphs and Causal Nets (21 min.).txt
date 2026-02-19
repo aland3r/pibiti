@@ -1,0 +1,512 @@
+[MUSIC]
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+Today we will learn about
+dependency graphs and causal nets.
+These are important because mining
+algorithms like the Heuristic Miner
+are based on them.
+In earlier lectures, we have seen many
+different types of process models.
+Sometimes we talk about a Tower
+of Babel because there are so
+many process models to choose from.
+But the choice of process models
+is very important during mining.
+This, we discussed elaborately when
+we talked about representational bias
+of process mining.
+Today we will focus on two representations
+which are used internally during mining.
+By algorithms like
+the heuristic mining algorithm.
+So the first representation that we
+will talk about are dependency graphs.
+So, dependency graphs
+are very important to
+get the causal structure
+of a process model.
+And, this is often used as input for
+all kind of algorithms that look for
+more refined representations.
+Here you see an example
+of a dependency graph.
+It is just a graph with arcs and nodes.
+All the nodes correspond to activities.
+All the arcs correspond
+to causal dependencies.
+And you can think of a causal dependency
+as a relationship between two activities
+that is directed, where one is
+triggering or enabling the other one.
+Arcs will be annotated with numbers,
+these can represent frequencies,
+these can represent confidence,
+how certain we
+are that there is a particular
+causality between these two activities.
+So the challenge of building
+such a dependency graph is that
+we need to deal with concurrency.
+So activities can be
+interleafed in many ways, but
+that doesn't mean that they
+causally depend on each other.
+So this is the challenge
+that is very important.
+The graphs that we are looking at
+now have no executable semantics.
+It's not like a petri net that,
+based on such a model,
+there is a clear set of traces that is
+possible according to a certain semantics.
+In other words,
+if there are multiple ingoing and
+outgoing arcs, there is no clear AND
+or XOR semantics.
+One can think of this as the input and
+output behavior as a fuzzy fight
+version of the OR-join and OR-split
+without having a very clear semantics.
+Sometimes you need one input.
+Sometimes you need two inputs.
+So we interpret them in a very loose way.
+Without associating any
+executable semantics to it.
+So, let's relate this to some of the
+representations that we have seen before.
+We all have seen diagrams like this.
+The causal footprint.
+The arrows in such a matrix correspond
+to the arcs in the dependency graphs.
+So here you see the mapping.
+From such a footprint
+to a dependency graph.
+We can also look at the Petri net,
+so here you see a Petri net.
+And in essence,
+if I would remove all the places, and
+just connect the activities directly as
+they were connected through the places.
+But now after removing the places, then
+we also get a kind of dependency graph.
+So a Petri net can be translated
+into a dependency graph, but
+we lose lots of the semantics.
+Here's another example.
+Again, we take a look at the footprint.
+We look at the arrows that
+are in the footprint matrix, and
+they correspond to the arrows
+in the dependency graph.
+If we look at the corresponding Petri
+net, again we can remove the places, and
+we get the corresponding dependency graph.
+So this gives an intuitive idea
+of what the dependency graph is.
+It is something that has no semantics,
+but that tries to capture causalities.
+Why are these important?
+These are important because all
+kinds of mining algorithms,
+start from such a representation.
+They are using it in a first phase or
+it is the final product that they show.
+So one can think of fuzzy models and
+the models in disco as dependency graphs.
+So there's no precise semantics.
+There are many ways to create them.
+There are many algorithms to
+create such dependency graphs.
+And they are often based on heuristics.
+So we will talk about later, we will talk
+about the specific way of learning them,
+but there are many ways to do it actually.
+Dependency graphs have a fuzzy semantics.
+C-nets take these dependency graphs and
+add a bit more semantics,
+but not by making them executable,
+but more sketching the possibilities.
+So what you see here is an example
+of a causal net.
+It's a dependency graph annotated
+with so-called input and
+output bindings that are showing
+what the possible behaviors are,
+without associating
+an executable semantics to it.
+So why do we talk about C-nets?
+Well, many of the process mining
+algorithms that can deal with noise and
+other advanced concepts, they use
+a representation very similar to C-nets.
+And the primary example that we will
+use here is the heuristics miner.
+It fits very well with
+mainstream languages.
+They often talk about ors and ands in
+a more elaborate way than what is possible
+in Petri net model or a transition
+system, so there is a nice fit.
+Using C-nets we are able to mobile XOR's,
+AND's, and
+very important OR's but
+we do so without adding any other
+modeling elements like silent or
+duplicate transitions in a Petri net.
+Last but not least,
+we use C-net's to avoid non-signed models.
+So the semantics are in such a way that
+we avoid having deadlocks in them.
+So the semantics are very loose,
+as I explained before.
+The moment of choice is not fixed.
+We just look in hindsight.
+Does a trace fit into this model?
+Is there a possible explanation
+according to this model?
+That whether trace behavior
+fits with the model behavior.
+So if you look in the process mining book,
+you can see a formal description
+of this type of notation.
+It's not important that you
+are able to understand it now, but
+if you would like to read the details,
+you can do so in chapter two.
+What is important is that there is one
+initial activity that is a final activity,
+that there are these dependencies,
+these connections between
+the different elements and
+there are inputs and output bindings.
+So the definition of a binding can
+be formalized, the definition of
+a state can be formalized and
+based on these notions we can talk
+about sequences that are possible
+according to such a C-net.
+But, as I said, I will try to
+explain it in a more intuitive way.
+So there is one start activity,
+in this case the start activity is a, and
+this will be the one that happened first.
+And a can only happen in
+the first position of a trace.
+Not in any later positions.
+This a is a start activity and
+there are two output bindings so
+after a there are two possibilities.
+We can either do b and
+d or we can do c and d.
+Yeah?
+That's the idea.
+So after executing a, we need to
+choose one of these output bindings,
+and here you can see that
+the choice was made to do b and d.
+And if we take this binding it means that
+we are creating the obligation that in
+the future b will need to happen and
+d will need to happen.
+So, you're creating obligations and
+the input bindings are able to
+remove these obligations, whereas
+the output bindings are creating them.
+So, after b occurs we have removed
+the obligation between a and b.
+And we have created
+an obligation between b and e.
+So now, in the future,
+we know that we will have to do e.
+And we will need to match it to
+one of the input bindings of e.
+But e is not yet enabled.
+The next thing that will
+happen is that d occurs.
+We remove an obligation
+on the incoming side and
+we create an obligation
+on the outgoing side.
+In the next step, we execute e and
+we remove two obligations.
+So this is like an AND-join, but
+not off all three incoming arcs,
+just from two of them.
+So you can think of this as an OR.
+We removed two obligations,
+and we created a new one, and
+the new obligation says that g
+will need to happen in the future.
+Then we execute g, we remove
+an obligation, we create an obligation
+until we can do the final step.
+Where we execute the end activity,
+which may only happen at the very end,
+where we again, remove an obligation.
+So this was one run of the model.
+So what are the rules of the game?
+We start always with the start activity,
+and that can happen only once.
+At the end there is always
+a designated end activity and
+the activities in between cannot
+be the start and end activities.
+Obligations are like tokens and
+they need to be there in order to
+be consumed by input bindings.
+And at the end there should
+be no remaining obligations.
+At the moment of choice is not fixed.
+Only in hindsight we need to find
+an explanation that has these
+properties that are listed here.
+So let's talk more about binding.
+So activity x in this diagram.
+Has two input bindings and
+three output bindings and
+one possible execution of this
+activity x is highlighted here in red.
+That we have an input
+binding involving two,
+earlier activities and, so, there need
+to be two, obligations from before.
+Before we can do x.
+And x is creating two
+obligations into the future.
+And so
+now you should look at this diagram.
+You should think of how
+many bindings are there.
+How many bindings are possible
+in this activity.
+That has two input bindings and
+three output bindings.
+Well the answer is very simple.
+There are of course six possible bindings
+because you can take any combination of
+an input binding with
+any of the output bindings.
+So you get 2 times 3 and
+here in red all the six possible
+combinations are highlighted.
+So, it is very important to see that we
+only consider valid binding sequences.
+So we only look at executions
+that go from beginning to end.
+Where each time you take an input binding
+all the obligations are present and
+at the end all the obligations
+have been consumed and
+there are no remaining obligations.
+Then we have a valid binding sequence,
+and we only consider those.
+So, this way we avoid talking
+about deadlocks and other things.
+We just talk about the behavior
+of such a model in
+terms of it's valid binding sequences.
+So the moment of choice is not relevant.
+There is no executable semantics.
+It is just an explanation
+of possible traces.
+So we talk about the fact that the
+semantics are declarative in a way that
+they only describe possible
+paths without telling when which
+decision was being made.
+Let's try to relate this to workflow
+nets or Petri nets in general.
+If we take a C-net.
+A causal net.
+We can easily translate it into
+a Petri net that allows for
+the behavior that we see in the C-net.
+And the translation 
+is straightforward.
+We just take all the output bindings.
+And convert them into silent transitions.
+We take all the input bindings,
+and create them.
+We create also silent transitions for
+them.
+And then we connect where the arcs are,
+we add places connecting
+the output bindings of one transition to
+the input binding of another transition.
+That's the way that it works
+and I think when you look at this picture.
+It is fairly straightforward.
+If you look at this workflow net, you will
+see that there may be many bad behaviors,
+like deadlocks and
+all kinds of other anomalies.
+But in terms of a C-net,
+we do not talk about it.
+Because we only consider the valid
+binding sequences to avoid.
+That our discovery techniques will
+continuously generate models that we
+consider to be bad because
+they have deadlocks.
+We have a more loose semantics
+exploiting this behavior.
+So how do work flow nets and
+C-nets relate to each other?
+Every valid binding sequence of the C-net
+corresponds to a firing sequence
+of the workflow net that goes from
+the initial marking to the final marking.
+We can call this a valid firing sequence.
+Every execution of the workflow net,
+starting in the initial marking and
+ending in the final marking corresponds
+to a valid binding sequence.
+But in the petri net,
+in the workflow net there may
+be many executions that do not
+correspond to a valid binding sequence,
+because they end up in a deadlock or
+unable to reach the final state.
+So, when we talk about C-nets,
+we only consider valid binding sequences.
+When we talk about workflow nets.
+We also are confronted with deadlocks and
+livelocks that need to be considered.
+A workflow net does not need to be sound,
+but this type of soundness is
+not required for C-nets because we
+only use their declarative semantics.
+So, let's see whether you now understand
+the declarative semantics of C-net.
+So here you see a C-net.
+So how many valid binding
+sequences are there in this C-net?
+So take a minute to think about this.
+The answer is that there are 12
+valid binding sequences.
+For example, we can decide to do just b.
+We can decide to do just c.
+We can decide to do b and d, but
+then there are two possible combinations,
+because we can do first b and
+then d, or in the other order.
+The same holds for c and d.
+We can also do these two but they can
+do be done in two different orders and
+we have the possibility to do b, c, and
+d like all three of them they
+can be done in any order so
+that again yields an extra six
+possible binding sequences.
+So, that brings the total to 12.
+Here you see one of these
+binding sequences highlighted.
+And so there is one binding sequence that,
+creates the trace ADCE, and
+here you can see the bindings that
+are involved highlighted in red.
+So the work flow interpretation
+of a C-net, can be given
+by converting bindings into silent
+transitions, indicated in black.
+That do not leave a trail
+in the event logs,
+that have a behavior that is invisible but
+that provide a very easy translation.
+But as said before the 
+corresponding workflow net
+does not need to be sound.
+So we only consider valid sequences.
+Here you see the relationship
+between the output bindings and
+the silent transitions modeling.
+All these possible combinations.
+Here if you look at the input
+bindings of the end activity again we
+see that there are five silent transitions
+corresponding to these bindings.
+The workflow-net may have deadlocks, but
+we don't consider them if we talked about
+the semantics of the corresponding C-nets.
+C-nets are remarkably expressive just by
+the different interpretation
+of their semantics.
+So here you see an example of
+a C-net that has a behavior that
+cannot be expressed in
+an ordinary petri net.
+Why is this the case?
+If you look carefully,
+you will see that b, c,
+and d can happen an unbounded
+number of times.
+So it can happen one million times.
+But it is ensured by the model
+that they all will happen
+exactly the same number of times and
+still the order is preserved.
+So you can not do first five
+c's when you only did four b's.
+That's why these
+causalities are preserved.
+And one can not express this in a
+in a classical Petri net.
+So let's look at the question.
+If we look at this more complicated C-net,
+you see here four binding sequences.
+Which of these four binding
+sequences is not a valid one?
+The answer is that trace b does not
+correspond to a valid binding sequence.
+And how can one see that?
+Well there are two reasons why
+one can see that this 
+doesn't correspond
+to a valid binding sequence.
+The second c is executed
+before the second b,
+which is not possible
+according to the C-net.
+Also, if we see the first d,
+then it cannot be
+that after the first d there are still
+b's, by the nature of the net.
+And these two properties are violated, so
+this is not a, valid binding sequence.
+Many plug-ins in ProM use C-nets,
+or some notation that is very similar
+to C-nets like heuristic nets and all
+kinds of other terms that are being used.
+So here you see a C-net and
+there are different visualizations here,
+we do not see the AND's and
+the XOR's etcetera.
+One can make them graphical and so
+here you see a BPMN like
+notation showing a C-net.
+But we can also take these nets and
+convert them to Petri nets and
+now you can see the bindings all
+represented in terms of silent
+transitions as I've shown before.
+So in the next two lectures we
+will talk about heuristic mining,
+where we use C-nets and dependency graphs.
+So there will be one lecture devoted
+to learning dependency graphs, and
+there will be one lecture
+devoted to causal nets.
+If you would like to learn more,
+in chapter two,
+we spoke about many different
+types of process models.
+Now in chapter six, we are focusing
+on more advanced mining techniques.
+And heuristic mining is one of these
+more advanced techniques that we
+are discussing in the next two lectures.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

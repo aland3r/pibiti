@@ -1,0 +1,350 @@
+[MUSIC]
+Glad to see you again.
+In the last two lectures, we discussed
+a two-phase process discovery approach,
+based on state-based regions.
+Today, we will discuss
+the limitations of this approach, but
+also point out possible extensions.
+So here, again, you see an overview
+of the two-phase approach.
+In the first phase, we construct a
+transition system based on the event log,
+and we can play with different
+abstractions to make a more general or
+more specific model.
+Once we have the transition system, we try
+to discover concurrency using the notion
+of regions, and
+get the corresponding Petri net.
+In the last lecture,
+we explained this algorithm to
+convert a transition
+system into a Petri net
+by discovering concurrency,
+using the notion of state-based regions.
+So let us take a look at an example.
+So suppose that we have an event log, and
+that this is a transition system,
+that we have learned from it.
+Once we have such a transition system
+we would like to discover which things
+happen in parallel?
+Which things happen in sequence?
+What choices are there?
+And if we do this we start by looking at
+what are the so-called
+minimal non-trivial regions.
+Here every color corresponds to
+a minimal non-trivial region.
+Once we have these regions we can easily
+construct the corresponding Petri net
+capturing the behaviour that
+is in the transition system.
+So in this example the transition
+system and the Petri net are bisimilar.
+So what does this mean?
+It means that they are equivalent
+from a behavioral point of view.
+More precise any move of the transition
+system can be mimicked by the Petri net,
+and any move of the Petri net can be
+mimicked by the transition system.
+So that's the approach.
+So what are possible problems
+related to the state-based regions.
+First of all, as you will see in a minute,
+there are certain process constructs
+which can not be discovered.
+But as we will show
+later, there are many extensions
+possible to resolve these problems.
+A more foundational problem
+is that regions have
+difficulties balancing the four forces,
+fitness, precision,
+generalization, and
+simplicity, in a right manner.
+But we will see more about
+this later in this lecture.
+So let us start by
+looking at some examples.
+So we have a log and in the log
+there are always two occurrences of a.
+So what is the corresponding
+transition system?
+It is a transition
+system that we see here.
+What is the Petri net constructed
+from this transition system,
+if we use the basic algorithm
+that we have described before?
+If we try to construct
+the corresponding Petri net,
+we first need to decide what are
+the regions.
+But in this case, only the empty region
+and the set of all states form a region.
+So there are no nontrivial
+regions in this example.
+So if we construct a corresponding
+Petri net using the algorithm,
+the Petri net consists of just one
+transition, and this Petri net allows for
+two a's, but also for
+one a, three a's, 15 as.
+So it's not the behavior
+that we started with.
+It allows for more.
+Let us take a look at another example.
+Here you see an event log where
+all traces start with an a,
+all traces end with a c and
+in between there can be any number of b's.
+If we construct a corresponding
+transition system it looks like this.
+If we again try to apply the basic
+state-based region algorithm,
+what is the Petri net
+that will result from it?
+If we construct a Petri net
+based on this transition system,
+we first need to,
+compute the minimal nontrivial regions.
+And in this case, there are three of them.
+The region just consisting of
+state s1 indicated in red here,
+the region consisting just of state 2,
+the region consisting just of state 3.
+So these are three regions, and
+if you observe them closely you
+will see that b is never crossing.
+Right?
+So, it's always non-crossing so
+it's never entering and never exiting.
+So if we compute the corresponding Petri
+Net based on this minimal non-trivial
+regions, then we get the Petri net where
+b is unconnected to any of the places.
+Because it is always
+Petrinon-crossing.
+This allows for
+more behavior than the behavior that
+we could see in the transition system.
+So, for example, this Petri net
+allows b to be executed before a or
+after c which was not the case in the
+original behavior that we started with.
+Let's take a look at the third example.
+Again, we take a log.
+From it we construct a transition system.
+It looks like this.
+So we see a followed by b.
+Or we just see b.
+Again there is the question,
+what is the Petri net.
+That we get if we apply
+state-based regions.
+To answer this question,
+we again first compute the regions
+which are indicated here.
+In total,
+there are four different regions, and
+if we convert these
+regions into a Petri net.
+We find the Petri net with two transitions
+that can be executed concurrently.
+So the original behavior
+is possible in this model.
+But the model also allows for
+behavior that we did not see before.
+In particular,
+we can see that the sequence,
+b followed by a, is possible in the Petri
+net, although we never observed it,
+in the original log, and it's not a trace
+of the corresponding transition system.
+So, the three examples
+that I just showed to you,
+they all produce a Petri
+net that allows for
+the behavior that we have seen, but
+it also allows for more behavior.
+So, in other words, the Petri net
+can simulate the behavior that we
+started with, but it also allows for more.
+And so the transition system cannot always
+mimic the behavior of the Petri net.
+So one can look at various refinements.
+And one of the refinements
+is based on label splitting.
+So how does it work?
+We first compute the corresponding
+transition system,
+using some notion of abstraction.
+Once we have the transition system
+we check certain properties.
+In this case the forward closure property.
+If this property does not hold we
+know that we need to split labels.
+Concretely, we need to
+rename a into a1 and a2.
+Once we do that,
+we can apply again our technique, and
+construct a corresponding Petri net where
+you have two transitions labeled a.
+Exactly capturing the behavior
+that we would like to see.
+Let's take a look at the example where
+we had the trace a comma b and
+the trace just consisting of b.
+Again, we apply the approach that we
+had before, and now again we apply
+label splitting, because we see that the
+forward closure property does not hold,
+it's not important that you exactly
+understand what it means, but
+we can detect based on the properties of
+the region, whether it is okay or not.
+If it's not okay,
+we need to apply label splitting.
+In this case,
+we rename the b's into a b1 and a b2.
+We apply standard region theory and
+then we end up with this process model,
+where we have two b transitions capturing
+the behavior that we would like to see.
+The ProM plug-ins, based on state-based
+regions, they ensure bisimulation.
+So if we feed it with the examples
+that we just showed it is able to
+create a correct Petri net,
+in this case by spitting the two a's.
+It is also able to handle these loops
+that were disconnected before so
+note now that b is connected
+to the place in the middle.
+If we apply it to this example
+that we have seen before
+it correctly splits the b's.
+And so the ProM plug-in again uses these
+extensions to guarantee the proper result.
+Besides label splitting
+there are many extensions and
+refinements of this basic region approach.
+So we can impose
+any constraint on places.
+So for example we could say we only
+want to have places that have,
+at most, two inputs, and
+at most, two outputs.
+Or we only want to have places where it
+is a clear split or a join, but not both.
+And many of these extensions are possible.
+So, we have now covered the first weakness
+of the state-based region approach.
+Now we focus on the second problem,
+how to balance the four forces.
+And we understand that regions
+have problems with this.
+This is a picture that
+we have seen before.
+It illustrates that if we
+are discovering a Petri net
+we need to balance different forces.
+There's a struggle between fitness and
+simplicity between generalization and
+precision.
+So, if we now look at
+the two phase approach,
+what are the properties of this
+approach in terms of these four forces?
+Let's first start by looking at
+building the transition system.
+When we build a transition system,
+we have many parameters that we can use.
+So, for example,
+if we take the prefix automaton, so
+we consider the entire past of a trace of
+the prefix, and we apply no abstraction.
+So the ordering is preserved.
+Then based on the particular log,
+this is the transition system that you
+can see in the background that we get.
+So this transition system is
+good in terms of fitness.
+It is good in terms of precision.
+But it is not simple and
+it is not generalizing.
+We could have chosen a different,
+abstraction.
+For example the abstraction where
+we only look at a last event.
+If we do that and
+we apply it to the same log we get
+a much simpler transition system.
+The problem with this transition
+system is that it has a good fitness,
+it is generalizing, it is simple but at
+that the same time it is not very precise.
+That allows for all kinds of
+behaviors that we did not see before.
+So when building the transition system,
+we can look at the various trade offs
+between fitness, simplicity,
+precision and generalization.
+If we look at the second step there we
+would like to discover
+concurrency by using regions.
+Here if we use the classical approaches,
+behavioral equivalence is preserved.
+Earlier, I explained you
+the notion of bisimulation.
+So, any move of the transition
+system can be mimicked by
+a move of the corresponding Petri net,
+and vice versa.
+So there is no generalization, and
+there is no special consideration for
+notions like simplicity.
+And so if we would like to address these
+things we need to do it in the first step.
+So let's give a summary of the two
+phase approach based on regions.
+It can be used specifically
+through the extensions to
+capture very complicated process patterns.
+Patterns that existing algorithms like the
+alpha algorithm cannot really discover well.
+It also provides
+insight into the essence of
+process discovery and concurrency.
+As drawbacks, there is the problem
+that if we look at the second phase,
+when we are discovering concurrency.
+We ensure that the result is
+bisimilar to the transition system.
+So that may lead to overfitting.
+We are not generalizing in this phase.
+Also, in the second step we can not,
+filter out infrequent behavior.
+If we would like to do so, we need to do
+so while building the transition system.
+So noise and incompleteness
+cannot be handled very well.
+But it's still a very
+important approach because it
+shows what the essence of
+process discovery is all about.
+This was the last discovery technique
+that we are going to discuss in detail.
+You can read chapter six and
+read more about this.
+In the next lecture we will
+specifically look at other
+approaches that we will not
+cover in any form of detail.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

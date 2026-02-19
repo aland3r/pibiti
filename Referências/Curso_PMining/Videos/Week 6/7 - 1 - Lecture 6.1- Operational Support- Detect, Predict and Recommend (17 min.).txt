@@ -1,0 +1,418 @@
+[MUSIC]
+Welcome to this lecture of the course on
+Process Mining: Data Science in Action.
+This is the first lecture of the sixth and
+last week.
+Today we will learn about
+operational support techniques.
+For example, we'll show that we are able
+to predict the remaining flow time of
+a case.
+The other lectures in this week will
+focus more on the practical aspects of
+process mining.
+In the first week of this
+course we talked about
+the four generic data science questions.
+And today we are going to revisit them.
+The first generic data science
+question is what happened?
+Through process discovery and
+many of the other techniques that we
+looked at we can clearly
+answer such a question.
+We are analyzing the past and can show
+what are the things that happened?
+What are the order in which
+people have executed activities?
+Where were the bottlenecks and
+things like that?
+The second generic data science
+question is why did it happen?
+And if we are analyzing bottlenecks,
+this is exactly the type of question
+that we are trying to answer.
+So true decision mining and all the mining
+techniques focused more on performance,
+we often try to understand what
+the reason is why things have happened.
+The first two questions are very
+much focused on the past.
+Understanding the past and
+learning things for the future.
+Operational support, however,
+is focusing on questions three and
+four of the generic
+data science questions.
+So the question,
+what will happen is about prediction.
+Can we predict what is going
+to happen in the future?
+For example, for a running case, when
+do we think the case will be finished?
+Or, will the case be rejected?
+This is the type of question
+that we will look at in
+the context of operational support.
+If we can make predictions we can
+also answer the fourth question.
+And that is what is
+the best that can happen?
+Based on experiences from
+the past we can recommend certain
+actions to be taken to optimize
+a process in terms of cost,
+time, risks, compliance,
+and other types of things.
+So, the last two data science
+questions are the questions that we
+focus on today in the context
+of operational support.
+Operational support starts
+from pre mortem data,
+data about cases that are still running.
+So what are, then,
+the three process mining activities
+that we execute in this context?
+The first one is detect.
+Detection is about finding out
+that something is happening at
+this point in time.
+So for example, a case is deviating.
+A deadline has just expired.
+And we don't want to do this afterwards.
+We want to do it at
+the moment that it happens.
+Then we have prediction.
+When will a case finish?
+Will the case be rejected?
+Will a case deviate?
+We would like to predict
+these types of things.
+And last but not least, we would like
+to recommend what a suitable next
+activity is, or what a best resource is
+that can execute a particular activity.
+So these are the questions
+that we will look at.
+Now let's look at these three process
+mining activities in a bit more detail.
+So assume the scenario where
+we are executing a case and
+we have already executed activities a and
+b and
+we are now in a state where we do not
+know what will happen in the future.
+Many things can happen.
+So, at this point in time what
+does operational support mean?
+If we talk about detection, we may, for
+example, generate an alert,
+because b just happened and
+it was not supposed to happen according
+to some normative process model.
+That's an example of an alert.
+Another alert could be that something is
+executed, and it should be executed, but
+it was executed too late.
+So, things like too late, but
+also things like done by the wrong
+resource are the types of
+things that we would like to detect and
+generate alerts while the case is running.
+Then we have prediction.
+Suppose that a and
+b have happened, and we would like to
+predict when the process will be finished.
+We can learn from experiences in
+the past and give a good estimate for
+the remaining processing time of a case.
+But we may also want to predict
+the outcome of a process.
+If we can do predictions, we can
+automatically also do recommendations.
+Based on past experiences, we may for
+example recommend executing
+activity c at this point in time.
+Or we may recommend that an activity
+is done by
+a particular resource.
+That has shown to be able to
+execute that activity well.
+So these are the types of activities
+that we will focus on today.
+So we will use a running example that
+we have seen several times before.
+So here you can see
+a fragment of the event log,
+you can see the corresponding
+process model.
+We leave out all the other attributes.
+We just focus on activities and time.
+But it's important to realize that
+operational support also relates to all of
+the other perspectives that we have been
+discussing in the last couple of lectures.
+If we have such a process model
+we can automatically convert it
+to a transition system
+as we have seen before.
+What you should note is that for
+every activity we have a start
+event and a complete event.
+So we also identify the states
+of an activity running.
+And if you look at the states of
+the transition system, you can see that,
+that is indeed the case.
+So we will use this example, but
+first let's show an overview
+of how detection works.
+So there is a person working on the case
+at the particular point in time.
+At the same time,
+before a normative model has been made.
+Then the information system and
+the operational support
+system are interacting.
+The moment a person is executing
+work a partial trace is sent to
+the operational support system.
+And if this trace deviates from the
+normative model a violation is detected.
+And the user or the manager is informed
+that such a detection,
+that such a deviation has taken place.
+So violations can be detected, and
+this can be the wrong activity,
+an activity executed too late,
+and things like this.
+So let's take a look at an example.
+So here we have a process model.
+Suppose that we have already
+started working on a.
+A was completed at time 19.
+Then at time 25 we started b.
+At time 27 we started d.
+At this point in time there is no
+reason to generate any type of alert,
+because this is perfectly
+conforming to the process model.
+Now suppose that at time 28,
+somebody starts working on
+activity e, but b and
+d have not yet completed.
+So at that point in time,
+when somebody starts working on e,
+we would like to generate an alert and
+detect the violation with respect
+to the normative process model.
+So this is what detection is all about.
+The second type of operational
+support is prediction.
+Again people are working on cases,
+they are interacting with
+an information system.
+And it may be that at some point in
+time they would like to know what is
+the remaining processing time,
+or what is a likely outcome for
+this particular process instance.
+Then a predictive model can be used.
+Such a predictive model is learned
+over historic information.
+So learned over an event log
+as is shown on this slide.
+This is input for
+the operational support system that
+combines the partial trace together
+with the predictive model and
+makes a prediction about what is
+going to happen in the future.
+And this prediction is passed
+on to the user who will
+know what estimated completion
+time of a case will be.
+So let's take a look at some
+examples of predictions.
+So the example that we just saw
+is about the remaining flow time.
+But we can predict many other things.
+Will we be able to meet a deadline or not?
+We can attach a probability to it.
+We can look at will
+a particular person or
+a particular group of persons
+work on a particular case.
+Will it be routed to
+a particular department?
+We can attach a probability to that.
+We can look at whether a certain
+activity is likely to be executed or
+not in the future.
+We can look at costs, and we can also
+look at the outcome of the process.
+Is this a case that is likely
+to be rejected or not?
+These can all be, these predictions can
+all be made by combining a predictive
+model and a partial trace.
+So let us take a look at an annotated
+transition system where we
+take the original transition system and
+annotate it with time information.
+So here you see the execution of
+two traces, and for every case and
+for every state that the case visits, we
+record the time that the state is entered.
+The elapsed time until
+the moment that the state is entered,
+the remaining time and the sojourn time.
+So how much time is spent
+in that particular state.
+So here you can see the annotated
+transition system in more detail.
+So we have two cases and if we focus
+on the first case, the one in blue,
+then we can see that at time 12 it entered
+the state where activity a started to run.
+The elapsed time at that point in time
+was 0, and the remaining time was 42.
+And the sojourn time
+in this state is 7.
+We can look at this particular event.
+A was completed at time 19.
+The elapsed time in the state that
+we are looking at now is 7.
+And so 7 time units have passed
+since the beginning of the case,
+the remaining time is 35 and
+the sojourn time is 6.
+We can look at the end
+of this particular case.
+At time 54 it enters the last state, then
+the elapsed time has been 42 time units.
+The remaining time is of course 0.
+So this is the way that we can annotate
+transition system using the replay
+techniques that we have seen before.
+We can do this for many cases and
+then collect the results per state.
+So every state in the transition
+system has a bunch of elapsed times,
+remaining times, and sojourn times.
+And we can compute the average,
+the variance, and
+all kinds of other properties
+over these states.
+Now, suppose that we
+are executing a case and
+that case is in the state where
+there is a token in p3 and p4.
+Then based on historic information we can,
+for
+example, predict that the average
+remaining time is 42 time units.
+So this is the way that
+we can make predictions,
+based on things that we have
+learned over past executions.
+What is very important is
+to understand that for
+predictions, we should not
+just focus on the case itself.
+In the previous example,
+we just looked at the case in isolation.
+But you have to realize that
+in real life processes,
+it is very important to use context
+when you are predicting things.
+If you are standing in a long
+queue of people then you
+cannot ignore all the other
+cases that are around you.
+Your waiting time will depend on
+how many other cases there are.
+There's a very simple example
+showing that you need to
+incorporate context information, and
+this is a topic that we have discussed
+in one of the earlier lectures.
+The last type of operational
+support is recommending.
+And what kind of things
+would we like to recommend?
+We would like to recommend what
+is the best next activity,
+what is a suitable resource,
+things like this.
+So how does this work?
+Again, there is a user interacting with an
+information system, and on the other side
+we have a model that we have
+learned over event logs.
+So we have a recommendation model,
+it's similar to a predictive model,
+that is used by the operational support
+system to recommend the best action
+that can be taken by comparing a partial
+trace to the recommendation model.
+And then, for example,
+it can say it is best that
+you now execute this activity and
+it should be done by this person.
+A recommendation is always given
+with respect to a specific goal.
+So, we may want to minimize costs.
+We may want to minimize
+the remaining flow time.
+We may want to maximize the service level,
+and so
+the fraction of cases handled
+within a particular time.
+We may want to maximize a certain outcome
+of the process or minimize resource usage.
+So, predictive model should look at
+history, having a particular goal in mind.
+What is interesting to see
+is that the moment you have
+a predictive model you can
+automatically turn that
+predictive model in a model that
+you can use to recommend things.
+This is illustrated on this slide.
+So if we are in a particular state we
+can make a prediction about the future.
+In this state,
+based on the process model we know what
+the actions are that may take
+place in this particular state.
+What we can then do is that we can
+just add them to the event log and
+then make a prediction.
+We do not really execute these activities,
+but we add them to event log,
+then make a prediction, in the way
+that we did before, and we do that for
+all possible actions, and then we
+compare the different possible futures.
+And then, based on this information,
+we can recommend one or
+multiple actions to take place.
+So if we are able to predict,
+we are also able to recommend.
+And this a very powerful
+feature we can exploit.
+So in this lecture we looked
+at operational support.
+It's the transition from offline process
+mining to online process mining.
+And this way we enable predictive
+analytics for processes.
+If you would like to read more
+about operational support,
+chapter nine is focusing on this topic.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

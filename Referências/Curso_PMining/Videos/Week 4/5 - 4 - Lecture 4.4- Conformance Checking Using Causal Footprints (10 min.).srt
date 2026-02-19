@@ -1,0 +1,639 @@
+1
+00:00:00,000 --> 00:00:07,440
+[MUSIC]
+
+2
+00:00:07,440 --> 00:00:08,730
+Glad to see you again.
+
+3
+00:00:08,730 --> 00:00:13,380
+In the previous lecture, we introduced
+the topic of conformance checking.
+
+4
+00:00:13,380 --> 00:00:16,830
+There are many situations where we
+would like to compare modeled and
+
+5
+00:00:16,830 --> 00:00:18,710
+observed behavior.
+
+6
+00:00:18,710 --> 00:00:22,750
+Today we will discuss a particular
+technique to check conformance.
+
+7
+00:00:24,400 --> 00:00:29,740
+This technique is called causal
+footprints, and the idea is based on one
+
+8
+00:00:29,740 --> 00:00:34,050
+of the ingredients of the alpha algorithm
+that we saw in an earlier lecture.
+
+9
+00:00:35,500 --> 00:00:40,900
+When we introduce the alpha algorithm,
+we used matrices like this.
+
+10
+00:00:40,900 --> 00:00:44,410
+This is called the footprint
+of a particular log.
+
+11
+00:00:45,680 --> 00:00:51,550
+We are using notions such as causality,
+parallel, and choice.
+
+12
+00:00:51,550 --> 00:00:55,260
+And they are based on the direct
+succession relationship.
+
+13
+00:00:56,770 --> 00:01:02,460
+For example, if you take a look at
+this particular causal footprint,
+
+14
+00:01:02,460 --> 00:01:07,760
+you will see that this arrow is
+indicating that a is followed by b,
+
+15
+00:01:07,760 --> 00:01:12,310
+at least once in the log, but it is
+never the case that b is followed by a.
+
+16
+00:01:14,030 --> 00:01:20,270
+This parallel symbol is indicating
+that b is sometimes followed by c,
+
+17
+00:01:20,270 --> 00:01:21,960
+and c is sometimes followed by b.
+
+18
+00:01:23,440 --> 00:01:24,850
+So they happen in both directions.
+
+19
+00:01:26,960 --> 00:01:32,100
+Then there is this symbol, which is the
+choice symbol, which is indicating that b
+
+20
+00:01:32,100 --> 00:01:35,630
+is never followed by e and
+e is never followed by b.
+
+21
+00:01:37,760 --> 00:01:41,290
+So these are the ingredients
+of creating a footprint and
+
+22
+00:01:41,290 --> 00:01:46,280
+it is very important to realize that we
+can create a footprint-based on a log.
+
+23
+00:01:46,280 --> 00:01:49,880
+But that we can also create
+a footprint placed on a model,
+
+24
+00:01:49,880 --> 00:01:52,550
+because a model can generate traces.
+
+25
+00:01:52,550 --> 00:01:55,520
+And also by statical analysis
+of these types of models,
+
+26
+00:01:55,520 --> 00:02:00,760
+we can already derive this
+matrix with all the causalities.
+
+27
+00:02:02,180 --> 00:02:05,600
+In this case, there's a process model
+discovered by the alpha algorithm.
+
+28
+00:02:06,610 --> 00:02:11,130
+Both have the same causal footprint,
+and so there are no differences.
+
+29
+00:02:12,920 --> 00:02:16,210
+What we are going to do
+next is we are going to look at
+
+30
+00:02:16,210 --> 00:02:21,540
+the more complicated log, and we are going
+to consider four different process models.
+
+31
+00:02:22,930 --> 00:02:26,990
+Some match well with original log.
+
+32
+00:02:26,990 --> 00:02:28,070
+Others do not.
+
+33
+00:02:28,070 --> 00:02:30,970
+And we will use the footprints
+to analyze these differences.
+
+34
+00:02:33,470 --> 00:02:39,240
+Let's take a look at the full log and
+the causal footprint related to it.
+
+35
+00:02:39,240 --> 00:02:41,060
+It's shown here.
+
+36
+00:02:41,060 --> 00:02:47,040
+If we apply the alpha algorithm we get
+the model that is shown here on the right.
+
+37
+00:02:47,040 --> 00:02:55,810
+And in this model when we analyze it, the set of
+traces we find exactly the same footprint.
+
+38
+00:02:55,810 --> 00:02:59,280
+So the footprint of log and
+model coincide.
+
+39
+00:03:00,880 --> 00:03:05,860
+In this case we say that the
+footprint-based conformance equals to 1.
+
+40
+00:03:05,860 --> 00:03:08,815
+This means that there is a perfect match.
+
+41
+00:03:08,815 --> 00:03:13,490
+If the footprint-based conformance
+metric has a very low value,
+
+42
+00:03:13,490 --> 00:03:16,930
+it means that there is not a good
+match between log and model.
+
+43
+00:03:18,480 --> 00:03:24,570
+This is computed as the fraction of cells
+in the footprint matrix where log and
+
+44
+00:03:24,570 --> 00:03:25,690
+model agree upon.
+
+45
+00:03:27,620 --> 00:03:30,610
+So let's now take a look
+at the second model,
+
+46
+00:03:30,610 --> 00:03:34,590
+which is not a perfect match
+with the original event log.
+
+47
+00:03:35,760 --> 00:03:41,120
+For example if you look
+here at the cell of a and
+
+48
+00:03:41,120 --> 00:03:44,450
+d, you can see that a is
+never followed by d.
+
+49
+00:03:46,030 --> 00:03:47,280
+This followed by b and
+
+50
+00:03:47,280 --> 00:03:51,320
+c, but never followed by d,
+which was the case in the original log.
+
+51
+00:03:52,370 --> 00:03:58,210
+So, we can create such a causal
+footprint based on this model.
+
+52
+00:03:58,210 --> 00:04:06,880
+And then we can compare the footprint of
+model two with the original event log.
+
+53
+00:04:06,880 --> 00:04:12,405
+And we can put these two matrices on top
+of each other and look at the differences.
+
+54
+00:04:13,580 --> 00:04:18,720
+For example, we see that indeed in the log
+
+55
+00:04:18,720 --> 00:04:22,740
+a is sometimes followed by d,
+but never the other way around.
+
+56
+00:04:22,740 --> 00:04:28,670
+And in the model, model N2, a and
+d never follow one another.
+
+57
+00:04:28,670 --> 00:04:30,300
+So we see a difference there.
+
+58
+00:04:31,400 --> 00:04:38,740
+We can also take a look at b and
+d and we see that, in the event log,
+
+59
+00:04:38,740 --> 00:04:42,850
+they are considered to be concurrent
+because they happen in any order.
+
+60
+00:04:42,850 --> 00:04:48,130
+But if we look at the model N2,
+we see that b is followed by d,
+
+61
+00:04:48,130 --> 00:04:49,520
+but d is never followed by b.
+
+62
+00:04:50,890 --> 00:04:54,170
+And in such a way we can analyze
+
+63
+00:04:54,170 --> 00:04:58,720
+all the differences between
+the original log and model N2.
+
+64
+00:05:00,030 --> 00:05:02,600
+Here the differences are highlighted.
+
+65
+00:05:02,600 --> 00:05:06,150
+And we can count them and
+we can diagnose them.
+
+66
+00:05:06,150 --> 00:05:10,520
+So here in the matrix we
+just see the differences.
+
+67
+00:05:10,520 --> 00:05:14,310
+So for example we can see
+that if we look at b and
+
+68
+00:05:14,310 --> 00:05:19,040
+d, in the log it was parallel,
+in the model it was sequential.
+
+69
+00:05:20,390 --> 00:05:23,230
+And we can count these differences.
+
+70
+00:05:23,230 --> 00:05:26,390
+So there are 64 cells.
+
+71
+00:05:26,390 --> 00:05:30,520
+And in 12 of these cells,
+there is disagreement.
+
+72
+00:05:30,520 --> 00:05:39,390
+So it's 1 minus 12 divided by 64 is
+a footprint-based conformance of 0.8125.
+
+73
+00:05:39,390 --> 00:05:44,350
+So, this way we can quantify
+differences between log and model.
+
+74
+00:05:46,450 --> 00:05:49,970
+We can also provide
+diagnostics as is shown here.
+
+75
+00:05:51,090 --> 00:05:55,450
+The elements of the footprint matrix,
+where model and
+
+76
+00:05:55,450 --> 00:05:58,880
+log disagree,
+you can visualize them in the model.
+
+77
+00:05:58,880 --> 00:06:01,880
+For example,
+the visualization here is showing that in
+
+78
+00:06:01,880 --> 00:06:06,920
+the original log a could be followed by d,
+but this is no longer possible.
+
+79
+00:06:06,920 --> 00:06:10,710
+So, we can diagnose differences,
+we can also quantify them.
+
+80
+00:06:12,470 --> 00:06:14,790
+Let's now take a look at a question.
+
+81
+00:06:14,790 --> 00:06:18,430
+So, now we are taking another model and
+
+82
+00:06:18,430 --> 00:06:21,590
+the two models that we
+have considered before.
+
+83
+00:06:21,590 --> 00:06:27,780
+And I would like to ask you to estimate
+the footprint-based conformance
+
+84
+00:06:27,780 --> 00:06:31,260
+based on the original event log and
+the model that is shown here.
+
+85
+00:06:35,330 --> 00:06:37,320
+So how can we compute this?
+
+86
+00:06:37,320 --> 00:06:40,900
+We take the original footprint
+matrix of the event log.
+
+87
+00:06:41,950 --> 00:06:46,560
+We take the model, and
+then we see where the footprint matrix of
+
+88
+00:06:46,560 --> 00:06:51,390
+the model disagrees with
+the footprint of the original log.
+
+89
+00:06:52,550 --> 00:06:54,990
+And these are highlighted here.
+
+90
+00:06:54,990 --> 00:06:59,010
+So what we can see is that in
+the model many activities are missing.
+
+91
+00:07:00,140 --> 00:07:03,710
+These missing activities in the model
+will never follow one another or
+
+92
+00:07:03,710 --> 00:07:05,250
+any of the other activities.
+
+93
+00:07:05,250 --> 00:07:07,830
+Whereas in the original
+event log they did.
+
+94
+00:07:09,070 --> 00:07:12,140
+Again we can count the differences.
+
+95
+00:07:12,140 --> 00:07:15,230
+In this case there are 16 cells where
+
+96
+00:07:15,230 --> 00:07:18,440
+there is disagreement between log and
+model.
+
+97
+00:07:18,440 --> 00:07:23,915
+And that leads to a footprint-based
+conformance of 0.75.
+
+98
+00:07:27,160 --> 00:07:29,100
+Let's take a look at another model.
+
+99
+00:07:29,100 --> 00:07:33,310
+This is the flower model,
+which allows for lots of behavior.
+
+100
+00:07:33,310 --> 00:07:37,970
+And again, try to estimate what you think
+
+101
+00:07:37,970 --> 00:07:42,510
+is the footprint-based conformance between
+the original log and this flower model.
+
+102
+00:07:44,860 --> 00:07:48,910
+To answer this question,
+we do the same as what we did before.
+
+103
+00:07:48,910 --> 00:07:51,440
+We take the original footprint and
+
+104
+00:07:51,440 --> 00:07:54,200
+compare it with the footprint
+of the process model.
+
+105
+00:07:55,300 --> 00:07:56,890
+This process model allows for
+
+106
+00:07:56,890 --> 00:08:00,780
+much more behavior than what
+we have seen in the log.
+
+107
+00:08:00,780 --> 00:08:07,430
+So if we visualize the differences, you
+can see that in total there are 45 cells
+
+108
+00:08:07,430 --> 00:08:14,398
+different, and that leads to
+a very low conformance of 0.29.
+
+109
+00:08:14,398 --> 00:08:21,410
+And so this has a worse conformance than
+the three models that we have seen before.
+
+110
+00:08:21,410 --> 00:08:25,664
+Because of the massive amount of
+additional behavior allowed by
+
+111
+00:08:25,664 --> 00:08:27,009
+this flower model.
+
+112
+00:08:30,410 --> 00:08:33,320
+Causal footprints
+are incredibly flexible.
+
+113
+00:08:34,530 --> 00:08:39,610
+In the sense that you can compare logs to
+logs, you can compare models to models,
+
+114
+00:08:39,610 --> 00:08:43,230
+and you can compare models to event logs.
+
+115
+00:08:43,230 --> 00:08:47,040
+And so
+we can make many different comparisons.
+
+116
+00:08:47,040 --> 00:08:52,350
+It also implicitly captures fitness,
+precision, and
+
+117
+00:08:52,350 --> 00:08:55,310
+generalization, but
+in a rather indirect way.
+
+118
+00:08:57,040 --> 00:08:59,250
+The approach also has many limitations.
+
+119
+00:08:59,250 --> 00:09:03,310
+So, for example, we do not look at
+the frequencies of traces in the log.
+
+120
+00:09:04,530 --> 00:09:07,570
+Behavior is only considered indirectly.
+
+121
+00:09:07,570 --> 00:09:10,660
+We only consider directly
+follows relations when
+
+122
+00:09:10,660 --> 00:09:12,890
+building the footprint metrics.
+
+123
+00:09:12,890 --> 00:09:18,050
+So, you can have two different processes
+that have exactly the same footprint,
+
+124
+00:09:18,050 --> 00:09:20,040
+although their behavior are different,
+
+125
+00:09:20,040 --> 00:09:22,300
+as long as they have the same
+directly follows relationship.
+
+126
+00:09:25,150 --> 00:09:30,280
+In one go, we address issues like fitness,
+precision, and generalization.
+
+127
+00:09:30,280 --> 00:09:32,840
+But often you want to
+have separate metrics for
+
+128
+00:09:32,840 --> 00:09:34,800
+these different conformance dimensions.
+
+129
+00:09:35,800 --> 00:09:38,780
+This is why,
+in the next two lectures we will look
+
+130
+00:09:38,780 --> 00:09:41,580
+at additional conformance
+checking techniques.
+
+131
+00:09:41,580 --> 00:09:46,657
+In the next lecture we will look
+at so-called token-based replay.
+
+132
+00:09:46,657 --> 00:09:49,320
+If you would like to read
+more on conformance checking,
+
+133
+00:09:49,320 --> 00:09:51,575
+you can take a look at Chapter 7.
+
+134
+00:09:53,660 --> 00:09:55,260
+Thank you for watching this lecture.
+
+135
+00:09:55,260 --> 00:09:56,945
+See you next time.
+
+136
+00:09:56,945 --> 00:10:06,945
+[MUSIC]
+

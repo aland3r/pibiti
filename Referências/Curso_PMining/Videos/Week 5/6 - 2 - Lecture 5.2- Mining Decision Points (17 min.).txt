@@ -1,0 +1,392 @@
+[MUSIC]
+Welcome to this lecture of the course on
+Process Mining: Data science in Action.
+Process models, handmade or discovered,
+may have many decision points.
+For example, XOR splits.
+In this lecture, we will show that by
+replaying the event log on the model,
+we can analyze these choices,
+thereby exploiting the data
+attributes in the event log.
+This is a diagram that we have
+seen several times before.
+In earlier lectures, we focused on
+discovery and conformance checking.
+In the next couple of lectures,
+we will look at the bottom arrow,
+called enhancement.
+So we want to improve
+a model based on event data.
+So, what types of enhancement are there?
+The first type of
+enhancement is extension.
+So we take event data and add additional
+elements to the process model.
+We can also use event data
+to repair an existing model.
+Both extension and repair have in
+common that we produce a new model,
+which is either better or extended,
+adding additional perspectives.
+This is different from conformance
+checking, where we were
+generating diagnostics based on the fit
+between the reality and the model.
+In this lecture,
+we will focus on extension.
+There are different types of extensions.
+We can extend the model with guards and
+data related aspects.
+We can extend the model with time related
+aspects, with resource related aspects.
+But the focus of today is on data.
+We would like to add a data
+perspective to process models.
+For that,
+we will focus on decision points.
+In process models, there are many points
+at which cases can go left or right.
+And we would like to
+understand these choices,
+these decisions in such a process.
+What do we need to do this?
+First of all,
+we need to have an event log.
+And we need to have a process model.
+The process model may have been
+discovered, or made by hand.
+And what is then very important is that,
+through the notion of alignments,
+we are able to relate the traces
+that we saw in reality,
+which are stored in the event log,
+we can replay them on top of the model.
+So every trace, seen in reality,
+can be related to a path in the model.
+So we need to match the names in
+the event log and in the model.
+This is a figure that we have seen
+before showing the essence of alignment.
+So, even if things do not fit perfectly
+and we have move on model or
+move on log type of problems, we can
+still squeeze reality in the model and
+then use this as a starting point for
+analysis.
+So in the remainder of this lecture,
+I will not worry about
+nonconformance because that has been taken
+care of by true denotion of alignment.
+So, after we have aligned
+reality with a model,
+we would like to understand why particular
+choices are being made in a process model.
+For example, we can accept a claim or
+reject a claim.
+This is a choice between two activities,
+which cases are accepted,
+which cases are rejected.
+So this is an XOR split.
+We choose one of the two
+possible activities.
+We also have the notion of OR splits.
+Here, we have multiple activities, but
+we sometimes may pick multiple
+activities from the set of alternatives.
+So, for example, in this case,
+we can book a flight.
+And we can book a hotel at the same time,
+but we can also just book a flight.
+That's why this is an OR split.
+So we would also like to discover
+these types of constructs.
+Let's make it more concrete through a,
+a very small example.
+Suppose that we have so-called red cases.
+These are cases that have
+particular properties.
+And assume that they always take
+the path where they do A and
+then B and C in some order, and finally D.
+So E is not executed for the red cases.
+On the other hand,
+we also have blue cases.
+And these blue cases,
+they follow a different path.
+So instead of doing B and
+C, E is executed.
+If we would now like to capture
+information about red and
+blue cases in a single process model,
+we need to have a notion of guards.
+So, here you see the process
+model extended with guards.
+And they are telling which
+are the paths that red cases take.
+And which are the paths
+that blue cases take.
+So, this is what we would like to discover
+once we have a control flow model and
+we have event data.
+So what we are looking for
+is learning more about decision points.
+So in this Petri net model we see
+that there are two decision points.
+So in a Petri net in general,
+places with multiple output
+arcs model choices, decisions.
+If we look at a BPMN diagram,
+we have dedicated constructs
+to model such choices.
+In BPMN we have so-called XOR-split
+gateways, OR-split gateways, and we can
+also have the notion of a deferred choice
+having an event-based XOR-split gateway.
+So,these model decision points.
+But we would not just like to see the
+control flow, we would like to understand.
+What are the cases that go left?
+What are the cases that go right?
+So decision point
+analysis is an example of
+a type of analysis where we need to
+combine data mining and process mining.
+And this combination provides
+many powerful possibilities,
+as we will see in this lecture,
+and also in future lectures.
+So, here,
+we are using decision tree analysis,
+as we have seen it in the first week.
+We are looking at classifying cases
+based on predictor variables.
+So, in this particular example,
+there is one response variable,
+the variable that we are interested in,
+will people claim or not.
+And we would like to understand it
+in terms of predictor variables,
+in this case, the gender of the customer,
+the age of the customer,
+what kind of car the customer driving,
+is driving, etc.
+So we would like to explain
+the response variable in terms of
+relevant predictor variables.
+We've seen how this works in week one.
+And now we would like to apply
+this to decision point analysis.
+So the output of decision tree
+learning is a decision tree.
+Here you see one of the decision trees
+that we discussed in the first week.
+It is showing that female drivers
+typically don't claim insurance.
+Male Alfa Romeo drivers,
+they claim insurance.
+You can follow that by taking
+the path from the root node to
+the corresponding leaf node.
+Male Volvo drivers younger
+than 25 also claim insurance.
+So this provides
+information about choices.
+And we can apply this in
+the context of process models.
+So what will it look like in the process
+model, we will have a choice.
+For example, the choice between claiming
+insurance and not claiming insurance.
+And then we could learn a guard for
+example given a certain gender and
+a certain type of car that people drive,
+whether people claim insurance or not.
+So we would like to create classification
+problems based on decision points.
+So let's focus on decision point one here,
+where we are choosing between b and c.
+So the response variable is whether
+b is chosen or c is chosen.
+And the predictor variables
+are all the things that we know,
+that are there in
+the context of this choice.
+So, very concretely, activity a was
+executed before the choice to do b or c.
+So the choice may depend, for example,
+on which person executed activity a.
+So that's an example of
+a predictor variable.
+But it could also be
+the type of the customer,
+the age of the customer, etcetera.
+So, based on all
+these times that the choice is being made,
+we create instances that look like this,
+having a set of predictor variables and
+one response variable.
+And that naturally defines
+a decision tree problem.
+So let's take a look at
+some more examples.
+So here we would like to understand what
+is influencing the choice between y and z.
+Here we have the corresponding data.
+And if we look at this data, one could
+come to the conclusion that these
+are the guards that are explaining
+the factors influencing this choice.
+So, customers that are gold customers and
+that claim an amount less
+than 500 Euros always take y.
+The other customers take z.
+So if you look at the concrete example,
+here we have our silver
+customers from the Southern region
+claiming an amount of more than 500.
+And for this customer,
+z was being executed, and
+this is consistent with the guards
+that we have discovered here.
+Here we see this in terms of a Petri net.
+We can have it in terms of any
+other process model notation.
+For example, here we see
+a BPMN XOR-split gateway which is
+expressing exactly the same
+type of information.
+In a BPMN model, but
+in many other modelling notations we
+also have OR-splits, inclusive OR-splits.
+Here in this example, we can take just y,
+just z, but we can also take both.
+So this is a different type of
+decision tree learning problem, but
+it can be solved in exactly the same way.
+So here we could learn these two guards.
+And if you closely look at these guards,
+you can see that they are overlapping.
+So there are certain circumstances
+where we will both take y and z.
+So again,
+we can look at a concrete example.
+A silver customer from region west
+claiming an amount less than 500 Euros.
+For this particular customer,
+y and z were being executed.
+And if we look at
+the corresponding BPMN fragment,
+we can see that this consistent with
+the guards that we have learned.
+So, this what we would like to do.
+So the response variable is
+the decision that we are taking.
+Do we take activity f or
+some other activity?
+We can look at the decision point,
+and reasoning from the decision point
+just before the choice is being made,
+we can look at what are the variables
+influencing this decision?
+The so-called predictor variables.
+It can be properties of the case itself.
+So case variables are variables that
+do not depend on a particular event.
+They do not change over
+the lifetime of a case.
+So for example, a customer is a gold
+customer from beginning to end.
+We may also use attributes of the last
+event executed before the decision.
+In this case, e was the last event
+before we had to make the decision.
+We can look at the attributes
+of this event.
+Which person executed e, and
+what kind of data was associated to e.
+Rather than just looking
+at the last event,
+we can look at all the events executed
+before the decision had to be made.
+And this can serve as input to
+the the decision tree learning problem.
+In fact, we can also take all the events
+also looking at things in the future.
+For example,
+we may want to relate a decision in
+the middle to the process to
+an outcome later in the process.
+For example, will the case be too late?
+Will the case be rejected,
+and things like that.
+The examples that I gave so
+far are information predictor
+variables associated to
+a particular process instance.
+But the context may be much broader.
+For example, we can look at
+the number of cases that are running,
+and see whether this is
+influencing a particular decision.
+For example, if it is very busy,
+then we typically skip an activity.
+We can also look at the work
+load of a resource,
+how many resources are available.
+In fact, we can even look at
+the day of the week or the weather.
+These may be factors
+influencing the decision.
+So we can all add them
+as predictor variables.
+However, there is one problem.
+One needs to be very careful with this,
+because there is the so-called
+curse of dimensionality.
+This means that the more
+variables that you add,
+the more possible combinations
+of all these variables you get,
+the fewer observations you have
+per combination of variables.
+So, the data gets extremely sparse and
+we get the danger of overfitting.
+So you carefully need to think about
+what are the variables that one would
+like to include.
+In all the examples so far,
+a decision point was defined as deciding
+what is going to be the next activity.
+And it's a very important problem
+that needs to be addressed and
+that needs to be understood well.
+However, if you understand this,
+the applicability is much broader.
+Rather than having as a response
+variable the next activity,
+we can also take as a response
+variable the remaining flow time,
+the service level, costs,
+risks, fraud, incidents, etc.
+So for example, in a hospital,
+you would be interested to see whether
+deviations of the process lead
+to incidents or higher costs.
+Using exactly the same principles as
+decision point analysis, you can also
+understand these types of phenomena by
+using exactly the same type of techniques.
+In fact, in a later lecture,
+we will also look into the future.
+You can use these models
+to make predictions, and
+that is what we will discuss when
+we talk about operational support.
+If you would like to learn more
+about decision point analysis,
+please start reading in chapter 8.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

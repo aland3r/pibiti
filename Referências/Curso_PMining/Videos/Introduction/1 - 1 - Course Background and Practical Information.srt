@@ -1,0 +1,754 @@
+1
+00:00:00,062 --> 00:00:06,981
+[MUSIC]
+
+2
+00:00:06,981 --> 00:00:12,070
+Welcome to this course, process mining,
+data science in action.
+
+3
+00:00:12,070 --> 00:00:16,980
+The goal of this short movie is to provide
+you with some background information on
+
+4
+00:00:16,980 --> 00:00:21,480
+the instructors, the organizations,
+organizing this course, and
+
+5
+00:00:21,480 --> 00:00:22,965
+some practical information.
+
+6
+00:00:22,965 --> 00:00:28,815
+TU/e is the university
+organizing this MOOC.
+
+7
+00:00:28,815 --> 00:00:33,640
+TU/e is one of the leading technical
+universities in Europe and
+
+8
+00:00:33,640 --> 00:00:36,510
+it has a rich history in engineering.
+
+9
+00:00:36,510 --> 00:00:43,910
+For example, in computer science Dyskra a
+famous touring award winner, worked here.
+
+10
+00:00:43,910 --> 00:00:47,720
+He was, for example, the person that
+invented the shortest path algorithm.
+
+11
+00:00:47,720 --> 00:00:51,890
+But there are not only
+scientists in this region.
+
+12
+00:00:51,890 --> 00:00:55,670
+In the broader Eindhoven region,
+which is called Brainport,
+
+13
+00:00:55,670 --> 00:01:01,860
+there are many high tech companies
+like Phillips, ASML and many others.
+
+14
+00:01:01,860 --> 00:01:08,010
+So it's a vibrant region with many
+organizations producing and using data.
+
+15
+00:01:09,320 --> 00:01:15,230
+That is the reason why this university
+started the Data Science Center in 2013.
+
+16
+00:01:15,230 --> 00:01:21,500
+The Data Science Center
+is a virtual organization
+
+17
+00:01:21,500 --> 00:01:27,420
+consisting of 25 research groups
+covering all aspect of data science.
+
+18
+00:01:28,450 --> 00:01:33,380
+So in the yellow box you see
+the disciplines that are involved
+
+19
+00:01:33,380 --> 00:01:39,169
+to produce data and
+to handle large volumes of events.
+
+20
+00:01:40,220 --> 00:01:44,829
+In the red box you see all
+kinds of disciplines related to
+
+21
+00:01:44,829 --> 00:01:46,799
+analysing event data.
+
+22
+00:01:46,799 --> 00:01:48,660
+And of course, process mining,
+
+23
+00:01:48,660 --> 00:01:52,390
+the topic of this course,
+is a very important ingredient in this.
+
+24
+00:01:53,580 --> 00:01:59,360
+In the green box, you can see
+the context part of data signs.
+
+25
+00:01:59,360 --> 00:02:03,860
+So in the end, we would like data
+signs to be used in practice.
+
+26
+00:02:03,860 --> 00:02:08,790
+So we need to think about ethical
+aspects and the business value of data.
+
+27
+00:02:11,090 --> 00:02:13,150
+Let's tell a bit about myself.
+
+28
+00:02:13,150 --> 00:02:15,760
+So my name is Will van der Aalst.
+
+29
+00:02:15,760 --> 00:02:21,040
+You can see here a picture of my favorite
+hobby, walking and climbing in the Alps.
+
+30
+00:02:22,220 --> 00:02:24,310
+I'm 48 years old.
+
+31
+00:02:24,310 --> 00:02:25,500
+I, I'm married.
+
+32
+00:02:25,500 --> 00:02:27,630
+I have four children.
+
+33
+00:02:27,630 --> 00:02:31,030
+And if I'm not walking
+in the mountains and
+
+34
+00:02:31,030 --> 00:02:35,050
+spending time with my family,
+I'm having these roles.
+
+35
+00:02:35,050 --> 00:02:39,930
+So, I'm a professor at
+the Technical University of Einthoven.
+
+36
+00:02:39,930 --> 00:02:44,260
+I also have part-time appointments
+off at the other side of the world.
+
+37
+00:02:44,260 --> 00:02:47,324
+For example I am a joint professor at QUT,
+
+38
+00:02:47,324 --> 00:02:51,560
+that"s Queenswood University
+of Technology in Brisbane, and
+
+39
+00:02:51,560 --> 00:02:56,360
+I am the Scientific Director of a lab in
+Moscow at the High School of Economics.
+
+40
+00:02:56,360 --> 00:03:01,750
+I am also the scientific director of
+the data science center at Intel.
+
+41
+00:03:03,610 --> 00:03:08,050
+So in the last 25 years,
+I've been working on these topics.
+
+42
+00:03:08,050 --> 00:03:14,660
+So I started working more in the area of
+modeling and using models toward analysis.
+
+43
+00:03:14,660 --> 00:03:20,340
+And in recent years, I've moved more
+to data driven types of analysis,
+
+44
+00:03:20,340 --> 00:03:23,970
+like process mining,
+an essential ingredient for data sites.
+
+45
+00:03:25,340 --> 00:03:28,004
+Now I would like to hand
+over to Joos Buijs,
+
+46
+00:03:28,004 --> 00:03:33,039
+who will tell you much more about the
+practical things, related to this course.
+
+47
+00:03:33,039 --> 00:03:34,915
+>> Thank you very much Will, so
+
+48
+00:03:34,915 --> 00:03:39,603
+my name is Indie Joos Buijs,
+I did my master's here in Angova, and
+
+49
+00:03:39,603 --> 00:03:44,392
+I recently defended my PHD thesis on
+process mining also here in Angova.
+
+50
+00:03:44,392 --> 00:03:49,328
+And currently I'm a postdoctoral
+researcher in a group of So
+
+51
+00:03:49,328 --> 00:03:52,700
+a little bit about my hobbies
+outside of work and so
+
+52
+00:03:52,700 --> 00:03:55,510
+I like to watch Pixar movies and
+everything involved.
+
+53
+00:03:55,510 --> 00:03:58,220
+I like to visit theme parks and
+one of my reasons,
+
+54
+00:03:58,220 --> 00:04:02,070
+most recent hobbies is playing with
+my eight month old daughter and
+
+55
+00:04:02,070 --> 00:04:04,399
+together with my wife and my daughter
+explore the world a little bit.
+
+56
+00:04:05,720 --> 00:04:07,170
+But this is not about me.
+
+57
+00:04:07,170 --> 00:04:08,260
+Let's talk about the course.
+
+58
+00:04:09,680 --> 00:04:12,220
+So in the next couple of slides I'll
+explain a little bit more about
+
+59
+00:04:13,580 --> 00:04:15,130
+the details of the course.
+
+60
+00:04:15,130 --> 00:04:21,680
+You can also find this in the study
+guide and in the grading policy.
+
+61
+00:04:21,680 --> 00:04:25,620
+This video is just a brief introduction,
+more details are in these documents.
+
+62
+00:04:25,620 --> 00:04:31,190
+And if there are any, if there's any
+inconsistency the documents prevail.
+
+63
+00:04:31,190 --> 00:04:36,640
+But this is just to get you into the into
+the course and what you can expect.
+
+64
+00:04:36,640 --> 00:04:39,620
+So there are six weeks of video lectures.
+
+65
+00:04:39,620 --> 00:04:44,030
+Per weeks we have roughly eight
+videos of eight to 15 minutes each.
+
+66
+00:04:45,810 --> 00:04:48,270
+the, several topics that we discuss.
+
+67
+00:04:48,270 --> 00:04:51,560
+So there's a brief introduction and
+general data mining things.
+
+68
+00:04:51,560 --> 00:04:54,950
+Then we go into the models and
+pros of discovery.
+
+69
+00:04:54,950 --> 00:04:57,600
+Then in week three you get little
+bit of better understanding of
+
+70
+00:04:57,600 --> 00:05:00,240
+the different types of
+process models there are.
+
+71
+00:05:00,240 --> 00:05:03,430
+This is followed in week four
+by more discovery techniques and
+
+72
+00:05:03,430 --> 00:05:06,440
+also conformance checking techniques.
+
+73
+00:05:06,440 --> 00:05:12,004
+In week five we look at how you can enrich
+the process models, and in week six
+
+74
+00:05:12,004 --> 00:05:18,828
+we discuss operational support and we
+also conclude this lecture, this course.
+
+75
+00:05:18,828 --> 00:05:21,347
+So learning objectives.
+
+76
+00:05:21,347 --> 00:05:26,790
+After this course I hope you see how
+process mining fits in the big scheme.
+
+77
+00:05:26,790 --> 00:05:30,080
+Of all the techniques like simulation,
+machine learning machine learning and
+
+78
+00:05:30,080 --> 00:05:31,470
+data mining.
+
+79
+00:05:31,470 --> 00:05:38,220
+but, and also we hope that you see what
+different aspects process mining entails.
+
+80
+00:05:38,220 --> 00:05:41,760
+So you can do process discovery,
+conformance checking, and
+
+81
+00:05:41,760 --> 00:05:44,414
+in the end,
+hopefully you can also actually do
+
+82
+00:05:44,414 --> 00:05:49,328
+a process mining project from beginning to
+end, including data gathering and such.
+
+83
+00:05:49,328 --> 00:05:52,564
+In this course you can
+get two certificates.
+
+84
+00:05:52,564 --> 00:05:56,886
+So the normal certificate you
+get when you have 35 out of
+
+85
+00:05:56,886 --> 00:06:01,130
+50 points you can get with the week and
+the final quiz.
+
+86
+00:06:01,130 --> 00:06:05,840
+So every week there will be a week quiz
+where you can get five points four, and
+
+87
+00:06:05,840 --> 00:06:10,760
+there's a final quiz worth 20 points, and
+if you get enough points on these quizzes,
+
+88
+00:06:10,760 --> 00:06:12,400
+you get the normal certificate.
+
+89
+00:06:12,400 --> 00:06:16,540
+If you would like to obtain
+the certificate with distinction then do,
+
+90
+00:06:16,540 --> 00:06:18,960
+do these week of final quizzes.
+
+91
+00:06:18,960 --> 00:06:23,690
+But also do a Tool Quiz where you
+experiment with the tools that we use.
+
+92
+00:06:23,690 --> 00:06:29,950
+And also you have to do a Peer Assignment
+which, which I will explain later.
+
+93
+00:06:29,950 --> 00:06:32,620
+And, if you want to get
+the Certificate with Distinction,
+
+94
+00:06:32,620 --> 00:06:35,119
+you have to earn at least
+80 out of 100 points.
+
+95
+00:06:36,300 --> 00:06:39,570
+So, in more detail that's several quizzes.
+
+96
+00:06:39,570 --> 00:06:44,060
+So every week there's a week quiz
+covering the topics of that week.
+
+97
+00:06:44,060 --> 00:06:46,420
+Here you can earn five points per quiz.
+
+98
+00:06:46,420 --> 00:06:49,500
+And a quiz contains of ten
+multiple choice questions.
+
+99
+00:06:49,500 --> 00:06:53,930
+There's no timing, and you get two
+attempts and the highest score counts.
+
+100
+00:06:53,930 --> 00:06:56,420
+At the end of this course
+you have a final quiz.
+
+101
+00:06:56,420 --> 00:06:58,760
+This allows you to earn 20 points.
+
+102
+00:06:59,890 --> 00:07:04,030
+it, you get 20 multiple choice questions
+and there's one timed attempt.
+
+103
+00:07:05,570 --> 00:07:08,420
+Then if you want to go to, for
+the certificate with distinction you
+
+104
+00:07:08,420 --> 00:07:13,300
+have a tool quiz worth 10 points,
+which is an untimed quiz of 20 questions.
+
+105
+00:07:15,650 --> 00:07:18,950
+Then next to this is a peer assignment.
+
+106
+00:07:18,950 --> 00:07:21,400
+You can earn 40 points.
+
+107
+00:07:21,400 --> 00:07:25,380
+It will start end of week three
+early week four, and the goal is to
+
+108
+00:07:25,380 --> 00:07:30,300
+write a process mining report using one
+of the data sets that we will provide.
+
+109
+00:07:30,300 --> 00:07:35,180
+We will also proved a report template
+in Boleta and Word document.
+
+110
+00:07:35,180 --> 00:07:40,210
+And you can use this to analyze
+the data and write your findings.
+
+111
+00:07:40,210 --> 00:07:41,780
+Then you have to submit it.
+
+112
+00:07:42,890 --> 00:07:47,440
+And then you have to also evaluate
+three other reports using criteria that
+
+113
+00:07:47,440 --> 00:07:48,500
+we provide.
+
+114
+00:07:48,500 --> 00:07:49,290
+And in a similar way,
+
+115
+00:07:49,290 --> 00:07:53,600
+your report is evaluated by three
+peers based on the same criteria.
+
+116
+00:07:56,400 --> 00:08:01,820
+For the peer assignment,
+you can use these two tools.
+
+117
+00:08:01,820 --> 00:08:04,430
+So on the one hand we
+have the ProM framework.
+
+118
+00:08:04,430 --> 00:08:08,040
+This is an academic tool, with many
+plug-ins and model types supported.
+
+119
+00:08:09,160 --> 00:08:10,650
+It started here at this University, but
+
+120
+00:08:10,650 --> 00:08:16,490
+many researchers and practitioners from
+around the globe have contributed to it.
+
+121
+00:08:16,490 --> 00:08:21,110
+And you can obtain it at
+the processmining.org web site.
+
+122
+00:08:21,110 --> 00:08:23,880
+On the other end, you have Disco,
+which is a commercial tool.
+
+123
+00:08:23,880 --> 00:08:27,840
+It's simple, fast and easy and
+it mainly supports fuzzy models.
+
+124
+00:08:27,840 --> 00:08:32,000
+And in another video I'll
+explain more about Disco, but
+
+125
+00:08:32,000 --> 00:08:35,994
+you can install it from fluxicon.com.
+
+126
+00:08:37,580 --> 00:08:40,660
+Next to this we have also a forum,
+please use this to ask for
+
+127
+00:08:40,660 --> 00:08:43,970
+any help and
+report issues that you have with tools.
+
+128
+00:08:43,970 --> 00:08:47,340
+So use this to discuss any things or
+
+129
+00:08:47,340 --> 00:08:50,080
+insights that you've gained
+also with fellow students.
+
+130
+00:08:50,080 --> 00:08:55,250
+Even also use this to arrange meetups so
+arrange a local meetup
+
+131
+00:08:55,250 --> 00:08:58,070
+where you'll meet with other students
+to discuss things in person.
+
+132
+00:08:59,350 --> 00:09:01,160
+We will monitor this forum, so
+
+133
+00:09:01,160 --> 00:09:05,630
+we hope that you among yourself start
+a discussion and answer the questions.
+
+134
+00:09:05,630 --> 00:09:09,570
+But three of our PhDs in this group and
+myself will monitor this.
+
+135
+00:09:09,570 --> 00:09:10,630
+So Eduardo, Shengnan, and
+
+136
+00:09:10,630 --> 00:09:14,520
+Maikel will answer any questions
+that are remain, that remain open.
+
+137
+00:09:14,520 --> 00:09:17,970
+And I will also have a look on the forum.
+
+138
+00:09:17,970 --> 00:09:21,180
+So please use the forum to
+kind of meet each other.
+
+139
+00:09:22,400 --> 00:09:26,160
+The scores is mainly based on
+the process mining book, so in,
+
+140
+00:09:26,160 --> 00:09:30,080
+at the end of each video, we'll, we'll
+point out which chapter we were covered.
+
+141
+00:09:31,140 --> 00:09:34,730
+Some chapters will be provided to you for
+free.
+
+142
+00:09:34,730 --> 00:09:37,639
+But you can buy the whole
+book either physical or
+
+143
+00:09:37,639 --> 00:09:41,385
+digital, using a discount
+kindly offered by Springer.
+
+144
+00:09:41,385 --> 00:09:43,825
+Only for
+students participating in this MOOC.
+
+145
+00:09:43,825 --> 00:09:47,759
+Well that's it from the more
+organizational side
+
+146
+00:09:47,759 --> 00:09:51,178
+I really encourage you
+to watch all the videos,
+
+147
+00:09:51,178 --> 00:09:56,190
+learn all the tools that we have so
+can analyze your own data.
+
+148
+00:09:56,190 --> 00:09:58,540
+But please be aware this is
+only the tip of the iceberg.
+
+149
+00:09:59,840 --> 00:10:05,720
+For each technique that is discussed, we
+did a lot of reasearch, and there's a lot
+
+150
+00:10:05,720 --> 00:10:11,210
+of mu, more detail available in scientific
+papers that you can, find online.
+
+151
+00:10:11,210 --> 00:10:15,120
+So if you find something that you want to
+learn more about outside of this book,
+
+152
+00:10:15,120 --> 00:10:21,030
+then please, look online, and there's much
+more knowledge that we can share with you.
+
+153
+00:10:21,030 --> 00:10:24,340
+So, to conclude to this
+introductionary lecture have a lot of
+
+154
+00:10:24,340 --> 00:10:26,440
+fun in the coming six weeks.
+
+155
+00:10:26,440 --> 00:10:27,850
+Watch the videos, make the quizzes.
+
+156
+00:10:27,850 --> 00:10:29,328
+Do the assignment.
+
+157
+00:10:29,328 --> 00:10:31,855
+And I hope to meet you
+a little bit on the forum.
+
+158
+00:10:31,855 --> 00:10:33,289
+Have fun.
+
+159
+00:10:33,289 --> 00:10:43,289
+[MUSIC]
+

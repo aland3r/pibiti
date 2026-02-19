@@ -1,0 +1,522 @@
+[MUSIC]
+Welcome to the second
+lecture of the course on
+process mining data science in action.
+Today I provide an overview of
+process mining by discussing three
+types of mining.
+Process discovery,
+performance checking, and enhancement.
+In my last lecture, I showed you that
+we have large amounts of data, but
+that it is not just about collecting data,
+it's about analyzing processes.
+That is one of the key things.
+If you think about what process mining is,
+then the next diagram provides
+a nice illustration of that.
+So process mining is bridging the gap
+between classical process model analysis.
+And data oriented analysis like
+data mining and machine learning.
+Process mining
+is bridging this gap,
+because it's focusing on processes.
+But at the same time, using the real data.
+In classical data mining,
+people typically do not look at processes.
+Especially not end to end processes.
+In areas where people are concerned
+with process model analysis,
+they typically ignore the data.
+Why are you doing process mining?
+We are doing process mining to answer
+performance related questions and
+compliance related questions.
+So why are there certain bottlenecks,
+how can they be removed,
+why do people deviate.
+So the starting point for
+process mining is event data.
+What you see here is a table, and every
+row in this table corresponds to an event.
+An event has different properties, so
+there are generic types of properties.
+The first property is a case id.
+In this case every record refers
+to a student making an exam.
+So the case id refers to the student.
+The activity name refers to the exam.
+And the timestamp in this
+case is the date of the exam.
+There can be additional data like, for
+example, the mark, or
+the grade that somebody got.
+Let's take another example.
+We are now looking at
+the handling of orders.
+Again every line, corresponds to an event.
+If here we look at the first column,
+we see the order number.
+That is the case id.
+The second column refers to
+the activity that is being executed.
+The third column,
+again refers to the timestamp.
+Then there is a column
+referring to the resource.
+The person executing
+the corresponding activity.
+And we can have all kinds of other columns
+with other data like the products and
+quantity and things like that.
+Let's take a look at the third example.
+Now we are in a hospital
+we are treating patients.
+And we look at an event log and
+every row refers to a step in
+the treatment of a particular patient.
+So what you see is that, again, we see
+a case id, activity name, and timestamp.
+So the first column refers to the patient,
+this case represented by a number.
+The second column to the activity name,
+the third column to the timestamp.
+Again we see the resource,
+in this case the doctor or
+the nurse executing a particular activity,
+and we can have all kinds of other data.
+Like for example the age of the patient.
+And all kinds of other properties of
+the patient or the corresponding step.
+So these are examples
+of the kind of
+event data that we would like to use for
+analysis.
+And we are focusing on the relationship
+between process models and event data.
+And I will talk about three types
+of relationships between models and
+event data.
+Play-out, Play-in, and Replay.
+Let's first take a look at Play-out.
+Here the basic idea is that you start
+from a model, and from that model,
+you generate behavior.
+And let me try to illustrate
+this using a small example.
+What you see here is
+a so-called BPMN model.
+And don't be scared off by it.
+In later weeks we will discuss
+these types of things in detail but
+this model is describing
+a particular work flow.
+How things are executed, and
+in what order they are being executed.
+So, if we take one execution
+of this process model,
+which is about handling travel requests,
+then it always starts with an activity a,
+where we register the travel request.
+It is done at a particular point in time,
+and it is done by a particular person.
+Then we start concurrently two paths.
+In one path we execute activity d,
+check budget.
+And in another path we have a choice
+between two different activities, b and c.
+So let's assume that we do activity b,
+get support from local manager.
+And this is done at the particular
+time and by a particular person.
+Then, we have to do activity
+d if we follow this model.
+Check budget by finance.
+Again, done at a particular point
+in time by a particular person.
+And then,
+we can make a decision doing activity e.
+Here we see an XOR-split.
+So we need to make one of three
+decisions accept, reject or there is
+insufficient information and
+we need to redo part of the process again.
+If we decide to accept, we execute
+activity g and the process ends.
+So this is one possible scenario.
+Let us now look at another possible
+scenario following the same process.
+So we first do an a we then,
+again start two paths in parallel.
+But now we do first d and
+then we do c instead of b.
+We then have to make a decision again.
+But now there is not enough information.
+We need to go back.
+And if we go backwards, we
+again need to execute d and b or c.
+So we go back.
+We execute b again.
+We execute d.
+Then we execute e.
+And finally we make a decision.
+And in this case the decision
+is to reject the request.
+So this shows you two possible paths.
+But there are many more.
+Now if we look at this process model
+then these are possible ways of
+playing out this model.
+These are not the only ones because there
+is a loop that are infinitely many.
+So this is playing out a model.
+And if you are using simulation or if you
+are building an information system that
+is driven by such models,
+play-out is the thing that you are doing.
+Let's now look at the reverse.
+We are just reversing the arrow.
+We now go from even data to
+the corresponding process model.
+And in later weeks we will look at
+different algorithms to do this.
+The basic idea is you look at
+the number of example behaviors.
+And you automatically
+infer a model from it.
+So here, if you look at the process,
+if you look at the traces that you
+see on top of this diagram, you can
+see that it always starts with an a.
+So we infer a model that
+always starts with an a.
+All the traces end with a g or and h, so
+in the process model at the end there is a
+choice between accept and reject, g and h.
+This is a more complicated set of traces
+and if we get this more complicated set of
+traces, we get this
+more complicated model.
+So we are automatically
+learning a model from examples.
+And what is very important to understand
+here is that no modeling is needed.
+We are not making any models by hand.
+We automatically infer
+process models from
+raw event data.
+So let me ask you a question.
+And of course you did not learn yet
+process discovery techniques.
+And later you will look
+at algorithms to do so.
+But take a look at these example traces.
+And I ask you, can you create
+a process model that allows for
+the traces that you see here.
+Think a bit about this for sometime.
+And I'm quite sure that you probably
+end up with a model like this.
+So what is shown in this model.
+That all the traces started with a.
+And ends with an e or an f.
+And in between we again have a choice
+between B and C and we always do D.
+And this can be done in any order that is
+why we have an AND-split in this diagram.
+So that was a toy example, we can
+easily apply this to real world data.
+So here you see an example.
+That we will revisit several times
+in the future.
+Here we look at raw event data
+from a Dutch housing agency.
+And every row refers to an event
+within this housing agency.
+The first column refers to the number of
+an apartment, the ID of an apartment.
+The second column to the activity.
+The third column to the time stamp.
+Again, very similar to the things
+that we have seen before.
+If we take this raw event data, we infer
+a process model that is describing
+what happens when somebody that is
+renting an apartment, cancels his rent.
+Until the moment that apartment
+is rented out to somebody else.
+This is the full process model.
+If we zoom into a particular part,
+then you can see
+a small fragment which is executed by,
+let's say, approximately thirty, cases.
+This case houses or apartments that
+followed this sequential path.
+Without modeling you are able to
+see what is the process that is
+really being executed.
+Let's take a look at a more
+complicated example.
+We have been applying
+this in probably 20 to
+30 different hospitals where we can
+take event data about patients.
+So this is a homogeneous group of
+patients within a Dutch hospital.
+We can look at the audit trail of
+a single patient of that patient,
+we see all kinds of properties, and
+we see the events that have been executed.
+If we take 600 of such cases.
+And we automatically infer a model.
+We see this scary diagram
+that you can see on one side.
+It is showing that a treatment process of
+this particular group of patients
+is incredibly complicated.
+Don't be scared off by this
+spaghetti like diagram.
+Later we will see all kinds of techniques
+to simplify such diagrams, so that you
+only have to look at the highways, or
+the parts that you're interested in.
+On the right-hand side of the screen,
+you see also a graph-based model,
+but it is now not showing activities,
+but it is showing departments.
+So rather than seeing the sequence from
+one activity to the next activity we now
+see how work is flowing from one
+department to another department.
+So these are some practical
+examples showing you
+how process mining can
+be applied in practice.
+But it doesn't stop here.
+It is not enough to just learn the model,
+the key element is that you can
+replay a reality on top of models.
+Whether you have made
+these models by hand, or
+whether you have automatically learned
+them using process discovery is irrelevant.
+What is important is that you try to
+replay reality on top of the model.
+So, at the top of the slide, you can
+see a trace that happened in reality.
+Again, this is an abstract example,
+later I will show you a real example.
+In reality, we saw the sequence a c d e g.
+Let's try to replay this on this model.
+And if we do this, we see a path through
+the process model that is indeed possible.
+So we replay reality on top of the model,
+and while doing that we don't
+encounter any problems.
+So, nothing surprising yet
+Let's now take a look at another case.
+Where we see the sequence a c e g.
+So this could be the path of a patient.
+This could be the life
+cycle of an apartment.
+It could be somebody applying for
+a mortgage.
+It can be anything.
+So we look a the sequence of events.
+In this case in reality first a happens.
+That is possible according to the model.
+Then c happens, this is also
+still possible in the model but
+then in the reality e happened, and
+according to the process model you can
+only make a decision if also activity d
+is being executed it is impossible
+to execute d at this point in time.
+So while replaying, we continue, but we
+record the fact that there is a problem.
+So here activity d,
+check budget, is missing.
+And then we continue and
+in the remainder of the trace,
+we don't see any surprising things.
+So we can see where the deviations are.
+Here I show you another example.
+If we look at this example
+first a then we do a c then
+we see that in
+reality h has happened.
+So there was a rejection while
+the process was still in the middle.
+Again by doing replay we
+can record a problem.
+Provide diagnostics and
+continue our replay.
+This case, we make a decision and
+finally we do the acceptance.
+So again, we have found a deviation
+between the reality and the model.
+So, to check whether you have
+understood these types of things.
+Take a look at this model and
+the corresponding tree traces.
+Are these traces possible in this model or
+not?
+And if they are not possible, where
+does reality deviate from this model?
+Let's take a look at the answer.
+If we take a look at the first trace.
+a, b, d, c, e h.
+Then we can see that this is impossible.
+If we tried to replay it, we will see
+that it is impossible to do both b and c.
+When we take a look at the second trace,
+we find kind of a reversed problem.
+Now we don't have an activity too
+much we have an activity too little.
+Activity d is missing.
+So it doesn't fit.
+If you try to replay the last
+trace you will see that you
+don't encounter any problems so
+indeed it is replayable.
+So these examples show you
+how you can apply yourself.
+Conformance checking
+techniques by doing replay.
+Again, let us take a look
+at a practical example.
+This is a fragment of
+a larger process model,
+describing the handling of
+complaints in a Dutch municipality.
+These are people that are complaining
+about the valuation of their house.
+And because of that, they think
+that they need to pay too much tax.
+We take a look at this process and
+we replay a reality on top of this model,
+we will find interesting deviations.
+Although the overall process
+has a very good fitness,
+the relationship between reality and
+the model.
+They are very close to one another.
+We still find all kind of
+interesting deviations.
+So for example here the house
+was reevaluated 23 times.
+While it was not supposed to happen.
+So something happened in reality.
+Which was not possible
+according to the model.
+And by replaying reality on top of the
+model, we can see these types of problems.
+Replay is not just about conformance.
+It's also about performance analysis.
+We can easily replay an event logged that
+has timestamps on top of such a model.
+And each time we execute an activity.
+We record the corresponding time
+as you can see here on this slide.
+So we just execute reality
+on top of the model.
+We record all the times.
+And at the end we know exactly
+how much time was spent in
+all the different parts of the process.
+And the black circles here indicate
+delays between individual activities.
+So we can do this for
+a single execution, for a single trace.
+But you can also do that for many traces.
+If you do that for
+many traces, you will see how often
+an activity is being executed.
+You will see how often a particular
+path is being followed.
+But you also see how long
+activities have taken and
+you will see what the delays
+are in between these activities.
+What are waiting times.
+What are synchronization times.
+You can record them for
+hundreds of thousands or
+perhaps even millions of cases.
+And derive probability
+distribution from them.
+So again let us take a look
+at a practical example.
+Here we look again at a process
+where people complain about
+the valuation of their house.
+We have derived automatically
+a process model.
+And these terms expressed as a petri net.
+And now we can by replaying we
+can see where the delays take place.
+So if you look at this slide you can
+see that certain places are
+indicated in purple.
+And these are the places
+where we see a large delay.
+So this is an indication where
+possible performance problems are.
+It can go one step further.
+You can point at two arbitrary
+points in the process.
+You can see how many cases, in this case
+how many objections are flowing from
+this first red activity to the second red
+activity, and we can see how long it took.
+And you can see here
+the corresponding statistics.
+So by replaying you can see
+exactly where delays take place.
+You can start investigating
+what is causing them.
+So to provide an overview of
+the things that I've been talking about
+we have a real world where
+things are happening.
+We have a software system, that is,
+somehow, recording events of
+the things that take place.
+People objecting to
+the valuation of their house.
+Patients being treated in a hospital.
+Then we have these event data.
+And we can do discovery,
+automatically learning process models.
+We can do conformance checking.
+Comparing the event log
+to the process model and
+we can enrich, it's called enhancement here,
+we can enrich the process
+model with information about
+deviations and performance.
+For example the bottle necks
+that I just showed you.
+How does that relate to
+the things that I've been talking about?
+Play-out is about the classical use of
+process models not
+involving any event data.
+Play-in corresponds to discovery.
+You automatically learn a process model
+without any modeling from raw event data.
+And you have replay where you compare
+a process model to an event log
+to check conformance, to investigate
+performance problems, etcetera.
+So, I hope this gave you a good overview
+of the three different types of,
+process mining.
+If you want to find more high-level
+information about these three types,
+please read chapter one.
+Thank you very much for
+watching and hope to see you soon.
+[MUSIC]
+

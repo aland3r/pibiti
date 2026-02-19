@@ -1,0 +1,1331 @@
+1
+00:00:00,000 --> 00:00:07,027
+[MUSIC]
+
+2
+00:00:07,027 --> 00:00:08,460
+Glad to see you again.
+
+3
+00:00:08,460 --> 00:00:13,190
+Process models are very important for
+understanding and improving processes.
+
+4
+00:00:13,190 --> 00:00:18,110
+However sometimes it is
+better to first explore the event data.
+
+5
+00:00:18,110 --> 00:00:23,090
+Today we will show that dotted charts can
+provide valuable insights in the early
+
+6
+00:00:23,090 --> 00:00:25,220
+stages of a process mining project.
+
+7
+00:00:26,992 --> 00:00:33,200
+Lion's share of attention so far has gone
+to the output side, creating models.
+
+8
+00:00:33,200 --> 00:00:35,530
+Today we will look at the input side.
+
+9
+00:00:36,730 --> 00:00:38,250
+We will look at event logs, and
+
+10
+00:00:38,250 --> 00:00:41,500
+we will see that there are different
+ways of exploring them.
+
+11
+00:00:41,500 --> 00:00:46,410
+And in particular, we will look at the
+dotted chart to create a helicopter view
+
+12
+00:00:46,410 --> 00:00:48,810
+of the event data that we
+are trying to analyze.
+
+13
+00:00:51,810 --> 00:00:56,620
+This is the simplistic view of event
+data that we have used so far.
+
+14
+00:00:56,620 --> 00:01:01,560
+So one can think of it as a table where
+every row corresponds to an event.
+
+15
+00:01:01,560 --> 00:01:05,890
+Each event should have a case ID,
+an activity name and a time stamp.
+
+16
+00:01:05,890 --> 00:01:09,130
+And sometimes we have resource
+information for other data.
+
+17
+00:01:10,340 --> 00:01:13,720
+However the real picture
+is a bit more involved.
+
+18
+00:01:15,010 --> 00:01:20,350
+To illustrate this we are using this so
+called object model
+
+19
+00:01:20,350 --> 00:01:26,780
+which is relating process models to
+event data and is showing the structure
+
+20
+00:01:26,780 --> 00:01:32,140
+of events and their relations
+to activities and processes.
+
+21
+00:01:33,260 --> 00:01:36,320
+So let's first take a look at
+the part that we know very well.
+
+22
+00:01:36,320 --> 00:01:42,210
+So if we look at an event, an event
+always belongs to a case, precisely one.
+
+23
+00:01:42,210 --> 00:01:46,680
+A case can be composed of more events,
+and a case belongs to a process.
+
+24
+00:01:46,680 --> 00:01:49,190
+And a process may of course
+have multiple cases.
+
+25
+00:01:51,130 --> 00:01:54,530
+If we look at an event,
+events have attributes.
+
+26
+00:01:54,530 --> 00:01:59,480
+They refer to an activity, but we also
+have other attributes like timestamps,
+
+27
+00:01:59,480 --> 00:02:04,772
+resources, costs,
+transactional information, etcetera.
+
+28
+00:02:04,772 --> 00:02:09,820
+So timestamps are very important for
+the ordering of events, and for
+
+29
+00:02:09,820 --> 00:02:11,250
+doing performance analysis.
+
+30
+00:02:12,970 --> 00:02:18,630
+Resources refer to people, organizations,
+
+31
+00:02:18,630 --> 00:02:24,160
+machines, that are needed to
+execute a particular activity.
+
+32
+00:02:24,160 --> 00:02:26,603
+They are also very important for
+analysis so
+
+33
+00:02:26,603 --> 00:02:29,780
+you should try to exploit this
+in whatever way possible.
+
+34
+00:02:31,750 --> 00:02:36,370
+So far we didn't give a lot of attention
+to transactional information but
+
+35
+00:02:36,370 --> 00:02:40,950
+many event logs contain
+information referring to
+
+36
+00:02:40,950 --> 00:02:46,210
+the start time of an activity,
+the end time of an activity.
+
+37
+00:02:46,210 --> 00:02:49,550
+Whether it was suspended,
+resumed, etcetera.
+
+38
+00:02:49,550 --> 00:02:52,630
+So, let us focus on this
+transactional information.
+
+39
+00:02:54,610 --> 00:02:59,170
+We assume that there is a particular
+transactional model that
+
+40
+00:02:59,170 --> 00:03:00,850
+activities follow.
+
+41
+00:03:00,850 --> 00:03:05,620
+And here you see the most detailed
+transactional model that is being
+
+42
+00:03:05,620 --> 00:03:09,560
+considered in the context
+of process mining.
+
+43
+00:03:09,560 --> 00:03:17,630
+So we see many different activities
+relating to when things have started,
+
+44
+00:03:17,630 --> 00:03:22,600
+when things have completed, whether things
+have been aborted, etcetera, etcetera.
+
+45
+00:03:22,600 --> 00:03:27,856
+So the simplest scenario is where we
+just have one event per activity,
+
+46
+00:03:27,856 --> 00:03:31,290
+this is so called completion event.
+
+47
+00:03:31,290 --> 00:03:35,640
+And, if we, we look at many logs,
+they don't really have
+
+48
+00:03:35,640 --> 00:03:40,910
+this transactional information and we
+interpret it as being a complete action.
+
+49
+00:03:43,850 --> 00:03:48,100
+There are also cases when we have
+a start event and a complete event.
+
+50
+00:03:48,100 --> 00:03:53,010
+This is very important if we would like
+to measure the duration of an activity.
+
+51
+00:03:53,010 --> 00:03:56,810
+So one activity has two events,
+a start event and a complete event.
+
+52
+00:03:58,270 --> 00:04:01,350
+But much more involved
+scenarios are possible, and
+
+53
+00:04:01,350 --> 00:04:03,180
+here you can see some examples.
+
+54
+00:04:03,180 --> 00:04:08,220
+So it may be that an activity was started,
+but
+
+55
+00:04:08,220 --> 00:04:13,120
+then was suspended for some time,
+then resumed, possibly also aborted.
+
+56
+00:04:14,810 --> 00:04:18,730
+So, what we see here
+are so-called activity instances.
+
+57
+00:04:18,730 --> 00:04:22,980
+And we can think of them as paths
+through the life cycle model that is
+
+58
+00:04:22,980 --> 00:04:24,390
+shown at the bottom of this slide.
+
+59
+00:04:27,150 --> 00:04:32,850
+There can be multiple instances of
+the same activity within the same case.
+
+60
+00:04:32,850 --> 00:04:34,910
+For example, if we would have a loop,
+
+61
+00:04:34,910 --> 00:04:37,900
+then this would be a typical
+pattern that we could see.
+
+62
+00:04:37,900 --> 00:04:42,770
+We see for activity a, a start and
+a complete, then another start and
+
+63
+00:04:42,770 --> 00:04:44,030
+a complete, etcetera.
+
+64
+00:04:45,150 --> 00:04:49,270
+But there may also be situations
+where it is less clear.
+
+65
+00:04:49,270 --> 00:04:53,020
+So here we see, an activity,
+
+66
+00:04:53,020 --> 00:04:58,870
+a, that has two instances because we see
+two starts and we see two completes.
+
+67
+00:04:58,870 --> 00:05:02,390
+But we can assume that this
+is what has happened or
+
+68
+00:05:02,390 --> 00:05:05,150
+we can assume that this
+is what has happened.
+
+69
+00:05:05,150 --> 00:05:09,980
+So it's unclear which start
+corresponds to which complete.
+
+70
+00:05:09,980 --> 00:05:12,950
+So we have these two possibilities.
+
+71
+00:05:12,950 --> 00:05:17,210
+So how to resolve this possible confusion?
+
+72
+00:05:17,210 --> 00:05:22,340
+Well one way is that events,
+when they are being recorded,
+
+73
+00:05:22,340 --> 00:05:27,810
+they already have explicit references
+to so called activity instances.
+
+74
+00:05:27,810 --> 00:05:32,040
+So that we know which start,
+corresponds to which complete.
+
+75
+00:05:33,690 --> 00:05:37,140
+It's also possible that we
+don't have this information.
+
+76
+00:05:37,140 --> 00:05:41,540
+And then, when we are replaying the log,
+we can simply create it or compute it.
+
+77
+00:05:42,550 --> 00:05:48,960
+Note that this is just one of several
+possible confusions that may arise.
+
+78
+00:05:48,960 --> 00:05:51,970
+For example,
+it may also be that we have two starts and
+
+79
+00:05:51,970 --> 00:05:55,470
+just one complete, and so
+one complete is missing.
+
+80
+00:05:55,470 --> 00:05:58,350
+How do we create these activity instances?
+
+81
+00:05:58,350 --> 00:06:01,979
+One can use all kinds of heuristics
+to resolve these types of issues.
+
+82
+00:06:03,540 --> 00:06:07,060
+So let's assume that we have
+these activity instances.
+
+83
+00:06:07,060 --> 00:06:11,740
+If we have these activity instances, there
+is a clear relationship between an event
+
+84
+00:06:11,740 --> 00:06:17,520
+and an activity instance, and activity
+instance corresponds to an activity.
+
+85
+00:06:17,520 --> 00:06:20,150
+So events are related to
+activities in this way.
+
+86
+00:06:22,600 --> 00:06:26,670
+So this is often the key part
+of control flow discovery,
+
+87
+00:06:26,670 --> 00:06:30,870
+that we can relate events to
+activities in a process model.
+
+88
+00:06:33,920 --> 00:06:37,450
+So far we looked at attributes
+at the event level.
+
+89
+00:06:37,450 --> 00:06:42,900
+But as shown on this slide it may also
+be the case that the case as a whole,
+
+90
+00:06:42,900 --> 00:06:44,220
+has attributes.
+
+91
+00:06:44,220 --> 00:06:48,370
+For example, the type of a customer,
+the birth date of a patient,
+
+92
+00:06:48,370 --> 00:06:51,010
+the flow time of a case.
+
+93
+00:06:51,010 --> 00:06:53,850
+These are not properties
+of an individual event but
+
+94
+00:06:53,850 --> 00:06:58,030
+of the case as a whole, and
+we can exploit them using process mining.
+
+95
+00:06:59,690 --> 00:07:02,640
+Note that sometimes we will need to
+
+96
+00:07:02,640 --> 00:07:06,250
+compute these attributes of cases or
+events.
+
+97
+00:07:06,250 --> 00:07:10,640
+So for example, the flow time of
+a case can be computed based on
+
+98
+00:07:10,640 --> 00:07:13,790
+the first event of a case and
+the last event of a case.
+
+99
+00:07:15,190 --> 00:07:20,490
+In general, there may be many attributes
+that we would like to compute.
+
+100
+00:07:20,490 --> 00:07:27,120
+These are called derived attributes,
+and they may use information not only
+
+101
+00:07:27,120 --> 00:07:32,730
+of the given case that we are analyzing,
+but of the whole context of that case.
+
+102
+00:07:32,730 --> 00:07:38,440
+So for example, when an event was being
+executed, how busy was it in the process?
+
+103
+00:07:38,440 --> 00:07:40,760
+How many resources were available?
+
+104
+00:07:40,760 --> 00:07:43,190
+How many cases were pending?
+
+105
+00:07:43,190 --> 00:07:46,840
+We can look at the workload
+of individual resources and
+
+106
+00:07:46,840 --> 00:07:52,570
+add that as an attribute of the event so
+that we can use this at a later stage.
+
+107
+00:07:53,570 --> 00:07:58,485
+So it's very important to relate
+context information to events and
+
+108
+00:07:58,485 --> 00:08:02,650
+cases if you would like to do
+a more refined type of analysis.
+
+109
+00:08:04,050 --> 00:08:08,410
+This picture illustrates
+why this is crucial.
+
+110
+00:08:08,410 --> 00:08:12,420
+For example, if we are interested in
+understanding why there are delays in
+
+111
+00:08:12,420 --> 00:08:19,010
+a process and we would look at one case,
+for example one customer in isolation,
+
+112
+00:08:19,010 --> 00:08:22,630
+we would not be able to see and
+understand the whole picture.
+
+113
+00:08:22,630 --> 00:08:27,860
+So we need to related individual events
+and cases to the overall context.
+
+114
+00:08:30,540 --> 00:08:33,850
+Okay, let us now take
+a look at a dotted chart.
+
+115
+00:08:33,850 --> 00:08:39,110
+This is a technique to explore event
+data before we start building model.
+
+116
+00:08:39,110 --> 00:08:44,180
+And it often reveals very intriguing and
+interesting information.
+
+117
+00:08:45,850 --> 00:08:47,830
+So what is the basic
+idea of a dotted chart?
+
+118
+00:08:47,830 --> 00:08:52,470
+We already briefly have seen examples
+before, so it is an helicopter view,
+
+119
+00:08:52,470 --> 00:08:54,890
+showing all the events.
+
+120
+00:08:54,890 --> 00:08:59,980
+Every dot corresponds to an event and
+we have two axes.
+
+121
+00:08:59,980 --> 00:09:06,820
+On the x-axis we plot time, on the
+y-axis we can plot properties of events.
+
+122
+00:09:06,820 --> 00:09:09,240
+For example, the case they belong to,
+
+123
+00:09:09,240 --> 00:09:15,590
+the resource that was executing the event,
+or the task that was being executed.
+
+124
+00:09:15,590 --> 00:09:18,360
+We can also color these dots.
+
+125
+00:09:18,360 --> 00:09:22,329
+It can, for example, be based on the the
+person that was executing that event.
+
+126
+00:09:23,590 --> 00:09:27,570
+It's best to show this using examples,
+and in ProM,
+
+127
+00:09:27,570 --> 00:09:30,960
+there are two plugins
+that create dotted chart.
+
+128
+00:09:30,960 --> 00:09:35,270
+It's a dotted chart plugin,
+and it's a so-called viewer.
+
+129
+00:09:35,270 --> 00:09:37,440
+It's the XDotted chart.
+
+130
+00:09:37,440 --> 00:09:40,540
+But the concepts that they
+use are very similar.
+
+131
+00:09:41,550 --> 00:09:45,790
+However, sometimes you need to
+use one rather than the other.
+
+132
+00:09:45,790 --> 00:09:48,190
+For example, if you're running
+into performance problems.
+
+133
+00:09:49,600 --> 00:09:53,790
+In the remainder of this lecture
+I will focus on the dotted chart.
+
+134
+00:09:53,790 --> 00:09:57,150
+But in the XDotted chart you will
+see very similar functionality.
+
+135
+00:09:59,580 --> 00:10:03,220
+To illustrate a dotted chart,
+let us take a look at an event log.
+
+136
+00:10:03,220 --> 00:10:05,840
+What it represents is not that important,
+but
+
+137
+00:10:05,840 --> 00:10:09,730
+we have 500 cases and
+more than 7500 events.
+
+138
+00:10:09,730 --> 00:10:14,920
+How can we explore them
+using the dotted chart?
+
+139
+00:10:17,780 --> 00:10:21,002
+Well, to get an understanding
+of the process behind,
+
+140
+00:10:21,002 --> 00:10:24,430
+the dotted charts that we will
+see in the remainder, here you
+
+141
+00:10:24,430 --> 00:10:29,440
+see a process model that was automatically
+discovered using the inductive miner.
+
+142
+00:10:29,440 --> 00:10:32,450
+So if the process starts
+with one activity,
+
+143
+00:10:32,450 --> 00:10:35,790
+then there are three activities
+that are concurrent.
+
+144
+00:10:35,790 --> 00:10:37,120
+But they are all optional.
+
+145
+00:10:37,120 --> 00:10:39,430
+They can all be bypassed.
+
+146
+00:10:39,430 --> 00:10:42,530
+Then there is a sequence of activities and
+there is a loop.
+
+147
+00:10:42,530 --> 00:10:45,410
+Sometimes things need to be repeated.
+
+148
+00:10:45,410 --> 00:10:48,180
+And at the end there is a decision,
+accept or reject.
+
+149
+00:10:49,730 --> 00:10:52,610
+This is a model created
+by the inductive miner.
+
+150
+00:10:52,610 --> 00:10:54,220
+It's a process tree.
+
+151
+00:10:54,220 --> 00:10:56,700
+We can also visualize it as a BPMN model.
+
+152
+00:10:57,790 --> 00:10:59,640
+Or we can visualize it as a Petri net.
+
+153
+00:10:59,640 --> 00:11:04,010
+But the goal of this lecture is
+not to look at the process models.
+
+154
+00:11:04,010 --> 00:11:06,780
+I only show you these models so
+
+155
+00:11:06,780 --> 00:11:10,210
+that you have an understanding of
+the data that we are trying to explore.
+
+156
+00:11:10,210 --> 00:11:11,880
+Typically you do it in
+the other way around.
+
+157
+00:11:13,880 --> 00:11:19,140
+So here is a dotted chart of
+the data set that I just described.
+
+158
+00:11:20,570 --> 00:11:24,880
+So what we are plotting here,
+on the one axis we have the time,
+
+159
+00:11:24,880 --> 00:11:27,790
+in this case the actual time.
+
+160
+00:11:27,790 --> 00:11:32,470
+On the other axis, on the y-axis,
+every line corresponds to a case.
+
+161
+00:11:32,470 --> 00:11:35,980
+And the color of the dot is
+the activity that is being executed.
+
+162
+00:11:38,110 --> 00:11:43,500
+So if we now zoom in into one line
+we are looking at one case, and
+
+163
+00:11:43,500 --> 00:11:48,520
+for this one case we can see
+a sequence of event that have happened.
+
+164
+00:11:48,520 --> 00:11:54,100
+And the color is indicating which event it
+was, which activity it was that occurred.
+
+165
+00:11:56,820 --> 00:11:59,030
+We can also take another view.
+
+166
+00:11:59,030 --> 00:12:05,330
+Now, we again use absolute time
+of the x-axis, but on the y-axis,
+
+167
+00:12:05,330 --> 00:12:09,620
+we are plotting the activities that we
+could earlier see in the process model.
+
+168
+00:12:10,670 --> 00:12:16,260
+So, we can see at what points in time
+particular activities were being executed.
+
+169
+00:12:16,260 --> 00:12:19,260
+And you can see that there
+are certain patterns emerging here.
+
+170
+00:12:21,400 --> 00:12:26,920
+So, we have activities versus actual time,
+the color of the dot is the activity.
+
+171
+00:12:29,260 --> 00:12:31,860
+This is exactly the same diagram but
+
+172
+00:12:31,860 --> 00:12:35,030
+it is illustrating that we can
+change the coloring of the dot.
+
+173
+00:12:35,030 --> 00:12:39,520
+Now the coloring of the dot refers to the
+resource that is executing a particular
+
+174
+00:12:39,520 --> 00:12:43,810
+activity and you can see a clear
+correlation between certain colors and
+
+175
+00:12:43,810 --> 00:12:46,910
+certain rows,
+indicating that particular types of
+
+176
+00:12:46,910 --> 00:12:51,060
+resources execute particular
+sets of activities.
+
+177
+00:12:54,220 --> 00:12:59,750
+This is the same plot but
+now on the y-axis we plot the resources.
+
+178
+00:12:59,750 --> 00:13:01,930
+The color of the dot is the activity.
+
+179
+00:13:01,930 --> 00:13:05,800
+So this picture can be seen as
+orthogonal to the previous one.
+
+180
+00:13:05,800 --> 00:13:10,800
+And now we can see at what points in
+time our particular resource is busy.
+
+181
+00:13:13,440 --> 00:13:15,450
+We can change the color of the dots.
+
+182
+00:13:15,450 --> 00:13:19,540
+So what you see here is that we started
+with the coloring based on activities and
+
+183
+00:13:19,540 --> 00:13:27,450
+now the coloring is based on the resources
+executing all the different events.
+
+184
+00:13:27,450 --> 00:13:30,160
+So far we looked at absolute time.
+
+185
+00:13:30,160 --> 00:13:35,380
+Here you see a picture where we
+are using relative time on the x-axis.
+
+186
+00:13:35,380 --> 00:13:38,740
+So all the cases start at time 0.
+
+187
+00:13:38,740 --> 00:13:40,790
+And they all start with the same activity,
+
+188
+00:13:40,790 --> 00:13:42,970
+as is clearly visible
+here by the red line.
+
+189
+00:13:44,010 --> 00:13:49,300
+But you can also see that certain
+cases take a very short time.
+
+190
+00:13:49,300 --> 00:13:53,670
+The one at the top, versus other
+cases take a much longer time.
+
+191
+00:13:53,670 --> 00:13:55,500
+These are the ones that you
+can find at the bottom.
+
+192
+00:13:56,620 --> 00:14:01,666
+So this gives often an insight
+in the duration of the cases.
+
+193
+00:14:01,666 --> 00:14:07,050
+We can also plot this in a different way.
+
+194
+00:14:08,210 --> 00:14:13,350
+For example, looking at the activities
+that are being executed.
+
+195
+00:14:13,350 --> 00:14:15,540
+So again, it's the same idea.
+
+196
+00:14:15,540 --> 00:14:22,730
+But now, rather than cases on
+the y-axis, we plot activities.
+
+197
+00:14:22,730 --> 00:14:25,560
+Again, time is relative,
+everything starts at time zero.
+
+198
+00:14:28,210 --> 00:14:33,100
+This is logical time, so now we do not
+care about the actual time differences,
+
+199
+00:14:33,100 --> 00:14:37,470
+but we look at what is the first event
+in a case, what is the second event in
+
+200
+00:14:37,470 --> 00:14:41,090
+the case, what is the third event in
+the case, and plot them in this way.
+
+201
+00:14:44,500 --> 00:14:47,590
+So, again,
+on the y-axis we have cases, but
+
+202
+00:14:47,590 --> 00:14:49,930
+on the x-axis we have the logical time.
+
+203
+00:14:49,930 --> 00:14:52,530
+And again,
+we can choose the coloring of the dot.
+
+204
+00:14:53,570 --> 00:14:54,100
+I've showed you
+
+205
+00:14:54,100 --> 00:14:59,058
+now many dotted charts, so what can we
+actually see if we look at this data set?
+
+206
+00:14:59,058 --> 00:15:04,420
+If you, look at
+
+207
+00:15:04,420 --> 00:15:09,680
+what you can observe,
+is that it is not a straight line.
+
+208
+00:15:09,680 --> 00:15:13,100
+It's not a straight diagonal line.
+
+209
+00:15:13,100 --> 00:15:18,560
+So the speed at which cases
+is arriving is varying,
+
+210
+00:15:18,560 --> 00:15:21,580
+as is clearly indicated
+here by the yellow line.
+
+211
+00:15:23,350 --> 00:15:25,240
+We also see these strange gaps.
+
+212
+00:15:25,240 --> 00:15:30,910
+The first one may not be that clear but
+the second and third gap are very obvious.
+
+213
+00:15:30,910 --> 00:15:34,840
+So let's try to analyze
+these in a bit more detail.
+
+214
+00:15:34,840 --> 00:15:39,060
+So if you look at the first gap and
+we zoom in, which you can do with a dotted
+
+215
+00:15:39,060 --> 00:15:45,240
+chart then what we see is that
+there is a period where various
+
+216
+00:15:45,240 --> 00:15:50,390
+activities are still being executed,
+but no decisions are being made.
+
+217
+00:15:50,390 --> 00:15:53,730
+There's a two month period
+without any decisions.
+
+218
+00:15:55,200 --> 00:15:59,950
+This is creating that cases
+take longer as you can see in
+
+219
+00:15:59,950 --> 00:16:02,480
+the previous slide.
+
+220
+00:16:02,480 --> 00:16:07,570
+We can zoom into this problem in more
+detail by looking at the resources.
+
+221
+00:16:07,570 --> 00:16:12,320
+And what this diagram shows
+is that the resource taking
+
+222
+00:16:12,320 --> 00:16:16,820
+the decisions was inactive for
+this period of two months.
+
+223
+00:16:19,400 --> 00:16:21,830
+Let us now take a look at the second gap.
+
+224
+00:16:21,830 --> 00:16:24,910
+Is it the same or
+does it have a different reason?
+
+225
+00:16:24,910 --> 00:16:30,470
+If we take a look at the second gap
+then we see that there is a period,
+
+226
+00:16:30,470 --> 00:16:34,050
+six weeks,
+where there is no activity at all.
+
+227
+00:16:34,050 --> 00:16:39,070
+And at the end of the period we
+suddenly see a burst of red dots and
+
+228
+00:16:39,070 --> 00:16:44,250
+these correspond to the first
+activity executed in this process.
+
+229
+00:16:44,250 --> 00:16:46,660
+So apparently nothing could happen for
+awhile.
+
+230
+00:16:46,660 --> 00:16:48,530
+No new cases were accepted.
+
+231
+00:16:48,530 --> 00:16:54,770
+And then suddenly many
+new cases were created.
+
+232
+00:16:55,960 --> 00:16:58,020
+So let's try to understand it.
+
+233
+00:16:58,020 --> 00:17:01,480
+What we see here is that
+the first resource and
+
+234
+00:17:01,480 --> 00:17:08,110
+the fifth resource are the only resources,
+executed this initial activity.
+
+235
+00:17:08,110 --> 00:17:13,320
+And they were absent for a particular
+period thereby also causing that
+
+236
+00:17:13,320 --> 00:17:19,080
+other people in the process could also not
+work because no new cases were accepted.
+
+237
+00:17:21,840 --> 00:17:23,080
+If we look at the third gap,
+
+238
+00:17:24,360 --> 00:17:28,500
+we can see very similar problems
+compared to the first one.
+
+239
+00:17:28,500 --> 00:17:33,660
+So, still, new cases are arriving but
+no decisions are made for
+
+240
+00:17:33,660 --> 00:17:35,140
+an extended, period.
+
+241
+00:17:38,360 --> 00:17:43,750
+Let us take a look at another event
+log taken from a Dutch housing agency.
+
+242
+00:17:43,750 --> 00:17:49,740
+So we use the following
+settings to plot the chart.
+
+243
+00:17:49,740 --> 00:17:53,280
+So again we have actual time and
+
+244
+00:17:53,280 --> 00:17:57,780
+we are looking at every
+row corresponds to a case.
+
+245
+00:17:57,780 --> 00:18:01,220
+And the color of the dot is based
+on the activity that is being executed.
+
+246
+00:18:02,920 --> 00:18:08,660
+So, take a look at this dotted
+chart of a real housing agency
+
+247
+00:18:10,580 --> 00:18:13,520
+and try to see what kind of
+strange patterns you see.
+
+248
+00:18:15,840 --> 00:18:21,150
+Well the first thing that you can note
+is that the arrival rate is increasing.
+
+249
+00:18:21,150 --> 00:18:24,540
+Because the line is curved
+it means that more and
+
+250
+00:18:24,540 --> 00:18:29,960
+more cases at a higher speed
+are arriving into this process.
+
+251
+00:18:31,730 --> 00:18:35,380
+Second you can see that there
+are these vertical lines.
+
+252
+00:18:35,380 --> 00:18:40,690
+If you look carefully you can see
+that things are being batched.
+
+253
+00:18:40,690 --> 00:18:43,830
+So for many cases the same activity is
+
+254
+00:18:43,830 --> 00:18:47,020
+happening within a very
+small period of time.
+
+255
+00:18:48,090 --> 00:18:52,690
+We can zoom into the latter issue.
+
+256
+00:18:52,690 --> 00:18:55,300
+So you can
+clearly see these patterns.
+
+257
+00:18:56,420 --> 00:18:59,710
+So, for example,
+if we take a look at the top pattern,
+
+258
+00:18:59,710 --> 00:19:02,940
+then there was this short period of just
+
+259
+00:19:02,940 --> 00:19:08,240
+a few days where these activities
+were being executed for these cases.
+
+260
+00:19:08,240 --> 00:19:10,940
+And in many of these cases
+had been waiting for
+
+261
+00:19:10,940 --> 00:19:14,750
+a long time for
+these activities to happen.
+
+262
+00:19:14,750 --> 00:19:18,250
+So, these activities correspond
+to billing and archiving.
+
+263
+00:19:18,250 --> 00:19:23,630
+So, apparently here, a resource was not
+available for a longer period of time.
+
+264
+00:19:23,630 --> 00:19:25,910
+And then in a very short period of time,
+
+265
+00:19:25,910 --> 00:19:29,560
+did all the work that had
+been accumulating over weeks.
+
+266
+00:19:31,410 --> 00:19:36,760
+So in this lecture, we focused on
+the input side of process mining.
+
+267
+00:19:37,900 --> 00:19:43,830
+We've seen that a dotted chart can
+provide many interesting insights
+
+268
+00:19:43,830 --> 00:19:47,670
+that we need to look at before
+we start creating models.
+
+269
+00:19:47,670 --> 00:19:50,840
+What we could also see is
+that in event data there is
+
+270
+00:19:50,840 --> 00:19:54,490
+much more information than just
+information about activities.
+
+271
+00:19:54,490 --> 00:19:56,920
+We have timing information.
+
+272
+00:19:56,920 --> 00:20:01,339
+We have information about resources,
+and we should try to explore these.
+
+273
+00:20:03,010 --> 00:20:06,710
+So this is what will happen in
+the next couple of lectures.
+
+274
+00:20:06,710 --> 00:20:11,210
+You can take a look at these two chapters
+to read more about dotted charts and
+
+275
+00:20:11,210 --> 00:20:17,120
+analysis of processes using these
+other perspectives like resources,
+
+276
+00:20:17,120 --> 00:20:18,410
+time and data.
+
+277
+00:20:19,760 --> 00:20:21,510
+Thank you for watching this lecture.
+
+278
+00:20:21,510 --> 00:20:22,554
+See you next time.
+
+279
+00:20:22,554 --> 00:20:32,554
+[MUSIC]
+

@@ -1,0 +1,454 @@
+[MUSIC]
+Welcome to this lecture of the course on
+process mining, data science in action.
+Now that you are able to read and
+create petri nets,
+we start looking at properties like
+deadlocks, liveness and boundedness.
+What you see on this slide
+is the reachability graph,
+of the Petri net that we
+have been showing before.
+One can think of a reachability graph as
+a transition system of a particular type,
+having one specific initial state,
+being the initial marking.
+So this is a finite reachability graph,
+but a Petri net
+may also have a corresponding reachability
+graph that is infinitely large.
+So here the number of tokens in Petri,
+is unbounded.
+It can grow to any number by
+just executing the cycle t1, t2.
+So the reachability graph is infinite.
+Having reachability graphs
+that are infinitely large,
+triggers the interesting
+question of boundedness.
+So a place is called k-bounded,
+if there is no
+reachable marking where there are more
+than k tokens in this particular place.
+If all the places of a Petri net are
+k-bounded, then we say that the Petri net,
+as a whole, is k-bounded.
+We also say that the Petri net is
+bounded if there exists such a k.
+So if you take a look at this example,
+one can see that p1 is two bounded,
+p2 is also two bounded,
+but p3 is unbounded.
+So let's take a look at this
+model in a bit more detail.
+So p1 is 2-bounded.
+Why is it 2-bounded?
+Because the total number
+of tokens in p1 and
+p2 together can never
+grow into more than two.
+Only a token can disappear from
+these two places by executing t3.
+So two is an upper bound.
+The same holds for p2.
+p3, on the other hand, is unbounded,
+because if we execute t1,
+t2, t1, t2,
+we can get any number of tokens in p3.
+So the whole petri net is
+unbounded because p3 is unbounded.
+Safeness, is a particular
+type of boundedness it is
+boundedeness where k is equal to one.
+If all the places never have a two or
+more tokens, we call it a safe Petri net.
+So if we take a look at
+this example that we
+have seen before then this Petri
+net having this initial marking
+is a safe Petri net because none of the
+places can ever have two or more tokens.
+If we take a look at this initial marking,
+on the other hand,
+we will see that the Petri net is
+still bounded having this initial
+marking, but it is not safe anymore.
+It is now too bounded, and
+if you carefully take a look at
+the Petri net, you will see that it
+is possible to put two tokens in x.
+So x is two bounded but is not safe.
+So that was the property of boundedness.
+Now let's take a look at
+the property of deadlock.
+So, we say that a marking is dead
+if no transition is enabled in it.
+We say that the Petri net
+has a potential deadlock,
+if there is a reachable marking that
+is dead where nothing can happen.
+So a deadlock-free Petri net, for
+any reachable state,
+it enables at least one transition.
+So let's now take a look at the example.
+Example that I showed before.
+This example has many deadlocks.
+And here you see
+a visualisation of one of them.
+We can go through the loop t1,
+t2 as many times as we want, but
+the moment that we execute t3,
+we end up in a deadlock.
+So there are many
+possible dead locks here.
+So let's take a look at some example petri
+nets and try to look at whether they
+are dead lock free or not and
+whether they are unbounded or not.
+So, this petri net,
+what kind of properties does it have.
+Think a bit about it.
+Okay.
+So if we look at this Petri net and
+we think of possible initial markings,
+then this is a possible initial marking,
+such that the Petri net is unbounded and
+not deadlock-free.
+So what we see is that we can go through
+the loop as many times as we want,
+put any number of tokens in p3.
+So it is unbounded, but
+it has a deadlock because the moment
+we execute t3, we get stuck.
+Another initial marking is the initial
+marking that you see here.
+Now there is only a token in p3.
+So that means that none of
+the transitions is enabled.
+So the initial marking is already
+a deadlock, but the model is now bounded.
+Now one can start looking for
+models, that don't have a deadlock.
+That was part of the question.
+Such models do not exist, because in this
+Petri net, any initial marking that you
+choose will have a deadlock.
+Because by executing t3,
+you can remove all
+the tokens from the loop involving p1 and
+p2, ending up in a deadlock.
+Let's take a look at
+the traffic light example, but
+now without an initial marking.
+Please, try to provide an initial marking
+such that we see all combinations of being
+bounded or not, bounded, deadlock-free or
+not being deadlock-free.
+Do all of these Petri nets exist?
+Well, let's take a look at some examples.
+So this is an initial marking
+where the resulting Petri net
+is bounded and deadlock-free.
+This, in fact, is the state that
+we have seen many times before.
+This is another initial marking
+that is immediately a deadlock so
+the initial marking no transition
+is enabled, so it is bounded, but
+it is definitely not deadlock-free.
+Because the initial marking
+is already a deadlock.
+Now we can start looking for
+initial markings where
+the resulting model is unbounded.
+But in this case,
+such a marking does not exist.
+Because the total number of
+tokens will always be limited,
+no matter what initial marking we choose.
+So after explaining what
+a deadlock is,
+we look at a more difficult property.
+And that's the property of liveness.
+So liveness can be defined as follows.
+A transition is live if
+from any reachable marking
+it is possible to reach a marking
+that enables this transition.
+So, no matter what you do you can
+fire any sequence of transitions
+it is always possible to go back to
+some marking where t is enabled.
+So then we call a transition live.
+A Petri net as a whole is live
+if all transitions are live.
+What is a logical consequence
+of liveness is that if
+a Petri net is live by definition,
+it will al so be deadlock-free.
+However, the reverse does not hold.
+A petri net that is deadlock-free
+does not have to be live.
+And you can see an example
+already on this slide.
+If we look at this initial marking,
+than in this initial marking,
+the transitions corresponding to
+traffic light one are all live.
+And the transitions corresponding
+to the second traffic light,
+they are all not live.
+They can never be executed.
+So this is an example of a Petri net
+that is deadlock free, but that is not live.
+Showing that a live Petri net
+is always deadlock free but
+the reverse does not have to hold.
+Liveness is a difficult property.
+So, to illustrate this a bit further,
+one can look at this diagram.
+The blue dot indicates initial marking.
+From the initial marking,
+we can follow any sequence of activities.
+Then we end up in the red marking.
+What liveness now says is that no matter
+what state we have reached, so no matter
+what red marking we look at, it's
+always possible from such a red marking
+to go back to the space of markings
+that are indicated by the green oval.
+Where transition t is enabled.
+In other words,
+no matter what you do, it is always
+possible to enable this transition.
+If that property holds for
+all transitions,
+we say that the petri net is live.
+So, now we get into more complicated and
+also a bit artificial
+petri nets but they let you think
+about what is property x lead means.
+So if we take a look at this
+petri net is it bounded,
+is it safe, is it deadlock free,
+is it live.
+Try to answer these questions for
+this particular petri net.
+Here is the answer.
+The Petri net is not bounded,
+because if we go through the cycle t1,
+t2, t3, t1, t2, t3 we can repeat that as
+many times as we want and in every round,
+we put an additional token in p4.
+So, p4 is unbounded, so by definition,
+the Petri net cannot be safe.
+Then the question is, is the,
+Petri net deadlock free?
+Well if you look carefully you can see
+that the initial marking that is shown
+here you can execute t1 and
+then immediately execute transition t4.
+Then you get stuck in the state
+with just the token and t2.
+So this is a deadlock.
+So because there is a deadlock,
+definitely the Petri net is not live.
+Let's take a look at another example.
+Again we have the same questions.
+Is this Petri net in this particular
+initial marking, is it bounded,
+safe, deadlock free, and or live?
+Again.
+Think about what the answer
+to this question is.
+The answer is that the Petri
+net is bounded but not safe.
+And you can easily see that.
+In the initial marking,
+you can already execute t1, putting
+a second token in p4, so
+p4 is not safe, but it is two bounded
+because there is no way of ever putting
+more than two tokens in p4,
+because in every round we add
+the token and we again remove it.
+The second question was, is the Petri
+net deadlock-free, and, or, live.
+Well, the Petri net is deadlock-free,
+but it is not live.
+You can see that if t5 occurs, then you
+remove a token from this outer circle,
+thereby not allowing the system to
+go again through the cycle, t1,
+t2, t3, et cetera.
+So, t5 will disable behavior, but
+there will always be a token in p4,
+so t4 will always be enabled.
+So this is another example of a situation
+where the model is deadlock-free,
+but not live.
+If this is not clear to you, please try
+to draw the reachability graph, and
+you will see that these
+properties are actually the case.
+So, the reachability graph is
+a special kind of transition system.
+Firing sequences of
+the petri net correspond to
+path in the transition system.
+The transition system is composed
+of states and transitions.
+So the states correspond to markings,
+the transitions corresponds to
+the transitions in the petri net but
+in a reachability graph,
+many transitions can refer to
+the same transition in the Petri net.
+Whereas in the Petri net, we only have
+one transition with the same label.
+In a transition system there may be one or
+more initial states, and
+zero or more final states.
+This is more general than a Petri net
+where we always have one initial marking,
+and we really do not
+talk about final states.
+But these final states are important
+if we talk about process mining.
+In this particular example you see
+a model that has one initial state and
+has two final states, as indicated.
+So, if we understand what a transition
+system is that may have multiple initial
+states and multiple final states we can
+define the notion of complete traces.
+So complete traces go from
+the initial state to the final state.
+So we only consider cases that go from
+the initial state to the final state,
+to one of the final states.
+So this is an example of a complete trace.
+So we execute a.
+Then we do g once for a second time.
+Then we do c, and then we do e.
+So this goes from the initial state
+to one of the final states.
+This is another complete trace.
+This is an example.
+a and then four g's,
+is an incomplete trace because we
+are in state s2 and did not yet
+reach one of the final states.
+So it's an incomplete trace.
+bf is another example
+of an incomplete trace.
+So a transition system,
+may have infinitely many states, but
+even if we look at the finer
+transition system,
+there may be infinitely many complete or
+incomplete traces.
+In this case, the transition system is
+finite, but because of the loop involving
+g, we can have infinitely many traces,
+being complete or not.
+So, let's take a look at the question.
+How many complete traces are there
+in this small transition system?
+Please think about this.
+There are five, complete traces.
+And, it's easy to see.
+Just replay on the transition system and
+you will see that indeed, these are the
+five complete traces that are there.
+That go from one of the initial
+states to one of the final states.
+So far we have been talking
+about transition systems,
+let's now go back to Petri nets and
+if we look at Petri nets and
+we define Petri nets with a set
+of final markings, then we
+can convert that into a transition system
+that may have multiple final markings.
+And here you can see an example
+where that is the case.
+So let's take a look at this Petri net and
+look at this behavior.
+So given such a Petri net
+with multiple final states,
+we can convert it to a transition
+system with multiple final states.
+And then the behavior of this
+process that we have modeled
+can be enumerated as a set of traces
+that move from one of the initial
+states to to one of final states and
+in this case these are these four traces.
+Transition systems may be exponential
+in the size of a Petri net.
+And you can see that if you model
+concurrency, as you can see here,
+the corresponding transition system
+will have two to the power k,
+where k is the number of transitions
+states.
+We can also look at the situation where
+we have multiple tokens in the place, and
+in this case we also have many
+more states than we have places.
+So if you put 1,000 tokens in,
+the input place,
+we have 1,001 reachable states.
+It's also easy to construct petri nets
+that are extremely small that have
+infinitely many states.
+So c is just producing tokens,
+and it can produce any number of tokens.
+So the size of the petri net
+may be much smaller than the size
+of your transition system.
+So, please take a look at this example.
+And again take a moment to construct
+the corresponding transition system.
+Note that the final marking is
+the marking with the token in p6.
+Make the transition system and
+then look at all the complete traces.
+There is no loop in this model so
+it has to be finite.
+Okay lets take a look at
+the resulting transition system and
+then at the set of traces so
+given this petri net.
+We can construct this transition system.
+And it may look quite involved, but
+if you systematically look at what
+are the states that are reachable and
+what kind of transitions are enabled in
+the state, this is what you will get.
+Once you have this transition system,
+you can look at all the paths that
+go from the initial state
+to the final state.
+And these give you the complete traces.
+And in this example,
+there are 16 complete traces.
+And it may be a bit difficult
+to see on this slide, so
+we can zoom in into a particular trace.
+In this case the trace (a,b,d,c,e,f).
+And we can see this is one of the 16
+traces,and indeed it is a path
+through our reachability graph going from
+the initial state to the final state.
+So this concludes the introduction
+to the topic of Petri net and
+the corresponding properties and
+also the relation to transition systems.
+This will be very important if we
+start talking about process discovery.
+Thank you for watching and
+hope to see you next time.
+[MUSIC]
+

@@ -1,0 +1,441 @@
+[MUSIC]
+Glad to see you again.
+After learning how to
+build a dependency graph,
+we now focus on learning the more
+precise split join behavior.
+In other words, we will learn how
+we can discover a C-net based
+on the dependency graph and the event log.
+This is the picture that we
+have been looking at before.
+We now focus on the second phase.
+So we first learned how to
+learn the dependency graph.
+Now we are going to learn a C-net.
+And once we have a C-net annotated
+with the split join semantics and
+also with frequencies.
+We can later visualize this easily
+in terms of a BPMN diagram,
+UML activity diagram, or whatever
+notation people would like to see.
+So the focus is now on learning C-nets.
+So let's see what we have
+done before.
+We started from a log.
+From a log we count how many times an
+activity is followed by another activity.
+Then we compute the dependency measure
+using the formulas discussed in
+the previous lecture.
+Then we set thresholds.
+And, based on the thresholds,
+we get a graph.
+And the higher we set the threshold,
+the fewer connections we will get.
+But at some point in time we are happy
+with the dependency graph that we have.
+And we use it as input for
+learning C-nets.
+So this is the output that we are after.
+From the event log and
+the dependency graph learning
+a C-net annotated with input and
+output bindings and frequencies of
+activities of connections and of bindings.
+So, the question is how to do this.
+So we want to learn splits and
+joins, how to find these.
+We want to learn about frequencies,
+how to count these frequencies and
+that is what we will try to uncover.
+So let's take a look at activity A.
+Activity A has three output bindings.
+Just e, which is not visible on
+this slide, or b and c together, or
+just d, these are the possible
+binding that we, that we have.
+If we look at d, what we would like
+to discover based on this event log.
+We would like to discover that
+there are two input bindings.
+Ones of one is just a.
+The other is d.
+That d triggers itself because there
+can be a loop involving multiple d's.
+On the output side of d,
+we find two output bindings.
+One involving just d,
+to trigger the next iteration of d.
+Or we go to the end.
+We have an output binding involving e.
+If we look at the last activity
+in this graph then, again,
+we see that there
+are three input bindings.
+Very symmetric to the,
+to the start activity.
+We see just a, b, and c or just d.
+These are the three combinations
+that we would like to discover.
+So, if we take a look
+at a particular path,
+then we see it indicated in red here,
+a binding sequence.
+The valid binding sequence
+that involves a, d, d, e.
+And the frequencies of the activities,
+of the bindings, and
+of the connections are indicated here.
+So how to discover these splits and
+joints?
+Well, there are two main types of
+approaches that one can consider.
+The first one is more heuristic based,
+where you take a time window.
+So for example, you take a time window
+before the activity and you count how many
+times certain activities that
+are causally related to the activity.
+How many times they appear.
+We do the same for
+a window of activities after
+the activity we are interested in.
+We again count what combinations
+appear in this time window, just
+considering the ones that are causally
+related based on the dependency graph.
+Based on counting these sets of input and
+output activities,
+we can determine the bindings.
+Another approach,
+which is more expensive and
+less based on heuristics is that
+you choose a particular variant
+of this A activity that has a finite
+number of things that one can consider.
+And then we see whether the traces
+can be replayed properly,
+assuming particular input and
+output bindings.
+And then using certain goal function,
+we take the best bindings.
+It's a more expensive approach, but
+it provides certain guarantees.
+It's important to realize that these are
+just two main approaches, and that many
+variants are possible, and are being used
+in both academic and commercial tools.
+So let's take a look at the first
+approach, which is based on heuristics.
+Here we see an activity, a,
+happening somewhere in a trace.
+Then we can take a window before a.
+We look at what are possible input
+activities of this activity a,
+and we look at what kind of combinations
+appear in the various traces.
+We do the same on the output side.
+On the output side we count how many
+of the output activities appear,
+and in which type of combinations.
+Based on this, we determine the input and
+the output bindings.
+So, it is best to explain
+this using a small example.
+So, assume that we take
+a window of size four.
+Before an activity and after an activity.
+And in this diagram we
+just focus on activity a.
+And activity a if we look at
+the dependency graph there
+are two input activities b and c.
+There are two output activities d and e.
+The dependency graph doesn't
+talk about bindings and
+and's and or's and things like that.
+That is what we would need to derive,
+but now we scan a window of size four.
+Before a and
+we scan a window of size four after a.
+And we count which combinations appear.
+And if you take a look at this very
+simple log that contains the fragment of
+five different traces, then what you will
+see is that there were three traces,
+three situations where just B appeared
+before a in this time window of four.
+There were two traces
+where just c appeared.
+Before a in this time window of four.
+We can also look on the output side and
+here in every window of
+four following a, both d and e happen.
+So in total it happens five times.
+So we have these two input bindings
+happening three and two times and
+we have this five times that
+there is a single output binding.
+So we can use this to annotate the graph.
+Exploiting this information.
+So now you should focus on
+the arcs surrounding a.
+And what you see is that now
+it is indicated that there
+are three times where a is
+being triggered by b.
+Just b.
+There are two times where
+c is triggering a.
+Together they account for
+the five times that a was executed.
+So we can see that there is
+an XOR-join in front of a.
+Now we can look at the output side of a.
+We have learned, using the time windows,
+that a is always followed by d and e.
+In different order.
+So we have output binding and it was
+activated five times, and so this is
+the way that we can discover frequencies
+and the split and join behavior.
+Let's take a look at another example,
+again we focus on activity a, so
+we should do this separately for
+every activity, but we focus on activity a.
+And if we look at activity a.
+We again look at the time windows
+before a and the windows
+after a and we count how many
+times certain combinations appear.
+In this particular log
+consisting of five traces and
+we can only see a fragment of them.
+We see that there was one trace
+where just b appeared before a.
+There were two traces where
+just c appeared before a and
+there were two traces where both b and
+c appeared.
+So, what we see here is that is a kind
+of OR-join on the input side of a.
+We can also look at the output side and
+there we see that there were two
+traces with just d was following, and
+there were three traces where both d and
+e were following.
+So we can again use this information to
+create bindings, and this is the result.
+So, again, in the middle, we see a.
+It occurred five times,
+as is indicated, but now, if
+we look on the input side of a, we can see
+that there are three possible bindings.
+Just b, just c, or b and c.
+And the frequencies of these
+bindings are indicated.
+On the output side,
+there are two possible output bindings.
+One is just d, and the other is d and
+e together in some order.
+And all the frequencies
+are indicated here.
+So now here is a question for you.
+Again we look at the same situation.
+We have a.
+A has two input activities and
+two output activities.
+We see a fragment of a log and
+the question to you is please determine
+the input and output bindings
+assuming again a window size of four.
+So the answer to the question is
+that if we look on the input side,
+we see that it is always the same.
+B and c always happen in this
+time window of four before a.
+So there is just one input binding
+that it has a frequency of five.
+If we look on the output side,
+we will see that there are two situations,
+two cases where just e is happening, and
+three situations, three cases
+where both d and e are happening.
+So.
+There are two output bindings, and
+the frequencies are indicated here.
+So if you put this in a diagram,
+this is the result that we have.
+So the diagram clearly
+shows that a is an AND-join,
+so b and
+c need to happen before a can happen.
+And if we look on the output side of a.
+We can see that there are two
+possible output bindings.
+One is that just both d and
+e will happen.
+The other one is that just e happens, and
+again the frequency are indicated.
+They give an idea of what
+are the main flows of the process.
+So the algorithm that I just
+described is very simplistic.
+And several refinements are needed.
+So first of all, what should one
+do if there are no activities in
+the window size that has been indicated?
+You need to resolve this in some way.
+Also, often in the dependency graph there
+is the requirement that there is at
+least one input and one output.
+That's where you should relax
+things to make sure that you get
+at least one input and
+at least one output.
+One needs to filter for noise.
+And so
+if certain bindings are very frequent and
+other bindings are very infrequent,
+perhaps you want to
+cut away the bindings that are very
+infrequent to just show the main behavior.
+I didn't talk about the fact
+that there can be multiple a's.
+So, a can follow itself.
+It could also be that the activities
+before and after happen multiple times.
+So, we need to think about extensions
+that deal with this problem of
+repeating activities and
+there are many ways to resolve this.
+But all of these details are out
+of the scope of this lecture, but
+when you are interpreting the results,
+it's important that you understand,
+let's say how this works and
+that there these kind of
+subtle things that need to be considered.
+The other approach,
+uses a more rigorous, type of analysis.
+So, there are only finitely many possible,
+input and
+output bindings for
+a particular activity.
+There is only a finite number
+of activities, so there is only
+a finite number of possible configurations
+of input and output bindings.
+So what you can do is you cam simply
+explore all of these possibilities,
+replay traces from beginning to end,
+and check whether things fit.
+And then,
+then you can evaluate the quality
+of a particular collection of input and
+output bindings.
+Later we will talk about
+conformance checking.
+And we will provide metrics for
+all of these things.
+It's important to realize that
+it is not just about fitness.
+It is also about other things like
+precision, generalization and simplicity.
+But the bottom line is that you can
+simply try lots of possibilities,
+evaluate them, and then pick the best one.
+So to illustrate this a bit,
+take a look at this fragment of a model,
+where we have a with two inputs,
+b and c, and two outputs, d and e.
+What is the total number of possible a's.
+If we look at the input bindings there
+a three possible input bindings,
+just b, just c, or
+the combination of both.
+So in principle, a can have multiple
+bindings, but it should be in such a way
+that at least one of these bindings is
+covering each of the input connections.
+So for every input connection,
+there should at least be one
+binding that includes it.
+The same holds for the output side.
+So for this very simple fragment of an a
+with two input and two output bindings,
+there are four times
+four is 16 possible a's.
+Possible activities a's based on
+subsets of the total number
+of possible bindings.
+So this is a finite number.
+We can do this for a.
+We can do this for all the activities.
+And then we get lots of possibilities.
+And we can explore them and
+check which is the best one.
+So we can exhaustively
+try all the combinations,
+use replay as we have seen before
+to see whether things actually fit.
+Do the traces in the log correspond
+to valid binding sequences?
+And in the end, we take the best one.
+And as I mentioned before it's not
+just about fitness also precision,
+generalization, and simplicity.
+The concepts that have been discussed
+before need to be taken into account.
+This may be very time consuming but
+there are all kinds of ways of doing
+it smarter and more efficient.
+You can take a random selection of
+bindings and pick the best one.
+You can also use more
+sophisticated algorithms.
+Using the genetic approach where you
+take good collections of bindings,
+evaluate them and
+if they don't fit you just change a bit to
+gradually improve a generation of models
+until you have the desired results.
+But these concepts will be
+discussed in later lectures.
+So now we have a complete approach.
+First we learned the dependency graph.
+Then we learned the split and
+join behavior.
+And we can annotate
+models with frequencies.
+So if you look at the heuristic minor
+you see many different settings that you
+can set.
+And they are related to the thresholds and
+to the choices that we
+have discussed before.
+Once you run the heuristic miner
+you see a model like this.
+And in this visualization you cannot
+see the split/join behavior, but
+there are also visualizations that
+show show the split/join behavior.
+You can even show the frequencies,
+as you can see here.
+And so
+everything that we have been talking about
+is implemented in many
+of the process mining algorithms that
+you can use in a practical setting.
+If you would like to learn
+more about these advanced
+process discovery techniques that go
+far beyond the basic Alpha algorithm.
+You can read more about
+this in chapter six.
+Thank you for watching this lecture.
+See you next time.
+[MUSIC]
+

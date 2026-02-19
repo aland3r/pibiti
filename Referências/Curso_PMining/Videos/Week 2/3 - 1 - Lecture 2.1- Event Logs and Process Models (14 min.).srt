@@ -1,0 +1,953 @@
+1
+00:00:00,159 --> 00:00:07,280
+[MUSIC]
+
+2
+00:00:07,280 --> 00:00:10,062
+A very warm welcome to this
+lecture of the course on
+
+3
+00:00:10,062 --> 00:00:12,920
+Process Mining: Data Science in Action.
+
+4
+00:00:12,920 --> 00:00:16,170
+This week will focus on process discovery.
+
+5
+00:00:16,170 --> 00:00:19,950
+But to do this,
+we first need to understand the input and
+
+6
+00:00:19,950 --> 00:00:22,450
+output of process discovery.
+
+7
+00:00:22,450 --> 00:00:26,120
+That is why today we start
+looking at event logs and models.
+
+8
+00:00:27,930 --> 00:00:32,810
+In one of the earlier lectures,
+we spoke about relating process models to
+
+9
+00:00:32,810 --> 00:00:38,040
+event logs, and we spoke about play out,
+play in, and replay.
+
+10
+00:00:38,040 --> 00:00:42,110
+Now let me briefly recall the things
+that we have discussed before.
+
+11
+00:00:42,110 --> 00:00:43,730
+First, we have play-out.
+
+12
+00:00:43,730 --> 00:00:46,970
+From a model we generate behavior, and
+
+13
+00:00:46,970 --> 00:00:50,330
+if we are doing simulation that is
+the typical thing that we are doing.
+
+14
+00:00:52,220 --> 00:00:57,550
+Also if we build a workflow system
+configured on the basis of models, we're
+
+15
+00:00:57,550 --> 00:01:03,310
+also playing out model generating behavior
+based on what we have modeled before.
+
+16
+00:01:03,310 --> 00:01:07,280
+There are many other management
+games model checking, and
+
+17
+00:01:07,280 --> 00:01:11,080
+all kinds of other things where we take
+a model and generate behavior from it.
+
+18
+00:01:13,110 --> 00:01:14,845
+Then we spoke about play-in.
+
+19
+00:01:14,845 --> 00:01:16,410
+Play-In is the reverse.
+
+20
+00:01:16,410 --> 00:01:17,910
+We start from behavior, and
+
+21
+00:01:17,910 --> 00:01:20,310
+we automatically generate
+models based on that.
+
+22
+00:01:21,890 --> 00:01:24,090
+We also talk about process discovery.
+
+23
+00:01:24,090 --> 00:01:27,340
+Learning what is really
+happening in organizations and
+
+24
+00:01:27,340 --> 00:01:31,650
+in systems,
+based on analyzing the event logs.
+
+25
+00:01:33,810 --> 00:01:35,750
+Finally we have replay.
+
+26
+00:01:35,750 --> 00:01:41,360
+We take a model and we take behavior and
+this is the most important form
+
+27
+00:01:41,360 --> 00:01:45,480
+of process mining because we
+confront model and reality.
+
+28
+00:01:45,480 --> 00:01:48,440
+And this is useful for
+conformance checking, for
+
+29
+00:01:48,440 --> 00:01:52,799
+prediction, for bottleneck analysis,
+and many other purposes.
+
+30
+00:01:55,680 --> 00:02:00,880
+This picture again summarizes
+the main idea of process mining and
+
+31
+00:02:00,880 --> 00:02:05,670
+highlights the three main
+types of process mining.
+
+32
+00:02:05,670 --> 00:02:08,850
+Process discovery conforms
+to playing in a model.
+
+33
+00:02:10,420 --> 00:02:16,180
+Conformance checking is a form of
+replay aimed at finding deviations.
+
+34
+00:02:16,180 --> 00:02:17,610
+Then we have enhancement.
+
+35
+00:02:17,610 --> 00:02:22,420
+It's also a form of replay with
+the goal to find bottlenecks and
+
+36
+00:02:22,420 --> 00:02:26,000
+other types of problems or
+ideas for improvement.
+
+37
+00:02:28,430 --> 00:02:31,660
+So after looking at this
+
+38
+00:02:31,660 --> 00:02:37,350
+overall model we are going to look at
+a problem of getting the right data.
+
+39
+00:02:37,350 --> 00:02:41,920
+And in one of the earlier lectures I
+already explained what an event log is.
+
+40
+00:02:41,920 --> 00:02:46,050
+But let me briefly state that again.
+
+41
+00:02:46,050 --> 00:02:51,830
+So we assume that there is an event
+log where each event refers to a case,
+
+42
+00:02:51,830 --> 00:02:54,530
+to an activity, and a point in time.
+
+43
+00:02:54,530 --> 00:02:55,180
+A timestamp.
+
+44
+00:02:56,860 --> 00:03:00,510
+An event log can be seen as
+a collection of cases which we
+
+45
+00:03:00,510 --> 00:03:03,790
+sometimes also refer to as traces.
+
+46
+00:03:03,790 --> 00:03:08,500
+So each case corresponds to
+a sequence of events and, as I said,
+
+47
+00:03:08,500 --> 00:03:09,730
+is often called a trace.
+
+48
+00:03:11,730 --> 00:03:14,090
+Where may event data come from?
+
+49
+00:03:14,090 --> 00:03:16,280
+From a variety of sources.
+
+50
+00:03:16,280 --> 00:03:18,440
+So we can look at the database system.
+
+51
+00:03:18,440 --> 00:03:21,790
+If we go to a hospital,
+we will easily find hundreds of
+
+52
+00:03:21,790 --> 00:03:26,730
+tables with patient data that
+we can use for process mining.
+
+53
+00:03:27,820 --> 00:03:31,790
+We can also look at simple data
+sources like a CSV file or
+
+54
+00:03:31,790 --> 00:03:36,888
+an Excel spreadsheet that have the
+information needed to do process mining.
+
+55
+00:03:36,888 --> 00:03:39,110
+There may be transaction logs.
+
+56
+00:03:39,110 --> 00:03:41,450
+We can look at the data in SAP.
+
+57
+00:03:41,450 --> 00:03:44,890
+We can look at the data
+used in middleware systems.
+
+58
+00:03:44,890 --> 00:03:45,750
+Or we can
+
+59
+00:03:45,750 --> 00:03:50,410
+use for example, the data which
+you can find in Twitter or Facebook.
+
+60
+00:03:50,410 --> 00:03:55,090
+So event data may come from
+many different sources and
+
+61
+00:03:55,090 --> 00:03:58,580
+these are some examples that
+I already showed you earlier.
+
+62
+00:03:58,580 --> 00:04:03,990
+So we have different columns, every row
+corresponds to an event and we always need
+
+63
+00:04:03,990 --> 00:04:08,975
+to identify what is the case ID, what is
+the activity, and what is the timestamp.
+
+64
+00:04:10,450 --> 00:04:14,920
+So here we see one example
+of students taking a course.
+
+65
+00:04:14,920 --> 00:04:18,310
+Here we see another
+example of order handling.
+
+66
+00:04:18,310 --> 00:04:23,040
+And again we need to identify what is the
+case id, what is the activity name, and
+
+67
+00:04:23,040 --> 00:04:24,030
+what is the timestamp.
+
+68
+00:04:25,220 --> 00:04:29,680
+And we can find such information in
+many places, as I explained before.
+
+69
+00:04:29,680 --> 00:04:33,850
+For example, in a hospital,
+you will easily find hundreds of
+
+70
+00:04:33,850 --> 00:04:38,440
+tables containing patient data, having
+exactly the information that is needed.
+
+71
+00:04:40,330 --> 00:04:44,630
+But, it is not always as
+clear as was the case in
+
+72
+00:04:44,630 --> 00:04:46,870
+examples that I just explained to you.
+
+73
+00:04:49,040 --> 00:04:51,710
+For example, we can look at your mailbox.
+
+74
+00:04:53,140 --> 00:04:59,930
+We can think of every email as an event,
+and an email has a sender field,
+
+75
+00:04:59,930 --> 00:05:04,730
+a receiver field, a to field, a subject,
+a timestamp, a body, etcetera.
+
+76
+00:05:05,880 --> 00:05:12,920
+So think now about the following question,
+if an email represents an event, what
+
+77
+00:05:12,920 --> 00:05:18,540
+would be the role of the different types
+of information that you find in an email?
+
+78
+00:05:18,540 --> 00:05:20,120
+So what is the case ID?
+
+79
+00:05:20,120 --> 00:05:21,740
+What is the activity?
+
+80
+00:05:21,740 --> 00:05:23,560
+What is the timestamp?
+
+81
+00:05:23,560 --> 00:05:25,107
+So take a moment to think about this.
+
+82
+00:05:27,963 --> 00:05:30,760
+There are several answers possible.
+
+83
+00:05:30,760 --> 00:05:36,100
+What you see here on this slide is that
+I'm showing you a particular mapping where
+
+84
+00:05:36,100 --> 00:05:41,010
+I consider the subject of an email
+message to be the case id.
+
+85
+00:05:41,010 --> 00:05:46,910
+So we want to group all emails having
+a particular subject into a single trace.
+
+86
+00:05:46,910 --> 00:05:49,600
+We do this based on the subject field.
+
+87
+00:05:49,600 --> 00:05:54,560
+We use the timestamps to sort
+the events within a case.
+
+88
+00:05:54,560 --> 00:05:59,040
+And in this case we see the sender
+field as the activity name.
+
+89
+00:06:00,110 --> 00:06:04,130
+The other fields, we consider
+that to be other data variables.
+
+90
+00:06:04,130 --> 00:06:07,729
+And we can interpret the sender
+field also as the resource.
+
+91
+00:06:09,020 --> 00:06:12,270
+But there are many other
+mappings possible.
+
+92
+00:06:12,270 --> 00:06:18,780
+For example, we could consider
+the sender to be the case and
+
+93
+00:06:18,780 --> 00:06:20,820
+the subject to be the activity name.
+
+94
+00:06:21,920 --> 00:06:23,410
+Many mappings are possible and
+
+95
+00:06:23,410 --> 00:06:26,830
+it depends on the context and the
+question, what is the best thing to do.
+
+96
+00:06:29,550 --> 00:06:31,220
+We can look at another question.
+
+97
+00:06:31,220 --> 00:06:34,730
+This is related to an example
+that I showed to you before.
+
+98
+00:06:34,730 --> 00:06:40,740
+We again look at student data and
+looking at this type of data.
+
+99
+00:06:40,740 --> 00:06:43,860
+What is the case field?
+
+100
+00:06:43,860 --> 00:06:46,150
+What is the timestamp field?
+
+101
+00:06:46,150 --> 00:06:48,730
+What is the activity name field?
+
+102
+00:06:48,730 --> 00:06:51,180
+Again think a bit about this for a moment.
+
+103
+00:06:53,260 --> 00:06:56,910
+And if we look at a possible
+solution we see this.
+
+104
+00:06:56,910 --> 00:07:03,060
+So the student id is the case id
+the course is the activity name,
+
+105
+00:07:03,060 --> 00:07:06,410
+and the date of the course is
+considered to be the timestamp.
+
+106
+00:07:06,410 --> 00:07:08,820
+The student id is also the resource.
+
+107
+00:07:08,820 --> 00:07:13,120
+the other fields correspond to optional
+information that we can use in
+
+108
+00:07:13,120 --> 00:07:13,720
+process mining.
+
+109
+00:07:14,970 --> 00:07:18,590
+Again, other alternative
+mappings are possible.
+
+110
+00:07:18,590 --> 00:07:22,500
+And it depends on the question
+what you need to take.
+
+111
+00:07:22,500 --> 00:07:28,020
+For example one could also think of
+the course as being the case and
+
+112
+00:07:28,020 --> 00:07:32,690
+the student as being the activity,
+and so many mappings are possible.
+
+113
+00:07:34,860 --> 00:07:37,760
+It is not just basic information,
+sometimes we
+
+114
+00:07:37,760 --> 00:07:42,610
+have event logs that contain
+much more extensive information.
+
+115
+00:07:42,610 --> 00:07:44,280
+In all the examples that we have seen so
+
+116
+00:07:44,280 --> 00:07:48,300
+far, we just see an event
+as an atomic activity.
+
+117
+00:07:49,350 --> 00:07:54,410
+But in some cases activities take time and
+we can see an explicit start and
+
+118
+00:07:54,410 --> 00:07:56,320
+complete event.
+
+119
+00:07:56,320 --> 00:08:00,460
+So many event logs have this type
+of transactional information.
+
+120
+00:08:00,460 --> 00:08:03,450
+And if we have this information we can for
+example measure 
+
+121
+00:08:03,450 --> 00:08:05,320
+duration of an activity.
+
+122
+00:08:07,060 --> 00:08:09,230
+Also if we look at the attributes.
+
+123
+00:08:09,230 --> 00:08:14,150
+So far we considered all
+the attributes to be event attributes.
+
+124
+00:08:14,150 --> 00:08:16,950
+But also at the case level
+there may be attributes, and
+
+125
+00:08:16,950 --> 00:08:23,570
+these are the attributes that don't change
+while executing the particular case.
+
+126
+00:08:25,440 --> 00:08:30,060
+And so these extensions can also
+be used for process mining and
+
+127
+00:08:30,060 --> 00:08:32,600
+structure the input format in a better way.
+
+128
+00:08:34,260 --> 00:08:40,600
+The XES standard, XES stands for
+Extensible Event Stream,
+
+129
+00:08:40,600 --> 00:08:44,750
+is a standard adopted by the IEEE
+task force on process mining.
+
+130
+00:08:44,750 --> 00:08:48,980
+And it is a format supported by the tools
+that you are using in this course.
+
+131
+00:08:50,395 --> 00:08:57,650
+It, unlike CSV files, it already
+interprets all the different columns and
+
+132
+00:08:57,650 --> 00:09:02,960
+you can load these files into process
+mining tools like ProM and Disco.
+
+133
+00:09:02,960 --> 00:09:05,580
+And there is nothing that
+you need to do further.
+
+134
+00:09:05,580 --> 00:09:07,380
+You can immediately start the analysis.
+
+135
+00:09:08,780 --> 00:09:13,250
+If you want to know more about
+the standard, please visit this URL and
+
+136
+00:09:13,250 --> 00:09:15,050
+you can find lots of examples.
+
+137
+00:09:16,260 --> 00:09:20,620
+So, we assume that we
+have XES information.
+
+138
+00:09:20,620 --> 00:09:21,920
+It's really easy to get
+
+139
+00:09:23,690 --> 00:09:26,860
+because the conversions are often
+just of a syntactical nature.
+
+140
+00:09:28,170 --> 00:09:34,030
+After having the event data,
+we want to look at the process models.
+
+141
+00:09:34,030 --> 00:09:36,480
+Again, just like with event data,
+
+142
+00:09:36,480 --> 00:09:41,150
+I will give some examples of what kind
+of process models we are talking about.
+
+143
+00:09:43,830 --> 00:09:50,010
+Before we have seen simple process models,
+typically focusing on the control flow.
+
+144
+00:09:50,010 --> 00:09:56,290
+Here you see a Petri net model which
+describes the sequence of activities.
+
+145
+00:09:56,290 --> 00:10:00,030
+What are activity
+sequences that are allowed,
+
+146
+00:10:00,030 --> 00:10:03,950
+not elaborating on all
+the other perspectives.
+
+147
+00:10:03,950 --> 00:10:06,230
+So this is just control flow.
+
+148
+00:10:06,230 --> 00:10:10,500
+But next to control flow, one can
+look at all kinds of other elements.
+
+149
+00:10:10,500 --> 00:10:14,900
+Like, for example, we can look at
+data elements that are driving
+
+150
+00:10:14,900 --> 00:10:17,570
+particular decisions in the process.
+
+151
+00:10:17,570 --> 00:10:20,950
+We can look at timing information and
+
+152
+00:10:20,950 --> 00:10:26,690
+somehow model time in the process
+models that we are generating.
+
+153
+00:10:26,690 --> 00:10:32,370
+We can enrich process models with
+resource information, cost, risks,
+
+154
+00:10:32,370 --> 00:10:34,600
+and all kinds of other perspectives.
+
+155
+00:10:34,600 --> 00:10:37,490
+We will deal with this in later weeks.
+
+156
+00:10:37,490 --> 00:10:40,610
+In this week we will
+focus on control-flow and
+
+157
+00:10:40,610 --> 00:10:43,660
+on the discovery of just
+control-flow models.
+
+158
+00:10:43,660 --> 00:10:47,370
+But it's important to know that
+process models can also express all of
+
+159
+00:10:47,370 --> 00:10:48,479
+these other perspectives.
+
+160
+00:10:50,570 --> 00:10:53,290
+There are many process model notations.
+
+161
+00:10:53,290 --> 00:10:55,940
+Here you see a long list on this slide.
+
+162
+00:10:55,940 --> 00:11:01,860
+And some of these notations we
+will revisit in later lectures.
+
+163
+00:11:01,860 --> 00:11:08,370
+What is crucial to see is that
+the representation is important for
+
+164
+00:11:08,370 --> 00:11:10,760
+two different purposes.
+
+165
+00:11:10,760 --> 00:11:15,310
+The first purpose is that the
+representation that you are using while,
+
+166
+00:11:15,310 --> 00:11:21,310
+for example, doing process discovery,
+is driving your search process.
+
+167
+00:11:21,310 --> 00:11:23,940
+So you need to have
+a representation that helps you to
+
+168
+00:11:23,940 --> 00:11:26,960
+find the model that captures reality well.
+
+169
+00:11:26,960 --> 00:11:30,760
+This is internal in the process
+discovery technique.
+
+170
+00:11:32,130 --> 00:11:37,070
+At the same time you want to visualize
+models in a particular way so you need to
+
+171
+00:11:37,070 --> 00:11:41,600
+think what kind of process model
+notation does the end user want to see?
+
+172
+00:11:42,980 --> 00:11:44,290
+So.
+
+173
+00:11:44,290 --> 00:11:49,190
+It's important to realize that
+the notation used during discovery may be
+
+174
+00:11:49,190 --> 00:11:53,160
+different than the notation that you're
+using to present the end results.
+
+175
+00:11:53,160 --> 00:11:54,860
+That's why we revisit and
+
+176
+00:11:54,860 --> 00:11:58,050
+look at many different process
+model notations in this lecture.
+
+177
+00:11:59,940 --> 00:12:05,440
+For example if you look at disco it
+is using so-called fuzzy models and
+
+178
+00:12:05,440 --> 00:12:07,810
+here you can see an example of that.
+
+179
+00:12:09,360 --> 00:12:15,692
+All the squares represent activities,
+the arcs represent causal penalties.
+
+180
+00:12:15,692 --> 00:12:22,020
+But unlike petri nets, we do not exactly
+specify in the graphical notation
+
+181
+00:12:22,020 --> 00:12:28,960
+whether something is an and join,
+and split, x or split, x or join.
+
+182
+00:12:28,960 --> 00:12:34,220
+We allow for all kinds of mixtures and
+do not explicitly express that.
+
+183
+00:12:34,220 --> 00:12:39,430
+We don't get an executable model, but
+we get a model that is much simpler and
+
+184
+00:12:39,430 --> 00:12:40,750
+maybe much more intuitive.
+
+185
+00:12:42,760 --> 00:12:47,220
+I already mentioned several times
+in this lecture the tool ProM,
+
+186
+00:12:47,220 --> 00:12:49,460
+the tools ProM and Disco.
+
+187
+00:12:49,460 --> 00:12:53,330
+I think now is the right time for
+you to install these tools, so
+
+188
+00:12:53,330 --> 00:12:55,930
+please take a look at the instructions.
+
+189
+00:12:55,930 --> 00:13:01,420
+We will look at these
+tools in much more detail later.
+
+190
+00:13:01,420 --> 00:13:05,310
+What you have to realize
+now is that ProM is a very
+
+191
+00:13:05,310 --> 00:13:11,520
+extensive tool which allows for
+dozens of different model types.
+
+192
+00:13:11,520 --> 00:13:14,921
+It allows for many different
+input formats and it allows for
+
+193
+00:13:14,921 --> 00:13:17,310
+many different types of process mining.
+
+194
+00:13:18,672 --> 00:13:23,370
+So it's a tool that is quite complicated
+to use but very powerful and very broad.
+
+195
+00:13:24,470 --> 00:13:29,240
+Disco, on the other hand, is a commercial
+tool which is simple, fast, and
+
+196
+00:13:29,240 --> 00:13:30,530
+easy to use.
+
+197
+00:13:30,530 --> 00:13:38,740
+But in terms of functionality covers
+only smaller parts of this this course.
+
+198
+00:13:38,740 --> 00:13:44,690
+But advantages by that it is much
+easier and much more pleasant to use.
+
+199
+00:13:44,690 --> 00:13:48,910
+It is mainly using fuzzy models in
+the way that I've just described.
+
+200
+00:13:51,020 --> 00:13:52,600
+So this ends this lecture.
+
+201
+00:13:52,600 --> 00:13:54,350
+If you would like to read more
+
+202
+00:13:54,350 --> 00:13:59,490
+about these things, take a look at
+the chapters that are highlighted here.
+
+203
+00:13:59,490 --> 00:14:03,210
+You can read about process models and
+you can read about event logs.
+
+204
+00:14:04,460 --> 00:14:07,969
+Thank you very much for
+watching and hope to see you soon.
+
+205
+00:14:07,969 --> 00:14:17,969
+[MUSIC]
+
