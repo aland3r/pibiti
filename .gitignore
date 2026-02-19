@@ -9,3 +9,6 @@
 *.zip
 *.rar
 *.7z
+
+# Office temp files
+~$*

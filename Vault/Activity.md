@@ -1,0 +1,1 @@
+Automated or human operations performed on the shop floor, originating from the event log and representing a step of the manufacturing process.
