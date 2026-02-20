@@ -1,0 +1,5 @@
+---
+aliases:
+  - Tomada de Decisão
+---
+

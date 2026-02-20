@@ -1,7 +1,7 @@
 - [ ] Capa
 	- [ ] Título do projeto
-- [ ] 1. [[Introduction]]
-	- [ ] 
+- [ ] 1. [[Introdução]]
+	
 
 Prioritized Keywords:
 - [[Condition-Based Maintenance]]
@@ -26,11 +26,15 @@ Technical terms:
 - Object-oriented Design
 - Object-oriented Programming
 
-***INCLUDED:***
+
+## REFERÊNCIAS
+### Included
+
 [1] D.M.V. Sato, E. Ruschel, E.E. Scalabrin, E.F.R. Loures, E.A.P. Santos, Interactive Process Drift Detection (IPDD) for condition-based maintenance using process mining, _Adv. Eng. Inform._ 66 (2025) 103397, http://dx.doi.org/10.1016/j.aei.2025.103397
+
 [ 2 ] D.M.V. Sato, R.M. Fontana, J.P. Barddal, E.E. Scalabrin, Interactive process drift detection: A framework for visual analysis of process drifts (extended abstract), in: ICPM 2021 Doctoral Consortium and Demo Track 2021, 2021, pp. 41–42.
 
-STUDYING:
+#### Em análise:
 - B. R. Eisenreich, R. Akaishi, and B. Y. Hayden, “Control without controllers: Toward a distributed neuroscience of executive control,” _J. Cogn. Neurosci._, vol. 29, pp. 1684–1698, 2017, [https://doi.org/10.1162/jocn_a_01139](https://doi.org/10.1162/jocn_a_01139).
     
 - G. Pelletier and L. K. Fellows, “Viewing orbitofrontal cortex contributions to decision-making through the lens of object recognition,” _Behav. Neurosci._, vol. 135, no. 2, pp. 182–191, 2021, [https://doi.org/10.1037/bne0000447](https://doi.org/10.1037/bne0000447).
